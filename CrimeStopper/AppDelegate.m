@@ -7,15 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "HomeScreenVC.h"
 
 @implementation AppDelegate
-
+@synthesize intud;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.HomeScreenVC = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
+    self.window.rootViewController = self.HomeScreenVC;
     [self.window makeKeyAndVisible];
+    
+   
+
     return YES;
 }
 

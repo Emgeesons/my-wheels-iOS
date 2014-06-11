@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class HomeScreenVC;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) HomeScreenVC *HomeScreenVC;
+@property (nonatomic) NSInteger intud;
 
 @end
