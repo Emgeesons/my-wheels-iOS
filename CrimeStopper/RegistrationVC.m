@@ -84,21 +84,34 @@ int intques;
     [self.txtPin3 setDelegate:self];
     [self.txtPin4 setDelegate:self];
     
-     self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
-    [txtFname setInputAccessoryView:self.toolbar];
-    [txtLname setInputAccessoryView:self.toolbar];
-    [txtDateOfBirth setInputAccessoryView:self.toolbar];
-    [txtMobileNo setInputAccessoryView:self.toolbar];
-    [txtPin1 setInputAccessoryView:self.toolbar];
-    [txtPin2 setInputAccessoryView:self.toolbar];
-    [txtPin3 setInputAccessoryView:self.toolbar];
-    [txtPin4 setInputAccessoryView:self.toolbar];
-    [txtAnswer setInputAccessoryView:self.toolbar];
-    [txtEmailAddress setInputAccessoryView:self.toolbar];
+    // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
+    [toolbar setFrame:CGRectMake(0, -60, 320, 40)];
     
-    // Do any additional setup after loading the view from its nib.
+//    [toolbar setBarStyle:UIBarStyleBlackOpaque];
+//    UIBarButtonItem *barButtonDone = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+//                                                                      style:UIBarButtonItemStyleBordered target:self action:@selector(changeDateFromLabel:)];
+//    toolbar.items = [[NSArray alloc] initWithObjects:barButtonDone,nil];
+//    barButtonDone.tintColor=[UIColor blackColor];
+//   // [pickerView addSubview:toolBar];
+    
+   // self.toolbar.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame), CGRectGetWidth(self.toolbar.frame), CGRectGetHeight(self.toolbar.frame));
+    [self.pickerDateOfBirth addSubview:toolbar];
+    
 }
-
+- (void)setPickerHidden:(BOOL)hidden
+{
+    CGAffineTransform transform = hidden ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, -CGRectGetHeight(self.pickerDateOfBirth.frame));
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.pickerDateOfBirth.transform = transform;
+    }];
+}
+-(void)changeDateFromLabel:(id)sender
+{
+    [self.pickerDateOfBirth resignFirstResponder];
+    [pickerDateOfBirth setHidden:YES];
+    [toolbar setHidden:YES];
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -127,8 +140,8 @@ int intques;
     NSLog(@"You live since %i years and %i days",years,days);
 
     txtDateOfBirth.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
-    [pickerDateOfBirth setHidden:YES];
-    [btnSubmit setHidden:NO];
+    //[pickerDateOfBirth setHidden:YES];
+    [btnSubmit setHidden:YES];
 }
 
 #pragma mark segmented method
@@ -290,8 +303,12 @@ int intques;
         }
     }
 }
-- (IBAction)btnMinimize_Click:(id)sender {
-    [activeTextField resignFirstResponder];
+- (IBAction)btnMinimize_Click:(id)sender
+{
+    [pickerDateOfBirth resignFirstResponder];
+    [pickerDateOfBirth removeFromSuperview];
+    pickerDateOfBirth.hidden = YES;
+//    extField resignFirstResponder];
 }
 
 -(IBAction)btnDob_click:(id)sender
@@ -312,6 +329,7 @@ int intques;
     self.scrollview.userInteractionEnabled = YES ;
 
     [self.viewSecurityQuestion setHidden:YES];
+    [self.scrollview setBackgroundColor:[UIColor whiteColor]];
 }
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -344,7 +362,22 @@ int intques;
 -(bool)textFieldShouldBeginEditing:(UITextField *)textField
 {
     [pickerDateOfBirth setHidden:YES];
-    activeTextField=textField;
+  
+    if(textField.tag == 4)
+    {
+        [txtEmailAddress resignFirstResponder];
+        [txtFname resignFirstResponder];
+        [txtLname resignFirstResponder];
+        [txtMobileNo resignFirstResponder];
+        [txtOtherQuestion resignFirstResponder];
+        [txtAnswer resignFirstResponder];
+        [txtPin1 resignFirstResponder];
+        [txtPin2 resignFirstResponder];
+        [txtPin3 resignFirstResponder];
+        [txtPin4 resignFirstResponder];
+        [pickerDateOfBirth setHidden:NO];
+    } 
+//    activeTextField=textField;
     if(textField == txtEmailAddress)
     {
         [txtEmailAddress setKeyboardType:UIKeyboardTypeEmailAddress];
@@ -361,6 +394,11 @@ int intques;
         [self.txtDateOfBirth resignFirstResponder];
         [pickerDateOfBirth setHidden:NO];
         [btnSubmit setHidden:YES];
+    }
+    else if (textField.tag == 6 || textField.tag == 7 || textField.tag == 8 || textField.tag == 9)
+    {
+        [txtMobileNo setKeyboardType:UIKeyboardTypeDecimalPad];
+        [txtMobileNo reloadInputViews];
     }
     else
     {
@@ -392,7 +430,21 @@ int intques;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [pickerDateOfBirth setHidden:YES];
-     activeTextField=textField;
+//     activeTextField=textField;
+    if(textField.tag == 4)
+    {
+        [txtEmailAddress resignFirstResponder];
+        [txtFname resignFirstResponder];
+        [txtLname resignFirstResponder];
+        [txtMobileNo resignFirstResponder];
+        [txtOtherQuestion resignFirstResponder];
+        [txtAnswer resignFirstResponder];
+        [txtPin1 resignFirstResponder];
+        [txtPin2 resignFirstResponder];
+        [txtPin3 resignFirstResponder];
+        [txtPin4 resignFirstResponder];
+        [pickerDateOfBirth setHidden:NO];
+    }
     if(textField == txtEmailAddress)
     {
         [txtEmailAddress setKeyboardType:UIKeyboardTypeEmailAddress];
@@ -409,6 +461,11 @@ int intques;
         [self.txtDateOfBirth resignFirstResponder];
         [pickerDateOfBirth setHidden:NO];
         [btnSubmit setHidden:YES];
+    }
+    else if (textField.tag == 6 || textField.tag == 7 || textField.tag == 8 || textField.tag == 9)
+    {
+        [txtMobileNo setKeyboardType:UIKeyboardTypeDecimalPad];
+        [txtMobileNo reloadInputViews];
     }
     else
     {
@@ -449,21 +506,22 @@ int intques;
     }completion:nil];
 }
 
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    
-//    NSInteger nextTag = textField.tag + 1;
-//    // Try to find next responder
-//    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-//    if (nextResponder) {
-//        // Found next responder, so set it.
-//        [nextResponder becomeFirstResponder];
-//    } else {
-//        // Not found, so remove keyboard.
-//        [textField resignFirstResponder];
-//    }
-//    return YES;
-//}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    NSLog(@"tag :: %ld",nextTag);
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField
 //{
 //    
@@ -490,7 +548,7 @@ int intques;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if(textField.tag == 5)
+    if(textField.tag == 6)
     {
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
         if(newLength >1)
@@ -515,7 +573,7 @@ int intques;
         
        // return (newLength > 1) ? NO : YES;
     }
-    else if (textField.tag == 6)
+    else if (textField.tag == 7)
     {
         NSUInteger newLength = [txtPin2.text length] + [string length] - range.length;
         if(newLength >1)
@@ -537,7 +595,7 @@ int intques;
         }
 
     }
-    else if(textField.tag == 7)
+    else if(textField.tag == 8)
     {
         NSUInteger newLength = [txtPin3.text length] + [string length] - range.length;
         if(newLength >1)

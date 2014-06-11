@@ -23,6 +23,10 @@
 @synthesize txtEmail,txtPin1,txtpin2,txtpin3,txtPint4;
 @synthesize lblPin;
 @synthesize scrollview;
+@synthesize txtEmailIDForForgot;
+@synthesize btnCancel,btnSubmit;
+@synthesize viewForgotPin;
+@synthesize lblQuestion,txtAnswer,btnForgotPinCancel,btnForgotPinSubmit,viewForgotQuestion;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,14 +47,22 @@
     CGRect frame = viewLogin.frame;
     frame.origin.x = 320;
     viewLogin.frame = frame;
-    
     viewLogin.alpha = 0;
     
     CGRect frame1 = viewButtons.frame;
     frame1.origin.x = 5;
     viewButtons.frame = frame1;
-    
     viewButtons.alpha = 1;
+    
+    CGRect frame2 = viewButtons.frame;
+    frame2.origin.x = 320;
+    viewButtons.frame = frame2;
+    viewForgotPin.alpha = 0;
+    
+    CGRect frame3 = viewButtons.frame;
+    frame3.origin.x = 320;
+    viewButtons.frame = frame2;
+    viewForgotQuestion.alpha = 0;
     
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -96,7 +108,7 @@
     basketTopFrame.origin.x = 320;
     [UIView animateWithDuration:0.95 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{ viewLogin.frame = basketTopFrame; } completion:^(BOOL finished){ }];
     CGRect napkinBottomFrame = viewLogin.frame;
-    napkinBottomFrame.origin.x = 5;
+    napkinBottomFrame.origin.x = 20;
     [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewLogin.frame = napkinBottomFrame; viewButtons.frame = basketTopFrame1; viewButtons.alpha = 0;
                viewLogin.alpha = 1; } completion:^(BOOL finished){}];
 
@@ -109,7 +121,7 @@
 -(IBAction)btnCancel_click:(id)sender
 {
     CGRect napkinBottomFrame = viewButtons.frame;
-    napkinBottomFrame.origin.x = 5;
+    napkinBottomFrame.origin.x = 20;
     CGRect basketTopFrame = viewLogin.frame;
     basketTopFrame.origin.x = 320;
     
@@ -122,6 +134,42 @@
 
 }
 -(IBAction)btnForgetPin_click:(id)sender
+{
+    CGRect basketTopFrame1 = viewLogin.frame;
+    basketTopFrame1.origin.x = -320;
+    CGRect basketTopFrame = viewForgotPin.frame;
+    basketTopFrame.origin.x = 320;
+    [UIView animateWithDuration:0.95 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{ viewForgotPin.frame = basketTopFrame; } completion:^(BOOL finished){ }];
+    CGRect napkinBottomFrame = viewForgotPin.frame;
+    napkinBottomFrame.origin.x = 20;
+    [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotPin.frame = napkinBottomFrame; viewLogin.frame = basketTopFrame1; viewLogin.alpha = 0;
+        viewForgotPin.alpha = 1; } completion:^(BOOL finished){}];
+}
+-(IBAction)btnForgotSbmit_click:(id)sender
+{
+     [self NSStringIsValidEmail:txtEmailIDForForgot.text];
+}
+-(IBAction)btnForgotCancel_click:(id)sender
+{
+    
+    CGRect napkinBottomFrame = viewLogin.frame;
+    napkinBottomFrame.origin.x = 20;
+    CGRect basketTopFrame = viewForgotPin.frame;
+    basketTopFrame.origin.x = 320;
+    
+    [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{
+        viewLogin.frame = napkinBottomFrame;
+        viewForgotPin.frame = basketTopFrame;
+        viewLogin.alpha = 1;
+        viewForgotPin.alpha = 0;
+    } completion:^(BOOL finished){/*done*/}];
+
+}
+-(IBAction)btnForgotPinSubmit_click:(id)sender
+{
+
+}
+-(IBAction)btnForgotPinCancel_click:(id)sender
 {
 
 }
@@ -140,10 +188,10 @@
     NSLog(@"message %@",EntityID);
     if ([EntityID isEqualToString:@"failure"])
     {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"Incorrect Email Id or Pin."
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
+                                                            message:@"Username or PIN incorrect."
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:@"Edit details"
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
         txtEmail.text = @"";
@@ -157,6 +205,46 @@
     }
     else
     {
+        
+    }
+    [SVProgressHUD dismiss];
+}
+-(void)service_reponseForgorPin:(NSString *)apiAlias Response:(NSData *)response
+{
+    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+    NSLog(@"Json dictionary :: %@",jsonDictionary);
+    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+    NSLog(@"message %@",EntityID);
+    if ([EntityID isEqualToString:@"failure"])
+    {
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Incorrect Email"
+                                                            message:@"EmailID You entered is incorrect. Please try again with the correct emailID."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"OK", nil];
+        [CheckAlert show];
+        txtEmailIDForForgot.text = @"";
+       
+        [txtEmailIDForForgot setTextColor:[UIColor redColor]];
+    }
+    else
+    {
+         NSString *respinse = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+        NSString *strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
+        NSLog(@"response :: %@",respinse);
+        NSLog(@"user :: %@",strUserID);
+        
+        CGRect basketTopFrame1 = viewLogin.frame;
+        basketTopFrame1.origin.x = -320;
+        CGRect basketTopFrame = viewForgotQuestion.frame;
+        basketTopFrame.origin.x = 320;
+        [UIView animateWithDuration:0.95 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{ viewForgotQuestion.frame = basketTopFrame; } completion:^(BOOL finished){ }];
+        CGRect napkinBottomFrame = viewForgotQuestion.frame;
+        napkinBottomFrame.origin.x = 20;
+        [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotQuestion.frame = napkinBottomFrame; viewLogin.frame = basketTopFrame1; viewLogin.alpha = 0;
+            viewForgotQuestion.alpha = 1; } completion:^(BOOL finished){}];
+        
+        lblQuestion.text = respinse;
     }
     [SVProgressHUD dismiss];
 }
@@ -166,6 +254,11 @@
     [txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
     [txtEmail reloadInputViews];
     
+    if(textField == txtEmailIDForForgot)
+    {
+        [txtEmailIDForForgot setKeyboardType:UIKeyboardTypeEmailAddress];
+        [txtEmailIDForForgot reloadInputViews];
+    }
     int y=0;
     if (textField==txtEmail)
     {
@@ -184,6 +277,10 @@
         y=70;
     }
     else if (textField==txtPint4)
+    {
+        y=70;
+    }
+    else if (textField == txtEmailIDForForgot)
     {
         y=70;
     }
@@ -256,55 +353,123 @@
 #pragma mark call api and chack validation
 -(BOOL)NSStringIsValidEmail:(NSString *)checkString
 {
-    
-    if([checkString length]==0)
+    if([checkString isEqualToString:txtEmail.text])
     {
-        [txtEmail setText:@"enter email"];
-        [txtEmail setTextColor:[UIColor redColor]];
-         [self.lblPin setTextColor:[UIColor redColor]];
-        return YES;
-    }
-    
-    NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    
-    NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
-    NSUInteger regExMatches = [regEx numberOfMatchesInString:checkString options:0 range:NSMakeRange(0, [checkString length])];
-    
-   // NSLog(@"%i", regExMatches);
-    if (regExMatches == 0)
-    {
-        NSLog(@"Invalid email...");
-       
-        if([txtEmail.text isEqualToString: @""])
+        if([checkString length]==0)
         {
-            [txtEmail setText:@"enter email"];
-            [txtEmail setTextColor:[UIColor redColor]];
-             [self.lblPin setTextColor:[UIColor redColor]];
+            [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            [self.lblPin setTextColor:[UIColor redColor]];
+            return YES;
         }
         else
         {
-            [txtEmail setTextColor:[UIColor redColor]];
-             [self.lblPin setTextColor:[UIColor redColor]];
+        
         }
-        return NO;
+    
+        NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    
+        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
+        NSUInteger regExMatches = [regEx numberOfMatchesInString:checkString options:0 range:NSMakeRange(0, [checkString length])];
+    
+  
+        if (regExMatches == 0)
+        {
+            NSLog(@"Invalid email...");
+       
+            if([txtEmail.text isEqualToString: @""])
+            {
+              [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                [self.lblPin setTextColor:[UIColor redColor]];
+            }
+            else
+            {
+                [txtEmail setTextColor:[UIColor redColor]];
+                [self.lblPin setTextColor:[UIColor redColor]];
+            }
+            return NO;
+        }
+        else
+        {
+            NSLog(@"valid email...");
+            NSString *strPin;
+            strPin = @"";
+            strPin = [strPin stringByAppendingString:txtPin1.text];
+            strPin = [strPin stringByAppendingString:txtpin2.text];
+            strPin = [strPin stringByAppendingString:txtpin3.text];
+            strPin = [strPin stringByAppendingString:txtPint4.text];
+            NSLog(@"strpin :: %@",strPin);
+            WebApiController *obj=[[WebApiController alloc]init];
+            NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+            [param setValue:txtEmail.text forKey:@"email"];
+            [param setValue:strPin forKey:@"pin"];
+            [param setValue:@"iOS7" forKey:@"os"];
+            [param setValue:@"iPhone" forKey:@"make"];
+            [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+            [obj callAPI_POST:@"login.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+            [txtEmail setTextColor:[UIColor blackColor]];
+            [self.lblPin setTextColor:[UIColor blackColor]];
+            return YES;
+        }
     }
-    else
+    
+    
+    if ([checkString isEqualToString:txtEmailIDForForgot.text])
     {
-        NSLog(@"valid email...");
-        WebApiController *obj=[[WebApiController alloc]init];
-        NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-        [param setValue:@"g@g.com" forKey:@"email"];
-        [param setValue:@"1234" forKey:@"pin"];
-        [param setValue:@"android 4.4.2" forKey:@"os"];
-        [param setValue:@"GT-I9300" forKey:@"make"];
-        [param setValue:@"samsung" forKey:@"model"];
-        [obj callAPI_POST:@"login.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-        [txtEmail setTextColor:[UIColor blackColor]];
-        [self.lblPin setTextColor:[UIColor blackColor]];
-        return YES;
+        if([checkString length]==0)
+        {
+           [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            return YES;
+        }
+        else
+        {
+            
+        }
+        if(txtEmailIDForForgot.text.length == 0)
+        {
+            [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        
+        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
+        NSUInteger regExMatches = [regEx numberOfMatchesInString:checkString options:0 range:NSMakeRange(0, [checkString length])];
+        
+        
+        if (regExMatches == 0)
+        {
+            NSLog(@"Invalid email...");
+            
+            if([txtEmailIDForForgot.text isEqualToString: @""])
+            {
+                [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];                
+            }
+            else
+            {
+                [txtEmailIDForForgot setTextColor:[UIColor redColor]];
+               
+            }
+            return NO;
+        }
+        else
+        {
+            NSLog(@"valid email...");
+          
+            WebApiController *obj=[[WebApiController alloc]init];
+            NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+            [param setValue:txtEmailIDForForgot.text forKey:@"email"];
+           
+            [param setValue:@"iOS7" forKey:@"os"];
+            [param setValue:@"iPhone" forKey:@"make"];
+            [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+            [obj callAPI_POST:@"forgotPinEmail.php" andParams:param SuccessCallback:@selector(service_reponseForgorPin:Response:) andDelegate:self];
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+            [txtEmailIDForForgot setTextColor:[UIColor blackColor]];
+          
+            return YES;
+        }
+
     }
+    return YES;
 }
-
-
 @end
