@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface LoginVC : UIViewController <UITextFieldDelegate,UIScrollViewDelegate>
 
@@ -31,9 +32,12 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnForgotPinSubmit;
 @property (nonatomic,retain) IBOutlet UIButton *btnForgotPinCancel;
 @property (nonatomic,retain) IBOutlet UIView *viewForgotQuestion;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+- (IBAction)loginButtonTouchHandler:(id)sender;
 
 -(IBAction)btnbtnHomepage_click:(id)sender;
--(IBAction)btnbtnFacebook_click:(id)sender;
+
 -(IBAction)btnbtnLogin_click:(id)sender;
 -(IBAction)btnbtnRegister_click:(id)sender;
 -(IBAction)btnLogin_click:(id)sender;

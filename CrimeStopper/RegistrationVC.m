@@ -454,6 +454,7 @@ int intques;
     {
         [txtMobileNo setKeyboardType:UIKeyboardTypeDecimalPad];
         [txtMobileNo reloadInputViews];
+        [btnSubmit setHidden:NO];
     }
     else if(textField == txtDateOfBirth)
     {

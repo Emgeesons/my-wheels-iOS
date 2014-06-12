@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @class HomeScreenVC;
 
@@ -15,5 +16,9 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) HomeScreenVC *HomeScreenVC;
 @property (nonatomic) NSInteger intud;
+@property (nonatomic,retain) NSString *strUserID;
+@property (nonatomic,retain) NSString *strFBUserName;
+@property (nonatomic,retain) NSString *strFBdob;
+@property (nonatomic,retain) NSString *strGender;
 
 @end

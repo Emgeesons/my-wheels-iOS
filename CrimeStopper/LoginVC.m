@@ -1,10 +1,3 @@
-//
-//  LoginVC.m
-//  CrimeStopper
-//
-//  Created by Asha Sharma on 05/06/14.
-//  Copyright (c) 2014 Emgeesons. All rights reserved.
-//
 
 #import "LoginVC.h"
 #import "HomeScreenVC.h"
@@ -12,8 +5,14 @@
 #import "SVProgressHUD.h"
 #import "Reachability.h"
 #import "RegistrationVC.h"
+#import "HomePageVC.h"
+#import "UserDetailsViewController.h"
+
 
 @interface LoginVC ()
+{
+    AppDelegate *appdelegate;
+}
 
 @end
 
@@ -40,6 +39,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Facebook Profile";
+    
+    // Check if user is cached and linked to Facebook, if so, bypass login
+    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
+    }
+    
+    appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     [scrollview setScrollEnabled:YES];
     [self.scrollview setContentSize:CGSizeMake(320, 1000)];
     [self.view addSubview:self.scrollview];
@@ -66,7 +74,8 @@
     
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    if (networkStatus == NotReachable) {
+    if (networkStatus == NotReachable)
+    {
         NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"There is no internet connection."
@@ -74,7 +83,9 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
-    } else {
+    }
+    else
+    {
         NSLog(@"There IS internet connection");
     }
 }
@@ -95,9 +106,38 @@
 {
 
 }
--(IBAction)btnbtnFacebook_click:(id)sender
+- (IBAction)loginButtonTouchHandler:(id)sender
 {
-
+    // Set permissions required from the facebook user account
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+    
+    // Login PFUser using facebook
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        [_activityIndicator stopAnimating]; // Hide loading indicator
+        
+        if (!user) {
+            if (!error) {
+                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Uh oh. The user cancelled the Facebook login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+                [alert show];
+            } else {
+                NSLog(@"Uh oh. An error occurred: %@", error);
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:[error description] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+                [alert show];
+            }
+        } else if (user.isNew) {
+            NSLog(@"User with facebook signed up and logged in!");
+            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+        } else {
+            NSLog(@"User with facebook logged in!");
+            
+//            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+            UserDetailsViewController *vc = [[UserDetailsViewController alloc]init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+    }];
+    
+    [_activityIndicator startAnimating]; // Show loading indicator until login is finished}
 }
 -(IBAction)btnbtnLogin_click:(id)sender
 {
@@ -133,6 +173,7 @@
     } completion:^(BOOL finished){/*done*/}];
 
 }
+
 -(IBAction)btnForgetPin_click:(id)sender
 {
     CGRect basketTopFrame1 = viewLogin.frame;
@@ -167,7 +208,16 @@
 }
 -(IBAction)btnForgotPinSubmit_click:(id)sender
 {
-
+    WebApiController *obj=[[WebApiController alloc]init];
+    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+    [param setValue:appdelegate.strUserID forKey:@"userId"];
+    [param setValue:txtAnswer.text forKey:@"securityAnswer"];
+    [param setValue:@"iOS7" forKey:@"os"];
+    [param setValue:@"iPhone" forKey:@"make"];
+    [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+    [obj callAPI_POST:@"forgotPinAnswer.php" andParams:param SuccessCallback:@selector(service_reponseForgorPinAnswer:Response:) andDelegate:self];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    
 }
 -(IBAction)btnForgotPinCancel_click:(id)sender
 {
@@ -205,7 +255,8 @@
     }
     else
     {
-        
+        HomePageVC *vc = [[HomePageVC alloc]init];
+        [self presentViewController:vc animated:YES completion:nil];
     }
     [SVProgressHUD dismiss];
 }
@@ -230,21 +281,52 @@
     else
     {
          NSString *respinse = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
-        NSString *strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
+        appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
         NSLog(@"response :: %@",respinse);
-        NSLog(@"user :: %@",strUserID);
+      
         
-        CGRect basketTopFrame1 = viewLogin.frame;
+        CGRect basketTopFrame1 = viewForgotPin.frame;
         basketTopFrame1.origin.x = -320;
         CGRect basketTopFrame = viewForgotQuestion.frame;
         basketTopFrame.origin.x = 320;
         [UIView animateWithDuration:0.95 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{ viewForgotQuestion.frame = basketTopFrame; } completion:^(BOOL finished){ }];
         CGRect napkinBottomFrame = viewForgotQuestion.frame;
         napkinBottomFrame.origin.x = 20;
-        [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotQuestion.frame = napkinBottomFrame; viewLogin.frame = basketTopFrame1; viewLogin.alpha = 0;
+        [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotQuestion.frame = napkinBottomFrame; viewForgotPin.frame = basketTopFrame1; viewForgotPin.alpha = 0;
             viewForgotQuestion.alpha = 1; } completion:^(BOOL finished){}];
         
         lblQuestion.text = respinse;
+    }
+    [SVProgressHUD dismiss];
+}
+//service_reponseForgorPinAnswer
+-(void)service_reponseForgorPinAnswer:(NSString *)apiAlias Response:(NSData *)response
+{
+    
+    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+    NSLog(@"Json dictionary :: %@",jsonDictionary);
+    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+    NSLog(@"message %@",EntityID);
+    if ([EntityID isEqualToString:@"failure"])
+    {
+        
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warninga"
+                                                            message:@"Incorrect Answer. Please try again."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        CheckAlert.tag =1;
+        [CheckAlert show];
+    }
+    else
+    {
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Email sent"
+                                                            message:@"Change PIN has been sent to your email ID."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        CheckAlert.tag =1;
+        [CheckAlert show];
     }
     [SVProgressHUD dismiss];
 }
@@ -260,11 +342,14 @@
         [txtEmailIDForForgot reloadInputViews];
     }
     int y=0;
-    if (textField==txtEmail)
-    {
-        y=50;
-    }
-    else if (textField==txtPin1)
+   
+//    if (textField==txtEmail)
+//    {
+//        y=50;
+//        viewLogin.frame = CGRectMake(0, 50, viewLogin.frame.size.width, viewLogin.frame.size.height);
+//
+//    }
+ if (textField==txtPin1)
     {
         y=70;
     }
@@ -284,7 +369,16 @@
     {
         y=70;
     }
+    else if (textField == txtAnswer)
+    {
+        y=70;
+    }
    
+     //viewLogin.frame = CGRectMake(0, y, viewLogin.frame.size.width, viewLogin.frame.size.height);
+//    CGRect frame = viewLogin.frame;
+//    frame.origin.x = 20;
+//    viewLogin.frame = frame;
+    
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
@@ -292,6 +386,7 @@
         rc.origin.y = y ;
         CGPoint pt=rc.origin;
         [self.scrollview setContentOffset:pt animated:YES];
+       
     }completion:nil];
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField
@@ -472,4 +567,21 @@
     }
     return YES;
 }
+#pragma mark alert view delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 1)
+    {
+        if(buttonIndex == 0)
+        {
+            LoginVC *vc = [[LoginVC alloc]init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+        else
+        {
+            
+        }
+    }
+}
+        
 @end
