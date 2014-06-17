@@ -7,12 +7,16 @@
 //
 
 #import "HomePageVC.h"
+#import "AppDelegate.h"
 
 @interface HomePageVC ()
-
+{
+    AppDelegate *appdelegate;
+}
 @end
 
 @implementation HomePageVC
+@synthesize btnNav;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSLog(@"user id:%@",appdelegate.strUserID);
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -35,4 +41,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark button click event
+-(IBAction)btnNav_click:(id)sender
+{
+    
+}
 @end

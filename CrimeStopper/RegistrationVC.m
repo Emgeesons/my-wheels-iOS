@@ -12,8 +12,12 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 
-@interface RegistrationVC ()
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
+@interface RegistrationVC ()
+{
+    UIActionSheet *actionSheet;
+}
 @end
 
 @implementation RegistrationVC
@@ -31,6 +35,7 @@ NSString *strQues;
 @synthesize btnSecurityQuestion;
 @synthesize btnSecurityCancel;
 @synthesize toolbar;
+@synthesize viewPickerview;
 
 UITextField *txtOtherQuestion;
 int intques;
@@ -44,6 +49,7 @@ int intques;
     return self;
 }
 
+#pragma mark main methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,6 +62,9 @@ int intques;
     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
     
     //set value in array
+    [self.view addSubview:viewPickerview];
+    [self.viewPickerview addSubview:pickerDateOfBirth];
+    [viewPickerview setHidden:YES];
     arrSecurityQuestion = [[NSMutableArray alloc]init];
     [arrSecurityQuestion addObject:@"Security Questions"];
     [arrSecurityQuestion addObject:@"Passport Number"];
@@ -68,7 +77,6 @@ int intques;
     [arrSecurityQuestion addObject:@"All time favourite movie"];
     [arrSecurityQuestion addObject:@"First paid job"];
     [arrSecurityQuestion addObject:@"Other"];
-  
     [viewSecurityQuestion setHidden:YES];
     
       [txtAnswer setFrame:CGRectMake(5, 300, 300, 30)];
@@ -84,9 +92,12 @@ int intques;
     [self.txtPin3 setDelegate:self];
     [self.txtPin4 setDelegate:self];
     
-    // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
-    [toolbar setFrame:CGRectMake(0, -60, 320, 40)];
     
+    // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
+    [toolbar setFrame:CGRectMake(0, -30, 320, 40)];
+     [txtDateOfBirth setInputAccessoryView:self.toolbar];
+  
+       [txtAnswer setFrame:CGRectMake(5, 338, 300, 30)];
 //    [toolbar setBarStyle:UIBarStyleBlackOpaque];
 //    UIBarButtonItem *barButtonDone = [[UIBarButtonItem alloc] initWithTitle:@"Done"
 //                                                                      style:UIBarButtonItemStyleBordered target:self action:@selector(changeDateFromLabel:)];
@@ -96,6 +107,9 @@ int intques;
     
    // self.toolbar.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame), CGRectGetWidth(self.toolbar.frame), CGRectGetHeight(self.toolbar.frame));
     [self.pickerDateOfBirth addSubview:toolbar];
+    
+   
+
     
 }
 - (void)setPickerHidden:(BOOL)hidden
@@ -115,7 +129,18 @@ int intques;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.scrollview.contentSize = CGSizeMake(320, 568+50);
+    if(IsIphone5)
+    {
+        scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
+         self.scrollview.contentSize = CGSizeMake(320, 800);
+    }
+    else
+    {
+         scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
+        
+        self.scrollview.contentSize = CGSizeMake(320, 700);
+    }
+   
     
 }
 
@@ -128,7 +153,9 @@ int intques;
 #pragma mark selector method
 - (void)DOBChanged:(id)sender
 {
-    NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:pickerDateOfBirth.date]];
+    [viewPickerview setHidden:YES];
+    
+    NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
     NSDate *todayDate = [NSDate date];
    
     
@@ -138,10 +165,38 @@ int intques;
     int years = (allDays-days)/365;
     
     NSLog(@"You live since %i years and %i days",years,days);
-
-    txtDateOfBirth.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
-    //[pickerDateOfBirth setHidden:YES];
-    [btnSubmit setHidden:YES];
+     txtDateOfBirth.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
+    if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
+    {
+        NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
+        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
+       
+        //[pickerDateOfBirth setHidden:YES];
+        [btnSubmit setHidden:YES];
+        return;
+    }
+    else
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIDatePicker *datePicker = (UIDatePicker *)sender;
+            
+            if ([timePicker.date compare:[NSDate date]] == NSOrderedDescending) {
+                
+                datePicker.date = [NSDate date];
+            }
+            
+        });
+    }
+   
+    self.scrollview.userInteractionEnabled = YES;
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+     [timePicker setHidden:YES];
+    [btnSubmit setHidden:NO];
+     [self cancelClicked];
+    
+}
+-(void)cancelClicked {
+    [sheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 #pragma mark segmented method
@@ -303,13 +358,7 @@ int intques;
         }
     }
 }
-- (IBAction)btnMinimize_Click:(id)sender
-{
-    [pickerDateOfBirth resignFirstResponder];
-    [pickerDateOfBirth removeFromSuperview];
-    pickerDateOfBirth.hidden = YES;
-//    extField resignFirstResponder];
-}
+
 
 -(IBAction)btnDob_click:(id)sender
 {
@@ -365,6 +414,11 @@ int intques;
   
     if(textField.tag == 4)
     {
+        [viewPickerview setHidden:NO];
+        
+        self.scrollview.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor grayColor]];
+        
         [txtEmailAddress resignFirstResponder];
         [txtFname resignFirstResponder];
         [txtLname resignFirstResponder];
@@ -395,6 +449,32 @@ int intques;
         [pickerDateOfBirth setHidden:NO];
         [btnSubmit setHidden:YES];
     }
+    else if(textField == txtDateOfBirth)
+    {
+        [viewPickerview setHidden:NO];
+        self.scrollview.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor grayColor]];
+        
+        if(IsIphone5)
+        {
+            [self.txtDateOfBirth endEditing:YES];
+            [self.txtDateOfBirth resignFirstResponder];
+           
+           
+            [pickerDateOfBirth setHidden:NO];
+            [btnSubmit setHidden:YES];
+        }
+        else
+        {
+            [self.txtDateOfBirth endEditing:YES];
+            [self.txtDateOfBirth resignFirstResponder];
+           
+            pickerDateOfBirth.frame = CGRectMake(0, 270, 320, pickerDateOfBirth.frame.size.height);
+          
+            [pickerDateOfBirth setHidden:NO];
+            [btnSubmit setHidden:YES];
+        }
+    }
     else if (textField.tag == 6 || textField.tag == 7 || textField.tag == 8 || textField.tag == 9)
     {
         [txtMobileNo setKeyboardType:UIKeyboardTypeDecimalPad];
@@ -409,12 +489,13 @@ int intques;
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
     if(textField == txtOtherQuestion)
     {
-        y=80;
+        y=50;
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
     }
     if(textField == txtAnswer)
     {
         y=80;
+        [btnSubmit setHidden:NO];
     }
     NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
@@ -427,12 +508,37 @@ int intques;
     }completion:nil];
     return YES;
 }
+//-(void)dateDoneClicked {
+//   
+//    
+//    //format date
+//    NSDateFormatter *FormatDate = [[NSDateFormatter alloc] init];
+//    [FormatDate setLocale: [NSLocale currentLocale]];
+//    
+//    //set date format
+//    [FormatDate setDateFormat:@"YYYY-MM-dd"];
+//    bAge = YES;
+//    dob = [FormatDate stringFromDate:[timePicker date]];
+//    age = [DatabaseExtra getAge:[timePicker date]];
+//    
+//    datePickerSelectedDate = [timePicker date];
+//    
+//    self.txtAge.text = [NSString stringWithFormat:@"%ld yrs", (long)[DatabaseExtra getAge:[timePicker date]]];
+//    
+//    timePicker.frame=CGRectMake(0, 44, 320, 416);
+//    [self cancelClicked];
+//}
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+   
     [pickerDateOfBirth setHidden:YES];
-//     activeTextField=textField;
+    activeTextField=textField;
     if(textField.tag == 4)
     {
+         [viewPickerview setHidden:NO];
+        self.scrollview.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor grayColor]];
+        
         [txtEmailAddress resignFirstResponder];
         [txtFname resignFirstResponder];
         [txtLname resignFirstResponder];
@@ -444,6 +550,47 @@ int intques;
         [txtPin3 resignFirstResponder];
         [txtPin4 resignFirstResponder];
         [pickerDateOfBirth setHidden:NO];
+        
+       
+        
+        // Open DatePicker when age textfield is clicked
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        timePicker.backgroundColor = [UIColor whiteColor];
+       dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        timePicker.maximumDate = [NSDate date];
+        
+        
+        //format datePicker mode. in this example time is used
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        toolbarPicker.backgroundColor = [UIColor grayColor];
+        [toolbarPicker sizeToFit];
+        
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+//
+//        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+//        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+//        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+//        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+//        
+        [toolbarPicker addSubview:bbitem];
+//        [toolbarPicker addSubview:bbitem1];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:timePicker];
+        [sheet showInView:self.view];
+        [sheet setBounds:CGRectMake(0,0,320, 464)];
+
+        
+      
+        
     }
     if(textField == txtEmailAddress)
     {
@@ -458,11 +605,28 @@ int intques;
     }
     else if(textField == txtDateOfBirth)
     {
+         [viewPickerview setHidden:NO];
+        self.scrollview.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor grayColor]];
+       if(IsIphone5)
+       {
         [self.txtDateOfBirth endEditing:YES];
         [self.txtDateOfBirth resignFirstResponder];
+       
         [pickerDateOfBirth setHidden:NO];
         [btnSubmit setHidden:YES];
+       }
+        else
+        {
+            [self.txtDateOfBirth endEditing:YES];
+            [self.txtDateOfBirth resignFirstResponder];
+            pickerDateOfBirth.frame = CGRectMake(0, 270, 320, pickerDateOfBirth.frame.size.height);
+            
+            [pickerDateOfBirth setHidden:NO];
+            [btnSubmit setHidden:YES];
+        }
     }
+    
     else if (textField.tag == 6 || textField.tag == 7 || textField.tag == 8 || textField.tag == 9)
     {
         [txtMobileNo setKeyboardType:UIKeyboardTypeDecimalPad];
@@ -477,12 +641,13 @@ int intques;
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
     if(textField == txtOtherQuestion)
     {
-        y=80;
+        y=50;
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
     }
     if(textField == txtAnswer)
     {
-        y=80;
+        y=70;
+        [btnSubmit setHidden:NO];
     }
     NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
@@ -494,8 +659,21 @@ int intques;
         [self.scrollview setContentOffset:pt animated:YES];
     }completion:nil];
 }
+
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    if(textField == txtDateOfBirth)
+    {
+        if([txtDateOfBirth.text isEqualToString:@""])
+        {
+        
+        }
+        else
+        {
+            [pickerDateOfBirth setHidden:YES];
+        }
+    }
+    
     int y=0;
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlDown animations:^{
         CGRect rc = [textField bounds];
@@ -509,10 +687,9 @@ int intques;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
-    NSInteger nextTag = textField.tag + 1;
+        NSInteger nextTag = textField.tag + 1;
     // Try to find next responder
-    NSLog(@"tag :: %ld",nextTag);
+    NSLog(@"tag :: %d",nextTag);
     UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
     if (nextResponder) {
         // Found next responder, so set it.
@@ -521,6 +698,63 @@ int intques;
         // Not found, so remove keyboard.
         [textField resignFirstResponder];
     }
+    if(textField.tag == 3)
+    {
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        timePicker.backgroundColor = [UIColor whiteColor];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        timePicker.maximumDate = [NSDate date];
+        
+        
+        //format datePicker mode. in this example time is used
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        toolbarPicker.backgroundColor = [UIColor grayColor];
+        [toolbarPicker sizeToFit];
+        
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+        //
+        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+        //
+        [toolbarPicker addSubview:bbitem];
+        //        [toolbarPicker addSubview:bbitem1];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:timePicker];
+        [sheet showInView:self.view];
+        [sheet setBounds:CGRectMake(0,0,320, 464)];
+//        
+//
+//        if(IsIphone5)
+//        {
+//            [self.txtDateOfBirth endEditing:YES];
+//            [self.txtDateOfBirth resignFirstResponder];
+//           
+//            [pickerDateOfBirth setHidden:NO];
+//            [btnSubmit setHidden:YES];
+//        }
+//        else
+//        {
+//            [self.txtDateOfBirth endEditing:YES];
+//            [self.txtDateOfBirth resignFirstResponder];
+//            
+//            pickerDateOfBirth.frame = CGRectMake(0, 270, 320, pickerDateOfBirth.frame.size.height);
+//           
+//            [pickerDateOfBirth setHidden:NO];
+//            [btnSubmit setHidden:YES];
+//        }
+    }
+
     return YES;
 }
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -549,6 +783,28 @@ int intques;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+     if(textField == txtDateOfBirth)
+    {
+         [viewPickerview setHidden:NO];
+        if(IsIphone5)
+        {
+            [self.txtDateOfBirth endEditing:YES];
+            [self.txtDateOfBirth resignFirstResponder];
+           
+            [pickerDateOfBirth setHidden:NO];
+            [btnSubmit setHidden:YES];
+        }
+        else
+        {
+            [self.txtDateOfBirth endEditing:YES];
+            [self.txtDateOfBirth resignFirstResponder];
+            
+            pickerDateOfBirth.frame = CGRectMake(0, 270, 320, pickerDateOfBirth.frame.size.height);
+          
+            [pickerDateOfBirth setHidden:NO];
+            [btnSubmit setHidden:YES];
+        }
+    }
     if(textField.tag == 6)
     {
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
@@ -716,6 +972,30 @@ int intques;
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 }
 
+-(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
+{
+    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+    NSLog(@"Json dictionary :: %@",jsonDictionary);
+    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+    NSLog(@"message %@",EntityID);
+    if ([EntityID isEqualToString:@"failure"])
+    {
+        
+    }
+    else
+    {
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"My Wheel would like to access your current location."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Don't Allow"
+                                                  otherButtonTitles:@"Allow", nil];
+        
+        CheckAlert.tag =2;
+        [CheckAlert show];
+    }
+    [SVProgressHUD dismiss];
+}
+
 #pragma mark table view methods for securyity question
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -770,7 +1050,7 @@ int intques;
        // [self.scrollview removeFromSuperview];
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];
-        [btnSecurityQuestion setFrame:CGRectMake(5, 260, 300, 30)  ];
+        [btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
        txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,305,300,30)];
         txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(5,400,300,30)];
         [self.scrollview addSubview:txtAnswer];
@@ -780,6 +1060,7 @@ int intques;
         txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
         txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         txtOtherQuestion.placeholder = @"Enter Question";
+        txtOtherQuestion.tag = 10;
         txtOtherQuestion.delegate = self;
         
         [self.scrollview addSubview:txtOtherQuestion];
@@ -796,7 +1077,7 @@ int intques;
         [btnSecurityQuestion setEnabled:YES];
         [viewSecurityQuestion setHidden:YES];
         [txtOtherQuestion setHidden:YES];
-         [txtAnswer setFrame:CGRectMake(5, 300, 300, 30)];
+         [txtAnswer setFrame:CGRectMake(5, 338, 300, 30)];
         
         
     }
@@ -804,28 +1085,4 @@ int intques;
     
 }
 
-#pragma mark call api
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-       
-    }
-    else
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"My Wheel would like to access your current location."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Don't Allow"
-                                                  otherButtonTitles:@"Allow", nil];
-        
-        CheckAlert.tag =2;
-        [CheckAlert show];
-    }
-    [SVProgressHUD dismiss];
-}
 @end

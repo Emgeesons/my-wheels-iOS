@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegistrationVC : UIViewController <UIScrollViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface RegistrationVC : UIViewController <UIScrollViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate,UIToolbarDelegate>
 {
      NSDateFormatter *dateFormatter;
      UITextField *activeTextField;
+    UIActionSheet *sheet;
+    UIDatePicker *timePicker;
 }
 
+@property (nonatomic,retain) IBOutlet UIView *viewPickerview;
 @property (nonatomic,retain) IBOutlet UITextField *txtFname;
 @property (nonatomic,retain) IBOutlet UITextField *txtLname;
 @property (nonatomic,retain) IBOutlet UITextField *txtEmailAddress;
@@ -49,8 +52,7 @@
 -(IBAction)btnSubmit_click:(id)sender;
 -(IBAction)btnDob_click:(id)sender;
 -(IBAction)btnSecurityQuestion_click:(id)sender;
--(IBAction)btnSecurityCancel_click:(id)sender;
-- (IBAction)btnMinimize_Click:(id)sender;
+
 
 - (IBAction) toggleOnForSwitch: (id) sender;
 -(IBAction)changeSeg;

@@ -20,5 +20,9 @@
 @property (nonatomic,retain) NSString *strFBUserName;
 @property (nonatomic,retain) NSString *strFBdob;
 @property (nonatomic,retain) NSString *strGender;
-
+@property (nonatomic,retain) NSString *strFacebookID;
+@property (nonatomic,retain) NSString *strFacebookToken;
+@property (nonatomic,retain) NSString *strFacebookPhotoURL;
+@property (nonatomic,retain) NSString *strFacebookEmail;
+@property (nonatomic,retain) NSString *strOldPin;
 @end

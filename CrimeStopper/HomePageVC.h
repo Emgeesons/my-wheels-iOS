@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface HomePageVC : UIViewController
+@property (nonatomic,retain) IBOutlet UIButton *btnNav;
+
+-(IBAction)btnNav_click:(id)sender;
 
 @end

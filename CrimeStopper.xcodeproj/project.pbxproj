@@ -15,6 +15,8 @@
 		5E03247819433871006EEA24 /* male_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03247519433871006EEA24 /* male_active.png */; };
 		5E03247919433871006EEA24 /* male_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03247619433871006EEA24 /* male_inactive.png */; };
 		5E03247B1943387B006EEA24 /* female_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03247A1943387B006EEA24 /* female_active.png */; };
+		5E04AEFD194FFA52003F6CD4 /* ic_drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AEFC194FFA52003F6CD4 /* ic_drawer.png */; };
+		5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E04AF02194FFC70003F6CD4 /* PPRevealSideViewController.m */; };
 		5E095170194173A700DC97E2 /* login_bg(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09516F194173A700DC97E2 /* login_bg(5).png */; };
 		5E095173194177E400DC97E2 /* vehicle_graphic(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E095172194177E400DC97E2 /* vehicle_graphic(5).png */; };
 		5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */; };
@@ -60,11 +62,11 @@
 		5E9CCE931949B29E006B43AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCE921949B29E006B43AE /* Security.framework */; };
 		5E9CCE961949B439006B43AE /* FBUserSettingsViewResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */; };
 		5E9CCE9A1949B8AE006B43AE /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CCE981949B8AE006B43AE /* UserDetailsViewController.m */; };
-		5E9CCE9B1949B8AE006B43AE /* UserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E9CCE991949B8AE006B43AE /* UserDetailsViewController.xib */; };
 		5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */ = {isa = PBXBuildFile; fileRef = 5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */; };
 		5E9CD34A1949BD85006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD3491949BD85006B43AE /* FacebookSDK.framework */; };
 		5E9CD34C1949BDA5006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */; };
-		5E9CD34E1949CBD0006B43AE /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E9CD34D1949CBD0006B43AE /* TableHeaderView.xib */; };
+		5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF4DF3C194AF66C00061EF3 /* LoginWithFacebookVC.m */; };
+		5EF4DF3F194AF66C00061EF3 /* LoginWithFacebookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF4DF3D194AF66C00061EF3 /* LoginWithFacebookVC.xib */; };
 		5EF532571947394C00BFD255 /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF532551947394C00BFD255 /* HomePageVC.m */; };
 		5EF532581947394C00BFD255 /* HomePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF532561947394C00BFD255 /* HomePageVC.xib */; };
 /* End PBXBuildFile section */
@@ -89,6 +91,9 @@
 		5E03247519433871006EEA24 /* male_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = male_active.png; sourceTree = "<group>"; };
 		5E03247619433871006EEA24 /* male_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = male_inactive.png; sourceTree = "<group>"; };
 		5E03247A1943387B006EEA24 /* female_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = female_active.png; sourceTree = "<group>"; };
+		5E04AEFC194FFA52003F6CD4 /* ic_drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer.png; sourceTree = "<group>"; };
+		5E04AF01194FFC70003F6CD4 /* PPRevealSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRevealSideViewController.h; sourceTree = "<group>"; };
+		5E04AF02194FFC70003F6CD4 /* PPRevealSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRevealSideViewController.m; sourceTree = "<group>"; };
 		5E09516F194173A700DC97E2 /* login_bg(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_bg(5).png"; sourceTree = "<group>"; };
 		5E095172194177E400DC97E2 /* vehicle_graphic(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle_graphic(5).png"; sourceTree = "<group>"; };
 		5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login_with_facebook(5).png"; sourceTree = "<group>"; };
@@ -150,11 +155,12 @@
 		5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = ../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		5E9CCE971949B8AE006B43AE /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsViewController.h; sourceTree = "<group>"; };
 		5E9CCE981949B8AE006B43AE /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
-		5E9CCE991949B8AE006B43AE /* UserDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserDetailsViewController.xib; sourceTree = "<group>"; };
 		5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
 		5E9CD3491949BD85006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS/FacebookSDK.framework"; sourceTree = "<group>"; };
-		5E9CD34D1949CBD0006B43AE /* TableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
+		5EF4DF3B194AF66C00061EF3 /* LoginWithFacebookVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWithFacebookVC.h; sourceTree = "<group>"; };
+		5EF4DF3C194AF66C00061EF3 /* LoginWithFacebookVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithFacebookVC.m; sourceTree = "<group>"; };
+		5EF4DF3D194AF66C00061EF3 /* LoginWithFacebookVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginWithFacebookVC.xib; sourceTree = "<group>"; };
 		5EF532541947394C00BFD255 /* HomePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageVC.h; sourceTree = "<group>"; };
 		5EF532551947394C00BFD255 /* HomePageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageVC.m; sourceTree = "<group>"; };
 		5EF532561947394C00BFD255 /* HomePageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageVC.xib; sourceTree = "<group>"; };
@@ -210,6 +216,23 @@
 			name = Registration;
 			sourceTree = "<group>";
 		};
+		5E04AEFB194FFA3D003F6CD4 /* home page */ = {
+			isa = PBXGroup;
+			children = (
+				5E04AEFC194FFA52003F6CD4 /* ic_drawer.png */,
+			);
+			name = "home page";
+			sourceTree = "<group>";
+		};
+		5E04AF00194FFC1E003F6CD4 /* PPRevealSideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5E04AF01194FFC70003F6CD4 /* PPRevealSideViewController.h */,
+				5E04AF02194FFC70003F6CD4 /* PPRevealSideViewController.m */,
+			);
+			name = PPRevealSideViewController;
+			sourceTree = "<group>";
+		};
 		5E095171194177C200DC97E2 /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +257,7 @@
 		5E0951841941C84100DC97E2 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				5E04AF00194FFC1E003F6CD4 /* PPRevealSideViewController */,
 				5E0951891941C88000DC97E2 /* WSCallingClasses */,
 				5E0951881941C86D00DC97E2 /* SVProgressHUD */,
 			);
@@ -369,14 +393,15 @@
 				5E815EE91940949500CEAFAB /* LoginVC.xib */,
 				5E9CCE971949B8AE006B43AE /* UserDetailsViewController.h */,
 				5E9CCE981949B8AE006B43AE /* UserDetailsViewController.m */,
-				5E9CCE991949B8AE006B43AE /* UserDetailsViewController.xib */,
-				5E9CD34D1949CBD0006B43AE /* TableHeaderView.xib */,
 				5E0324621942F4CD006EEA24 /* RegistrationVC.h */,
 				5E0324631942F4CD006EEA24 /* RegistrationVC.m */,
 				5E0324641942F4CD006EEA24 /* RegistrationVC.xib */,
 				5EF532541947394C00BFD255 /* HomePageVC.h */,
 				5EF532551947394C00BFD255 /* HomePageVC.m */,
 				5EF532561947394C00BFD255 /* HomePageVC.xib */,
+				5EF4DF3B194AF66C00061EF3 /* LoginWithFacebookVC.h */,
+				5EF4DF3C194AF66C00061EF3 /* LoginWithFacebookVC.m */,
+				5EF4DF3D194AF66C00061EF3 /* LoginWithFacebookVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -384,6 +409,7 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5E04AEFB194FFA3D003F6CD4 /* home page */,
 				5E0324671942FBA2006EEA24 /* Registration */,
 				5E095171194177C200DC97E2 /* login */,
 				5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */,
@@ -478,18 +504,18 @@
 				5E03247B1943387B006EEA24 /* female_active.png in Resources */,
 				5E815EED194095D400CEAFAB /* i_agree.png in Resources */,
 				5E095170194173A700DC97E2 /* login_bg(5).png in Resources */,
+				5EF4DF3F194AF66C00061EF3 /* LoginWithFacebookVC.xib in Resources */,
 				5E815EDD1940859F00CEAFAB /* HomeScreenVC.xib in Resources */,
 				5E03247919433871006EEA24 /* male_inactive.png in Resources */,
 				5E09517B19417C9B00DC97E2 /* login_btn_bg.png in Resources */,
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
-				5E9CD34E1949CBD0006B43AE /* TableHeaderView.xib in Resources */,
 				5E815EB71940832700CEAFAB /* Images.xcassets in Resources */,
+				5E04AEFD194FFA52003F6CD4 /* ic_drawer.png in Resources */,
 				5E09517919417AEF00DC97E2 /* btn_register(5).png in Resources */,
 				5E03247819433871006EEA24 /* male_active.png in Resources */,
 				5E0324701942FBB7006EEA24 /* ic_app.png in Resources */,
 				5E815EE419408CE900CEAFAB /* DisclaimerViewController.xib in Resources */,
 				5EF532581947394C00BFD255 /* HomePageVC.xib in Resources */,
-				5E9CCE9B1949B8AE006B43AE /* UserDetailsViewController.xib in Resources */,
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
 				5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */,
@@ -522,8 +548,10 @@
 				5E0951941941C8A100DC97E2 /* Reachability.m in Sources */,
 				5E815EB11940832700CEAFAB /* main.m in Sources */,
 				5E0951961941C8A100DC97E2 /* TXMLParser.m in Sources */,
+				5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */,
 				5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */,
 				5EF532571947394C00BFD255 /* HomePageVC.m in Sources */,
+				5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */,
 				5E0951981941C8A100DC97E2 /* TSearchInfo.m in Sources */,
 				5E0951871941C85B00DC97E2 /* SVProgressHUD.m in Sources */,
 			);
@@ -583,7 +611,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -601,6 +630,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -621,7 +651,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -632,6 +663,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -643,6 +675,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -662,6 +696,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/GoogleAdMob-iOS-SDK-master",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -672,6 +707,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -691,6 +727,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/GoogleAdMob-iOS-SDK-master",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -7,7 +7,10 @@
 #import "RegistrationVC.h"
 #import "HomePageVC.h"
 #import "UserDetailsViewController.h"
+#import "SVProgressHUD.h"
+#import "LoginWithFacebookVC.h"
 
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface LoginVC ()
 {
@@ -26,6 +29,8 @@
 @synthesize btnCancel,btnSubmit;
 @synthesize viewForgotPin;
 @synthesize lblQuestion,txtAnswer,btnForgotPinCancel,btnForgotPinSubmit,viewForgotQuestion;
+@synthesize imgBackGround;
+@synthesize imgvehicals;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,15 +56,17 @@
     [scrollview setScrollEnabled:YES];
     [self.scrollview setContentSize:CGSizeMake(320, 1000)];
     [self.view addSubview:self.scrollview];
-    
+//    [self.viewButtons setHidden:NO];
     CGRect frame = viewLogin.frame;
     frame.origin.x = 320;
     viewLogin.frame = frame;
+    
     viewLogin.alpha = 0;
     
     CGRect frame1 = viewButtons.frame;
     frame1.origin.x = 5;
     viewButtons.frame = frame1;
+    
     viewButtons.alpha = 1;
     
     CGRect frame2 = viewButtons.frame;
@@ -69,7 +76,7 @@
     
     CGRect frame3 = viewButtons.frame;
     frame3.origin.x = 320;
-    viewButtons.frame = frame2;
+    viewButtons.frame = frame1;
     viewForgotQuestion.alpha = 0;
     
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -88,11 +95,77 @@
     {
         NSLog(@"There IS internet connection");
     }
+    if(IsIphone5)
+    {
+        imgBackGround.frame = CGRectMake(
+                                         imgBackGround.frame.origin.x,
+                                         imgBackGround.frame.origin.y, 320,720);
+        
+        
+        
+        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,310, 270,40);
+        
+        viewButtons.frame = CGRectMake(20, 350, 283, 238);
+        viewForgotPin.frame = CGRectMake(20, 350, 283, 238);
+        viewForgotQuestion.frame = CGRectMake(20, 350, 283, 238);
+        viewLogin.frame = CGRectMake(20, 350, 283, 238);
+        
+        self.scrollview.contentSize = CGSizeMake(320, 770);
+    }
+    else
+    {
+        imgBackGround.frame = CGRectMake(
+                                         imgBackGround.frame.origin.x,
+                                         imgBackGround.frame.origin.y, 320, 680);
+        
+        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,300, 270,40);
+        
+        viewButtons.frame = CGRectMake(20, 340, 283, 238);
+        viewForgotPin.frame = CGRectMake(20, 340, 283, 238);
+        viewForgotQuestion.frame = CGRectMake(20, 340, 283, 238);
+        viewLogin.frame = CGRectMake(20, 340, 283, 238);
+        
+        self.scrollview.contentSize = CGSizeMake(320, 700);
+    }
+
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.scrollview.contentSize = CGSizeMake(320, 568+50);
+    
+    if(IsIphone5)
+    {
+        imgBackGround.frame = CGRectMake(
+                                         imgBackGround.frame.origin.x,
+                                         imgBackGround.frame.origin.y, 320,720);
+        
+  
+        
+        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,310, 270,40);
+        
+        viewButtons.frame = CGRectMake(20, 350, 283, 238);
+        viewForgotPin.frame = CGRectMake(20, 350, 283, 238);
+        viewForgotQuestion.frame = CGRectMake(20, 350, 283, 238);
+        viewLogin.frame = CGRectMake(20, 350, 283, 238);
+        
+        self.scrollview.contentSize = CGSizeMake(320, 770);
+    }
+    else
+    {
+        imgBackGround.frame = CGRectMake(
+                                         imgBackGround.frame.origin.x,
+                                         imgBackGround.frame.origin.y, 320, 680);
+        
+        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,300, 270,40);
+        
+        viewButtons.frame = CGRectMake(20, 340, 283, 238);
+        viewForgotPin.frame = CGRectMake(20, 340, 283, 238);
+        viewForgotQuestion.frame = CGRectMake(20, 340, 283, 238);
+        viewLogin.frame = CGRectMake(20, 340, 283, 238);
+        
+         self.scrollview.contentSize = CGSizeMake(320, 700);
+    }
+   
 
 }
 - (void)didReceiveMemoryWarning
@@ -138,6 +211,9 @@
     }];
     
     [_activityIndicator startAnimating]; // Show loading indicator until login is finished}
+
+//    LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
+//    [self presentViewController:vc animated:YES completion:nil];
 }
 -(IBAction)btnbtnLogin_click:(id)sender
 {
@@ -255,6 +331,8 @@
     }
     else
     {
+        appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
+        
         HomePageVC *vc = [[HomePageVC alloc]init];
         [self presentViewController:vc animated:YES completion:nil];
     }
@@ -351,27 +429,31 @@
 //    }
  if (textField==txtPin1)
     {
-        y=70;
+        y=170;
+    }
+    else if (textField == txtEmail)
+    {
+        y=170;
     }
     else if (textField==txtpin2)
     {
-        y=70;
+        y=170;
     }
     else if (textField==txtpin3)
     {
-        y=70;
+        y=170;
     }
     else if (textField==txtPint4)
     {
-        y=70;
+        y=170;
     }
     else if (textField == txtEmailIDForForgot)
     {
-        y=70;
+        y=200;
     }
     else if (textField == txtAnswer)
     {
-        y=70;
+        y=170;
     }
    
      //viewLogin.frame = CGRectMake(0, y, viewLogin.frame.size.width, viewLogin.frame.size.height);
@@ -422,29 +504,98 @@
     if(textField.tag == 1)
     {
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
-        return (newLength > 1) ? NO : YES;
+        if(newLength >1)
+        {
+            NSLog(@"no");
+            // return NO;
+            [txtPin1 resignFirstResponder];
+            [txtpin2 becomeFirstResponder];
+        }
+        else if (newLength == 0)
+        {
+            txtPin1.text = @"";
+        }
+        else
+        {
+            NSLog(@"YES");
+            
+            return YES;
+            [txtPin1 resignFirstResponder];
+            [txtpin2 becomeFirstResponder];
+        }
+        
+        // return (newLength > 1) ? NO : YES;
     }
     else if (textField.tag == 2)
     {
         NSUInteger newLength = [txtpin2.text length] + [string length] - range.length;
-        return (newLength > 1) ? NO : YES;
+        if(newLength >1)
+        {
+            NSLog(@"no");
+            [txtpin2 resignFirstResponder];
+            [txtpin3 becomeFirstResponder];
+        }
+        if(newLength == 0)
+        {
+            [txtpin2 resignFirstResponder];
+            [txtPin1 becomeFirstResponder];
+            txtpin2.text = @"";
+        }
+        else
+        {
+            [txtpin2 resignFirstResponder];
+            [txtpin3 becomeFirstResponder];
+        }
+        
     }
     else if(textField.tag == 3)
     {
         NSUInteger newLength = [txtpin3.text length] + [string length] - range.length;
-        return (newLength > 1) ? NO : YES;
+        if(newLength >1)
+        {
+            NSLog(@"no");
+            [txtpin3 resignFirstResponder];
+            [txtPint4 becomeFirstResponder];
+            //return NO;
+        }
+        if(newLength == 0)
+        {
+            [txtpin3 resignFirstResponder];
+            [txtpin2 becomeFirstResponder];
+            txtpin3.text = @"";
+        }
+        else
+        {
+            [txtpin3 resignFirstResponder];
+            [txtPint4 becomeFirstResponder];
+        }
+        
+        
     }
     else if (textField.tag == 4)
     {
         NSUInteger newLength = [txtPint4.text length] + [string length] - range.length;
-        return (newLength > 1) ? NO : YES;
+        if(newLength >1)
+        {
+            NSLog(@"no");
+            //return NO;
+        }
+        else if(newLength == 0)
+        {
+            txtPint4.text = @"";
+            [txtPint4 resignFirstResponder];
+            [txtpin3 becomeFirstResponder];
+            
+        }
+        else
+        {
+            [txtPint4 resignFirstResponder];
+        }
     }
-    else
-    {
-    
-    }
-    return 1;
+        return 1;
+
 }
+
 #pragma mark call api and chack validation
 -(BOOL)NSStringIsValidEmail:(NSString *)checkString
 {

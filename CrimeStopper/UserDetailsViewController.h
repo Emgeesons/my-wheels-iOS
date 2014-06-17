@@ -5,7 +5,9 @@
 #import "AppDelegate.h"
 
 @interface UserDetailsViewController : UITableViewController <NSURLConnectionDelegate>
-
+{
+    NSDateFormatter *dateFormatter;
+}
 // UITableView header view properties
 @property (nonatomic, strong) IBOutlet UIView *headerView;
 @property (nonatomic, strong) IBOutlet UILabel *headerNameLabel;

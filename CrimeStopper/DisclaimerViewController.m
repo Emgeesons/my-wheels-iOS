@@ -8,6 +8,7 @@
 
 #import "DisclaimerViewController.h"
 #import "LoginVC.h"
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface DisclaimerViewController ()
 
@@ -15,6 +16,8 @@
 
 @implementation DisclaimerViewController
 @synthesize btnIAgree;
+@synthesize scroll;
+@synthesize imgBackGround;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +32,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    if(IsIphone5)
+    {
+        imgBackGround.frame = CGRectMake(
+                                     imgBackGround.frame.origin.x,
+                                     imgBackGround.frame.origin.y, 303, 1000);
+        [scroll setContentSize:CGSizeMake(320, 500)];
+    }
+    else
+    {
+        imgBackGround.frame = CGRectMake(
+                                         imgBackGround.frame.origin.x,
+                                         imgBackGround.frame.origin.y, 303, 630);
+        [scroll setContentSize:CGSizeMake(320, 500)];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "LoginVC.h"
 
-@interface DisclaimerViewController : UIViewController
+@interface DisclaimerViewController : UIViewController<UIScrollViewDelegate>
 
 @property (nonatomic,retain) IBOutlet UIButton *btnIAgree;
+@property (nonatomic,retain) IBOutlet UIScrollView *scroll;
+@property (nonatomic,retain) IBOutlet UIImageView *imgBackGround;
 
 -(IBAction)btnIAgree_click:(id)sender;
 

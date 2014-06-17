@@ -33,6 +33,8 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnForgotPinCancel;
 @property (nonatomic,retain) IBOutlet UIView *viewForgotQuestion;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic,retain) IBOutlet UIImageView *imgBackGround;
+@property (nonatomic,retain) IBOutlet UIImageView *imgvehicals;
 
 - (IBAction)loginButtonTouchHandler:(id)sender;
 
