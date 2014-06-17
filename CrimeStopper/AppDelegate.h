@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "PPRevealSideViewController.h"
 
 @class HomeScreenVC;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,PPRevealSideViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) HomeScreenVC *HomeScreenVC;
@@ -25,4 +26,6 @@
 @property (nonatomic,retain) NSString *strFacebookPhotoURL;
 @property (nonatomic,retain) NSString *strFacebookEmail;
 @property (nonatomic,retain) NSString *strOldPin;
+@property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
+
 @end

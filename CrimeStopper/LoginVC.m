@@ -9,6 +9,7 @@
 #import "UserDetailsViewController.h"
 #import "SVProgressHUD.h"
 #import "LoginWithFacebookVC.h"
+//#import "PPRevealSideViewController.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -16,7 +17,7 @@
 {
     AppDelegate *appdelegate;
 }
-
+//@property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
 @end
 
 @implementation LoginVC
@@ -45,7 +46,7 @@
 {
     [super viewDidLoad];
     self.title = @"Facebook Profile";
-    
+    self.navigationController.navigationBarHidden = YES;
     // Check if user is cached and linked to Facebook, if so, bypass login
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
@@ -177,7 +178,8 @@
 #pragma mark button click event
 -(IBAction)btnbtnHomepage_click:(id)sender
 {
-
+    HomePageVC *vc = [[HomePageVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)loginButtonTouchHandler:(id)sender
 {
@@ -333,8 +335,20 @@
     {
         appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
         
-        HomePageVC *vc = [[HomePageVC alloc]init];
-        [self presentViewController:vc animated:YES completion:nil];
+//        HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
+//        [self presentViewController:obj animated:YES completion:nil];
+        HomePageVC *obj=[[HomePageVC alloc]init];
+        //        OvulationTrackerCalViewController *obj=[[OvulationTrackerCalViewController alloc]init];
+        [self.navigationController pushViewController:obj animated:YES];
+        
+        /*HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
+        //  self.HomePageVC = obj;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        self.revealSideViewController = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
+        [self.revealSideViewController setDirectionsToShowBounce:PPRevealSideDirectionNone];
+        [self.revealSideViewController setPanInteractionsWhenClosed:PPRevealSideInteractionContentView | PPRevealSideInteractionNavigationBar];
+        _revealSideViewController.delegate = self;
+        [self presentViewController:obj animated:YES completion:nil];*/
     }
     [SVProgressHUD dismiss];
 }

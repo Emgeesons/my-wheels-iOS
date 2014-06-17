@@ -60,7 +60,7 @@ int intques;
     [self.gender setImage:[[UIImage imageNamed:@"female_inactive.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:1];
     strGender = @"male";
     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
-    
+    self.navigationController.navigationBarHidden = YES;
     //set value in array
     [self.view addSubview:viewPickerview];
     [self.viewPickerview addSubview:pickerDateOfBirth];

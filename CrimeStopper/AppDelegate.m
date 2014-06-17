@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "HomeScreenVC.h"
 #import <Parse/Parse.h>
+#import "HomePageVC.h"
 
 @implementation AppDelegate
 @synthesize intud;
@@ -32,11 +33,70 @@
     // Override point for customization after application launch.
     self.HomeScreenVC = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
     self.window.rootViewController = self.HomeScreenVC;
-    [self.window makeKeyAndVisible];
     
-   
+    HomeScreenVC *obj = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
+    self.HomeScreenVC = obj;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+    self.revealSideViewController = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
+    [self.revealSideViewController setDirectionsToShowBounce:PPRevealSideDirectionNone];
+    [self.revealSideViewController setPanInteractionsWhenClosed:PPRevealSideInteractionContentView | PPRevealSideInteractionNavigationBar];
+    self.window.rootViewController = self.revealSideViewController;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+//    self.window.rootViewController = self.HomeScreenVC;
 
     return YES;
+}
+
+#pragma mark - PPRevealSideViewController delegate
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller willPushController:(UIViewController *)pushedController {
+    PPRSLog(@"%@", pushedController);
+    //    [UIView animateWithDuration:0.3
+    //                     animations:^{
+    //                         _iOS7UnderStatusBar.alpha = 1.0;
+    //                     }];
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPushController:(UIViewController *)pushedController {
+    PPRSLog(@"%@", pushedController);
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller willPopToController:(UIViewController *)centerController {
+    PPRSLog(@"%@", centerController);
+    //    [UIView animateWithDuration:0.3
+    //                     animations:^{
+    //                         _iOS7UnderStatusBar.alpha = 0.0;
+    //                     }];
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPopToController:(UIViewController *)centerController {
+    PPRSLog(@"%@", centerController);
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didChangeCenterController:(UIViewController *)newCenterController {
+    PPRSLog(@"%@", newCenterController);
+}
+
+- (BOOL)pprevealSideViewController:(PPRevealSideViewController *)controller shouldDeactivateDirectionGesture:(UIGestureRecognizer *)gesture forView:(UIView *)view {
+    return NO;
+}
+
+- (PPRevealSideDirection)pprevealSideViewController:(PPRevealSideViewController *)controller directionsAllowedForPanningOnView:(UIView *)view {
+    if ([view isKindOfClass:NSClassFromString(@"UIWebBrowserView")]) return PPRevealSideDirectionLeft | PPRevealSideDirectionRight;
+    
+    return PPRevealSideDirectionLeft | PPRevealSideDirectionRight | PPRevealSideDirectionTop | PPRevealSideDirectionBottom;
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didManuallyMoveCenterControllerWithOffset:(CGFloat)offset
+{
+}
+
+#pragma mark - Unloading tests
+
+- (void)unloadRevealFromMemory {
+    self.revealSideViewController = nil;
+    self.window.rootViewController = nil;
 }
 
 // App switching methods to support Facebook Single Sign-On.

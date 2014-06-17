@@ -16,7 +16,7 @@
 
 @implementation DisclaimerViewController
 @synthesize btnIAgree;
-@synthesize scroll;
+//@synthesize scroll;
 @synthesize imgBackGround;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,20 +31,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view from its nib.
     if(IsIphone5)
     {
         imgBackGround.frame = CGRectMake(
                                      imgBackGround.frame.origin.x,
                                      imgBackGround.frame.origin.y, 303, 1000);
-        [scroll setContentSize:CGSizeMake(320, 500)];
+        [_scroll setContentSize:CGSizeMake(320, 500)];
     }
     else
     {
         imgBackGround.frame = CGRectMake(
                                          imgBackGround.frame.origin.x,
                                          imgBackGround.frame.origin.y, 303, 630);
-        [scroll setContentSize:CGSizeMake(320, 500)];
+        [_scroll setContentSize:CGSizeMake(320, 500)];
     }
     
 }
@@ -63,6 +64,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     LoginVC *vc = [[LoginVC alloc]init];
-    [self presentViewController:vc animated:YES completion:nil];
+//    [self presentViewController:vc animated:YES completion:nil];
+     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

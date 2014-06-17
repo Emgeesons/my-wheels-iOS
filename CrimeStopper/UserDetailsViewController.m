@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.navigationController.navigationBarHidden = YES;
 //    self.title = @"Facebook Profile";
 //    self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
 //    

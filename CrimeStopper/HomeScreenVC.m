@@ -34,7 +34,7 @@
     
     timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(callDisclaimer:) userInfo:nil repeats:NO];
     appdelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
+    self.navigationController.navigationBarHidden = YES;
     
     
     // Do any additional setup after loading the view from its nib.
@@ -49,13 +49,15 @@
     {
         NSLog(@"second time... ");
         LoginVC *vc = [[LoginVC alloc]init];
-        [self presentViewController:vc animated:YES completion:nil];
+//        [self presentViewController:vc animated:YES completion:nil];
+        [self.navigationController pushViewController:vc animated:YES];
        
     }
     else
     {
         DisclaimerViewController *vc = [[DisclaimerViewController alloc]init];
-        [self presentViewController:vc animated:YES completion:nil];
+//        [self presentViewController:vc animated:YES completion:nil];
+         [self.navigationController pushViewController:vc animated:YES];
     }
     
 }

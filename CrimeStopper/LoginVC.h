@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface LoginVC : UIViewController <UITextFieldDelegate,UIScrollViewDelegate>
+@interface LoginVC : UIViewController <UITextFieldDelegate,UIScrollViewDelegate, PPRevealSideViewControllerDelegate>
 
 @property (nonatomic,retain) IBOutlet UIButton *btnHomePage;
 @property (nonatomic,retain) IBOutlet UIButton *btnFacebook;

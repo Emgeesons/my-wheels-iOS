@@ -40,6 +40,7 @@ int intques;
 {
     [super viewDidLoad];
     [viewSecurityQuestion setHidden:YES];
+    self.navigationController.navigationBarHidden = YES;
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     arrSecurityQuestion = [[NSMutableArray alloc]init];
     [arrSecurityQuestion addObject:@"Security Questions"];
