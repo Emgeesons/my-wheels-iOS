@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "NavigationHomeVC.h"
 #import "PPRevealSideViewController.h"
+#import "AboutUsVC.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -50,8 +51,8 @@
         //scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
        // self.scrollview.contentSize = CGSizeMake(320, 800);
         _map.frame = CGRectMake(0,20, 320, 270);
-        _btnParking.frame = CGRectMake(1, 170, 150, 60);
-        _btnVehicles.frame = CGRectMake(152, 170, 150, 60);
+        _btnParking.frame = CGRectMake(1, 210, 150, 60);
+        _btnVehicles.frame = CGRectMake(152, 210, 150, 60);
         viewReport.frame = CGRectMake(0, 230, 320, 60);
         viewNewReport.frame = CGRectMake(0, 290, 320, 60);
         viewUpdates.frame = CGRectMake(0, 350, 320, 60);
@@ -60,13 +61,13 @@
     }
     else
     {
-        _map.frame = CGRectMake(0,20, 320, 270);
-        _btnParking.frame = CGRectMake(1, 170, 150, 60);
-        _btnVehicles.frame = CGRectMake(152, 170, 150, 60);
-        viewReport.frame = CGRectMake(0, 230, 320, 60);
-        viewNewReport.frame = CGRectMake(0, 290, 320, 60);
-        viewUpdates.frame = CGRectMake(0, 350, 320, 60);
-        viewUpdates.frame = CGRectMake(0, 410, 320, 60);
+        _map.frame = CGRectMake(0,70, 320, 270);
+        _btnParking.frame = CGRectMake(1, 120, 150, 55);
+        _btnVehicles.frame = CGRectMake(152, 120, 150, 55);
+        viewReport.frame = CGRectMake(0, 230, 320, 55);
+        viewNewReport.frame = CGRectMake(0, 290, 320, 55);
+        viewUpdates.frame = CGRectMake(0, 350, 320, 55);
+        viewUpdates.frame = CGRectMake(0, 410, 320, 55);
 //        scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
         
 //        self.scrollview.contentSize = CGSizeMake(320, 700);
@@ -88,4 +89,10 @@
     [self.revealSideViewController pushViewController:obj onDirection:PPRevealSideDirectionLeft withOffset:50 animated:YES];
 
 }
+-(IBAction)btnAboutUs_Click:(id)sender
+{
+    AboutUsVC *vc = [[AboutUsVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 @end

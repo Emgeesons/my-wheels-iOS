@@ -16,6 +16,9 @@
 @property (nonatomic,retain) IBOutlet UIView *viewReport,*viewNewReport,*viewAboutUs,*viewUpdates;
 @property (nonatomic,retain) IBOutlet MKMapView *map;
 @property (nonatomic,retain) IBOutlet UIButton *btnParking,*btnVehicles;
+@property (nonatomic,retain) IBOutlet UIButton *btnAboutUs;
+
 -(IBAction)btnNav_click:(id)sender;
+-(IBAction)btnAboutUs_Click:(id)sender;
 
 @end

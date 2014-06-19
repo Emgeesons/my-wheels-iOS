@@ -22,7 +22,6 @@
 		5E04AF1119500608003F6CD4 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF0F19500608003F6CD4 /* TableViewCell.xib */; };
 		5E04AF4D19505CBD003F6CD4 /* default_profile_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4119505CBD003F6CD4 /* default_profile_home.png */; };
 		5E04AF4E19505CBD003F6CD4 /* ic_about_us.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4219505CBD003F6CD4 /* ic_about_us.png */; };
-		5E04AF4F19505CBD003F6CD4 /* ic_drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4319505CBD003F6CD4 /* ic_drawer.png */; };
 		5E04AF5019505CBD003F6CD4 /* ic_file_new_report.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4419505CBD003F6CD4 /* ic_file_new_report.png */; };
 		5E04AF5119505CBD003F6CD4 /* ic_nav_emergency_numbers.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4519505CBD003F6CD4 /* ic_nav_emergency_numbers.png */; };
 		5E04AF5219505CBD003F6CD4 /* ic_nav_feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4619505CBD003F6CD4 /* ic_nav_feedback.png */; };
@@ -33,7 +32,6 @@
 		5E04AF5719505CBD003F6CD4 /* ic_report_sighting.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4B19505CBD003F6CD4 /* ic_report_sighting.png */; };
 		5E04AF5819505CBD003F6CD4 /* ic_updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4C19505CBD003F6CD4 /* ic_updates.png */; };
 		5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
-		5E095170194173A700DC97E2 /* login_bg(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09516F194173A700DC97E2 /* login_bg(5).png */; };
 		5E095173194177E400DC97E2 /* vehicle_graphic(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E095172194177E400DC97E2 /* vehicle_graphic(5).png */; };
 		5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */; };
 		5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517519417AEF00DC97E2 /* btn_login(5).png */; };
@@ -81,6 +79,30 @@
 		5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */ = {isa = PBXBuildFile; fileRef = 5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */; };
 		5E9CD34A1949BD85006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD3491949BD85006B43AE /* FacebookSDK.framework */; };
 		5E9CD34C1949BDA5006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */; };
+		5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F019514BFD009550A1 /* ic_drawer.png */; };
+		5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F319514F36009550A1 /* AboutUsVC.m */; };
+		5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F419514F36009550A1 /* AboutUsVC.xib */; };
+		5EE8C8FD19515089009550A1 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F819515089009550A1 /* bullet.png */; };
+		5EE8C8FE19515089009550A1 /* ic_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F919515089009550A1 /* ic_call.png */; };
+		5EE8C8FF19515089009550A1 /* ic_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8FA19515089009550A1 /* ic_map.png */; };
+		5EE8C90019515089009550A1 /* im_about_us.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8FB19515089009550A1 /* im_about_us.png */; };
+		5EE8C90119515089009550A1 /* seperator.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8FC19515089009550A1 /* seperator.png */; };
+		5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C90319517553009550A1 /* EmergencyNoVC.m */; };
+		5EE8C90619517553009550A1 /* EmergencyNoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90419517553009550A1 /* EmergencyNoVC.xib */; };
+		5EE8C90D19518BAB009550A1 /* ic_police_assistance.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90819518BAB009550A1 /* ic_police_assistance.png */; };
+		5EE8C90E19518BAB009550A1 /* ic_raa.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90919518BAB009550A1 /* ic_raa.png */; };
+		5EE8C90F19518BAB009550A1 /* ic_suburban_taxi.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90A19518BAB009550A1 /* ic_suburban_taxi.png */; };
+		5EE8C91019518BAB009550A1 /* ic_tow_truck.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90B19518BAB009550A1 /* ic_tow_truck.png */; };
+		5EE8C91119518BAB009550A1 /* phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90C19518BAB009550A1 /* phone.png */; };
+		5EE8C9161951AAEB009550A1 /* FeedBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C9141951AAEB009550A1 /* FeedBackVC.m */; };
+		5EE8C9171951AAEB009550A1 /* FeedBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C9151951AAEB009550A1 /* FeedBackVC.xib */; };
+		5EE8C91D1951AFFA009550A1 /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C9191951AFFA009550A1 /* star_highlighted@2x.png */; };
+		5EE8C91E1951AFFA009550A1 /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C91A1951AFFA009550A1 /* star_highlighted.png */; };
+		5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C91B1951AFFA009550A1 /* star@2x.png */; };
+		5EE8C9201951AFFA009550A1 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C91C1951AFFA009550A1 /* star.png */; };
+		5EF2C4E81952FA9E00781789 /* demoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2C4E61952FA9E00781789 /* demoViewController.m */; };
+		5EF2C4E91952FA9E00781789 /* demoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF2C4E71952FA9E00781789 /* demoViewController.xib */; };
+		5EF2C4EB1953127900781789 /* login_bg(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5EF2C4EA1953127900781789 /* login_bg(5).png */; };
 		5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF4DF3C194AF66C00061EF3 /* LoginWithFacebookVC.m */; };
 		5EF4DF3F194AF66C00061EF3 /* LoginWithFacebookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF4DF3D194AF66C00061EF3 /* LoginWithFacebookVC.xib */; };
 		5EF532571947394C00BFD255 /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF532551947394C00BFD255 /* HomePageVC.m */; };
@@ -117,7 +139,6 @@
 		5E04AF0F19500608003F6CD4 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		5E04AF4119505CBD003F6CD4 /* default_profile_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_home.png; sourceTree = "<group>"; };
 		5E04AF4219505CBD003F6CD4 /* ic_about_us.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_about_us.png; sourceTree = "<group>"; };
-		5E04AF4319505CBD003F6CD4 /* ic_drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer.png; sourceTree = "<group>"; };
 		5E04AF4419505CBD003F6CD4 /* ic_file_new_report.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_file_new_report.png; sourceTree = "<group>"; };
 		5E04AF4519505CBD003F6CD4 /* ic_nav_emergency_numbers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_emergency_numbers.png; sourceTree = "<group>"; };
 		5E04AF4619505CBD003F6CD4 /* ic_nav_feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_feedback.png; sourceTree = "<group>"; };
@@ -128,7 +149,6 @@
 		5E04AF4B19505CBD003F6CD4 /* ic_report_sighting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_report_sighting.png; sourceTree = "<group>"; };
 		5E04AF4C19505CBD003F6CD4 /* ic_updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_updates.png; sourceTree = "<group>"; };
 		5E04AF59195066AF003F6CD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E09516F194173A700DC97E2 /* login_bg(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_bg(5).png"; sourceTree = "<group>"; };
 		5E095172194177E400DC97E2 /* vehicle_graphic(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle_graphic(5).png"; sourceTree = "<group>"; };
 		5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login_with_facebook(5).png"; sourceTree = "<group>"; };
 		5E09517519417AEF00DC97E2 /* btn_login(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login(5).png"; sourceTree = "<group>"; };
@@ -192,6 +212,34 @@
 		5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
 		5E9CD3491949BD85006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS/FacebookSDK.framework"; sourceTree = "<group>"; };
+		5EE8C8F019514BFD009550A1 /* ic_drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer.png; sourceTree = "<group>"; };
+		5EE8C8F219514F36009550A1 /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
+		5EE8C8F319514F36009550A1 /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
+		5EE8C8F419514F36009550A1 /* AboutUsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
+		5EE8C8F819515089009550A1 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
+		5EE8C8F919515089009550A1 /* ic_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_call.png; sourceTree = "<group>"; };
+		5EE8C8FA19515089009550A1 /* ic_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_map.png; sourceTree = "<group>"; };
+		5EE8C8FB19515089009550A1 /* im_about_us.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_about_us.png; sourceTree = "<group>"; };
+		5EE8C8FC19515089009550A1 /* seperator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seperator.png; sourceTree = "<group>"; };
+		5EE8C90219517553009550A1 /* EmergencyNoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyNoVC.h; sourceTree = "<group>"; };
+		5EE8C90319517553009550A1 /* EmergencyNoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyNoVC.m; sourceTree = "<group>"; };
+		5EE8C90419517553009550A1 /* EmergencyNoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmergencyNoVC.xib; sourceTree = "<group>"; };
+		5EE8C90819518BAB009550A1 /* ic_police_assistance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_police_assistance.png; sourceTree = "<group>"; };
+		5EE8C90919518BAB009550A1 /* ic_raa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_raa.png; sourceTree = "<group>"; };
+		5EE8C90A19518BAB009550A1 /* ic_suburban_taxi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_suburban_taxi.png; sourceTree = "<group>"; };
+		5EE8C90B19518BAB009550A1 /* ic_tow_truck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_tow_truck.png; sourceTree = "<group>"; };
+		5EE8C90C19518BAB009550A1 /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phone.png; sourceTree = "<group>"; };
+		5EE8C9131951AAEB009550A1 /* FeedBackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackVC.h; sourceTree = "<group>"; };
+		5EE8C9141951AAEB009550A1 /* FeedBackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackVC.m; sourceTree = "<group>"; };
+		5EE8C9151951AAEB009550A1 /* FeedBackVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedBackVC.xib; sourceTree = "<group>"; };
+		5EE8C9191951AFFA009550A1 /* star_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted@2x.png"; sourceTree = "<group>"; };
+		5EE8C91A1951AFFA009550A1 /* star_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_highlighted.png; sourceTree = "<group>"; };
+		5EE8C91B1951AFFA009550A1 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		5EE8C91C1951AFFA009550A1 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		5EF2C4E51952FA9E00781789 /* demoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = demoViewController.h; sourceTree = "<group>"; };
+		5EF2C4E61952FA9E00781789 /* demoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = demoViewController.m; sourceTree = "<group>"; };
+		5EF2C4E71952FA9E00781789 /* demoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = demoViewController.xib; sourceTree = "<group>"; };
+		5EF2C4EA1953127900781789 /* login_bg(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_bg(5).png"; sourceTree = "<group>"; };
 		5EF4DF3B194AF66C00061EF3 /* LoginWithFacebookVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWithFacebookVC.h; sourceTree = "<group>"; };
 		5EF4DF3C194AF66C00061EF3 /* LoginWithFacebookVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithFacebookVC.m; sourceTree = "<group>"; };
 		5EF4DF3D194AF66C00061EF3 /* LoginWithFacebookVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginWithFacebookVC.xib; sourceTree = "<group>"; };
@@ -254,9 +302,9 @@
 		5E04AEFB194FFA3D003F6CD4 /* home page */ = {
 			isa = PBXGroup;
 			children = (
+				5EE8C8F019514BFD009550A1 /* ic_drawer.png */,
 				5E04AF4119505CBD003F6CD4 /* default_profile_home.png */,
 				5E04AF4219505CBD003F6CD4 /* ic_about_us.png */,
-				5E04AF4319505CBD003F6CD4 /* ic_drawer.png */,
 				5E04AF4419505CBD003F6CD4 /* ic_file_new_report.png */,
 				5E04AF4519505CBD003F6CD4 /* ic_nav_emergency_numbers.png */,
 				5E04AF4619505CBD003F6CD4 /* ic_nav_feedback.png */,
@@ -296,8 +344,8 @@
 				5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */,
 				5E09517519417AEF00DC97E2 /* btn_login(5).png */,
 				5E09517619417AEF00DC97E2 /* btn_register(5).png */,
-				5E09516F194173A700DC97E2 /* login_bg(5).png */,
 				5E095172194177E400DC97E2 /* vehicle_graphic(5).png */,
+				5EF2C4EA1953127900781789 /* login_bg(5).png */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -463,6 +511,18 @@
 				5E04AF04194FFD7E003F6CD4 /* NavigationHomeVC.h */,
 				5E04AF05194FFD7E003F6CD4 /* NavigationHomeVC.m */,
 				5E04AF06194FFD7E003F6CD4 /* NavigationHomeVC.xib */,
+				5EE8C8F219514F36009550A1 /* AboutUsVC.h */,
+				5EE8C8F319514F36009550A1 /* AboutUsVC.m */,
+				5EE8C8F419514F36009550A1 /* AboutUsVC.xib */,
+				5EE8C90219517553009550A1 /* EmergencyNoVC.h */,
+				5EE8C90319517553009550A1 /* EmergencyNoVC.m */,
+				5EE8C90419517553009550A1 /* EmergencyNoVC.xib */,
+				5EE8C9131951AAEB009550A1 /* FeedBackVC.h */,
+				5EE8C9141951AAEB009550A1 /* FeedBackVC.m */,
+				5EE8C9151951AAEB009550A1 /* FeedBackVC.xib */,
+				5EF2C4E51952FA9E00781789 /* demoViewController.h */,
+				5EF2C4E61952FA9E00781789 /* demoViewController.m */,
+				5EF2C4E71952FA9E00781789 /* demoViewController.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -470,6 +530,9 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5EE8C9181951AFE0009550A1 /* Feedback */,
+				5EE8C90719518AD7009550A1 /* Emergency Number */,
+				5EE8C8F719515032009550A1 /* About Us */,
 				5E04AEFB194FFA3D003F6CD4 /* home page */,
 				5E0324671942FBA2006EEA24 /* Registration */,
 				5E095171194177C200DC97E2 /* login */,
@@ -478,6 +541,41 @@
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		5EE8C8F719515032009550A1 /* About Us */ = {
+			isa = PBXGroup;
+			children = (
+				5EE8C8F819515089009550A1 /* bullet.png */,
+				5EE8C8F919515089009550A1 /* ic_call.png */,
+				5EE8C8FA19515089009550A1 /* ic_map.png */,
+				5EE8C8FB19515089009550A1 /* im_about_us.png */,
+				5EE8C8FC19515089009550A1 /* seperator.png */,
+			);
+			name = "About Us";
+			sourceTree = "<group>";
+		};
+		5EE8C90719518AD7009550A1 /* Emergency Number */ = {
+			isa = PBXGroup;
+			children = (
+				5EE8C90819518BAB009550A1 /* ic_police_assistance.png */,
+				5EE8C90919518BAB009550A1 /* ic_raa.png */,
+				5EE8C90A19518BAB009550A1 /* ic_suburban_taxi.png */,
+				5EE8C90B19518BAB009550A1 /* ic_tow_truck.png */,
+				5EE8C90C19518BAB009550A1 /* phone.png */,
+			);
+			name = "Emergency Number";
+			sourceTree = "<group>";
+		};
+		5EE8C9181951AFE0009550A1 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				5EE8C9191951AFFA009550A1 /* star_highlighted@2x.png */,
+				5EE8C91A1951AFFA009550A1 /* star_highlighted.png */,
+				5EE8C91B1951AFFA009550A1 /* star@2x.png */,
+				5EE8C91C1951AFFA009550A1 /* star.png */,
+			);
+			name = Feedback;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -556,20 +654,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EE8C9171951AAEB009550A1 /* FeedBackVC.xib in Resources */,
+				5EE8C91019518BAB009550A1 /* ic_tow_truck.png in Resources */,
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
 				5E03247719433871006EEA24 /* female_inactive.png in Resources */,
 				5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */,
+				5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */,
+				5EE8C8FF19515089009550A1 /* ic_map.png in Resources */,
 				5E815EAF1940832700CEAFAB /* InfoPlist.strings in Resources */,
 				5E095173194177E400DC97E2 /* vehicle_graphic(5).png in Resources */,
+				5EE8C8FE19515089009550A1 /* ic_call.png in Resources */,
 				5E03247B1943387B006EEA24 /* female_active.png in Resources */,
+				5EF2C4EB1953127900781789 /* login_bg(5).png in Resources */,
+				5EE8C90019515089009550A1 /* im_about_us.png in Resources */,
 				5E04AF5119505CBD003F6CD4 /* ic_nav_emergency_numbers.png in Resources */,
 				5E04AF4E19505CBD003F6CD4 /* ic_about_us.png in Resources */,
 				5E04AF5019505CBD003F6CD4 /* ic_file_new_report.png in Resources */,
 				5E815EED194095D400CEAFAB /* i_agree.png in Resources */,
-				5E095170194173A700DC97E2 /* login_bg(5).png in Resources */,
 				5EF4DF3F194AF66C00061EF3 /* LoginWithFacebookVC.xib in Resources */,
 				5E815EDD1940859F00CEAFAB /* HomeScreenVC.xib in Resources */,
+				5EE8C90E19518BAB009550A1 /* ic_raa.png in Resources */,
 				5E04AF5519505CBD003F6CD4 /* ic_nav_rate_us.png in Resources */,
 				5E04AF5719505CBD003F6CD4 /* ic_report_sighting.png in Resources */,
 				5E04AF5819505CBD003F6CD4 /* ic_updates.png in Resources */,
@@ -577,23 +682,34 @@
 				5E03247919433871006EEA24 /* male_inactive.png in Resources */,
 				5E09517B19417C9B00DC97E2 /* login_btn_bg.png in Resources */,
 				5E04AF4D19505CBD003F6CD4 /* default_profile_home.png in Resources */,
-				5E04AF4F19505CBD003F6CD4 /* ic_drawer.png in Resources */,
+				5EF2C4E91952FA9E00781789 /* demoViewController.xib in Resources */,
 				5E04AF1119500608003F6CD4 /* TableViewCell.xib in Resources */,
+				5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */,
 				5E04AF08194FFD7E003F6CD4 /* NavigationHomeVC.xib in Resources */,
+				5EE8C9201951AFFA009550A1 /* star.png in Resources */,
+				5EE8C90D19518BAB009550A1 /* ic_police_assistance.png in Resources */,
 				5E04AF5419505CBD003F6CD4 /* ic_nav_logout.png in Resources */,
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
+				5EE8C91119518BAB009550A1 /* phone.png in Resources */,
 				5E815EB71940832700CEAFAB /* Images.xcassets in Resources */,
 				5E04AF5619505CBD003F6CD4 /* ic_nav_share_app.png in Resources */,
 				5E09517919417AEF00DC97E2 /* btn_register(5).png in Resources */,
 				5E03247819433871006EEA24 /* male_active.png in Resources */,
+				5EE8C90119515089009550A1 /* seperator.png in Resources */,
 				5E0324701942FBB7006EEA24 /* ic_app.png in Resources */,
+				5EE8C90619517553009550A1 /* EmergencyNoVC.xib in Resources */,
 				5E815EE419408CE900CEAFAB /* DisclaimerViewController.xib in Resources */,
 				5E04AF5219505CBD003F6CD4 /* ic_nav_feedback.png in Resources */,
 				5EF532581947394C00BFD255 /* HomePageVC.xib in Resources */,
+				5EE8C90F19518BAB009550A1 /* ic_suburban_taxi.png in Resources */,
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
+				5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */,
+				5EE8C8FD19515089009550A1 /* bullet.png in Resources */,
 				5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */,
+				5EE8C91D1951AFFA009550A1 /* star_highlighted@2x.png in Resources */,
 				5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */,
+				5EE8C91E1951AFFA009550A1 /* star_highlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,12 +736,16 @@
 				5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */,
 				5E9CCE9A1949B8AE006B43AE /* UserDetailsViewController.m in Sources */,
 				5E04AF07194FFD7E003F6CD4 /* NavigationHomeVC.m in Sources */,
+				5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */,
 				5E0951941941C8A100DC97E2 /* Reachability.m in Sources */,
 				5E815EB11940832700CEAFAB /* main.m in Sources */,
+				5EF2C4E81952FA9E00781789 /* demoViewController.m in Sources */,
 				5E0951961941C8A100DC97E2 /* TXMLParser.m in Sources */,
+				5EE8C9161951AAEB009550A1 /* FeedBackVC.m in Sources */,
 				5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */,
 				5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */,
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
+				5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */,
 				5EF532571947394C00BFD255 /* HomePageVC.m in Sources */,
 				5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */,
 				5E0951981941C8A100DC97E2 /* TSearchInfo.m in Sources */,

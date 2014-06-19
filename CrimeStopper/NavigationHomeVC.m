@@ -8,7 +8,11 @@
 
 #import "NavigationHomeVC.h"
 #import "TableViewCell.h"
-
+#import "EmergencyNoVC.h"
+#import "PPRevealSideViewController.h"
+#import "FeedBackVC.h"
+#import "HomePageVC.h"
+#import "demoViewController.h"
 @interface NavigationHomeVC ()
 
 @end
@@ -45,7 +49,7 @@
 #pragma mark - TableView Methods...
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 70;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -53,6 +57,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *simpleTableIdentifier = @"TableViewCell";
     TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil)
@@ -73,7 +78,7 @@
     }
     else if (indexPath.row == 4)
     {
-        UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0,325, 320, 1)];
+        UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0,351, 320, 1)];
         [lbl setBackgroundColor:[UIColor whiteColor]];
         [_tblNavigation addSubview:lbl];
     }
@@ -81,12 +86,60 @@
     {
     
     }
+    // [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     
   //  [cell.imgList setImage:[UIImage imageNamed:[arrImage objectAtIndex:[indexPath row]]]];
    
      
    // cell.lblDuration.text = [NSString stringWithFormat:@"%@",[DurationArray objectAtIndex:[indexPath row]]];
     return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0)
+    {
+        HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+        [self.revealSideViewController popViewControllerAnimated:YES];
+
+    }
+    else if (indexPath.row == 1)
+    {
+        EmergencyNoVC *obj = [[EmergencyNoVC alloc] initWithNibName:@"EmergencyNoVC" bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+        [self.revealSideViewController popViewControllerAnimated:YES];
+
+    }
+    else if (indexPath.row == 2)
+    {
+        FeedBackVC *obj = [[FeedBackVC alloc] initWithNibName:@"FeedBackVC" bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+        [self.revealSideViewController popViewControllerAnimated:YES];
+    }
+    else if (indexPath.row == 3)
+    {
+        demoViewController *obj = [[demoViewController alloc] initWithNibName:@"demoViewController" bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+        [self.revealSideViewController popViewControllerAnimated:YES];
+    }
+    else if (indexPath.row == 4)
+    {
+    
+    }
+    else if (indexPath.row == 5)
+    {
+    
+    }
+    else
+    {
+    
+    }
+    
+    
 }
 
 @end

@@ -96,7 +96,7 @@
     {
         NSLog(@"There IS internet connection");
     }
-    if(IsIphone5)
+   /* if(IsIphone5)
     {
         imgBackGround.frame = CGRectMake(
                                          imgBackGround.frame.origin.x,
@@ -127,14 +127,14 @@
         viewLogin.frame = CGRectMake(20, 340, 283, 238);
         
         self.scrollview.contentSize = CGSizeMake(320, 700);
-    }
+    }*/
 
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if(IsIphone5)
+   /* if(IsIphone5)
     {
         imgBackGround.frame = CGRectMake(
                                          imgBackGround.frame.origin.x,
@@ -166,7 +166,7 @@
         
          self.scrollview.contentSize = CGSizeMake(320, 700);
     }
-   
+   */
 
 }
 - (void)didReceiveMemoryWarning
