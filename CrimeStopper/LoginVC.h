@@ -10,6 +10,9 @@
 #import "AppDelegate.h"
 
 @interface LoginVC : UIViewController <UITextFieldDelegate,UIScrollViewDelegate, PPRevealSideViewControllerDelegate>
+{
+     UITextField *activeTextField;
+}
 
 @property (nonatomic,retain) IBOutlet UIButton *btnHomePage;
 @property (nonatomic,retain) IBOutlet UIButton *btnFacebook;
@@ -35,6 +38,11 @@
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,retain) IBOutlet UIImageView *imgBackGround;
 @property (nonatomic,retain) IBOutlet UIImageView *imgvehicals;
+@property (nonatomic,retain) IBOutlet UIImageView *imgView,*imgView1,*imgView2,*imgView3;
+@property (nonatomic,retain) IBOutlet UIButton *btnSkiptoHome;
+@property (nonatomic,retain) IBOutlet UIButton *btnCancel1;
+@property (nonatomic,retain) IBOutlet UIButton *btnForgotPin;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 
 - (IBAction)loginButtonTouchHandler:(id)sender;
 
@@ -46,7 +54,14 @@
 -(IBAction)btnCancel_click:(id)sender;
 -(IBAction)btnForgetPin_click:(id)sender;
 -(IBAction)btnForgotSbmit_click:(id)sender;
+-(IBAction)btnForgotCancel11_click:(id)sender;
+
 -(IBAction)btnForgotCancel_click:(id)sender;
 -(IBAction)btnForgotPinSubmit_click:(id)sender;
+-(IBAction)btnForgotPinSubmit11_click:(id)sender;
+
 -(IBAction)btnForgotPinCancel_click:(id)sender;
+- (IBAction)btnMinimize_Click:(id)sender;
+- (IBAction)btnNext_Click:(id)sender;
+- (IBAction)btnPreviuse_Click:(id)sender;
 @end

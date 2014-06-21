@@ -14,6 +14,7 @@
                 <outlet property="scrollview" destination="4pt-ri-kR5" id="RNp-wl-hHk"/>
                 <outlet property="switchbtn" destination="x8r-zS-edw" id="osM-bh-cVz"/>
                 <outlet property="tblSecurityQuestion" destination="u2g-YD-PsS" id="Woa-3W-Auu"/>
+                <outlet property="toolbar" destination="few-gU-gBv" id="pCF-6G-kHx"/>
                 <outlet property="txtAnswer" destination="TpK-YB-t0Z" id="EtT-5I-jk7"/>
                 <outlet property="txtDateOfBirth" destination="vlW-86-VQY" id="G8n-Kf-sG4"/>
                 <outlet property="txtEmailAddress" destination="es6-Rf-gSS" id="d0y-oA-i1c"/>
@@ -278,5 +279,27 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="few-gU-gBv">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem title="Previous /" id="wda-Pt-B2F">
+                    <connections>
+                        <action selector="btnPreviuse_Click:" destination="-1" id="d7G-pR-x0J"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Next" id="bNA-gp-xTD">
+                    <connections>
+                        <action selector="btnNext_Click:" destination="-1" id="fR6-VR-zuW"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="f85-Ab-zpy"/>
+                <barButtonItem title="Done" width="96" id="9fv-7e-bvy">
+                    <connections>
+                        <action selector="btnMinimize_Click:" destination="-1" id="Ec6-Kl-A4u"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+        </toolbar>
     </objects>
 </document>

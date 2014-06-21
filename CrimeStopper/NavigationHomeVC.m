@@ -12,9 +12,13 @@
 #import "PPRevealSideViewController.h"
 #import "FeedBackVC.h"
 #import "HomePageVC.h"
-#import "demoViewController.h"
-@interface NavigationHomeVC ()
+#import "LoginVC.h"
+#import "AppDelegate.h"
 
+@interface NavigationHomeVC ()
+{
+    AppDelegate *appdelegate;
+}
 @end
 
 @implementation NavigationHomeVC
@@ -32,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     arrList = [[NSMutableArray alloc] initWithObjects:@"Home",@"Emergency Number",@"Feedback",@"Share App",@"Rate us",@"Logout", nil];
     
     arrImage=[[NSMutableArray alloc]initWithObjects:@"ic_nav_home.png",@"ic_nav_emergency_numbers.png",@"ic_nav_feedback",@"ic_nav_share_app.png",@"ic_nav_rate_us.png",@"ic_nav_logout.png", nil];
@@ -114,25 +118,64 @@
     }
     else if (indexPath.row == 2)
     {
-        FeedBackVC *obj = [[FeedBackVC alloc] initWithNibName:@"FeedBackVC" bundle:[NSBundle mainBundle]];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
-        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
-        [self.revealSideViewController popViewControllerAnimated:YES];
+        NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+        NSLog(@"str : %@",UserID);
+        if(UserID == nil || UserID == (id)[NSNull null])
+        {
+            LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+            [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+            [self.revealSideViewController popViewControllerAnimated:YES];
+
+            
+        }
+        else
+        {
+            FeedBackVC *obj = [[FeedBackVC alloc] initWithNibName:@"FeedBackVC" bundle:[NSBundle mainBundle]];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+            [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+            [self.revealSideViewController popViewControllerAnimated:YES];
+        }
     }
     else if (indexPath.row == 3)
     {
-        demoViewController *obj = [[demoViewController alloc] initWithNibName:@"demoViewController" bundle:[NSBundle mainBundle]];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
-        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
-        [self.revealSideViewController popViewControllerAnimated:YES];
+        
     }
     else if (indexPath.row == 4)
     {
     
     }
     else if (indexPath.row == 5)
-    {
-    
+    {        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserID"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dob"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergencyContact"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergency_contact_number"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_id"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_token"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"first_name"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"gender"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"last_name"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_no"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_photo_url"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mobile_number"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"modified_at"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"photo_url"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"postcode"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile_completed"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"samaritan_points"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"security_question"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"street"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
+        
+        [[NSUserDefaults standardUserDefaults]synchronize ];
+        appdelegate.strUserID = @"";
+        LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+        [self.revealSideViewController popViewControllerAnimated:YES];
+        
     }
     else
     {

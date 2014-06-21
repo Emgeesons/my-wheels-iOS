@@ -52,7 +52,9 @@
 -(IBAction)btnSubmit_click:(id)sender;
 -(IBAction)btnDob_click:(id)sender;
 -(IBAction)btnSecurityQuestion_click:(id)sender;
-
+- (IBAction)btnMinimize_Click:(id)sender;
+- (IBAction)btnNext_Click:(id)sender;
+- (IBAction)btnPreviuse_Click:(id)sender;
 
 - (IBAction) toggleOnForSwitch: (id) sender;
 -(IBAction)changeSeg;

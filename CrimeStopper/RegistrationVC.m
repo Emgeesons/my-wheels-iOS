@@ -95,8 +95,21 @@ int intques;
     
     // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
     [toolbar setFrame:CGRectMake(0, -30, 320, 40)];
-     [txtDateOfBirth setInputAccessoryView:self.toolbar];
+    // [txtDateOfBirth setInputAccessoryView:self.toolbar];
   
+        [txtAnswer setInputAccessoryView:self.toolbar];
+        [txtEmailAddress setInputAccessoryView:self.toolbar];
+        [txtFname setInputAccessoryView:self.toolbar];
+        [txtLname setInputAccessoryView:self.toolbar];
+        [txtMobileNo setInputAccessoryView:self.toolbar];
+        [txtOtherQuestion setInputAccessoryView:self.toolbar];
+        [txtPin1 setInputAccessoryView:self.toolbar];
+        [txtPin2 setInputAccessoryView:self.toolbar];
+        [txtPin3 setInputAccessoryView:self.toolbar];
+        [txtPin4 setInputAccessoryView:self.toolbar];
+        [txtOtherQuestion setInputAccessoryView:self.toolbar];
+    
+    
        [txtAnswer setFrame:CGRectMake(5, 338, 300, 30)];
 //    [toolbar setBarStyle:UIBarStyleBlackOpaque];
 //    UIBarButtonItem *barButtonDone = [[UIBarButtonItem alloc] initWithTitle:@"Done"
@@ -380,6 +393,158 @@ int intques;
     [self.viewSecurityQuestion setHidden:YES];
     [self.scrollview setBackgroundColor:[UIColor whiteColor]];
 }
+- (IBAction)btnMinimize_Click:(id)sender {
+    [activeTextField resignFirstResponder];
+}
+- (IBAction)btnNext_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    if(nextTag == 4)
+    {
+        [viewPickerview setHidden:NO];
+        self.scrollview.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor grayColor]];
+        
+        [txtEmailAddress resignFirstResponder];
+        [txtFname resignFirstResponder];
+        [txtLname resignFirstResponder];
+        [txtMobileNo resignFirstResponder];
+        [txtOtherQuestion resignFirstResponder];
+        [txtAnswer resignFirstResponder];
+        [txtPin1 resignFirstResponder];
+        [txtPin2 resignFirstResponder];
+        [txtPin3 resignFirstResponder];
+        [txtPin4 resignFirstResponder];
+        [pickerDateOfBirth setHidden:NO];
+        
+        
+        
+        // Open DatePicker when age textfield is clicked
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        timePicker.backgroundColor = [UIColor whiteColor];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        timePicker.maximumDate = [NSDate date];
+        
+        
+        //format datePicker mode. in this example time is used
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        toolbarPicker.backgroundColor = [UIColor grayColor];
+        [toolbarPicker sizeToFit];
+        
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+        //
+        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+        //
+        [toolbarPicker addSubview:bbitem];
+        //        [toolbarPicker addSubview:bbitem1];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:timePicker];
+        [sheet showInView:self.view];
+        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        
+        
+        
+        
+    }
+
+    
+}
+- (IBAction)btnPreviuse_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag-1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    
+    if(nextTag == 4)
+    {
+        [viewPickerview setHidden:NO];
+        self.scrollview.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor grayColor]];
+        
+        [txtEmailAddress resignFirstResponder];
+        [txtFname resignFirstResponder];
+        [txtLname resignFirstResponder];
+        [txtMobileNo resignFirstResponder];
+        [txtOtherQuestion resignFirstResponder];
+        [txtAnswer resignFirstResponder];
+        [txtPin1 resignFirstResponder];
+        [txtPin2 resignFirstResponder];
+        [txtPin3 resignFirstResponder];
+        [txtPin4 resignFirstResponder];
+        [pickerDateOfBirth setHidden:NO];
+        
+        
+        
+        // Open DatePicker when age textfield is clicked
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        timePicker.backgroundColor = [UIColor whiteColor];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        timePicker.maximumDate = [NSDate date];
+        
+        
+        //format datePicker mode. in this example time is used
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        toolbarPicker.backgroundColor = [UIColor grayColor];
+        [toolbarPicker sizeToFit];
+        
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+        //
+        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+        //
+        [toolbarPicker addSubview:bbitem];
+        //        [toolbarPicker addSubview:bbitem1];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:timePicker];
+        [sheet showInView:self.view];
+        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        
+        
+        
+        
+    }
+
+}
+
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(alertView.tag == 1)
@@ -387,7 +552,7 @@ int intques;
         if(buttonIndex == 0)
         {
             LoginVC *vc = [[LoginVC alloc]init];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else
         {
@@ -403,7 +568,8 @@ int intques;
         else
         {
             HomePageVC *vc = [[HomePageVC alloc]init];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+
         }
     }
 }
@@ -416,8 +582,8 @@ int intques;
     {
         [viewPickerview setHidden:NO];
         
-        self.scrollview.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
+//        self.scrollview.userInteractionEnabled = NO ;
+//        [self.view setBackgroundColor:[UIColor grayColor]];
         
         [txtEmailAddress resignFirstResponder];
         [txtFname resignFirstResponder];
@@ -533,6 +699,7 @@ int intques;
    
     [pickerDateOfBirth setHidden:YES];
     activeTextField=textField;
+    int y=0;
     if(textField.tag == 4)
     {
          [viewPickerview setHidden:NO];
@@ -627,26 +794,28 @@ int intques;
         }
     }
     
+
     else if (textField.tag == 6 || textField.tag == 7 || textField.tag == 8 || textField.tag == 9)
     {
         [txtMobileNo setKeyboardType:UIKeyboardTypeDecimalPad];
         [txtMobileNo reloadInputViews];
+        y=50;
     }
     else
     {
         [txtFname setKeyboardType:UIKeyboardTypeDefault];
         [txtFname reloadInputViews];
     }
-    int y=0;
-    // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
+        // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
     if(textField == txtOtherQuestion)
     {
-        y=50;
+        y=210;
+        [txtOtherQuestion setInputAccessoryView:self.toolbar];
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
     }
     if(textField == txtAnswer)
     {
-        y=70;
+        y=210;
         [btnSubmit setHidden:NO];
     }
     NSLog(@"y = %d",y);
@@ -679,7 +848,7 @@ int intques;
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
         rc.origin.x = 0 ;
-        rc.origin.y = y ;
+        rc.origin.y = y-20 ;
         CGPoint pt=rc.origin;
         [self.scrollview setContentOffset:pt animated:YES];
     }completion:nil];
@@ -687,17 +856,7 @@ int intques;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-        NSInteger nextTag = textField.tag + 1;
-    // Try to find next responder
-    NSLog(@"tag :: %d",nextTag);
-    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [nextResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
-    }
+
     if(textField.tag == 3)
     {
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -714,73 +873,24 @@ int intques;
         timePicker.datePickerMode = UIDatePickerModeDate;
         [dateFormatter setDateFormat:@"MM/dd/yyyy"];
         UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
+        toolbarPicker.backgroundColor = [UIColor whiteColor];
         [toolbarPicker sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 270, 60, 44)];
         [bbitem setTitle:@"Done" forState:UIControlStateNormal];
         [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-        //
+        [bbitem setTintColor:[UIColor blueColor]];
         [toolbarPicker addSubview:bbitem];
-        //        [toolbarPicker addSubview:bbitem1];
+       
         [sheet addSubview:toolbarPicker];
         [sheet addSubview:toolbarPicker];
         [sheet addSubview:timePicker];
         [sheet showInView:self.view];
         [sheet setBounds:CGRectMake(0,0,320, 464)];
-//        
-//
-//        if(IsIphone5)
-//        {
-//            [self.txtDateOfBirth endEditing:YES];
-//            [self.txtDateOfBirth resignFirstResponder];
-//           
-//            [pickerDateOfBirth setHidden:NO];
-//            [btnSubmit setHidden:YES];
-//        }
-//        else
-//        {
-//            [self.txtDateOfBirth endEditing:YES];
-//            [self.txtDateOfBirth resignFirstResponder];
-//            
-//            pickerDateOfBirth.frame = CGRectMake(0, 270, 320, pickerDateOfBirth.frame.size.height);
-//           
-//            [pickerDateOfBirth setHidden:NO];
-//            [btnSubmit setHidden:YES];
-//        }
     }
 
     return YES;
 }
-//-(BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    
-//    [textField resignFirstResponder];
-//    return YES;
-//}
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//    
-//    if ([string isEqualToString:@""]) {
-//        
-//        NSLog(@"backspace button pressed");
-//        
-//    }
-//   
-//    return YES;
-//   
-//}
-
-//-(void)deleteBackward;
-//{
-//    [super deleteBackward];
-//    NSLog(@"BackSpace Detected");
-//}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
      if(textField == txtDateOfBirth)

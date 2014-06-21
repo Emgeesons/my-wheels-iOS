@@ -9,6 +9,7 @@
 #import "HomeScreenVC.h"
 #import "DisclaimerViewController.h"
 #import "LoginVC.h"
+#import "HomePageVC.h"
 
 @interface HomeScreenVC ()
 {
@@ -48,9 +49,21 @@
     if([savedValue isEqualToString:@"first"])
     {
         NSLog(@"second time... ");
-        LoginVC *vc = [[LoginVC alloc]init];
-//        [self presentViewController:vc animated:YES completion:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+        NSLog(@"str : %@",UserID);
+        if(UserID == nil || UserID == (id)[NSNull null])
+        {
+            LoginVC *vc = [[LoginVC alloc]init];
+            //        [self presentViewController:vc animated:YES completion:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+
+        }
+        else
+        {
+            HomePageVC *vc = [[HomePageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
        
     }
     else

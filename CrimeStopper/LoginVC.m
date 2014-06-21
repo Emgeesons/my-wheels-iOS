@@ -11,7 +11,7 @@
 #import "LoginWithFacebookVC.h"
 //#import "PPRevealSideViewController.h"
 
-#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define   IsIphone5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface LoginVC ()
 {
@@ -32,6 +32,7 @@
 @synthesize lblQuestion,txtAnswer,btnForgotPinCancel,btnForgotPinSubmit,viewForgotQuestion;
 @synthesize imgBackGround;
 @synthesize imgvehicals;
+@synthesize btnSkiptoHome;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,11 +52,10 @@
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
     }
-    
-    appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [scrollview setScrollEnabled:YES];
-    [self.scrollview setContentSize:CGSizeMake(320, 1000)];
+   // [self.scrollview setContentSize:CGSizeMake(320, 1000)];
     [self.view addSubview:self.scrollview];
 //    [self.viewButtons setHidden:NO];
     CGRect frame = viewLogin.frame;
@@ -96,78 +96,177 @@
     {
         NSLog(@"There IS internet connection");
     }
-   /* if(IsIphone5)
+    
+    if(IsIphone5)
     {
-        imgBackGround.frame = CGRectMake(
-                                         imgBackGround.frame.origin.x,
-                                         imgBackGround.frame.origin.y, 320,720);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 588);
+
+        [self.scrollview setContentSize:CGSizeMake(320, 568)];
+         imgBackGround.frame = CGRectMake(0, 0, 320, 568);
+        
+       viewButtons.frame = CGRectMake(19, 283, 282, 220);
+       _imgView.frame = CGRectMake(0, 0, 282, 220);
+        _imgView1.frame = CGRectMake(0,0, 282, 220);
+        _imgView2.frame = CGRectMake(0,0, 282, 220);
+        _imgView3.frame = CGRectMake(0,0, 282, 220);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 55);
+        btnLogin.frame = CGRectMake(26, 83, 230, 55);
+        btnRegister.frame = CGRectMake(26, 153, 230, 55);
+       
+        viewForgotPin.frame = CGRectMake(19, 283, 282, 220);
+        viewForgotQuestion.frame = CGRectMake(19, 283, 282, 220);
+        viewLogin.frame = CGRectMake(19, 283, 282, 220);
+         btnSkiptoHome.frame = CGRectMake(19, 535, 282, 30);
+        _btnCancel1.frame = CGRectMake(20, 163, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 163, 94, 30);
+       // btnCancel.frame = CGRectMake(112, 168, 58, 30);
         
         
-        
-        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,310, 270,40);
-        
-        viewButtons.frame = CGRectMake(20, 350, 283, 238);
-        viewForgotPin.frame = CGRectMake(20, 350, 283, 238);
-        viewForgotQuestion.frame = CGRectMake(20, 350, 283, 238);
-        viewLogin.frame = CGRectMake(20, 350, 283, 238);
-        
-        self.scrollview.contentSize = CGSizeMake(320, 770);
     }
     else
     {
-        imgBackGround.frame = CGRectMake(
-                                         imgBackGround.frame.origin.x,
-                                         imgBackGround.frame.origin.y, 320, 680);
+        imgBackGround.frame = CGRectMake(0, 0, 320, 480);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 500);
+        [self.scrollview setContentSize:CGSizeMake(320, 480)];
+        viewButtons.frame = CGRectMake(19, 238, 282, 170);
+        _imgView.frame = CGRectMake(0,0, 282, 200);
+        _imgView1.frame = CGRectMake(0,0, 282, 200);
+        _imgView2.frame = CGRectMake(0,0, 282, 200);
+        _imgView3.frame = CGRectMake(0,0, 282, 200);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 50);
+        btnLogin.frame = CGRectMake(26, 72, 230, 50);
+        btnRegister.frame = CGRectMake(26, 130, 230, 50);
         
-        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,300, 270,40);
-        
-        viewButtons.frame = CGRectMake(20, 340, 283, 238);
-        viewForgotPin.frame = CGRectMake(20, 340, 283, 238);
-        viewForgotQuestion.frame = CGRectMake(20, 340, 283, 238);
-        viewLogin.frame = CGRectMake(20, 340, 283, 238);
-        
-        self.scrollview.contentSize = CGSizeMake(320, 700);
-    }*/
+        viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
+        viewForgotQuestion.frame = CGRectMake(19, 238, 282, 170);
+        viewLogin.frame = CGRectMake(19, 238, 282, 170);
+        btnSkiptoHome.frame = CGRectMake(19, 442, 282, 30);
 
+        //// set in 4.0
+        _btnCancel1.frame = CGRectMake(20, 153, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
+       // btnCancel.frame = CGRectMake(112, 158, 58, 30);
+    }
+    
+    [txtEmail setInputAccessoryView:self.toolbar];
+    [txtAnswer setInputAccessoryView:self.toolbar];
+    [txtEmailIDForForgot setInputAccessoryView:self.toolbar];
+    [txtPin1 setInputAccessoryView:self.toolbar];
+    [txtpin2 setInputAccessoryView:self.toolbar];
+    [txtpin3 setInputAccessoryView:self.toolbar];
+    [txtPint4 setInputAccessoryView:self.toolbar];
+
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    if(IsIphone5)
+    {
+        self.scrollview.frame = CGRectMake(0, 0, 320, 588);
+        
+        [self.scrollview setContentSize:CGSizeMake(320, 568)];
+        imgBackGround.frame = CGRectMake(0, 0, 320, 568);
+        
+        viewButtons.frame = CGRectMake(19, 283, 282, 220);
+        _imgView.frame = CGRectMake(0, 0, 282, 220);
+        _imgView1.frame = CGRectMake(0,0, 282, 220);
+        _imgView2.frame = CGRectMake(0,0, 282, 220);
+        _imgView3.frame = CGRectMake(0,0, 282, 220);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 55);
+        btnLogin.frame = CGRectMake(26, 83, 230, 55);
+        btnRegister.frame = CGRectMake(26, 153, 230, 55);
+        
+        viewForgotPin.frame = CGRectMake(19, 283, 282, 220);
+        viewForgotQuestion.frame = CGRectMake(19, 283, 282, 220);
+        viewLogin.frame = CGRectMake(19, 283, 282, 220);
+        btnSkiptoHome.frame = CGRectMake(19, 515, 282, 30);
+        _btnCancel1.frame = CGRectMake(20, 163, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 163, 94, 30);
+        btnCancel.frame = CGRectMake(112, 168, 58, 30);
+        
+        
+    }
+    else
+    {
+        imgBackGround.frame = CGRectMake(0, 0, 320, 480);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 500);
+        [self.scrollview setContentSize:CGSizeMake(320, 480)];
+        viewButtons.frame = CGRectMake(19, 238, 282, 170);
+        _imgView.frame = CGRectMake(0,0, 282, 200);
+        _imgView1.frame = CGRectMake(0,0, 282, 200);
+        _imgView2.frame = CGRectMake(0,0, 282, 200);
+        _imgView3.frame = CGRectMake(0,0, 282, 200);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 50);
+        btnLogin.frame = CGRectMake(26, 72, 230, 50);
+        btnRegister.frame = CGRectMake(26, 130, 230, 50);
+        
+        viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
+        viewForgotQuestion.frame = CGRectMake(19, 238, 282, 170);
+        viewLogin.frame = CGRectMake(19, 238, 282, 170);
+        btnSkiptoHome.frame = CGRectMake(19, 442, 282, 30);
+        
+        //// set in 4.0
+        _btnCancel1.frame = CGRectMake(20, 153, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
+        btnCancel.frame = CGRectMake(112, 158, 58, 30);
+    }
+
+    
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-   /* if(IsIphone5)
+    if(IsIphone5)
     {
-        imgBackGround.frame = CGRectMake(
-                                         imgBackGround.frame.origin.x,
-                                         imgBackGround.frame.origin.y, 320,720);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 588);
         
-  
+        [self.scrollview setContentSize:CGSizeMake(320, 568)];
+        imgBackGround.frame = CGRectMake(0, 0, 320, 568);
         
-        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,310, 270,40);
+        viewButtons.frame = CGRectMake(19, 283, 282, 220);
+        _imgView.frame = CGRectMake(0, 0, 282, 220);
+        _imgView1.frame = CGRectMake(0,0, 282, 220);
+        _imgView2.frame = CGRectMake(0,0, 282, 220);
+        _imgView3.frame = CGRectMake(0,0, 282, 220);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 55);
+        btnLogin.frame = CGRectMake(26, 83, 230, 55);
+        btnRegister.frame = CGRectMake(26, 153, 230, 55);
         
-        viewButtons.frame = CGRectMake(20, 350, 283, 238);
-        viewForgotPin.frame = CGRectMake(20, 350, 283, 238);
-        viewForgotQuestion.frame = CGRectMake(20, 350, 283, 238);
-        viewLogin.frame = CGRectMake(20, 350, 283, 238);
+        viewForgotPin.frame = CGRectMake(19, 283, 282, 220);
+        viewForgotQuestion.frame = CGRectMake(19, 283, 282, 220);
+        viewLogin.frame = CGRectMake(19, 283, 282, 220);
+        btnSkiptoHome.frame = CGRectMake(19, 515, 282, 30);
+        _btnCancel1.frame = CGRectMake(20, 163, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 163, 94, 30);
+        btnCancel.frame = CGRectMake(112, 168, 58, 30);
         
-        self.scrollview.contentSize = CGSizeMake(320, 770);
+        
     }
     else
     {
-        imgBackGround.frame = CGRectMake(
-                                         imgBackGround.frame.origin.x,
-                                         imgBackGround.frame.origin.y, 320, 680);
+        imgBackGround.frame = CGRectMake(0, 0, 320, 480);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 500);
+        [self.scrollview setContentSize:CGSizeMake(320, 480)];
+        viewButtons.frame = CGRectMake(19, 238, 282, 170);
+        _imgView.frame = CGRectMake(0,0, 282, 200);
+        _imgView1.frame = CGRectMake(0,0, 282, 200);
+        _imgView2.frame = CGRectMake(0,0, 282, 200);
+        _imgView3.frame = CGRectMake(0,0, 282, 200);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 50);
+        btnLogin.frame = CGRectMake(26, 72, 230, 50);
+        btnRegister.frame = CGRectMake(26, 130, 230, 50);
         
-        imgvehicals.frame = CGRectMake(imgvehicals.frame.origin.x,300, 270,40);
+        viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
+        viewForgotQuestion.frame = CGRectMake(19, 238, 282, 170);
+        viewLogin.frame = CGRectMake(19, 238, 282, 170);
+        btnSkiptoHome.frame = CGRectMake(19, 442, 282, 30);
         
-        viewButtons.frame = CGRectMake(20, 340, 283, 238);
-        viewForgotPin.frame = CGRectMake(20, 340, 283, 238);
-        viewForgotQuestion.frame = CGRectMake(20, 340, 283, 238);
-        viewLogin.frame = CGRectMake(20, 340, 283, 238);
-        
-         self.scrollview.contentSize = CGSizeMake(320, 700);
+        //// set in 4.0
+        _btnCancel1.frame = CGRectMake(20, 153, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
+        btnCancel.frame = CGRectMake(112, 158, 58, 30);
     }
-   */
-
 }
 - (void)didReceiveMemoryWarning
 {
@@ -234,7 +333,8 @@
 -(IBAction)btnbtnRegister_click:(id)sender
 {
     RegistrationVC *vc = [[RegistrationVC alloc]init];
-    [self presentViewController:vc animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 -(IBAction)btnCancel_click:(id)sender
 {
@@ -266,11 +366,17 @@
 }
 -(IBAction)btnForgotSbmit_click:(id)sender
 {
+    if(txtEmailIDForForgot.text.length == 0)
+    {
+        [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    else
+    {
      [self NSStringIsValidEmail:txtEmailIDForForgot.text];
+    }
 }
--(IBAction)btnForgotCancel_click:(id)sender
+-(IBAction)btnForgotCancel11_click:(id)sender
 {
-    
     CGRect napkinBottomFrame = viewLogin.frame;
     napkinBottomFrame.origin.x = 20;
     CGRect basketTopFrame = viewForgotPin.frame;
@@ -284,8 +390,31 @@
     } completion:^(BOOL finished){/*done*/}];
 
 }
+-(IBAction)btnForgotPinSubmit11_click:(id)sender
+{
+    CGRect napkinBottomFrame = viewLogin.frame;
+    napkinBottomFrame.origin.x = 20;
+    CGRect basketTopFrame = viewForgotPin.frame;
+    basketTopFrame.origin.x = 320;
+    
+    [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{
+        viewLogin.frame = napkinBottomFrame;
+        viewForgotPin.frame = basketTopFrame;
+        viewLogin.alpha = 1;
+        viewForgotPin.alpha = 0;
+    } completion:^(BOOL finished){/*done*/}];
+}
+
 -(IBAction)btnForgotPinSubmit_click:(id)sender
 {
+  if(txtAnswer.text.length == 0)
+  {
+      
+      [txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+
+  }
+  else
+  {
     WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:appdelegate.strUserID forKey:@"userId"];
@@ -295,12 +424,57 @@
     [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
     [obj callAPI_POST:@"forgotPinAnswer.php" andParams:param SuccessCallback:@selector(service_reponseForgorPinAnswer:Response:) andDelegate:self];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+  }
     
 }
 -(IBAction)btnForgotPinCancel_click:(id)sender
 {
+    CGRect napkinBottomFrame = viewForgotPin.frame;
+    napkinBottomFrame.origin.x = 20;
+    CGRect basketTopFrame = viewForgotQuestion.frame;
+    basketTopFrame.origin.x = 320;
+    
+    [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{
+        viewForgotPin.frame = napkinBottomFrame;
+        viewForgotQuestion.frame = basketTopFrame;
+        viewForgotPin.alpha = 1;
+        viewForgotQuestion.alpha = 0;
+    } completion:^(BOOL finished){/*done*/}];
+}
+
+- (IBAction)btnMinimize_Click:(id)sender {
+    [activeTextField resignFirstResponder];
+}
+- (IBAction)btnNext_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
 
 }
+- (IBAction)btnPreviuse_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag-1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+
+
+}
+
 #pragma mark call api
 
 -(IBAction)btnLogin_click:(id)sender
@@ -327,14 +501,62 @@
         txtpin2.text = @"";
         txtpin3.text = @"";
         txtPint4.text = @"";
-        [txtEmail setText:@"enter email"];
-        [txtEmail setTextColor:[UIColor redColor]];
+        [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+
         [self.lblPin setTextColor:[UIColor redColor]];
     }
     else
     {
-        appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
+        appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
         
+        NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
+        NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
+        NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
+         NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
+         NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
+         NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
+         NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
+         NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
+         NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
+         NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
+         NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
+         NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
+         NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
+         NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+         NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
+         NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
+         NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+         NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
+         NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+         NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
+         NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+        
+        NSLog(@"user id: %@",appdelegate.strUserID);
+        
+        [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+        [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
+        [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
+        [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+        [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+        [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+        [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+        [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
+        [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
+        [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
+        [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
+        [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+        [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
+        [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
+        [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+        [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
+        [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
+        [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
+        [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
+        [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
+        [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
+        [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
 //        HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
 //        [self presentViewController:obj animated:YES completion:nil];
         HomePageVC *obj=[[HomePageVC alloc]init];
@@ -368,7 +590,8 @@
         [CheckAlert show];
         txtEmailIDForForgot.text = @"";
        
-        [txtEmailIDForForgot setTextColor:[UIColor redColor]];
+        [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+
     }
     else
     {
@@ -422,9 +645,12 @@
     }
     [SVProgressHUD dismiss];
 }
+
 #pragma mark textfield delegate methods
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    activeTextField=textField;
+    
     [txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
     [txtEmail reloadInputViews];
     
@@ -479,7 +705,7 @@
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
         rc.origin.x = 0 ;
-        rc.origin.y = y ;
+        rc.origin.y = y-20 ;
         CGPoint pt=rc.origin;
         [self.scrollview setContentOffset:pt animated:YES];
        
@@ -492,7 +718,7 @@
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
         rc.origin.x = 0 ;
-        rc.origin.y = y ;
+        rc.origin.y = y-20 ;
         CGPoint pt=rc.origin;
         [self.scrollview setContentOffset:pt animated:YES];
     }completion:nil];
@@ -501,21 +727,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 
-    NSInteger nextTag = textField.tag + 1;
-    // Try to find next responder
-    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [nextResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
-    }
-    return NO;
+       return NO;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if(textField.tag == 1)
+    if(textField.tag == 2)
     {
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
         if(newLength >1)
@@ -525,22 +741,22 @@
             [txtPin1 resignFirstResponder];
             [txtpin2 becomeFirstResponder];
         }
-        else if (newLength == 0)
-        {
-            txtPin1.text = @"";
-        }
-        else
-        {
-            NSLog(@"YES");
-            
-            return YES;
-            [txtPin1 resignFirstResponder];
-            [txtpin2 becomeFirstResponder];
-        }
+//        else if (newLength == 0)
+//        {
+//            txtPin1.text = @"";
+//        }
+//        else
+//        {
+//            NSLog(@"YES");
+//            
+//            return YES;
+//            [txtPin1 resignFirstResponder];
+//            [txtpin2 becomeFirstResponder];
+//        }
         
         // return (newLength > 1) ? NO : YES;
     }
-    else if (textField.tag == 2)
+    else if (textField.tag == 3)
     {
         NSUInteger newLength = [txtpin2.text length] + [string length] - range.length;
         if(newLength >1)
@@ -549,20 +765,20 @@
             [txtpin2 resignFirstResponder];
             [txtpin3 becomeFirstResponder];
         }
-        if(newLength == 0)
-        {
-            [txtpin2 resignFirstResponder];
-            [txtPin1 becomeFirstResponder];
-            txtpin2.text = @"";
-        }
-        else
-        {
-            [txtpin2 resignFirstResponder];
-            [txtpin3 becomeFirstResponder];
-        }
+//        if(newLength == 0)
+//        {
+//            [txtpin2 resignFirstResponder];
+//            [txtPin1 becomeFirstResponder];
+//            txtpin2.text = @"";
+//        }
+//        else
+//        {
+//            [txtpin2 resignFirstResponder];
+//            [txtpin3 becomeFirstResponder];
+//        }
         
     }
-    else if(textField.tag == 3)
+    else if(textField.tag == 4)
     {
         NSUInteger newLength = [txtpin3.text length] + [string length] - range.length;
         if(newLength >1)
@@ -572,39 +788,40 @@
             [txtPint4 becomeFirstResponder];
             //return NO;
         }
-        if(newLength == 0)
-        {
-            [txtpin3 resignFirstResponder];
-            [txtpin2 becomeFirstResponder];
-            txtpin3.text = @"";
-        }
-        else
-        {
-            [txtpin3 resignFirstResponder];
-            [txtPint4 becomeFirstResponder];
-        }
+//        if(newLength == 0)
+//        {
+//            [txtpin3 resignFirstResponder];
+//            [txtpin2 becomeFirstResponder];
+//            txtpin3.text = @"";
+//        }
+//        else
+//        {
+//            [txtpin3 resignFirstResponder];
+//            [txtPint4 becomeFirstResponder];
+//        }
         
         
     }
-    else if (textField.tag == 4)
+    else if (textField.tag == 5)
     {
         NSUInteger newLength = [txtPint4.text length] + [string length] - range.length;
         if(newLength >1)
         {
             NSLog(@"no");
+            [txtPint4 resignFirstResponder];
             //return NO;
         }
-        else if(newLength == 0)
-        {
-            txtPint4.text = @"";
-            [txtPint4 resignFirstResponder];
-            [txtpin3 becomeFirstResponder];
-            
-        }
-        else
-        {
-            [txtPint4 resignFirstResponder];
-        }
+//        else if(newLength == 0)
+//        {
+//            txtPint4.text = @"";
+//            [txtPint4 resignFirstResponder];
+//            [txtpin3 becomeFirstResponder];
+//            
+//        }
+//        else
+//        {
+//            [txtPint4 resignFirstResponder];
+//        }
     }
         return 1;
 
@@ -618,7 +835,7 @@
         if([checkString length]==0)
         {
             [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+           // [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
             [self.lblPin setTextColor:[UIColor redColor]];
             return YES;
         }
@@ -740,7 +957,7 @@
         if(buttonIndex == 0)
         {
             LoginVC *vc = [[LoginVC alloc]init];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else
         {
