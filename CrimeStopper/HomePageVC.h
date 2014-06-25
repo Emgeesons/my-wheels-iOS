@@ -17,8 +17,12 @@
 @property (nonatomic,retain) IBOutlet MKMapView *map;
 @property (nonatomic,retain) IBOutlet UIButton *btnParking,*btnVehicles;
 @property (nonatomic,retain) IBOutlet UIButton *btnAboutUs;
+@property (nonatomic,retain) IBOutlet UIButton *btnprofile;
+
 
 -(IBAction)btnNav_click:(id)sender;
 -(IBAction)btnAboutUs_Click:(id)sender;
+-(IBAction)btnProfile_click:(id)sender;
+
 
 @end

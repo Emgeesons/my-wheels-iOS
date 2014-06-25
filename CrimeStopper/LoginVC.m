@@ -507,6 +507,9 @@
     }
     else
     {
+        NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"Json dictionary :: %@",jsonDictionary);
+        
         appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
         
         NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];

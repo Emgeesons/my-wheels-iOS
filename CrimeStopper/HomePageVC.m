@@ -11,6 +11,8 @@
 #import "NavigationHomeVC.h"
 #import "PPRevealSideViewController.h"
 #import "AboutUsVC.h"
+#import "UserProfileVC.h"
+#import "LoginVC.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -94,5 +96,20 @@
     AboutUsVC *vc = [[AboutUsVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+-(IBAction)btnProfile_click:(id)sender
+{
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSLog(@"str : %@",UserID);
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        LoginVC *vc = [[LoginVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+        UserProfileVC *vc = [[UserProfileVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+   
+}
 @end
