@@ -25,7 +25,6 @@
 -(IBAction)btnProfilepic_click:(id)sender;
 -(IBAction)btnback_click:(id)sender;
 -(IBAction)btnSamaritan_click:(id)sender;
-- (IBAction)hideActionSheetView:(id)sender;
-- (IBAction)takeNewPhotoFromCamera:(id)sender;
-- (IBAction)choosePhotoFromExistingImages:(id)sender;
+
+
 @end

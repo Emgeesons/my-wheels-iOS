@@ -9,7 +9,7 @@
 #import "FeedBackVC.h"
 #import "NavigationHomeVC.h"
 #import "PPRevealSideViewController.h"
-#import "WebApiController.h"
+//#import "WebApiController.h"
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
@@ -69,12 +69,12 @@
 	int progressAsInt =(int)(_slide.value + 0.5f);
 	NSString *newText =[[NSString alloc] initWithFormat:@"%d",progressAsInt];
 	_lblRating.text = newText;
-	[newText release];
+	
     }
 -(IBAction)btnSend_click:(id)sender
 {
     
-    WebApiController *obj=[[WebApiController alloc]init];
+   // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:appdelegate.strUserID forKey:@"userId"];
     [param setValue:_lblRating.text forKey:@"rating"];
@@ -84,7 +84,7 @@
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
-    [obj callAPI_POST:@"feedback.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    //[obj callAPI_POST:@"feedback.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 }
 

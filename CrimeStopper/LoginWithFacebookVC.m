@@ -7,7 +7,8 @@
 //
 
 #import "LoginWithFacebookVC.h"
-#import "WebApiController.h"
+#import "Reachability.h"
+
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 
@@ -442,21 +443,21 @@ int intques;
      model
 
      */
-    WebApiController *obj=[[WebApiController alloc]init];
+   // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:@"asha@emgeesons.com" forKey:@"email"];
     [param setValue:strPin forKey:@"pin"];
    
     [param setValue:txtMobileNo.text forKey:@"mobileNumber"];
     [param setValue:appdelegate.strUserID forKey:@"userId"];
-     [param setValue:appdelegate.strOldPin forKey:@"oldPin"];
+    [param setValue:appdelegate.strOldPin forKey:@"oldPin"];
     [param setValue:strQuestion forKey:@"securityQuestion"];
     [param setValue:txtAnswer.text  forKey:@"securityAnswer"];
     [param setValue:@"ios7" forKey:@"os"];
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
-    [obj callAPI_POST:@"fbCompleteRegistration.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    //[obj callAPI_POST:@"fbCompleteRegistration.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 }
 

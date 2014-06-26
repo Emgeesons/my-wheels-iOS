@@ -1,7 +1,6 @@
 
 #import "LoginVC.h"
 #import "HomeScreenVC.h"
-#import "WebApiController.h"
 #import "SVProgressHUD.h"
 #import "Reachability.h"
 #import "RegistrationVC.h"
@@ -9,6 +8,9 @@
 #import "UserDetailsViewController.h"
 #import "SVProgressHUD.h"
 #import "LoginWithFacebookVC.h"
+#import "AFNetworking.h"
+
+
 //#import "PPRevealSideViewController.h"
 
 #define   IsIphone5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
@@ -415,15 +417,57 @@
   }
   else
   {
-    WebApiController *obj=[[WebApiController alloc]init];
+   // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:appdelegate.strUserID forKey:@"userId"];
     [param setValue:txtAnswer.text forKey:@"securityAnswer"];
     [param setValue:@"iOS7" forKey:@"os"];
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
-    [obj callAPI_POST:@"forgotPinAnswer.php" andParams:param SuccessCallback:@selector(service_reponseForgorPinAnswer:Response:) andDelegate:self];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+      AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+      manager.requestSerializer = [AFJSONRequestSerializer serializer];
+      [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/forgotPinAnswer.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+          
+      } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          
+          
+          NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+          
+          NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+          NSLog(@"data : %@",jsonDictionary);
+          //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+          
+          //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+          NSLog(@"Json dictionary :: %@",jsonDictionary);
+          NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+          NSLog(@"message %@",EntityID);
+          if ([EntityID isEqualToString:@"failure"])
+          {
+              
+              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warninga"
+                                                                  message:@"Incorrect Answer. Please try again."
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil, nil];
+              CheckAlert.tag =1;
+              [CheckAlert show];
+          }
+          else
+          {
+              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Email sent"
+                                                                  message:@"Change PIN has been sent to your email ID."
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil, nil];
+              CheckAlert.tag =1;
+              [CheckAlert show];
+          }
+       [SVProgressHUD dismiss];
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+      }];
+ 
+      [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
   }
     
 }
@@ -480,174 +524,12 @@
 -(IBAction)btnLogin_click:(id)sender
 {
     [self NSStringIsValidEmail:txtEmail.text];
- 
-}
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-     NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
-                                                            message:@"Username or PIN incorrect."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Edit details"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
-        txtEmail.text = @"";
-        txtPin1.text = @"";
-        txtpin2.text = @"";
-        txtpin3.text = @"";
-        txtPint4.text = @"";
-        [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-
-        [self.lblPin setTextColor:[UIColor redColor]];
-    }
-    else
-    {
-        NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"Json dictionary :: %@",jsonDictionary);
-        
-        appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
-        
-        NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
-        NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
-        NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
-         NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
-         NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
-         NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
-         NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
-         NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
-         NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
-         NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
-         NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
-         NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
-         NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
-         NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
-         NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
-         NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
-         NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
-         NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
-         NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
-         NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
-         NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
-        
-        NSLog(@"user id: %@",appdelegate.strUserID);
-        
-        [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
-        [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
-        [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
-        [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
-        [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
-        [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
-        [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
-        [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
-        [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
-        [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
-        [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
-        [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
-        [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
-        [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
-        [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
-        [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
-        [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
-        [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
-        [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
-        [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
-        [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
-        [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
-//        HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
-//        [self presentViewController:obj animated:YES completion:nil];
-        HomePageVC *obj=[[HomePageVC alloc]init];
-        //        OvulationTrackerCalViewController *obj=[[OvulationTrackerCalViewController alloc]init];
-        [self.navigationController pushViewController:obj animated:YES];
-        
-        /*HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
-        //  self.HomePageVC = obj;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
-        self.revealSideViewController = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
-        [self.revealSideViewController setDirectionsToShowBounce:PPRevealSideDirectionNone];
-        [self.revealSideViewController setPanInteractionsWhenClosed:PPRevealSideInteractionContentView | PPRevealSideInteractionNavigationBar];
-        _revealSideViewController.delegate = self;
-        [self presentViewController:obj animated:YES completion:nil];*/
-    }
-    [SVProgressHUD dismiss];
-}
--(void)service_reponseForgorPin:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Incorrect Email"
-                                                            message:@"EmailID You entered is incorrect. Please try again with the correct emailID."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Cancel"
-                                                  otherButtonTitles:@"OK", nil];
-        [CheckAlert show];
-        txtEmailIDForForgot.text = @"";
-       
-        [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-
-    }
-    else
-    {
-         NSString *respinse = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
-        appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
-        NSLog(@"response :: %@",respinse);
-      
-        
-        CGRect basketTopFrame1 = viewForgotPin.frame;
-        basketTopFrame1.origin.x = -320;
-        CGRect basketTopFrame = viewForgotQuestion.frame;
-        basketTopFrame.origin.x = 320;
-        [UIView animateWithDuration:0.95 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{ viewForgotQuestion.frame = basketTopFrame; } completion:^(BOOL finished){ }];
-        CGRect napkinBottomFrame = viewForgotQuestion.frame;
-        napkinBottomFrame.origin.x = 20;
-        [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotQuestion.frame = napkinBottomFrame; viewForgotPin.frame = basketTopFrame1; viewForgotPin.alpha = 0;
-            viewForgotQuestion.alpha = 1; } completion:^(BOOL finished){}];
-        
-        lblQuestion.text = respinse;
-    }
-    [SVProgressHUD dismiss];
-}
-//service_reponseForgorPinAnswer
--(void)service_reponseForgorPinAnswer:(NSString *)apiAlias Response:(NSData *)response
-{
     
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warninga"
-                                                            message:@"Incorrect Answer. Please try again."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        CheckAlert.tag =1;
-        [CheckAlert show];
-    }
-    else
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Email sent"
-                                                            message:@"Change PIN has been sent to your email ID."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        CheckAlert.tag =1;
-        [CheckAlert show];
-    }
-    [SVProgressHUD dismiss];
+    
 }
+
+
+
 
 #pragma mark textfield delegate methods
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -879,16 +761,118 @@
             strPin = [strPin stringByAppendingString:txtpin3.text];
             strPin = [strPin stringByAppendingString:txtPint4.text];
             NSLog(@"strpin :: %@",strPin);
-            WebApiController *obj=[[WebApiController alloc]init];
+          //  WebApiController *obj=[[WebApiController alloc]init];
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:txtEmail.text forKey:@"email"];
             [param setValue:strPin forKey:@"pin"];
             [param setValue:@"iOS7" forKey:@"os"];
             [param setValue:@"iPhone" forKey:@"make"];
             [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
-            [obj callAPI_POST:@"login.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-            [txtEmail setTextColor:[UIColor blackColor]];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+             manager.requestSerializer = [AFJSONRequestSerializer serializer];
+             
+            
+             [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/login.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+              {
+             //do not put image inside parameters dictionary as I did, but append it!
+             //[formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
+                  [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+             }
+            success:^(AFHTTPRequestOperation *operation, id responseObject)
+            {
+                 NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                NSLog(@"data : %@",jsonDictionary);
+           //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                
+              //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"Json dictionary :: %@",jsonDictionary);
+                NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                NSLog(@"message %@",EntityID);
+                if ([EntityID isEqualToString:@"failure"])
+                {
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
+                                                                        message:@"Username or PIN incorrect."
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"Edit details"
+                                                              otherButtonTitles:nil, nil];
+                    [CheckAlert show];
+                    txtEmail.text = @"";
+                    txtPin1.text = @"";
+                    txtpin2.text = @"";
+                    txtpin3.text = @"";
+                    txtPint4.text = @"";
+                    [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                    
+                    [self.lblPin setTextColor:[UIColor redColor]];
+                }
+                else
+                {
+                    NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                    NSLog(@"data : %@",jsonDictionary);
+                    appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+                    
+                    NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
+                    NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
+                    NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
+                    NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
+                    NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
+                    NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
+                    NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
+                    NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
+                    NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
+                    NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
+                    NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
+                    NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
+                    NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
+                    NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+                    NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
+                    NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
+                    NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+                    NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
+                    NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+                    NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
+                    NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+                    
+                    NSLog(@"user id: %@",appdelegate.strUserID);
+                    
+                    [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+                    [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
+                    [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
+                    [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+                    [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+                    [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+                    [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+                    [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
+                    [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
+                    [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
+                    [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
+                    [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+                    [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
+                    [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
+                    [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+                    [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
+                    [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
+                    [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
+                    [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
+                    [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
+                    [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
+                    [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
+                    
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    HomePageVC *obj=[[HomePageVC alloc]init];
+                  
+                    [self.navigationController pushViewController:obj animated:YES];
+                 }
+                [SVProgressHUD dismiss];
+
+                 NSLog(@"Success: %@",responseObject);
+             }
+                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+             }];
+             
+                 [txtEmail setTextColor:[UIColor blackColor]];
             [self.lblPin setTextColor:[UIColor blackColor]];
             return YES;
         }
@@ -935,14 +919,70 @@
         {
             NSLog(@"valid email...");
           
-            WebApiController *obj=[[WebApiController alloc]init];
+           // WebApiController *obj=[[WebApiController alloc]init];
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:txtEmailIDForForgot.text forKey:@"email"];
            
             [param setValue:@"iOS7" forKey:@"os"];
             [param setValue:@"iPhone" forKey:@"make"];
             [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
-            [obj callAPI_POST:@"forgotPinEmail.php" andParams:param SuccessCallback:@selector(service_reponseForgorPin:Response:) andDelegate:self];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+                       [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/forgotPinEmail.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+              
+            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                
+                NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                
+                NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                NSLog(@"data : %@",jsonDictionary);
+                //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                
+                //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"Json dictionary :: %@",jsonDictionary);
+                NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                NSLog(@"message %@",EntityID);
+                if ([EntityID isEqualToString:@"failure"])
+                {
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Incorrect Email"
+                                                                        message:@"EmailID You entered is incorrect. Please try again with the correct emailID."
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"Cancel"
+                                                              otherButtonTitles:@"OK", nil];
+                    [CheckAlert show];
+                    txtEmailIDForForgot.text = @"";
+                    
+                    [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                    
+                }
+                else
+                {
+                    NSString *respinse = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+                    appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
+                    NSLog(@"response :: %@",respinse);
+                    
+                    
+                    CGRect basketTopFrame1 = viewForgotPin.frame;
+                    basketTopFrame1.origin.x = -320;
+                    CGRect basketTopFrame = viewForgotQuestion.frame;
+                    basketTopFrame.origin.x = 320;
+                    [UIView animateWithDuration:0.95 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{ viewForgotQuestion.frame = basketTopFrame; } completion:^(BOOL finished){ }];
+                    CGRect napkinBottomFrame = viewForgotQuestion.frame;
+                    napkinBottomFrame.origin.x = 20;
+                    [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotQuestion.frame = napkinBottomFrame; viewForgotPin.frame = basketTopFrame1; viewForgotPin.alpha = 0;
+                        viewForgotQuestion.alpha = 1; } completion:^(BOOL finished){}];
+                    
+                    lblQuestion.text = respinse;
+                }
+                [SVProgressHUD dismiss];
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+            }];
+            
+          
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
             [txtEmailIDForForgot setTextColor:[UIColor blackColor]];
           

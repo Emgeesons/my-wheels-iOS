@@ -3,7 +3,7 @@
 
 #import "UserDetailsViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "WebApiController.h"
+
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 #import "LoginWithFacebookVC.h"
@@ -256,7 +256,7 @@
         NSArray * arr = [appdelegate.strFBUserName componentsSeparatedByString:@" "];
         NSLog(@"Array values are : %@",arr);
         
-        WebApiController *obj=[[WebApiController alloc]init];
+       // WebApiController *obj=[[WebApiController alloc]init];
         NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
         [param setValue:@"asha@emgeesons.com" forKey:@"email"];
         [param setValue:[arr objectAtIndex:0] forKey:@"firstName"];
@@ -268,7 +268,7 @@
         [param setValue:@"iOS7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
         [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
-        [obj callAPI_POST:@"fbLoginRegister.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+        //[obj callAPI_POST:@"fbLoginRegister.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         
 //        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];

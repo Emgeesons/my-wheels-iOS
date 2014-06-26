@@ -8,7 +8,8 @@
 
 #import "RegistrationVC.h"
 #import "LoginVC.h"
-#import "WebApiController.h"
+#import "Reachability.h"
+#import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 
@@ -1063,7 +1064,7 @@ int intques;
         
     }
 
-    WebApiController *obj=[[WebApiController alloc]init];
+   // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:txtEmailAddress.text forKey:@"email"];
     [param setValue:strPin forKey:@"pin"];
@@ -1078,32 +1079,47 @@ int intques;
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
-    [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-}
+   // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/register.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        
+        NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+        NSLog(@"data : %@",jsonDictionary);
+        //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        
+        //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"Json dictionary :: %@",jsonDictionary);
+        NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+        NSLog(@"message %@",EntityID);
+        if ([EntityID isEqualToString:@"failure"])
+        {
+            
+        }
+        else
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:@"My Wheel would like to access your current location."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Don't Allow"
+                                                      otherButtonTitles:@"Allow", nil];
+            
+            CheckAlert.tag =2;
+            [CheckAlert show];
+        }
+        [SVProgressHUD dismiss];
 
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        
-    }
-    else
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"My Wheel would like to access your current location."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Don't Allow"
-                                                  otherButtonTitles:@"Allow", nil];
-        
-        CheckAlert.tag =2;
-        [CheckAlert show];
-    }
-    [SVProgressHUD dismiss];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+    }];
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 }
 
 #pragma mark table view methods for securyity question

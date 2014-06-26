@@ -9,13 +9,10 @@
 #import "UserProfileVC.h"
 #import "HomePageVC.h"
 #import "THProgressView.h"
-#import "WebApiController.h"
+
 #import "SVProgressHUD.h"
+#import "AFNetworking.h"
 
-
-#define DEFAULT_BLUE [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]
-
-static const CGSize progressViewSize = { 273, 21 };
 NSInteger intImage;
 @interface UserProfileVC ()
 @property (nonatomic) CGFloat progress;
@@ -96,8 +93,7 @@ NSInteger intImage;
                                                                                           2/2.0f,
                                                                                           273,
                                                                                          21)];
-   // bottomProgressView.borderTintColor = DEFAULT_BLUE;
- //   bottomProgressView.progressTintColor = DEFAULT_BLUE;
+ 
     [bottomView addSubview:bottomProgressView];
     [self.view addSubview:bottomView];
     
@@ -202,105 +198,95 @@ NSInteger intImage;
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_img1 setImage:image];
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+  
     [_btnprofilePic setImage:image forState:UIControlStateNormal];
     
-    WebApiController *obj=[[WebApiController alloc]init];
-    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-    NSMutableDictionary *Iparam = [[NSMutableDictionary alloc]init];
-    [Iparam setValue:image forKey:@"image"];
-    /*userId
-     pin
-     os
-     make
-     model
-     image
-*/  NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+
+    NSData *imageData = UIImagePNGRepresentation(image);
+     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     
-     [param setValue:UserID forKey:@"userId"];
-    [param setValue:@"1111" forKey:@"pin"];
-    // [param setValue:image forKey:@"image"];
+  NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:UserID forKey:@"userId"];
+    //   // [param setValue:@"1111" forKey:@"pin"];
     
-   [obj callAPIWithImage:@"uploadProfilePic.php" WithImageParameter:Iparam WithoutImageParameter:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-    //[obj callAPI_POST:@"uploadProfilePic.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     
-    [self.library writeImageToSavedPhotosAlbum:[[UIImage imageNamed:@"polter"] CGImage] orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
-        if(assetURL) {
-            [self.library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                [self.library addAsset:asset toGroup:@"forest" inLib:self.library];
-            } failureBlock:^(NSError *error) {
-                NSLog(@"e: %@", error);
-            }];
+        [param setValue:@"ios7" forKey:@"os"];
+        [param setValue:@"iPhone" forKey:@"make"];
+       [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+
+    
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/uploadProfilePic.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //do not put image inside parameters dictionary as I did, but append it!
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
+    }
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+        NSLog(@"data : %@",jsonDictionary);
+       
+        NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+        NSLog(@"message %@",EntityID);
+        if ([EntityID isEqualToString:@"failure"])
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
+                                                                message:@"Image has not been uploaded."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
         }
-        else {
-            NSLog(@"e: %@", error);
+        else
+        {
+            NSString *photo_url = [jsonDictionary valueForKey:@"response"] ;
+            [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+            
+            ALAssetsLibrary* libraryFolder = [[ALAssetsLibrary alloc] init];
+            [libraryFolder addAssetsGroupAlbumWithName:@"My Wheels" resultBlock:^(ALAssetsGroup *group)
+             {
+                 NSLog(@"Adding Folder:'My Album', success: %s", group.editable ? "Success" : "Already created: Not Success");
+                 
+                 
+
+                  // UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+             } failureBlock:^(NSError *error)
+             {
+                 NSLog(@"Error: Adding on Folder");
+             }];
         }
+
+        [SVProgressHUD dismiss];
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
+
+    
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+ 
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo: (void *)contextInfo
 {
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
+    if (error != nil)
     {
-//        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-//                                                            message:@"."
-//                                                           delegate:self
-//                                                  cancelButtonTitle:@"Don't Allow"
-//                                                  otherButtonTitles:@"Allow", nil];
-//        
-//        CheckAlert.tag =2;
-//        [CheckAlert show];
+        NSLog(@"Image Can not be saved");
     }
     else
     {
-       
+        NSLog(@"Successfully saved Image");
     }
-    [SVProgressHUD dismiss];
-}
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-//    UIAlertView *alert;
-//    
-//    // Unable to save the image
-//    if (error)
-//        alert = [[UIAlertView alloc] initWithTitle:@"Error"
-//                                           message:@"Unable to save image to Photo Album."
-//                                          delegate:self cancelButtonTitle:@"Ok"
-//                                 otherButtonTitles:nil];
-//    else // All is well
-//        alert = [[UIAlertView alloc] initWithTitle:@"Success"
-//                                           message:@"Image saved to Photo Album."
-//                                          delegate:self cancelButtonTitle:@"Ok"
-//                                 otherButtonTitles:nil];
-//    [alert show];
-//    [alert release];
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-//- (void)updateProgress
-//{
-//    self.progress += 0.20f;
-//    if (self.progress > 1.0f) {
-//        self.progress = 0;
-//    }
-//    
-//    [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
-//        [progressView setProgress:self.progress animated:YES];
-//    }];
-//}
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
