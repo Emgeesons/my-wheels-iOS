@@ -72,6 +72,10 @@
 		5E9CD34C1949BDA5006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */; };
 		5E9E35D319544CE500485733 /* im_next@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E35D119544CE500485733 /* im_next@1x.png */; };
 		5E9E35D419544CE500485733 /* im_previous@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E35D219544CE500485733 /* im_previous@1x.png */; };
+		5EA4BC70195D2C13006B4B5A /* AddDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4BC6E195D2C13006B4B5A /* AddDetailsVC.m */; };
+		5EA4BC71195D2C13006B4B5A /* AddDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA4BC6F195D2C13006B4B5A /* AddDetailsVC.xib */; };
+		5EA4BC75195D7BF1006B4B5A /* EditDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4BC73195D7BF1006B4B5A /* EditDetailsVC.m */; };
+		5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA4BC74195D7BF1006B4B5A /* EditDetailsVC.xib */; };
 		5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F019514BFD009550A1 /* ic_drawer.png */; };
 		5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F319514F36009550A1 /* AboutUsVC.m */; };
 		5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F419514F36009550A1 /* AboutUsVC.xib */; };
@@ -231,6 +235,12 @@
 		5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS/FacebookSDK.framework"; sourceTree = "<group>"; };
 		5E9E35D119544CE500485733 /* im_next@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_next@1x.png"; sourceTree = "<group>"; };
 		5E9E35D219544CE500485733 /* im_previous@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_previous@1x.png"; sourceTree = "<group>"; };
+		5EA4BC6D195D2C13006B4B5A /* AddDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailsVC.h; sourceTree = "<group>"; };
+		5EA4BC6E195D2C13006B4B5A /* AddDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailsVC.m; sourceTree = "<group>"; };
+		5EA4BC6F195D2C13006B4B5A /* AddDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddDetailsVC.xib; sourceTree = "<group>"; };
+		5EA4BC72195D7BF1006B4B5A /* EditDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDetailsVC.h; sourceTree = "<group>"; };
+		5EA4BC73195D7BF1006B4B5A /* EditDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDetailsVC.m; sourceTree = "<group>"; };
+		5EA4BC74195D7BF1006B4B5A /* EditDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditDetailsVC.xib; sourceTree = "<group>"; };
 		5EE8C8F019514BFD009550A1 /* ic_drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer.png; sourceTree = "<group>"; };
 		5EE8C8F219514F36009550A1 /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		5EE8C8F319514F36009550A1 /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
@@ -332,6 +342,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */,
 				5EFB8D15195A959B003B6042 /* AssetsLibrary.framework in Frameworks */,
 				5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */,
 				5E9CD34A1949BD85006B43AE /* FacebookSDK.framework in Frameworks */,
@@ -342,7 +353,6 @@
 				5E9CCBA41949AF81006B43AE /* QuartzCore.framework in Frameworks */,
 				5E9CCBA21949AF73006B43AE /* MobileCoreServices.framework in Frameworks */,
 				5E9CCBA01949AF68006B43AE /* libz.1.1.3.dylib in Frameworks */,
-				5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */,
 				5E9CCB9C1949AF44006B43AE /* CFNetwork.framework in Frameworks */,
 				5E9CCB9A1949AF2A006B43AE /* AudioToolbox.framework in Frameworks */,
 				5E9CCB981949AEFA006B43AE /* Parse.framework in Frameworks */,
@@ -560,7 +570,6 @@
 				5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */,
 				5E815EE019408CE900CEAFAB /* DisclaimerViewController.h */,
 				5E815EE119408CE900CEAFAB /* DisclaimerViewController.m */,
-				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
 				5E815EE71940949500CEAFAB /* LoginVC.h */,
 				5E815EE81940949500CEAFAB /* LoginVC.m */,
 				5E815EE91940949500CEAFAB /* LoginVC.xib */,
@@ -590,6 +599,12 @@
 				5EFE9183195945440014669E /* UserProfileVC.h */,
 				5EFE9184195945440014669E /* UserProfileVC.m */,
 				5EFE9185195945440014669E /* UserProfileVC.xib */,
+				5EA4BC6D195D2C13006B4B5A /* AddDetailsVC.h */,
+				5EA4BC6E195D2C13006B4B5A /* AddDetailsVC.m */,
+				5EA4BC6F195D2C13006B4B5A /* AddDetailsVC.xib */,
+				5EA4BC72195D7BF1006B4B5A /* EditDetailsVC.h */,
+				5EA4BC73195D7BF1006B4B5A /* EditDetailsVC.m */,
+				5EA4BC74195D7BF1006B4B5A /* EditDetailsVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -611,6 +626,7 @@
 				5E0324671942FBA2006EEA24 /* Registration */,
 				5E095171194177C200DC97E2 /* login */,
 				5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */,
+				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
 				5E815EE519408DFD00CEAFAB /* disclaimer_bg.png */,
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
 			);
@@ -822,6 +838,7 @@
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
 				5EEF217E1955AC1900A0BA3F /* CrimeStopper-Info.plist in Resources */,
+				5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */,
 				5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */,
 				5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */,
 				5EEF21961955B44300A0BA3F /* female_active.png in Resources */,
@@ -886,6 +903,7 @@
 				5EE8C8FD19515089009550A1 /* bullet.png in Resources */,
 				5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */,
 				5EE8C91D1951AFFA009550A1 /* star_highlighted@2x.png in Resources */,
+				5EA4BC71195D2C13006B4B5A /* AddDetailsVC.xib in Resources */,
 				5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */,
 				5EE8C91E1951AFFA009550A1 /* star_highlighted.png in Resources */,
 			);
@@ -923,6 +941,7 @@
 				5EFFBC29195C00B0003679C6 /* AFNetworkReachabilityManager.m in Sources */,
 				5E04AF07194FFD7E003F6CD4 /* NavigationHomeVC.m in Sources */,
 				5EFFBC2B195C00B0003679C6 /* AFURLConnectionOperation.m in Sources */,
+				5EA4BC70195D2C13006B4B5A /* AddDetailsVC.m in Sources */,
 				5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */,
 				5EFFBC70195C00B0003679C6 /* UIButton+AFNetworking.m in Sources */,
 				5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */,
@@ -934,6 +953,7 @@
 				5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */,
 				5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */,
 				5EFFBC2A195C00B0003679C6 /* AFSecurityPolicy.m in Sources */,
+				5EA4BC75195D7BF1006B4B5A /* EditDetailsVC.m in Sources */,
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
 				5EFFBC2D195C00B0003679C6 /* AFURLResponseSerialization.m in Sources */,
 				5EFFBC2C195C00B0003679C6 /* AFURLRequestSerialization.m in Sources */,

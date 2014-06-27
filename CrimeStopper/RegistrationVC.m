@@ -1071,7 +1071,8 @@ int intques;
     [param setValue:txtFname.text forKey:@"firstName"];
     [param setValue:txtLname.text forKey:@"lastName"];
     [param setValue:txtMobileNo.text forKey:@"mobileNumber"];
-    [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
+   // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
+    [param setValue:@"1999-02-02" forKey:@"dob"];
     [param setValue:strGender forKey:@"gender"];
     [param setValue:strQuestion forKey:@"securityQuestion"];
     [param setValue:txtAnswer.text  forKey:@"securityAnswer"];
@@ -1084,7 +1085,8 @@ int intques;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/register.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);

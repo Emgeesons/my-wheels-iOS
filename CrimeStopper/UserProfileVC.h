@@ -21,7 +21,13 @@
 @property (nonatomic,retain) IBOutlet UIImageView *img1;
 @property (strong, atomic) ALAssetsLibrary* library;
 @property (nonatomic,retain) IBOutlet UILabel *lblprofile,*lblstm;
+@property (nonatomic,retain) IBOutlet UIButton *btnAddDetails;
+@property (nonatomic,retain) IBOutlet UIView *viewsamaritan;
+@property (nonatomic,retain) IBOutlet UIButton *btnsamaritan;
+@property (nonatomic,retain) IBOutlet UILabel *lblsamaritan;
+@property (nonatomic,retain) IBOutlet UIImageView *imgsamaritan;
 
+-(IBAction)btnAddDetails_click:(id)sender;
 -(IBAction)btnProfilepic_click:(id)sender;
 -(IBAction)btnback_click:(id)sender;
 -(IBAction)btnSamaritan_click:(id)sender;

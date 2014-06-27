@@ -9,9 +9,11 @@
 #import "UserProfileVC.h"
 #import "HomePageVC.h"
 #import "THProgressView.h"
-
+#import "AddDetailsVC.h"
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
+#import "EditDetailsVC.h"
+
 
 NSInteger intImage;
 @interface UserProfileVC ()
@@ -43,6 +45,24 @@ NSInteger intImage;
          NSString *dob = [[NSUserDefaults standardUserDefaults] objectForKey:@"dob"];
          NSString *Mobileno = [[NSUserDefaults standardUserDefaults] objectForKey:@"mobile_number"];
         NSString *gender = [[NSUserDefaults standardUserDefaults] objectForKey:@"gender"];
+        NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
+    int intSamaritan_points = [samaritan_points intValue];
+    
+    _lblsamaritan.text = samaritan_points;
+    
+    if(intSamaritan_points > 0)
+    {
+       // [_viewsamaritan setBackgroundColor: #0065b3];
+        [_btnsamaritan setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        //[_imgsamaritan setImage:[UIImage imageNamed:@""]];
+        [_lblsamaritan setTextColor:[UIColor whiteColor]];
+    }
+    else
+    {
+        [_viewsamaritan setBackgroundColor:[UIColor grayColor]];
+        [_btnsamaritan setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+         [_lblsamaritan setTextColor:[UIColor darkGrayColor]];
+    }
     
     _lblFname.text = Fname;
     _lblLname.text = Lname;
@@ -78,7 +98,21 @@ NSInteger intImage;
     [customActionSheetView.layer addAnimation:transDown forKey:nil];
     
     
-   
+   NSString *strPostCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"postcode"];
+    NSLog(@"postcode : %@",strPostCode);
+//    NSString *strStreet = [[NSUserDefaults standardUserDefaults] objectForKey:@"street"];
+//    NSString *strLicenceno = [[NSUserDefaults standardUserDefaults] objectForKey:@"license_no"];
+    
+    if(strPostCode == nil || strPostCode == (id)[NSNull null] || [strPostCode isEqualToString:@""])
+    {
+        [_btnAddDetails setTitle:@"Add Details" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_btnAddDetails setTitle:@"Edit Details" forState:UIControlStateNormal];
+    }
+    
+    
      NSString *profile_completed = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile_completed"];
     NSLog(@"profile complete :: %@",profile_completed);
     
@@ -126,7 +160,7 @@ NSInteger intImage;
         bottomProgressView.progressTintColor = [UIColor yellowColor];
         [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
             
-            [progressView setProgress:0.30f animated:YES];
+            [progressView setProgress:0.80f animated:YES];
         }];
         _lblprofile.text = @"Your Profile is 80% complete.";
         _lblstm.text = @"Add information about your Vehicle now.";
@@ -136,7 +170,7 @@ NSInteger intImage;
         bottomProgressView.progressTintColor = [UIColor greenColor];
         [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
             
-            [progressView setProgress:0.30f animated:YES];
+            [progressView setProgress:0.95f animated:YES];
         }];
         _lblprofile.text = @"Your Profile is 90% complete.";
         _lblstm.text = @"Add information about your Vehicle now.";
@@ -319,5 +353,21 @@ NSInteger intImage;
                             nil];
     popup.tag = 1;
     [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+-(IBAction)btnAddDetails_click:(id)sender
+{
+    NSString *strPostCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"postcode"];
+
+    if(strPostCode == nil || strPostCode == (id)[NSNull null] || [strPostCode isEqualToString:@""] )
+    {
+        AddDetailsVC *vc = [[AddDetailsVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+        EditDetailsVC *vc = [[EditDetailsVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        [_btnAddDetails setTitle:@"Edit Details" forState:UIControlStateNormal];
+    }
 }
 @end

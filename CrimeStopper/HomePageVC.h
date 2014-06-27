@@ -10,8 +10,13 @@
 #import "AppDelegate.h"
 #import "PPRevealSideViewController.h"
 #import <MapKit/MapKit.h>
-@interface HomePageVC : UIViewController
+#import <MobileCoreServices/MobileCoreServices.h>
 
+@interface HomePageVC : UIViewController <CLLocationManagerDelegate>
+{
+    CLLocationManager *locationManager;
+    CLLocation *currentLocation;
+}
 @property (nonatomic,retain) IBOutlet UIButton *btnNav;
 @property (nonatomic,retain) IBOutlet UIView *viewReport,*viewNewReport,*viewAboutUs,*viewUpdates;
 @property (nonatomic,retain) IBOutlet MKMapView *map;

@@ -761,6 +761,13 @@
             strPin = [strPin stringByAppendingString:txtpin3.text];
             strPin = [strPin stringByAppendingString:txtPint4.text];
             NSLog(@"strpin :: %@",strPin);
+            [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
+            
+             [[NSUserDefaults standardUserDefaults] setValue:txtPin1.text forKey:@"pin1"];
+             [[NSUserDefaults standardUserDefaults] setValue:txtpin2.text forKey:@"pin2"];
+             [[NSUserDefaults standardUserDefaults] setValue:txtpin3.text forKey:@"pin3"];
+             [[NSUserDefaults standardUserDefaults] setValue:txtPint4.text forKey:@"pin4"];
+            
           //  WebApiController *obj=[[WebApiController alloc]init];
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:txtEmail.text forKey:@"email"];

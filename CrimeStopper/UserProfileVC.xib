@@ -6,16 +6,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileVC">
             <connections>
+                <outlet property="btnAddDetails" destination="mWA-ts-NtC" id="e6D-PH-dDc"/>
+                <outlet property="btnsamaritan" destination="gV7-Ze-sKi" id="4na-1i-ZF8"/>
                 <outlet property="img" destination="Ygo-1x-5DS" id="AHK-1c-9gM"/>
                 <outlet property="img1" destination="jRE-46-eHU" id="CaZ-wc-hF1"/>
+                <outlet property="imgsamaritan" destination="yJJ-8x-vnR" id="onx-ao-moU"/>
                 <outlet property="lblEmail" destination="rbZ-2f-X0H" id="VVc-ed-Pb3"/>
                 <outlet property="lblFname" destination="6xi-cV-YBa" id="0ec-bV-ya5"/>
                 <outlet property="lblLname" destination="hEz-F5-2Rv" id="Ogh-ru-UgX"/>
                 <outlet property="lblMobileNo" destination="b4l-ZX-xc4" id="uZI-Ug-nTu"/>
                 <outlet property="lbldob" destination="19n-7Z-In4" id="PPF-yc-UER"/>
                 <outlet property="lblprofile" destination="oPg-0A-BYi" id="hRg-Dx-9DB"/>
+                <outlet property="lblsamaritan" destination="4NR-xa-9Vl" id="Lcl-3F-207"/>
                 <outlet property="lblstm" destination="Bpi-aJ-il3" id="fW3-Hk-RHn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewsamaritan" destination="2Nc-gS-9l5" id="61x-F8-hU1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -148,16 +153,19 @@
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mWA-ts-NtC">
-                            <rect key="frame" x="27" y="377.0000222643215" width="111" height="50"/>
+                            <rect key="frame" x="27" y="377" width="111" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" title="Add Details">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnAddDetails_click:" destination="-1" eventType="touchUpInside" id="jKd-aK-Cth"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GPu-Tx-1KS">
-                            <rect key="frame" x="179" y="377.0000222643215" width="111" height="50"/>
+                            <rect key="frame" x="179" y="377" width="111" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" title="Add Vehicals">
