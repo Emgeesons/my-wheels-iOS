@@ -10,6 +10,7 @@
                 <outlet property="btnsamaritan" destination="gV7-Ze-sKi" id="4na-1i-ZF8"/>
                 <outlet property="img" destination="Ygo-1x-5DS" id="AHK-1c-9gM"/>
                 <outlet property="img1" destination="jRE-46-eHU" id="CaZ-wc-hF1"/>
+                <outlet property="imgUserProfilepic" destination="jRE-46-eHU" id="agl-Ef-5ze"/>
                 <outlet property="imgsamaritan" destination="yJJ-8x-vnR" id="onx-ao-moU"/>
                 <outlet property="lblEmail" destination="rbZ-2f-X0H" id="VVc-ed-Pb3"/>
                 <outlet property="lblFname" destination="6xi-cV-YBa" id="0ec-bV-ya5"/>

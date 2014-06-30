@@ -23,6 +23,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnParking,*btnVehicles;
 @property (nonatomic,retain) IBOutlet UIButton *btnAboutUs;
 @property (nonatomic,retain) IBOutlet UIButton *btnprofile;
+@property (nonatomic,retain) IBOutlet UIImageView *imgProfilepic;
 
 
 -(IBAction)btnNav_click:(id)sender;

@@ -19,7 +19,9 @@
 @implementation EditDetailsVC
 @synthesize arrSecurityQuestion;
 NSString *strGender;
-
+int intques;
+NSString *strQues;
+NSString *strBirthDate;
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,7 +52,32 @@ NSString *strGender;
     NSString *strPin2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin2"];
     NSString *strPin3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin3"];
     NSString *strPin4 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin4"];
+    NSDate *todayDate = [NSDate date];
     
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-mm-dd"];
+    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
+    int allDays = (((time/60)/60)/24);
+    int days = allDays%365;
+    int years = (allDays-days)/365;
+    
+    NSLog(@"You live since %i years and %i days",years,days);
+    _txtDob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
+    if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
+    {
+        NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
+        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
+        
+        //[pickerDateOfBirth setHidden:YES];
+        
+        return;
+    }
+    else
+    {
+        
+    }
+
+    NSLog(@"strquestion : %@",strquestion);
     if([gender isEqualToString:@"male"])
     {
         [self.gender setImage:[[UIImage imageNamed:@"male_active.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:0];
@@ -70,9 +97,9 @@ NSString *strGender;
     _txtFname.text = Fname;
     _txtLname.text = Lname;
     _txtEmail.text = email;
-    _txtDob.text = dob;
+   
     _txtMobileNo.text = Mobileno;
-    _txtquestion.text = strquestion;
+    [_btnSecurityQuestion setTitle:strquestion forState:UIControlStateNormal];
     _txtAnswer.text = strAnswer;
     _txtLicenceNo.text = strLicenceNo;
     _txtStreet.text = strstreet;
@@ -108,11 +135,12 @@ NSString *strGender;
     [self.txtpin2 setDelegate:self];
     [self.txtpin3 setDelegate:self];
     [self.txtpin4 setDelegate:self];
+    [_txtLicenceNo setDelegate:self];
     
     
-    // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
+     self.txtDob.inputView = self.pickerDateOfBirth;
     [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
-    // [txtDateOfBirth setInputAccessoryView:self.toolbar];
+    [_txtDob setInputAccessoryView:self.toolbar];
     
     [_txtAnswer setInputAccessoryView:self.toolbar];
     [_txtEmail setInputAccessoryView:self.toolbar];
@@ -124,6 +152,25 @@ NSString *strGender;
     [_txtpin2 setInputAccessoryView:self.toolbar];
     [_txtpin3 setInputAccessoryView:self.toolbar];
     [_txtpin4 setInputAccessoryView:self.toolbar];
+    [_txtLicenceNo setInputAccessoryView:self.toolbar];
+    [_txtStreet setInputAccessoryView:self.toolbar];
+    [_txtPostCode setInputAccessoryView:self.toolbar];
+    
+    if(IsIphone5)
+    {
+        _scroll.frame = CGRectMake(0 , 58, 320, 568+50);
+        _scroll.contentSize = CGSizeMake(320, 700);
+    }
+    else
+    {
+        _scroll.frame = CGRectMake(0 , 58, 320, 568+50);
+        
+        _scroll.contentSize = CGSizeMake(320, 700);
+    }
+
+    [self.view addSubview:_viewPickerview];
+    [self.viewPickerview addSubview:_pickerDateOfBirth];
+    [_viewPickerview setHidden:YES];
     //[txtOtherQuestion setInputAccessoryView:self.toolbar];
     
     
@@ -140,17 +187,6 @@ NSString *strGender;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if(IsIphone5)
-    {
-        _scroll.frame = CGRectMake(4 , 58, 320, 568+50);
-        _scroll.contentSize = CGSizeMake(320, 700);
-    }
-    else
-    {
-        _scroll.frame = CGRectMake(4 , 58, 320, 568+50);
-        
-        _scroll.contentSize = CGSizeMake(320, 700);
-    }
     
     
 }
@@ -212,10 +248,10 @@ NSString *strGender;
         [CheckAlert show];
     } else {
         NSLog(@"There IS internet connection");
-    }
     
     
-    if (_txtFname.text.length==0 || _txtLname.text.length==0 || _txtEmail.text.length==0 || _txtMobileNo.text.length==0 || _txtDob.text.length==0 || _txtpin1.text.length==0 || _txtpin2.text.length==0 || _txtpin3.text.length==0 || _txtpin4.text.length == 0 || _txtAnswer.text.length == 0)
+    
+    if (_txtFname.text.length==0 || _txtLname.text.length==0 || _txtEmail.text.length==0 || _txtMobileNo.text.length==0 || _txtDob.text.length==0 || _txtpin1.text.length==0 || _txtpin2.text.length==0 || _txtpin3.text.length==0 || _txtpin4.text.length == 0 || _txtAnswer.text.length == 0 || _txtLicenceNo.text.length == 0 | _txtStreet.text.length == 0 || _txtPostCode.text.length == 0)
     {
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Something went wrong. Please try again later."
@@ -224,60 +260,64 @@ NSString *strGender;
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
         
-        if (_txtFname.text.length>0 && _txtFname.text.length <2)
-        {
-            [_txtFname setTextColor:[UIColor redColor]];
-        }
-        else if (_txtFname.text.length == 0)
-        {
-            [_txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (_txtLname.text.length>0 && _txtLname.text.length <2)
-        {
-            [_txtLname setTextColor:[UIColor redColor]];
-        }
-        else if (_txtLname.text.length == 0)
-        {
-            [_txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (_txtMobileNo.text.length>0 && _txtMobileNo.text.length <2)
-        {
-            [_txtMobileNo setTextColor:[UIColor redColor]];
-        }
-        else if (_txtMobileNo.text.length == 0)
-        {
-            [_txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (_txtAnswer.text.length>0 && _txtAnswer.text.length <3)
-        {
-            [_txtAnswer setTextColor:[UIColor redColor]];
-        }
-        else if (_txtAnswer.text.length == 0)
-        {
-            [_txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if(_txtEmail.text.length == 0)
-        {
-            [_txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-       
-        else if (_txtDob.text.length == 0)
-        {
-            [_txtDob setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else
-        {
-           // NSLog(@"picker date .. :%@ ",pickerDateOfBirth.date);
-        }
     }
+   else if (_txtFname.text.length>0 && _txtFname.text.length <2)
+    {
+        [_txtFname setTextColor:[UIColor redColor]];
+    }
+    else if (_txtFname.text.length == 0)
+    {
+        [_txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    
+    
+     else if (_txtLname.text.length>0 && _txtLname.text.length <2)
+    {
+        [_txtLname setTextColor:[UIColor redColor]];
+    }
+    else if (_txtLname.text.length == 0)
+    {
+        [_txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+   
+    
+  else  if (_txtMobileNo.text.length>0 && _txtMobileNo.text.length <2)
+    {
+        [_txtMobileNo setTextColor:[UIColor redColor]];
+    }
+    else if (_txtMobileNo.text.length == 0)
+    {
+        [_txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+  
+    
+   else if (_txtAnswer.text.length>0 && _txtAnswer.text.length <3)
+    {
+        [_txtAnswer setTextColor:[UIColor redColor]];
+    }
+    else if (_txtAnswer.text.length == 0)
+    {
+        [_txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+   
+   else if(_txtEmail.text.length == 0)
+    {
+        [_txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    
+    else if (_txtDob.text.length == 0)
+    {
+        [_txtDob setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    else if ( _txtPostCode.text.length < 4 || _txtPostCode.text.length >= 5)
+    {
+        [_txtPostCode setTextColor:[UIColor redColor]];
+    }
+    else if (_txtPostCode.text.length == 0)
+    {
+        [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+
     else
     {
         BOOL isValid = [self NSStringIsValidEmail:_txtEmail.text];
@@ -295,6 +335,7 @@ NSString *strGender;
             
             [CheckAlert show];
         }
+    }
     }
 
 }
@@ -326,65 +367,6 @@ NSString *strGender;
         // Not found, so remove keyboard.
         [activeTextField resignFirstResponder];
     }
-    if(nextTag == 4)
-    {
-       // [viewPickerview setHidden:NO];
-        self.scroll.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
-        
-        [_txtEmail resignFirstResponder];
-        [_txtFname resignFirstResponder];
-        [_txtLname resignFirstResponder];
-        [_txtMobileNo resignFirstResponder];
-        [_txtquestion resignFirstResponder];
-        [_txtAnswer resignFirstResponder];
-        [_txtpin1 resignFirstResponder];
-        [_txtpin2 resignFirstResponder];
-        [_txtpin3 resignFirstResponder];
-        [_txtpin4 resignFirstResponder];
-       // [pickerDateOfBirth setHidden:NO];
-        
-        
-        
-        // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
-        
-        
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
-        
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-        //
-        [toolbarPicker addSubview:bbitem];
-        //        [toolbarPicker addSubview:bbitem1];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
-        
-        
-        
-        
-    }
     
     
 }
@@ -401,74 +383,15 @@ NSString *strGender;
         [activeTextField resignFirstResponder];
     }
     
-    if(nextTag == 4)
-    {
-        //[viewPickerview setHidden:NO];
-        self.scroll.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
-        
-        [_txtEmail resignFirstResponder];
-        [_txtFname resignFirstResponder];
-        [_txtLname resignFirstResponder];
-        [_txtMobileNo resignFirstResponder];
-        [_txtquestion resignFirstResponder];
-        [_txtAnswer resignFirstResponder];
-        [_txtpin1 resignFirstResponder];
-        [_txtpin2 resignFirstResponder];
-        [_txtpin3 resignFirstResponder];
-        [_txtpin4 resignFirstResponder];
-        // [pickerDateOfBirth setHidden:NO];
-
-        
-        
-        
-        // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
-        
-        
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
-        
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-        //
-        [toolbarPicker addSubview:bbitem];
-        //        [toolbarPicker addSubview:bbitem1];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
-        
-        
-        
-        
-    }
     
 }
 #pragma mark selector method
 - (void)DOBChanged:(id)sender
 {
-   // [viewPickerview setHidden:YES];
+    [_viewPickerview setHidden:YES];
     
     NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
+   
     NSDate *todayDate = [NSDate date];
     
     
@@ -485,7 +408,7 @@ NSString *strGender;
         NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
         
         //[pickerDateOfBirth setHidden:YES];
-       // [btnSubmit setHidden:YES];
+       
         return;
     }
     else
@@ -501,10 +424,16 @@ NSString *strGender;
         });
     }
     
+    NSLog(@"birthdate :%@",birthDate);
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    strBirthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
+    NSLog(@"strdate : %@",strBirthDate);
     self.scroll.userInteractionEnabled = YES;
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [timePicker setHidden:YES];
-    //[btnSubmit setHidden:NO];
+   
+
     [self cancelClicked];
     
 }
@@ -534,7 +463,49 @@ NSString *strGender;
         [_txtpin2 resignFirstResponder];
         [_txtpin3 resignFirstResponder];
         [_txtpin4 resignFirstResponder];
-       // [pickerDateOfBirth setHidden:NO];
+        [_pickerDateOfBirth setHidden:NO];
+        
+        // Open DatePicker when age textfield is clicked
+        
+        [_viewPickerview setHidden:NO];
+        self.scroll.userInteractionEnabled = NO ;
+        [self.view setBackgroundColor:[UIColor lightGrayColor]];
+
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        timePicker.backgroundColor = [UIColor whiteColor];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        timePicker.maximumDate = [NSDate date];
+        
+        
+        //format datePicker mode. in this example time is used
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        toolbarPicker.backgroundColor = [UIColor grayColor];
+        [toolbarPicker sizeToFit];
+        
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+        //
+        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+        //
+        [toolbarPicker addSubview:bbitem];
+        //        [toolbarPicker addSubview:bbitem1];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:toolbarPicker];
+        [sheet addSubview:timePicker];
+        [sheet showInView:self.view];
+        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        return NO;
+
     }
     //    activeTextField=textField;
     if(textField == _txtEmail)
@@ -621,9 +592,6 @@ NSString *strGender;
     int y=0;
     if(textField.tag == 4)
     {
-        //[viewPickerview setHidden:NO];
-        self.scroll.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
         
         [_txtEmail resignFirstResponder];
         [_txtFname resignFirstResponder];
@@ -635,44 +603,10 @@ NSString *strGender;
         [_txtpin2 resignFirstResponder];
         [_txtpin3 resignFirstResponder];
         [_txtpin4 resignFirstResponder];
-        //[pickerDateOfBirth setHidden:NO];
+        [_pickerDateOfBirth setHidden:NO];
         
         
         
-        // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
-        
-        
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
-        
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-        //
-        [toolbarPicker addSubview:bbitem];
-        //        [toolbarPicker addSubview:bbitem1];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
         
         
         
@@ -737,6 +671,22 @@ NSString *strGender;
         y=210;
        // [btnSubmit setHidden:NO];
     }
+    if(textField == _txtLicenceNo)
+    {
+        y=210;
+        // [btnSubmit setHidden:NO];
+    }
+    if(textField == _txtStreet)
+    {
+        y=210;
+        // [btnSubmit setHidden:NO];
+    }
+    if(textField == _txtPostCode)
+    {
+        y=210;
+        // [btnSubmit setHidden:NO];
+    }
+    
     NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
@@ -772,67 +722,10 @@ NSString *strGender;
         [self.scroll setContentOffset:pt animated:YES];
     }completion:nil];
 }
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    
-    if(textField.tag == 3)
-    {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
-        
-        
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor whiteColor];
-        [toolbarPicker sizeToFit];
-        
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 270, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        [bbitem setTintColor:[UIColor blueColor]];
-        [toolbarPicker addSubview:bbitem];
-        
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
-    }
-    
-    return YES;
-}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if(textField == _txtDob)
     {
-       // [viewPickerview setHidden:NO];
-//        if(IsIphone5)
-//        {
-//            [self.txtDateOfBirth endEditing:YES];
-//            [self.txtDateOfBirth resignFirstResponder];
-//            
-//            [pickerDateOfBirth setHidden:NO];
-//            [btnSubmit setHidden:YES];
-//        }
-//        else
-//        {
-//            [self.txtDateOfBirth endEditing:YES];
-//            [self.txtDateOfBirth resignFirstResponder];
-//            
-//            pickerDateOfBirth.frame = CGRectMake(0, 270, 320, pickerDateOfBirth.frame.size.height);
-//            
-//            [pickerDateOfBirth setHidden:NO];
-//            [btnSubmit setHidden:YES];
-//        }
     }
     if(textField.tag == 6)
     {
@@ -1008,6 +901,20 @@ NSString *strGender;
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+  //  NSString *strQue;
+    strQuestion = @"What is your ";
+    if(intques == 2)
+    {
+        strQuestion = [strQuestion stringByAppendingString:strQues];
+        NSLog(@"ques :: %@",strQuestion);
+    }
+    else if (intques == 1)
+    {
+        strQuestion = _txtquestion.text;
+    }
+    else
+    {
+    }
 
     
     // WebApiController *obj=[[WebApiController alloc]init];
@@ -1019,13 +926,13 @@ NSString *strGender;
     [param setValue:_txtLname.text forKey:@"lastName"];
     [param setValue:_txtMobileNo.text forKey:@"mobileNumber"];
     // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
-    [param setValue:@"1999-02-02" forKey:@"dob"];
+    [param setValue:strBirthDate forKey:@"dob"];
     [param setValue:strGender forKey:@"gender"];
-    [param setValue:_txtquestion forKey:@"securityQuestion"];
+    [param setValue:strQuestion forKey:@"securityQuestion"];
     [param setValue:_txtAnswer.text  forKey:@"securityAnswer"];
     [param setValue:latitude forKey:@"latitude"];
     [param setValue:longitude forKey:@"longitude"];
-    [param setValue:pin forKey:@"oldpin"];
+    [param setValue:pin forKey:@"oldPin"];
     [param setValue:_txtLicenceNo.text forKey:@"licenceNo"];
     [param setValue:_txtStreet.text forKey:@"address"];
     [param setValue:_txtPostCode.text forKey:@"pincode"];
@@ -1037,7 +944,7 @@ NSString *strGender;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/updateProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
+        NSLog(@"url : %@",manager);
     }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
@@ -1058,7 +965,31 @@ NSString *strGender;
               }
               else
               {
-                                }
+                  [[NSUserDefaults standardUserDefaults] setValue:UserID forKey:@"UserID"];
+                  [[NSUserDefaults standardUserDefaults] setValue:@"1999-02-02" forKey:@"dob"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtEmail.text forKey:@"email"];
+                //  [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+                 // [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+                //  [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+                //  [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtFname.text forKey:@"first_name"];
+                  [[NSUserDefaults standardUserDefaults] setValue:strGender forKey:@"gender"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtLname.text forKey:@"last_name"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtLicenceNo.text forKey:@"license_no"];
+                 // [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtMobileNo.text forKey:@"mobile_number"];
+                  //[[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
+                 // [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtPostCode.text forKey:@"postcode"];
+                 
+                  //[[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtAnswer.text forKey:@"security_answer"];
+                  [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtStreet.text forKey:@"street"];
+                                  
+                  UserProfileVC *vc = [[UserProfileVC alloc]init];
+                  [self.navigationController pushViewController:vc animated:YES];
+              }
               [SVProgressHUD dismiss];
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1116,36 +1047,41 @@ NSString *strGender;
 {
     self.scroll.userInteractionEnabled = YES;
     [self.view setBackgroundColor:[UIColor whiteColor]];
-//    if(indexPath.row == 10)
-//    {
-//        intques = 1;
-//        [txtOtherQuestion setHidden:NO];
-//        // [self.scrollview removeFromSuperview];
-//        [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
-//        [btnSecurityQuestion setEnabled:YES];
-//        [btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
-//        txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,305,300,30)];
-//        txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(5,400,300,30)];
-//        [self.scrollview addSubview:txtAnswer];
-//        txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
-//        txtOtherQuestion.font = [UIFont systemFontOfSize:15];
-//        txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
-//        txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
-//        txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//        txtOtherQuestion.placeholder = @"Enter Question";
-//        txtOtherQuestion.tag = 10;
-//        txtOtherQuestion.delegate = self;
-//        
-//        [self.scrollview addSubview:txtOtherQuestion];
-//        [viewSecurityQuestion setHidden:YES];
-//        
-//    }
-//    
-//    else
-//    {
-       // intques = 2;
+    if(indexPath.row == 10)
+    {
+       intques = 1;
+        [_txtquestion setHidden:NO];
+        // [self.scrollview removeFromSuperview];
+        [_btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
+        [_btnSecurityQuestion setEnabled:YES];
+        [_btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
+        _txtquestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,305,300,30)];
+        [_txtquestion setBackgroundColor:[UIColor lightGrayColor]];
+        _txtAnswer .text = @"";
+        _txtAnswer.frame = CGRectMake(5, 342, 300, 30);
+        _txtLicenceNo.frame = CGRectMake(5, 379, 300, 30);
+        _txtStreet.frame = CGRectMake(5, 416, 300, 30);
+        _txtPostCode.frame = CGRectMake(5, 453, 300, 30);
+        [self.scroll addSubview:_txtAnswer];
+        _txtquestion.borderStyle = UITextBorderStyleRoundedRect;
+        _txtquestion.font = [UIFont systemFontOfSize:15];
+        _txtquestion.keyboardType = UIKeyboardTypeDefault;
+        _txtquestion.returnKeyType = UIReturnKeyDefault;
+        _txtquestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _txtquestion.placeholder = @"Enter Question";
+        _txtquestion.tag = 10;
+        _txtquestion.delegate = self;
+        
+        [self.scroll addSubview:_txtquestion];
+        [_viewSecurityQuestion setHidden:YES];
+        
+    }
+    
+    else
+    {
+        intques = 2;
         NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
-      //  strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
+       strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [_btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
     _txtquestion.text = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [_btnSecurityQuestion setEnabled:YES];
@@ -1154,7 +1090,7 @@ NSString *strGender;
        // [_txtAnswer setFrame:CGRectMake(5, 338, 300, 30)];
         
         
-   // }
+   }
     
     
 }

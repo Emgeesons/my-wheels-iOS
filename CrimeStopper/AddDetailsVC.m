@@ -65,10 +65,13 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
-    } else {
-        NSLog(@"There IS internet connection");
     }
     
+    else
+    
+    {
+        NSLog(@"There IS internet connection");
+       
     
     if (_txtlicenceno.text.length==0 || _txtPostCode.text.length==0 || _txtStreet.text.length==0 )
     {
@@ -79,53 +82,39 @@
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
         
-        if (_txtlicenceno.text.length>0 && _txtlicenceno.text.length <2)
-        {
-            [_txtlicenceno setTextColor:[UIColor redColor]];
-        }
-        else if (_txtlicenceno.text.length == 0)
-        {
-            [_txtlicenceno setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
+       
         
-        if (_txtPostCode.text.length>0 && _txtPostCode.text.length <2)
-        {
-            [_txtPostCode setTextColor:[UIColor redColor]];
-        }
-        else if (_txtPostCode.text.length == 0)
-        {
-            [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (_txtStreet.text.length>0 && _txtStreet.text.length <2)
-        {
-            [_txtStreet setTextColor:[UIColor redColor]];
-        }
-        else if (_txtStreet.text.length == 0)
-        {
-            [_txtStreet setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
+    }
+   else if (_txtlicenceno.text.length>0 && _txtlicenceno.text.length <2)
+    {
+        [_txtlicenceno setTextColor:[UIColor redColor]];
+    }
+    else if (_txtlicenceno.text.length == 0)
+    {
+        [_txtlicenceno setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    
+    
+    else if (_txtPostCode.text.length>0 && _txtPostCode.text.length <4)
+    {
+        [_txtPostCode setTextColor:[UIColor redColor]];
+    }
+    else if (_txtPostCode.text.length == 0)
+    {
+        [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    
+    
+    else if (_txtStreet.text.length>0 && _txtStreet.text.length <2)
+    {
+        [_txtStreet setTextColor:[UIColor redColor]];
+    }
+    else if (_txtStreet.text.length == 0)
+    {
+        [_txtStreet setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
     else
     {
-        /*userId
-         pin
-         latitude
-         longitude
-         licenceNo
-         address
-         pincode
-         os
-         make
-         model
-*/
-//        [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:@"latitude"];
-//        [[NSUserDefaults standardUserDefaults] setValue:longitude forKey:@"longitude"];
-
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
         NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
         NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -189,6 +178,7 @@
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 
+    }
     }
 }
 #pragma mark textfeild delegate methods

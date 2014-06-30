@@ -43,13 +43,28 @@ NSInteger intImage;
          NSString *Lname = [[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"];
          NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
          NSString *dob = [[NSUserDefaults standardUserDefaults] objectForKey:@"dob"];
+    NSLog(@"dob :%@",dob);
          NSString *Mobileno = [[NSUserDefaults standardUserDefaults] objectForKey:@"mobile_number"];
         NSString *gender = [[NSUserDefaults standardUserDefaults] objectForKey:@"gender"];
         NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
+    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    
+    if(photoURL == nil || photoURL == (id)[NSNull null])
+    {
+        _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_home"];
+    }
+    else
+    {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+        _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+    }
+    NSLog(@"photo url : %@",photoURL);
+
     int intSamaritan_points = [samaritan_points intValue];
     
     _lblsamaritan.text = samaritan_points;
-    
+    dateFormatter = [[NSDateFormatter alloc] init];
+     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
     if(intSamaritan_points > 0)
     {
        // [_viewsamaritan setBackgroundColor: #0065b3];
@@ -63,6 +78,8 @@ NSInteger intImage;
         [_btnsamaritan setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
          [_lblsamaritan setTextColor:[UIColor darkGrayColor]];
     }
+    
+    
     
     _lblFname.text = Fname;
     _lblLname.text = Lname;
@@ -81,6 +98,8 @@ NSInteger intImage;
     //NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
     NSDate *todayDate = [NSDate date];
     
+    NSDate *datedob = [dateFormatter dateFromString:dob];
+    NSLog(@"dob : %@",datedob);
     
     int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
     int allDays = (((time/60)/60)/24);

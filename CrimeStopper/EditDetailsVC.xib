@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditDetailsVC">
             <connections>
+                <outlet property="btnSecurityQuestion" destination="G82-bC-4TR" id="5SR-WO-ioH"/>
                 <outlet property="gender" destination="C80-y6-Uc6" id="p3t-dc-nof"/>
                 <outlet property="scroll" destination="HrP-sL-PaO" id="Jin-Ss-Tjj"/>
                 <outlet property="switchbtn" destination="hBD-Ih-1Sx" id="C9p-km-lAn"/>
@@ -24,7 +25,6 @@
                 <outlet property="txtpin2" destination="Id6-Se-3ia" id="ZI8-ij-Hfe"/>
                 <outlet property="txtpin3" destination="k7a-ys-ZV6" id="9fS-v3-Omg"/>
                 <outlet property="txtpin4" destination="3dH-4r-6hQ" id="q6h-jk-nrM"/>
-                <outlet property="txtquestion" destination="n9h-Lr-GwZ" id="mL7-d6-BHn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewSecurityQuestion" destination="lvD-cI-n3h" id="Ngm-yp-U7J"/>
             </connections>
@@ -228,18 +228,8 @@
                                 <action selector="btnSecurityQuestion_click:" destination="-1" eventType="touchUpInside" id="04X-5U-HY3"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Question *" minimumFontSize="17" id="n9h-Lr-GwZ">
-                            <rect key="frame" x="10" y="315" width="300" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="Erx-4a-zbt"/>
-                            </connections>
-                        </textField>
                         <textField opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Answer *" minimumFontSize="17" id="O3x-0U-qmi">
-                            <rect key="frame" x="9" y="353" width="300" height="30"/>
+                            <rect key="frame" x="9" y="317" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
@@ -249,7 +239,7 @@
                             </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Licence No." minimumFontSize="17" id="A4h-XE-YcJ">
-                            <rect key="frame" x="10" y="391" width="300" height="30"/>
+                            <rect key="frame" x="10" y="355" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
@@ -259,7 +249,7 @@
                             </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Street" minimumFontSize="17" id="2N9-xt-FTh">
-                            <rect key="frame" x="12" y="429" width="300" height="30"/>
+                            <rect key="frame" x="12" y="393" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
@@ -269,7 +259,7 @@
                             </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Post Code" minimumFontSize="17" id="Jlc-eJ-M86">
-                            <rect key="frame" x="10" y="469" width="300" height="30"/>
+                            <rect key="frame" x="10" y="433" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
@@ -282,11 +272,11 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </scrollView>
                 <view contentMode="scaleToFill" id="lvD-cI-n3h">
-                    <rect key="frame" x="38" y="37" width="244" height="406"/>
+                    <rect key="frame" x="38" y="45" width="244" height="432"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wEj-LH-ksr">
-                            <rect key="frame" x="0.0" y="360" width="244" height="47"/>
+                            <rect key="frame" x="0.0" y="385" width="244" height="47"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -298,7 +288,7 @@
                             </connections>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JRA-sz-Ibi">
-                            <rect key="frame" x="0.0" y="9" width="244" height="350"/>
+                            <rect key="frame" x="0.0" y="0.0" width="244" height="377"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
