@@ -28,6 +28,7 @@
 		5E04AF5719505CBD003F6CD4 /* ic_report_sighting.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4B19505CBD003F6CD4 /* ic_report_sighting.png */; };
 		5E04AF5819505CBD003F6CD4 /* ic_updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4C19505CBD003F6CD4 /* ic_updates.png */; };
 		5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
+		5E05577B196121C9003A84AD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E05577A196121C9003A84AD /* Parse.framework */; };
 		5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */; };
 		5E05DCCA195EBDE90081256F /* default_profile_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC6195EBDE90081256F /* default_profile_home@2x.png */; };
 		5E05DCCB195EBDE90081256F /* default_profile@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC7195EBDE90081256F /* default_profile@1x.png */; };
@@ -59,7 +60,6 @@
 		5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E815EE81940949500CEAFAB /* LoginVC.m */; };
 		5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EE91940949500CEAFAB /* LoginVC.xib */; };
 		5E815EED194095D400CEAFAB /* i_agree.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EEC194095D400CEAFAB /* i_agree.png */; };
-		5E9CCB981949AEFA006B43AE /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB971949AEFA006B43AE /* Parse.framework */; };
 		5E9CCB9A1949AF2A006B43AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB991949AF2A006B43AE /* AudioToolbox.framework */; };
 		5E9CCB9C1949AF44006B43AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB9B1949AF44006B43AE /* CFNetwork.framework */; };
 		5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB9D1949AF56006B43AE /* CoreLocation.framework */; };
@@ -184,6 +184,7 @@
 		5E04AF4B19505CBD003F6CD4 /* ic_report_sighting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_report_sighting.png; sourceTree = "<group>"; };
 		5E04AF4C19505CBD003F6CD4 /* ic_updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_updates.png; sourceTree = "<group>"; };
 		5E04AF59195066AF003F6CD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		5E05577A196121C9003A84AD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
 		5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile_home@1x.png"; sourceTree = "<group>"; };
 		5E05DCC6195EBDE90081256F /* default_profile_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile_home@2x.png"; sourceTree = "<group>"; };
 		5E05DCC7195EBDE90081256F /* default_profile@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile@1x.png"; sourceTree = "<group>"; };
@@ -224,7 +225,6 @@
 		5E815EE91940949500CEAFAB /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		5E815EEC194095D400CEAFAB /* i_agree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_agree.png; sourceTree = "<group>"; };
 		5E9CC95C1949ABE3006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; name = "facebook-ios-sdk-3.14.1.pkg"; path = "../../../Downloads/facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
-		5E9CCB971949AEFA006B43AE /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		5E9CCB991949AF2A006B43AE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5E9CCB9B1949AF44006B43AE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5E9CCB9D1949AF56006B43AE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -348,6 +348,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E05577B196121C9003A84AD /* Parse.framework in Frameworks */,
 				5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */,
 				5EFB8D15195A959B003B6042 /* AssetsLibrary.framework in Frameworks */,
 				5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */,
@@ -361,7 +362,6 @@
 				5E9CCBA01949AF68006B43AE /* libz.1.1.3.dylib in Frameworks */,
 				5E9CCB9C1949AF44006B43AE /* CFNetwork.framework in Frameworks */,
 				5E9CCB9A1949AF2A006B43AE /* AudioToolbox.framework in Frameworks */,
-				5E9CCB981949AEFA006B43AE /* Parse.framework in Frameworks */,
 				5E815EA71940832700CEAFAB /* CoreGraphics.framework in Frameworks */,
 				5E815EA91940832700CEAFAB /* UIKit.framework in Frameworks */,
 				5E815EA51940832700CEAFAB /* Foundation.framework in Frameworks */,
@@ -498,6 +498,7 @@
 		5E815EA31940832700CEAFAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E05577A196121C9003A84AD /* Parse.framework */,
 				5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */,
 				5E04AF59195066AF003F6CD4 /* MapKit.framework */,
 				5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */,
@@ -512,7 +513,6 @@
 				5E9CCB9D1949AF56006B43AE /* CoreLocation.framework */,
 				5E9CCB9B1949AF44006B43AE /* CFNetwork.framework */,
 				5E9CCB991949AF2A006B43AE /* AudioToolbox.framework */,
-				5E9CCB971949AEFA006B43AE /* Parse.framework */,
 				5E9CC95C1949ABE3006B43AE /* facebook-ios-sdk-3.14.1.pkg */,
 				5E815EA41940832700CEAFAB /* Foundation.framework */,
 				5E815EA61940832700CEAFAB /* CoreGraphics.framework */,
@@ -1106,6 +1106,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSampleAppSpecs/SampleAppSpecs/Frameworks",
 					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSDKSpecs/Frameworks",
 					"/Users/asha/Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS",
+					"$(PROJECT_DIR)/CrimeStopper",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
@@ -1138,6 +1139,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSampleAppSpecs/SampleAppSpecs/Frameworks",
 					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSDKSpecs/Frameworks",
 					"/Users/asha/Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS",
+					"$(PROJECT_DIR)/CrimeStopper",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
