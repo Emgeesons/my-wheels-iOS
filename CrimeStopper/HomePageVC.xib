@@ -6,6 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomePageVC">
             <connections>
+                <outlet property="btnprofile" destination="Sca-Cr-wKG" id="1g2-0l-DAM"/>
+                <outlet property="imgProfilepic" destination="2cI-wn-WXT" id="9Qg-G8-6mb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -39,14 +41,18 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="54T-hc-UDk">
-                            <rect key="frame" x="270" y="10" width="40" height="45"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_home.png" id="2cI-wn-WXT">
+                            <rect key="frame" x="257" y="7" width="60" height="41"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" backgroundImage="default_profile_home.png">
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sca-Cr-wKG">
+                            <rect key="frame" x="265" y="13" width="46" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnProfile_click:" destination="-1" eventType="touchUpInside" id="flb-Sp-lGJ"/>
+                                <action selector="btnProfile_click:" destination="-1" eventType="touchUpInside" id="Er6-0C-TV1"/>
                             </connections>
                         </button>
                     </subviews>

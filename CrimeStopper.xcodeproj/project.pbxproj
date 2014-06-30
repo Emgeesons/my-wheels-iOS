@@ -28,6 +28,10 @@
 		5E04AF5719505CBD003F6CD4 /* ic_report_sighting.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4B19505CBD003F6CD4 /* ic_report_sighting.png */; };
 		5E04AF5819505CBD003F6CD4 /* ic_updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4C19505CBD003F6CD4 /* ic_updates.png */; };
 		5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
+		5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */; };
+		5E05DCCA195EBDE90081256F /* default_profile_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC6195EBDE90081256F /* default_profile_home@2x.png */; };
+		5E05DCCB195EBDE90081256F /* default_profile@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC7195EBDE90081256F /* default_profile@1x.png */; };
+		5E05DCCC195EBDE90081256F /* default_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC8195EBDE90081256F /* default_profile@2x.png */; };
 		5E095173194177E400DC97E2 /* vehicle_graphic(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E095172194177E400DC97E2 /* vehicle_graphic(5).png */; };
 		5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */; };
 		5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517519417AEF00DC97E2 /* btn_login(5).png */; };
@@ -67,7 +71,6 @@
 		5E9CCE931949B29E006B43AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCE921949B29E006B43AE /* Security.framework */; };
 		5E9CCE961949B439006B43AE /* FBUserSettingsViewResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */; };
 		5E9CCE9A1949B8AE006B43AE /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CCE981949B8AE006B43AE /* UserDetailsViewController.m */; };
-		5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */ = {isa = PBXBuildFile; fileRef = 5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */; };
 		5E9CD34A1949BD85006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD3491949BD85006B43AE /* FacebookSDK.framework */; };
 		5E9CD34C1949BDA5006B43AE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */; };
 		5E9E35D319544CE500485733 /* im_next@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E35D119544CE500485733 /* im_next@1x.png */; };
@@ -181,6 +184,10 @@
 		5E04AF4B19505CBD003F6CD4 /* ic_report_sighting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_report_sighting.png; sourceTree = "<group>"; };
 		5E04AF4C19505CBD003F6CD4 /* ic_updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_updates.png; sourceTree = "<group>"; };
 		5E04AF59195066AF003F6CD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile_home@1x.png"; sourceTree = "<group>"; };
+		5E05DCC6195EBDE90081256F /* default_profile_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile_home@2x.png"; sourceTree = "<group>"; };
+		5E05DCC7195EBDE90081256F /* default_profile@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile@1x.png"; sourceTree = "<group>"; };
+		5E05DCC8195EBDE90081256F /* default_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile@2x.png"; sourceTree = "<group>"; };
 		5E095172194177E400DC97E2 /* vehicle_graphic(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle_graphic(5).png"; sourceTree = "<group>"; };
 		5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login_with_facebook(5).png"; sourceTree = "<group>"; };
 		5E09517519417AEF00DC97E2 /* btn_login(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login(5).png"; sourceTree = "<group>"; };
@@ -230,7 +237,6 @@
 		5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = ../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		5E9CCE971949B8AE006B43AE /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsViewController.h; sourceTree = "<group>"; };
 		5E9CCE981949B8AE006B43AE /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
-		5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
 		5E9CD3491949BD85006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS/FacebookSDK.framework"; sourceTree = "<group>"; };
 		5E9E35D119544CE500485733 /* im_next@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_next@1x.png"; sourceTree = "<group>"; };
@@ -496,7 +502,6 @@
 				5E04AF59195066AF003F6CD4 /* MapKit.framework */,
 				5E9CD34B1949BDA5006B43AE /* FacebookSDK.framework */,
 				5E9CD3491949BD85006B43AE /* FacebookSDK.framework */,
-				5E9CD3471949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg */,
 				5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */,
 				5E9CCE921949B29E006B43AE /* Security.framework */,
 				5E9CCBA71949AF9C006B43AE /* SystemConfiguration.framework */,
@@ -612,6 +617,10 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */,
+				5E05DCC6195EBDE90081256F /* default_profile_home@2x.png */,
+				5E05DCC7195EBDE90081256F /* default_profile@1x.png */,
+				5E05DCC8195EBDE90081256F /* default_profile@2x.png */,
 				5EEF216F1955A3FB00A0BA3F /* app_icon_58x58.png */,
 				5EEF21701955A3FB00A0BA3F /* app_icon_80x80.png */,
 				5EEF21711955A3FB00A0BA3F /* app_icon_120x120.png */,
@@ -839,6 +848,8 @@
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
 				5EEF217E1955AC1900A0BA3F /* CrimeStopper-Info.plist in Resources */,
 				5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */,
+				5E05DCCC195EBDE90081256F /* default_profile@2x.png in Resources */,
+				5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */,
 				5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */,
 				5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */,
 				5EEF21961955B44300A0BA3F /* female_active.png in Resources */,
@@ -897,11 +908,12 @@
 				5EF532581947394C00BFD255 /* HomePageVC.xib in Resources */,
 				5EE8C90F19518BAB009550A1 /* ic_suburban_taxi.png in Resources */,
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
+				5E05DCCB195EBDE90081256F /* default_profile@1x.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
 				5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */,
 				5EEF21781955A3FB00A0BA3F /* app_icon_512x512.png in Resources */,
 				5EE8C8FD19515089009550A1 /* bullet.png in Resources */,
-				5E9CD3481949BC9F006B43AE /* facebook-ios-sdk-3.14.1.pkg in Resources */,
+				5E05DCCA195EBDE90081256F /* default_profile_home@2x.png in Resources */,
 				5EE8C91D1951AFFA009550A1 /* star_highlighted@2x.png in Resources */,
 				5EA4BC71195D2C13006B4B5A /* AddDetailsVC.xib in Resources */,
 				5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */,

@@ -37,6 +37,7 @@ NSString *strQues;
 @synthesize btnSecurityCancel;
 @synthesize toolbar;
 @synthesize viewPickerview;
+NSString *strBirthDate;
 
 UITextField *txtOtherQuestion;
 int intques;
@@ -170,7 +171,7 @@ int intques;
     [viewPickerview setHidden:YES];
     
     NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
-    NSDate *todayDate = [NSDate date];
+     NSDate *todayDate = [NSDate date];
    
     
     int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthDate]];
@@ -201,7 +202,12 @@ int intques;
             
         });
     }
-   
+    NSLog(@"birthdate :%@",birthDate);
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    strBirthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
+    NSLog(@"strdate : %@",strBirthDate);
+
     self.scrollview.userInteractionEnabled = YES;
     [self.view setBackgroundColor:[UIColor whiteColor]];
      [timePicker setHidden:YES];
@@ -281,7 +287,7 @@ int intques;
         [CheckAlert show];
     } else {
         NSLog(@"There IS internet connection");
-    }
+    
     
     
     if (txtFname.text.length==0 || txtLname.text.length==0 || txtEmailAddress.text.length==0 || txtMobileNo.text.length==0 || txtDateOfBirth.text.length==0 || txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 || txtAnswer.text.length == 0)
@@ -293,66 +299,56 @@ int intques;
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
         
-        if (txtFname.text.length>0 && txtFname.text.length <2)
-        {
-            [txtFname setTextColor:[UIColor redColor]];
-        }
-        else if (txtFname.text.length == 0)
-        {
-             [txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (txtLname.text.length>0 && txtLname.text.length <2)
-        {
-            [txtLname setTextColor:[UIColor redColor]];
-        }
-        else if (txtLname.text.length == 0)
-        {
-            [txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (txtMobileNo.text.length>0 && txtMobileNo.text.length <2)
-        {
-            [txtMobileNo setTextColor:[UIColor redColor]];
-        }
-        else if (txtMobileNo.text.length == 0)
-        {
-            [txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if (txtAnswer.text.length>0 && txtAnswer.text.length <3)
-        {
-            [txtAnswer setTextColor:[UIColor redColor]];
-        }
-        else if (txtAnswer.text.length == 0)
-        {
-            [txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else{}
-        
-        if(txtEmailAddress.text.length == 0)
-        {
-            [txtEmailAddress setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        NSDate *now = [NSDate date];
-        if([now timeIntervalSinceDate:pickerDateOfBirth.date] > 0 )
-        {
-            //         [txtDateOfBirth setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            //        [txtDateOfBirth setTextColor:[UIColor redColor]];
-            
-        }
-        else if (txtDateOfBirth.text.length == 0)
-        {
-            [txtDateOfBirth setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
-        else
-        {
-            NSLog(@"picker date .. :%@ ",pickerDateOfBirth.date);
-        }
     }
+   else if (txtFname.text.length>0 && txtFname.text.length <2)
+    {
+        [txtFname setTextColor:[UIColor redColor]];
+    }
+    else if (txtFname.text.length == 0)
+    {
+        [txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+  
+    
+   else if (txtLname.text.length>0 && txtLname.text.length <2)
+    {
+        [txtLname setTextColor:[UIColor redColor]];
+    }
+    else if (txtLname.text.length == 0)
+    {
+        [txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    
+    
+   else if (txtMobileNo.text.length>0 && txtMobileNo.text.length <2)
+    {
+        [txtMobileNo setTextColor:[UIColor redColor]];
+    }
+    else if (txtMobileNo.text.length == 0)
+    {
+        [txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    
+    
+  else  if (txtAnswer.text.length>0 && txtAnswer.text.length <3)
+    {
+        [txtAnswer setTextColor:[UIColor redColor]];
+    }
+    else if (txtAnswer.text.length == 0)
+    {
+        [txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    else if(txtEmailAddress.text.length == 0)
+    {
+        [txtEmailAddress setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+   
+    
+    else if (txtDateOfBirth.text.length == 0)
+    {
+        [txtDateOfBirth setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+    }
+   
     else
     {
         BOOL isValid = [self NSStringIsValidEmail:txtEmailAddress.text];
@@ -370,6 +366,7 @@ int intques;
             
             [CheckAlert show];
         }
+    }
     }
 }
 
@@ -675,26 +672,7 @@ int intques;
     }completion:nil];
     return YES;
 }
-//-(void)dateDoneClicked {
-//   
-//    
-//    //format date
-//    NSDateFormatter *FormatDate = [[NSDateFormatter alloc] init];
-//    [FormatDate setLocale: [NSLocale currentLocale]];
-//    
-//    //set date format
-//    [FormatDate setDateFormat:@"YYYY-MM-dd"];
-//    bAge = YES;
-//    dob = [FormatDate stringFromDate:[timePicker date]];
-//    age = [DatabaseExtra getAge:[timePicker date]];
-//    
-//    datePickerSelectedDate = [timePicker date];
-//    
-//    self.txtAge.text = [NSString stringWithFormat:@"%ld yrs", (long)[DatabaseExtra getAge:[timePicker date]]];
-//    
-//    timePicker.frame=CGRectMake(0, 44, 320, 416);
-//    [self cancelClicked];
-//}
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
    
@@ -1072,7 +1050,7 @@ int intques;
     [param setValue:txtLname.text forKey:@"lastName"];
     [param setValue:txtMobileNo.text forKey:@"mobileNumber"];
    // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
-    [param setValue:@"1999-02-02" forKey:@"dob"];
+    [param setValue:strBirthDate forKey:@"dob"];
     [param setValue:strGender forKey:@"gender"];
     [param setValue:strQuestion forKey:@"securityQuestion"];
     [param setValue:txtAnswer.text  forKey:@"securityAnswer"];
@@ -1093,23 +1071,39 @@ int intques;
         
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
         NSLog(@"data : %@",jsonDictionary);
-        //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-        
-        //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"Json dictionary :: %@",jsonDictionary);
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
         NSLog(@"message %@",EntityID);
         if ([EntityID isEqualToString:@"failure"])
         {
-            
+            NSString *strmessage = [jsonDictionary valueForKey:@"message"];
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:strmessage
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
         }
         else
         {
+           NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+            [[NSUserDefaults standardUserDefaults] setValue:userID forKey:@"UserID"];
+            [[NSUserDefaults standardUserDefaults] setValue:strBirthDate forKey:@"dob"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtEmailAddress.text forKey:@"email"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtFname.text forKey:@"first_name"];
+            [[NSUserDefaults standardUserDefaults] setValue:strGender forKey:@"gender"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtLname.text forKey:@"last_name"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
+             [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
+            [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+           
             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                                 message:@"My Wheel would like to access your current location."
                                                                delegate:self
                                                       cancelButtonTitle:@"Don't Allow"
                                                       otherButtonTitles:@"Allow", nil];
+            
+            
             
             CheckAlert.tag =2;
             [CheckAlert show];

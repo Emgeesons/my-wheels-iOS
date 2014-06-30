@@ -15,7 +15,8 @@
     UIActionSheet *sheet;
     UIDatePicker *timePicker;
 }
-
+@property (nonatomic,retain) IBOutlet UIDatePicker *pickerDateOfBirth;
+@property (nonatomic,retain) IBOutlet UIView *viewPickerview;
 @property (nonatomic,retain) IBOutlet UITextField *txtFname;
 @property (nonatomic,retain) IBOutlet UITextField *txtLname;
 @property (nonatomic,retain) IBOutlet UITextField *txtEmail;

@@ -52,6 +52,19 @@
     [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:@"latitude"];
     [[NSUserDefaults standardUserDefaults] setValue:longitude forKey:@"longitude"];
     
+    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    
+    if(photoURL == nil || photoURL == (id)[NSNull null])
+    {
+        _imgProfilepic.image = [UIImage imageNamed:@"default_profile_home.png"];
+        [_btnprofile setBackgroundImage:[UIImage imageNamed:@"default_profile_home.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+          _imgProfilepic.image = [UIImage imageWithData:imageData];
+        [_btnprofile setBackgroundImage: [UIImage imageWithData:imageData] forState:UIControlStateNormal];
+    }
     NSLog(@"%@",latitude);
     NSLog(@"%@",longitude);
     

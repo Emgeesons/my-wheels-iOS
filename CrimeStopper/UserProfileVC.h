@@ -26,6 +26,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnsamaritan;
 @property (nonatomic,retain) IBOutlet UILabel *lblsamaritan;
 @property (nonatomic,retain) IBOutlet UIImageView *imgsamaritan;
+@property (nonatomic,retain) IBOutlet UIImageView *imgUserProfilepic;
 
 -(IBAction)btnAddDetails_click:(id)sender;
 -(IBAction)btnProfilepic_click:(id)sender;
