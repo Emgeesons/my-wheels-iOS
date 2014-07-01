@@ -13,6 +13,7 @@
 #import "AboutUsVC.h"
 #import "UserProfileVC.h"
 #import "LoginVC.h"
+#import "ReportSightingViewController.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -138,6 +139,22 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
    
+}
+
+- (IBAction)openReportSighting:(id)sender {
+    
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    if(UserID == nil || UserID == NULL) {
+        // open LoginViewController
+        LoginVC *vc = [[LoginVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        // open ReportSightingViewController
+        ReportSightingViewController *reportSighting = [[ReportSightingViewController alloc] init];
+        [self.navigationController pushViewController:reportSighting animated:YES];
+    }
+    
+    
 }
 #pragma mark get current location
 -(void)CurrentLocationIdentifier
