@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "__81-[ReportSightingViewController locationManager:didUpdateToLocation:fromLocation:]_block_invoke:ReportSightingViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "originalLatitude">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

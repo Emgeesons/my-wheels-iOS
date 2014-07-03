@@ -8,15 +8,20 @@
 
 #import "ReportSightingViewController.h"
 @import CoreLocation;
+#import "AFNetworking.h"
 
-@interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate> {
-    UIActionSheet *sightingPicker, *datePickerSheet;
+@interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
+    UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
     UIDatePicker *datePicker;
     NSDate *datePickerSelectedDate;
     //CLLocationManager *locationManager;
     CLGeocoder *geocoder;
     CLPlacemark *placemark;
-    NSString *originalLatitude, *originalLongitude, *selectedLatitude, *selectedLongitude, *address, *originalDate, *originalTime, *selectedDate, *selectedTime;
+    NSString *originalLatitude, *originalLongitude, *selectedLatitude, *selectedLongitude, *originalDate, *originalTime, *selectedDate, *selectedTime;
+    NSMutableString *address;
+    NSDateFormatter *dateFormat, *timeFormat;
+    
+    UIToolbar *bgToolBar;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @end
@@ -47,6 +52,26 @@
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
     
     [_locationManager startUpdatingLocation]; // start updating for current location
+    
+    // set contentSize of scrollview here
+    [self.scrollView setContentSize:CGSizeMake(0, 450)];
+    
+    [self createGalleryFolder];
+    
+    // initialize dateFormat & timeFormat
+    dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"YYYY-MM-dd"];
+    
+    timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm:ss"];
+    
+    NSLog(@"%@", [DeviceInfo platformNiceString]);
+    
+    // Add UIToolBar to view with alpha 0.7 for transparency
+    bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];
+    bgToolBar.barStyle = UIBarStyleBlack;
+    bgToolBar.alpha = 0.7;
+    bgToolBar.translucent = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +82,87 @@
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)btnSendClicked:(id)sender {
+    
+    // Check Type of Sighting
+    if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of Sighting" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    // Check Date & time
+    if ([DeviceInfo trimString:self.txtDateTime.text].length == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select Date" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    // get the count of files in gallery folder
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dataPath = [[docPaths objectAtIndex:0] stringByAppendingPathComponent:@"/gallery"];
+    NSArray *filelist= [fm contentsOfDirectoryAtPath:dataPath error:nil];
+    //NSLog(@"%lu", (unsigned long)filelist.count);
+    int filesCount = (int)[filelist count];
+    
+    // Atleast 1 textfield should be filled
+    if ([DeviceInfo trimString:self.txtRegistrationNo.text].length == 0 && [DeviceInfo trimString:self.txtMake.text].length == 0 && [DeviceInfo trimString:self.txtModel.text].length == 0  && [DeviceInfo trimString:self.txtColor.text].length == 0 && [DeviceInfo trimString:self.txtComments.text].length == 0 && filesCount == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Enter atleast 1 value." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    // get current date & time
+    NSDate *currentDate = [NSDate date];
+    
+    // set original date & time
+    originalDate = [dateFormat stringFromDate:currentDate];
+    originalTime = [timeFormat stringFromDate:currentDate];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    
+    NSDictionary *parameters = @{@"userId" : UserID,
+                                 @"pin" : pin,
+                                 @"originalLatitude": originalLatitude,
+                                 @"originalLongitude" : originalLongitude,
+                                 @"selectedLatitutde" : selectedLatitude,
+                                 @"selectedLongitude" : selectedLongitude,
+                                 @"location" : address,
+                                 @"originalDate" : originalDate,
+                                 @"orginalTime" : originalTime,
+                                 @"selectedDate" : selectedDate,
+                                 @"selectedTime" : selectedTime,
+                                 @"sightingType" : self.txtSighting.text,
+                                 @"vehicleMake" : self.txtMake.text,
+                                 @"vehicleModel" : self.txtModel.text,
+                                 @"vehicleColour" : self.txtColor.text,
+                                 @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
+                                 @"registerationNumber" : self.txtRegistrationNo.text,
+                                 @"comments" : self.txtComments.text,
+                                 @"os" : OS_VERSION,
+                                 @"make" : MAKE,
+                                 @"model" : [DeviceInfo platformNiceString]};
+    
+    [manager POST:[NSString stringWithFormat:@"%@reportSighting.php", SERVERNAME] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i < filesCount; i++) {
+            NSString *imgName = [NSString stringWithFormat:@"image%d", (int)(i + 1)];
+            NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", filelist[i]]]];
+            [formData appendPartWithFileData:imgData name:imgName fileName:filelist[i] mimeType:@"image/png"];
+        }
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [self addSuccessView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+    }];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -70,35 +176,52 @@
 {
     CLLocation *currentLocation = newLocation;
     
-    // Stop Location Manager
-    //[locationManager stopUpdatingLocation];
-    
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
             placemark = [placemarks lastObject];
-            address = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@",
-                                 placemark.subThoroughfare, placemark.thoroughfare,
-                                 placemark.postalCode, placemark.locality,
-                                 placemark.administrativeArea,
-                                 placemark.country];
 
-            NSLog(@"currentLocation ==> %f", currentLocation.coordinate.latitude);
-            NSLog(@"oldLocation ==> %f", oldLocation.coordinate.latitude);
+            address = [[NSMutableString alloc] init];
             
+            if (placemark.subThoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.subThoroughfare];
+            }
+            
+            if (placemark.thoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.thoroughfare];
+            }
+            
+            if (placemark.postalCode != NULL) {
+                [address appendFormat:@"%@ ", placemark.postalCode];
+            }
+            
+            if (placemark.locality != NULL) {
+                [address appendFormat:@"%@ ", placemark.locality];
+            }
+            
+            if (placemark.administrativeArea != NULL) {
+                [address appendFormat:@"%@ ", placemark.administrativeArea];
+            }
+            
+            if (placemark.country != NULL) {
+                [address appendFormat:@"%@", placemark.country];
+            }
+
+            //NSLog(@"currentLocation ==> %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+            //NSLog(@"center ==> %f, %f", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude);
+
             if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
-                
-                self.mapView.centerCoordinate = currentLocation.coordinate;
                 
                 CLLocationCoordinate2D coord = {.latitude =  currentLocation.coordinate.latitude, .longitude =  currentLocation.coordinate.longitude};
                 MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
                 MKCoordinateRegion region = {coord, span};
                 
-                [_mapView setShowsUserLocation:YES];
                 [self.mapView setRegion:region animated:YES];
                 // set original coordinates
-                originalLatitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.latitude];
-                originalLongitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.longitude];
+                originalLatitude = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+                originalLongitude = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+                selectedLatitude = originalLatitude;
+                selectedLongitude = originalLongitude;
             }
             
             _lblAddress.text = address;
@@ -110,10 +233,50 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    
     // set selected coordinates
     selectedLatitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.latitude];
     selectedLongitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.longitude];
-    NSLog(@"%@", selectedLatitude);
+    
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
+    // Reverse Geocoding
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            address = [[NSMutableString alloc] init];
+            
+            if (placemark.subThoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.subThoroughfare];
+            }
+            
+            if (placemark.thoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.thoroughfare];
+            }
+            
+            if (placemark.postalCode != NULL) {
+                [address appendFormat:@"%@ ", placemark.postalCode];
+            }
+            
+            if (placemark.locality != NULL) {
+                [address appendFormat:@"%@ ", placemark.locality];
+            }
+            
+            if (placemark.administrativeArea != NULL) {
+                [address appendFormat:@"%@ ", placemark.administrativeArea];
+            }
+            
+            if (placemark.country != NULL) {
+                [address appendFormat:@"%@", placemark.country];
+            }
+            
+            _lblAddress.text = address;
+            
+            
+        } else {
+            NSLog(@"%@", error.debugDescription);
+        }
+    } ];
+
 }
 
 #pragma mark - UITextField delegate Methods
@@ -165,14 +328,14 @@
         [datePickerSheet showInView:self.view];
         [datePickerSheet setBounds:CGRectMake(0,0,320, 464)];
         return NO;
+    } else if(textField == self.txtRegistrationNo) {
+        [self.scrollView setContentOffset:CGPointMake(0, 55) animated:YES];
     } else if(textField == self.txtMake) {
-        [self.scrollView setContentOffset:CGPointMake(0, 10) animated:YES];
-    }  else if(textField == self.txtModel) {
-        [self.scrollView setContentOffset:CGPointMake(0, 30) animated:YES];
-    } else if (textField == self.txtColor) {
-        [self.scrollView setContentOffset:CGPointMake(0, 30) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0, 95) animated:YES];
+    } else if(textField == self.txtModel || textField == self.txtColor) {
+        [self.scrollView setContentOffset:CGPointMake(0, 130) animated:YES];
     } else if (textField == self.txtComments) {
-        [self.scrollView setContentOffset:CGPointMake(0, 70) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0, 170) animated:YES];
     }
     return YES;
 }
@@ -188,13 +351,89 @@
         [self.txtComments becomeFirstResponder];
     } else {
         [textField resignFirstResponder];
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0, -20) animated:YES];
         return YES;
     }
     return NO;
 }
 
+#pragma mark - UIImagePicker Delegate methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    
+    // save image locally
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/gallery"];
+    
+    // For image 1
+    NSString *savedImagePath1 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"1.png"]];
+    BOOL fileExists1 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath1];
+    if (!fileExists1) {
+        NSData *imageData = UIImagePNGRepresentation(chosenImage);
+        [imageData writeToFile:savedImagePath1 atomically:NO];
+        
+        [self loadImages];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
+    
+    // For image 2
+    NSString *savedImagePath2 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"2.png"]];
+    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath2];
+    if (!fileExists2) {
+        NSData *imageData = UIImagePNGRepresentation(chosenImage);
+        [imageData writeToFile:savedImagePath2 atomically:NO];
+        
+        [self loadImages];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
+    
+    // For image 3
+    NSString *savedImagePath3 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"3.png"]];
+    BOOL fileExists3 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath3];
+    if (!fileExists3) {
+        NSData *imageData = UIImagePNGRepresentation(chosenImage);
+        [imageData writeToFile:savedImagePath3 atomically:NO];
+        
+        [self loadImages];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
 #pragma mark - UIActionSheet done/cancel buttons
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet == sightingPicker) {
+        if (buttonIndex == 4) {
+            // return when cancel is clicked
+            return;
+        }
+        NSString *title = [sightingPicker buttonTitleAtIndex:buttonIndex];
+        self.txtSighting.text = title;
+    } else if (actionSheet == imagePickerSheet) {
+        if (buttonIndex == 0) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:picker animated:YES completion:NULL];
+        } else if (buttonIndex == 1) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:picker animated:YES completion:NULL];
+        }
+    }
+}
 
 -(void)cancelClicked {
     [datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
@@ -215,8 +454,144 @@
     
     self.txtDateTime.text = [FormatDate stringFromDate:[datePicker date]];
     
+    // set selected date & time
+    selectedDate = [dateFormat stringFromDate:[datePicker date]];
+    selectedTime = [timeFormat stringFromDate:[datePicker date]];
+    
     datePicker.frame=CGRectMake(0, 44, 320, 416);
     [self cancelClicked];
+}
+
+- (IBAction)addImage:(id)sender {
+    imagePickerSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
+    imagePickerSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [imagePickerSheet showInView:self.view];
+}
+
+-(void)createGalleryFolder {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/gallery"];
+    
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+}
+
+-(void)loadImages {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dataPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/gallery"];
+    
+    // For image 1
+    NSString *savedImagePath1 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"1.png"]];
+    BOOL fileExists1 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath1];
+    if (fileExists1) {
+        // unhide image1
+        self.imageView1.hidden = NO;
+        self.imageView1.image = [UIImage imageWithContentsOfFile:savedImagePath1];
+    }
+    
+    // For image 2
+    NSString *savedImagePath2 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"2.png"]];
+    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath2];
+    if (fileExists2) {
+        // unhide image2
+        self.imageView2.hidden = NO;
+        self.imageView2.image = [UIImage imageWithContentsOfFile:savedImagePath2];
+    }
+    
+    // For image 3
+    NSString *savedImagePath3 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"3.png"]];
+    BOOL fileExists3 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath3];
+    if (fileExists3) {
+        // unhide image3
+        self.imageview3.hidden = NO;
+        self.imageview3.image = [UIImage imageWithContentsOfFile:savedImagePath3];
+        
+        // hide add image button
+        self.btnAddImage.hidden = YES;
+    }
+}
+
+-(void)addSuccessView {
+    // add bgToolbar to view
+    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
+    
+    // view for success
+    UIView *viewSuccess = [[UIView alloc] initWithFrame:CGRectZero];
+    viewSuccess.backgroundColor = [UIColor whiteColor];
+    viewSuccess.layer.cornerRadius = 5;
+    viewSuccess.clipsToBounds = YES;
+    
+    // UIImageView for +50 points
+    UIImageView *ivPoints = [[UIImageView alloc] init];
+    ivPoints.image = [UIImage imageNamed:@"points_bg.png"];
+    ivPoints.frame = CGRectMake(50, 0, 180, 180);
+    [viewSuccess addSubview:ivPoints];
+    
+    // UILabel for Good Jpb text
+    UILabel *lblGood = [[UILabel alloc] init];
+    lblGood.frame = CGRectMake(0, 200, 280, 25);
+    lblGood.text = @"Good Job!";
+    lblGood.textAlignment = NSTextAlignmentCenter;
+    lblGood.textColor = [UIColor grayColor];
+    lblGood.font = [UIFont fontWithName:@"HelveticaNeue" size:27];
+    [viewSuccess addSubview:lblGood];
+    
+    //UILabel for 50 points
+    UILabel *lblPoints = [[UILabel alloc] init];
+    lblPoints.frame = CGRectMake(0, lblGood.frame.origin.y + lblGood.frame.size.height + 5, 280, 35);
+    lblPoints.text = @"You earned yourself 50 good\nSamaritan points!!";
+    lblPoints.numberOfLines = 0;
+    lblPoints.textAlignment = NSTextAlignmentCenter;
+    lblPoints.textColor = [UIColor grayColor];
+    lblPoints.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [viewSuccess addSubview:lblPoints];
+    
+    // UILabel for Total Points text
+    UILabel *lblTotalPoints = [[UILabel alloc] init];
+    lblTotalPoints.frame = CGRectMake(0, lblPoints.frame.origin.y + lblPoints.frame.size.height + 5, 280, 18);
+    lblTotalPoints.text = @"Total Samaritan Points: 70";
+    lblTotalPoints.textAlignment = NSTextAlignmentCenter;
+    lblTotalPoints.textColor = [UIColor blackColor];
+    lblTotalPoints.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+    [viewSuccess addSubview:lblTotalPoints];
+    
+    //UIImageView for divider
+    UIImageView *ivDivider = [[UIImageView alloc] init];
+    ivDivider.frame = CGRectMake(0, lblTotalPoints.frame.origin.y + lblTotalPoints.frame.size.height + 20, 280, 0.5);
+    ivDivider.backgroundColor = [UIColor lightGrayColor];
+    [viewSuccess addSubview:ivDivider];
+    
+    //UIButton for Close
+    UIButton *btnClose = [[UIButton alloc] init];
+    btnClose.frame = CGRectMake(0, ivDivider.frame.origin.y + ivDivider.frame.size.height + 1, 140, 60);
+    [btnClose setTitle:@"Close" forState:UIControlStateNormal];
+    [btnClose setTitleColor:btnClose.tintColor forState:UIControlStateNormal];
+    [btnClose addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewSuccess addSubview:btnClose];
+    
+    //UIImageView for divider2
+    UIImageView *ivDivider2 = [[UIImageView alloc] init];
+    ivDivider2.frame = CGRectMake(140, ivDivider.frame.origin.y + ivDivider.frame.size.height, 0.5, 60);
+    ivDivider2.backgroundColor = [UIColor lightGrayColor];
+    [viewSuccess addSubview:ivDivider2];
+    
+    //UIButton for View Profile
+    UIButton *btnProfile = [[UIButton alloc] init];
+    btnProfile.frame = CGRectMake(141, ivDivider.frame.origin.y + ivDivider.frame.size.height + 1, 140, 60);
+    [btnProfile setTitle:@"View Profile" forState:UIControlStateNormal];
+    [btnProfile setTitleColor:btnClose.tintColor forState:UIControlStateNormal];
+    [viewSuccess addSubview:btnProfile];
+    
+    if ([DeviceInfo isIphone5]) {
+        viewSuccess.frame = CGRectMake(20, 100, 280, 368);
+    } else {
+        viewSuccess.frame = CGRectMake(20, 55, 280, 368);
+    }
+    
+    [self.view.superview insertSubview:viewSuccess aboveSubview:bgToolBar];
 }
 
 @end

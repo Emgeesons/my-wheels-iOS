@@ -146,6 +146,9 @@
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
 		EC48B1FB19612B2400BF517A /* ReportSightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC48B1F919612B2400BF517A /* ReportSightingViewController.m */; };
 		EC48B1FC19612B2400BF517A /* ReportSightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC48B1FA19612B2400BF517A /* ReportSightingViewController.xib */; };
+		EC49C8931965677E0041125E /* points_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC49C8921965677E0041125E /* points_bg@2x.png */; };
+		EC49C895196567870041125E /* points_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EC49C894196567870041125E /* points_bg.png */; };
+		EC6ECD4A19653FDC00BCDD15 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6ECD4919653FDC00BCDD15 /* DeviceInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +345,10 @@
 		EC48B1F819612B2400BF517A /* ReportSightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSightingViewController.h; sourceTree = "<group>"; };
 		EC48B1F919612B2400BF517A /* ReportSightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSightingViewController.m; sourceTree = "<group>"; };
 		EC48B1FA19612B2400BF517A /* ReportSightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSightingViewController.xib; sourceTree = "<group>"; };
+		EC49C8921965677E0041125E /* points_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "points_bg@2x.png"; sourceTree = "<group>"; };
+		EC49C894196567870041125E /* points_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = points_bg.png; sourceTree = "<group>"; };
+		EC6ECD4819653FDC00BCDD15 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfo.h; sourceTree = "<group>"; };
+		EC6ECD4919653FDC00BCDD15 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +458,8 @@
 			isa = PBXGroup;
 			children = (
 				5E0951811941C71D00DC97E2 /* constant.h */,
+				EC6ECD4819653FDC00BCDD15 /* DeviceInfo.h */,
+				EC6ECD4919653FDC00BCDD15 /* DeviceInfo.m */,
 			);
 			name = "constant class";
 			sourceTree = "<group>";
@@ -617,6 +626,7 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC49C8911965676F0041125E /* report sighting */,
 				5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */,
 				5E05DCC6195EBDE90081256F /* default_profile_home@2x.png */,
 				5E05DCC7195EBDE90081256F /* default_profile@1x.png */,
@@ -764,6 +774,15 @@
 			path = "AFNetworking-master 2/UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		EC49C8911965676F0041125E /* report sighting */ = {
+			isa = PBXGroup;
+			children = (
+				EC49C8921965677E0041125E /* points_bg@2x.png */,
+				EC49C894196567870041125E /* points_bg.png */,
+			);
+			name = "report sighting";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -815,7 +834,7 @@
 						DevelopmentTeam = 44C2WNQ95S;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -869,10 +888,12 @@
 				5EEF21931955B44300A0BA3F /* male_inactive.png in Resources */,
 				5EFE9196195948D80014669E /* incomplete.png in Resources */,
 				5E095173194177E400DC97E2 /* vehicle_graphic(5).png in Resources */,
+				EC49C8931965677E0041125E /* points_bg@2x.png in Resources */,
 				5EFE9191195948D80014669E /* default_profile_bg.png in Resources */,
 				5EFE9193195948D80014669E /* edit_white.png in Resources */,
 				EC48B1FC19612B2400BF517A /* ReportSightingViewController.xib in Resources */,
 				5EFE9198195948D80014669E /* profile_bar.png in Resources */,
+				EC49C895196567870041125E /* points_bg.png in Resources */,
 				5EE8C8FE19515089009550A1 /* ic_call.png in Resources */,
 				5EFE9197195948D80014669E /* points_design.png in Resources */,
 				5EEF21791955A3FB00A0BA3F /* app_icon_1024x1024.png in Resources */,
@@ -975,6 +996,7 @@
 				5EFFBC72195C00B0003679C6 /* UIProgressView+AFNetworking.m in Sources */,
 				5EE8C9161951AAEB009550A1 /* FeedBackVC.m in Sources */,
 				5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */,
+				EC6ECD4A19653FDC00BCDD15 /* DeviceInfo.m in Sources */,
 				EC48B1FB19612B2400BF517A /* ReportSightingViewController.m in Sources */,
 				5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */,
 				5EFFBC2A195C00B0003679C6 /* AFSecurityPolicy.m in Sources */,
