@@ -247,6 +247,7 @@ int intques;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     int y=0;
+     [textField setTextColor:[UIColor blackColor]];
     if(textField == txtAnswer)
     {
         y=80;

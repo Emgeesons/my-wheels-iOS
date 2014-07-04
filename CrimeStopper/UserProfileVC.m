@@ -13,10 +13,17 @@
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
 #import "EditDetailsVC.h"
-
+#import "AddVehiclesVC.h"
+#import "AddInsuranceVC.h"
+#import "Reachability.h"
+#import "AppDelegate.h"
+#import "MyVehicleVC.h"
 
 NSInteger intImage;
 @interface UserProfileVC ()
+{
+    AppDelegate *appDelegate;
+}
 @property (nonatomic) CGFloat progress;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSArray *progressViews;
@@ -39,6 +46,7 @@ NSInteger intImage;
     [super viewDidLoad];
     self.library = [[ALAssetsLibrary alloc] init];
     // NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
           NSString *Fname = [[NSUserDefaults standardUserDefaults] objectForKey:@"first_name"];
          NSString *Lname = [[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"];
          NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
@@ -49,15 +57,56 @@ NSInteger intImage;
         NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
     NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
     
+    // Create the Album:
+    NSString *albumName = @"My Wheels";
+    [self.library addAssetsGroupAlbumWithName:albumName
+                                  resultBlock:^(ALAssetsGroup *group) {
+                                      NSLog(@"added album:%@", albumName);
+                                  }
+                                 failureBlock:^(NSError *error) {
+                                     NSLog(@"error adding album");
+                                 }];
+
+   __block ALAssetsGroup* groupToAddTo;
+    [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                                usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                                    if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
+                                        NSLog(@"found album %@", albumName);
+                                        groupToAddTo = group;
+                                    }
+                                }
+                              failureBlock:^(NSError* error) {
+                                  NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
+                              }];
+    
+   
+    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+    NSString *filename = [parts objectAtIndex:[parts count]-1];
+    NSLog(@"file name : %@",filename);
+    
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+    
+  UIImage *image1 = [UIImage imageWithData:imageData];
+    
     if(photoURL == nil || photoURL == (id)[NSNull null])
     {
         _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_home"];
     }
     else
     {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-        _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+        if(filename == nil || filename == (id)[NSNull null])
+        {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+            _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+        }
+        else
+        {
+             _imgUserProfilepic.image = image1;
+        }
+        
+        
     }
+    
     NSLog(@"photo url : %@",photoURL);
 
     int intSamaritan_points = [samaritan_points intValue];
@@ -67,7 +116,7 @@ NSInteger intImage;
      [dateFormatter setDateFormat:@"yyyy-mm-dd"];
     if(intSamaritan_points > 0)
     {
-       // [_viewsamaritan setBackgroundColor: #0065b3];
+        [_viewsamaritan setBackgroundColor: [UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1]];
         [_btnsamaritan setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         //[_imgsamaritan setImage:[UIImage imageNamed:@""]];
         [_lblsamaritan setTextColor:[UIColor whiteColor]];
@@ -139,18 +188,31 @@ NSInteger intImage;
                                                                    340,
                                                                   273,
                                                                   21)];
-   // bottomView.backgroundColor = [UIColor clearColor];
+    
+   
+//    bottomView.backgroundColor = [UIColor clearColor];
     bottomView.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"profile_bar.png"]];
     
-    THProgressView *bottomProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(3 / 2.0f,
-                                                                                          2/2.0f,
+//    THProgressView *bottomProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(3 / 2.0f,
+//                                                                                          2/2.0f,
+//                                                                                          273,
+//                                                                                         21)];
+//
+    THProgressView *bottomProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(0,
+                                                                                          0,
                                                                                           273,
-                                                                                         21)];
- 
+                                                                                          21)];
+
+    
     [bottomView addSubview:bottomProgressView];
     [self.view addSubview:bottomView];
     
     self.progressViews = @[ bottomProgressView ];
+    
+    
+   bottomProgressView.layer.borderWidth = 0.0f;
+    bottomView.layer.borderWidth = 0.0f;
+    
     NSInteger int1 = [profile_completed intValue];
     if(int1 == 30)
     {
@@ -200,7 +262,141 @@ NSInteger intImage;
        
     }
     
-
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    /*userId
+     pin
+     latitude
+     longitude
+     vehicleId
+     make
+     model
+     os
+     */
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
+        NSLog(@"There IS internet connection");
+        NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+        [param setValue:UserID forKey:@"userId"];
+        
+        [param setValue:latitude forKey:@"latitude"];
+        [param setValue:longitude forKey:@"longitude"];
+        [param setValue:pin forKey:@"pin"];
+        
+        [param setValue:@"ios7" forKey:@"os"];
+        [param setValue:@"iPhone" forKey:@"make"];
+        [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSLog(@"url : %@",manager);
+        }
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  
+                  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                  
+                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                
+                  NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                  NSLog(@"message %@",EntityID);
+                  
+                  
+                  if ([EntityID isEqualToString:@"failure"])
+                  {
+                      
+                  }
+                  else
+                  {
+                      NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                      NSLog(@"data : %@",jsonDictionary);
+                      appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+                      
+                      NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
+                      NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
+                      NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
+                      NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
+                      NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
+                      NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
+                      NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
+                      NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
+                      NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
+                      NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
+                      NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
+                      NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
+                      NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
+                      NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+                      NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
+                      NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
+                      NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+                      NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
+                      NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+                      NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
+                      NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+                      NSDictionary *arrVehicle = [[NSDictionary alloc]init];
+                      arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
+                     
+                      
+                      [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
+                      [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
+                      [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
+                      [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+                      [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+                      [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+                      [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+                      [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
+                      [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
+                      [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
+                      [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
+                      [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+                      [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
+                      [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
+                      [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+                      [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
+                      [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
+                      [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
+                      [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
+                      [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
+                      [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
+                      [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
+                      [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
+                      
+                      [[NSUserDefaults standardUserDefaults] synchronize];
+                  }
+                  [SVProgressHUD dismiss];
+                  
+              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              }];
+        
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    }
+    NSMutableArray *vehicle = [[NSMutableArray alloc]init];
+   vehicle = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
+  
+    if([vehicle count] == 0)
+    {
+        [_btnAddVehicle setTitle:@"Add Vehicle" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_btnAddVehicle setTitle:@"My Vehicle" forState:UIControlStateNormal];
+    }
 
 }
 #pragma mark camera click
@@ -297,19 +493,68 @@ NSInteger intImage;
             NSString *photo_url = [jsonDictionary valueForKey:@"response"] ;
             [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
             
-            ALAssetsLibrary* libraryFolder = [[ALAssetsLibrary alloc] init];
-            [libraryFolder addAssetsGroupAlbumWithName:@"My Wheels" resultBlock:^(ALAssetsGroup *group)
-             {
-                 NSLog(@"Adding Folder:'My Album', success: %s", group.editable ? "Success" : "Already created: Not Success");
-                 
-                 
-
-                  // UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-             } failureBlock:^(NSError *error)
-             {
-                 NSLog(@"Error: Adding on Folder");
-             }];
-        }
+//            ALAssetsLibrary* libraryFolder = [[ALAssetsLibrary alloc] init];
+//            [libraryFolder addAssetsGroupAlbumWithName:@"My Wheels" resultBlock:^(ALAssetsGroup *group)
+//             {
+//             resultBlock:^(ALAssetsGroup *group) {
+//               //  NSLog(@"added album:%@", albumName);
+//             }
+//                 
+//                 NSLog(@"Adding Folder:'My Album', success: %s", group.editable ? "Success" : "Already created: Not Success");
+//                 
+//                 
+//
+//                  // UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+//             } failureBlock:^(NSError *error)
+//             {
+//                 NSLog(@"Error: Adding on Folder");
+//             }];
+           // Create the Album:
+            NSString *albumName = @"My Wheels";
+            [self.library addAssetsGroupAlbumWithName:albumName
+                                          resultBlock:^(ALAssetsGroup *group) {
+                                              NSLog(@"added album:%@", albumName);
+                                          }
+                                         failureBlock:^(NSError *error) {
+                                             NSLog(@"error adding album");
+                                         }];
+          //  Find the Album:
+            
+            __block ALAssetsGroup* groupToAddTo;
+            [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                                            if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
+                                                NSLog(@"found album %@", albumName);
+                                                groupToAddTo = group;
+                                            }
+                                        }
+                                      failureBlock:^(NSError* error) {
+                                          NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
+                                      }];
+          //  Save the Image to Asset Library, and put it into the album:
+            
+            CGImageRef img = [image CGImage];
+            [self.library writeImageToSavedPhotosAlbum:img
+                                              metadata:[info objectForKey:UIImagePickerControllerMediaMetadata]
+                                       completionBlock:^(NSURL* assetURL, NSError* error) {
+                                           if (error.code == 0) {
+                                               NSLog(@"saved image completed:\nurl: %@", assetURL);
+                                               
+                                               // try to get the asset
+                                               [self.library assetForURL:assetURL
+                                                             resultBlock:^(ALAsset *asset) {
+                                                                 // assign the photo to the album
+                                                                 [groupToAddTo addAsset:asset];
+                                                                 NSLog(@"Added %@ to %@", [[asset defaultRepresentation] filename], albumName);
+                                                             }
+                                                            failureBlock:^(NSError* error) {
+                                                                NSLog(@"failed to retrieve image asset:\nError: %@ ", [error localizedDescription]);
+                                                            }];
+                                           }
+                                           else {
+                                               NSLog(@"saved image failed.\nerror code %i\n%@", error.code, [error localizedDescription]);
+                                           }
+                                       }];        }
 
         [SVProgressHUD dismiss];
     }
@@ -388,5 +633,25 @@ NSInteger intImage;
         [self.navigationController pushViewController:vc animated:YES];
         [_btnAddDetails setTitle:@"Edit Details" forState:UIControlStateNormal];
     }
+}
+-(IBAction)btnAddVehicles_click:(id)sender
+{
+    NSMutableArray *vehicle = [[NSMutableArray alloc]init];
+    vehicle = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
+    if([vehicle count] == 0)
+
+    {
+        AddVehiclesVC *vc = [[AddVehiclesVC alloc]init];
+        // AddInsuranceVC *vc = [[AddInsuranceVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+        MyVehicleVC *vc = [[MyVehicleVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
+    
+    
 }
 @end

@@ -575,7 +575,7 @@ int intques;
 -(bool)textFieldShouldBeginEditing:(UITextField *)textField
 {
     [pickerDateOfBirth setHidden:YES];
-  
+   [textField setTextColor:[UIColor blackColor]];
     if(textField.tag == 4)
     {
         [viewPickerview setHidden:NO];
@@ -675,7 +675,7 @@ int intques;
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-   
+    [textField setTextColor:[UIColor blackColor]];
     [pickerDateOfBirth setHidden:YES];
     activeTextField=textField;
     int y=0;

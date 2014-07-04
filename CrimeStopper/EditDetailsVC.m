@@ -586,7 +586,7 @@ NSString *strBirthDate;
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
+     [textField setTextColor:[UIColor blackColor]];
     //pickerDateOfBirth setHidden:YES];
      activeTextField = textField ;
     int y=0;

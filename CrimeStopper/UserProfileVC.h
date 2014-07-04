@@ -27,11 +27,13 @@
 @property (nonatomic,retain) IBOutlet UILabel *lblsamaritan;
 @property (nonatomic,retain) IBOutlet UIImageView *imgsamaritan;
 @property (nonatomic,retain) IBOutlet UIImageView *imgUserProfilepic;
+@property (nonatomic,retain) IBOutlet UIButton *btnAddVehicle;
 
 -(IBAction)btnAddDetails_click:(id)sender;
 -(IBAction)btnProfilepic_click:(id)sender;
 -(IBAction)btnback_click:(id)sender;
 -(IBAction)btnSamaritan_click:(id)sender;
+-(IBAction)btnAddVehicles_click:(id)sender;
 
 
 @end
