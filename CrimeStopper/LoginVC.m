@@ -767,7 +767,6 @@
              [[NSUserDefaults standardUserDefaults] setValue:txtpin2.text forKey:@"pin2"];
              [[NSUserDefaults standardUserDefaults] setValue:txtpin3.text forKey:@"pin3"];
              [[NSUserDefaults standardUserDefaults] setValue:txtPint4.text forKey:@"pin4"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
             
           //  WebApiController *obj=[[WebApiController alloc]init];
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
