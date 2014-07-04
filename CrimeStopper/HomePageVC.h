@@ -11,6 +11,7 @@
 #import "PPRevealSideViewController.h"
 #import <MapKit/MapKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface HomePageVC : UIViewController <CLLocationManagerDelegate>
 {
@@ -24,7 +25,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnAboutUs;
 @property (nonatomic,retain) IBOutlet UIButton *btnprofile;
 @property (nonatomic,retain) IBOutlet UIImageView *imgProfilepic;
-
+@property (strong, atomic) ALAssetsLibrary* library;
 
 -(IBAction)btnNav_click:(id)sender;
 -(IBAction)btnAboutUs_Click:(id)sender;

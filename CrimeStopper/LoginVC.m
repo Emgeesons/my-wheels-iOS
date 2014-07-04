@@ -840,7 +840,8 @@
                     NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                     NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
                     NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
-                    
+                    NSDictionary *arrVehicle = [[NSDictionary alloc]init];
+                    arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                     NSLog(@"user id: %@",appdelegate.strUserID);
                     
                     [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
@@ -865,6 +866,7 @@
                     [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
                     [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
                     [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
+                    [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                     
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     HomePageVC *obj=[[HomePageVC alloc]init];
