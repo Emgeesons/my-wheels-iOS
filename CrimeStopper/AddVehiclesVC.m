@@ -413,6 +413,7 @@ NSString *strBody;
 #pragma mark textfeild delegate methods
 -(bool)textFieldShouldBeginEditing:(UITextField *)textField
 {
+     [textField setTextColor:[UIColor blackColor]];
     if(textField == _txtVehicleType)
     {
        
@@ -425,7 +426,7 @@ NSString *strBody;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    
+     [textField setTextColor:[UIColor blackColor]];
     activeTextField=textField;
     if(textField == _txtVehicleType)
     {

@@ -535,7 +535,7 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     activeTextField=textField;
-    
+     [textField setTextColor:[UIColor blackColor]];
     [txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
     [txtEmail reloadInputViews];
     

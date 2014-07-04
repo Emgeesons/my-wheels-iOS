@@ -490,7 +490,7 @@ NSString *strDate;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    
+     [textField setTextColor:[UIColor blackColor]];
     activeTextField=textField;
     if(textField == _txtCompanyName)
     {

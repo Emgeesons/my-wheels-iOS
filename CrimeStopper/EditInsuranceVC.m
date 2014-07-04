@@ -384,9 +384,6 @@ NSString *strDate;
             NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
             NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
             /*userId
-             pin
-             latitude
-             longitude
              vehicleId
              insuranceCompanyName
              insurancePolicyNumber
@@ -394,6 +391,7 @@ NSString *strDate;
              os
              make
              model
+
              */
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:UserID forKey:@"userId"];
@@ -412,7 +410,7 @@ NSString *strDate;
             // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/addVehicleInsurance.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/editVehicleInsurance.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
@@ -498,6 +496,7 @@ NSString *strDate;
     
     
     activeTextField=textField;
+    [textField setTextColor:[UIColor blackColor]];
     if(textField == _txtCompanyName)
     {
         [_pkvInsurance setHidden:NO];
