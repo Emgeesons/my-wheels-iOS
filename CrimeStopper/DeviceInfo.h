@@ -12,4 +12,5 @@
 +(NSString *)platformNiceString;
 +(BOOL)isIphone5;
 + (NSString *)trimString:(NSString *)text;
++ (void)errorInConnection;
 @end

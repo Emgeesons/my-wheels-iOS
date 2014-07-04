@@ -14,13 +14,12 @@
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
     UIDatePicker *datePicker;
     NSDate *datePickerSelectedDate;
-    //CLLocationManager *locationManager;
     CLGeocoder *geocoder;
     CLPlacemark *placemark;
-    NSString *originalLatitude, *originalLongitude, *selectedLatitude, *selectedLongitude, *originalDate, *originalTime, *selectedDate, *selectedTime;
+    NSString *originalLatitude, *originalLongitude, *selectedLatitude, *selectedLongitude, *originalDate, *originalTime, *selectedDate, *selectedTime, *samaritan_points;
     NSMutableString *address;
     NSDateFormatter *dateFormat, *timeFormat;
-    
+    UIActivityIndicatorView *activityIndicator;
     UIToolbar *bgToolBar;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
@@ -72,6 +71,12 @@
     bgToolBar.barStyle = UIBarStyleBlack;
     bgToolBar.alpha = 0.7;
     bgToolBar.translucent = YES;
+    
+    // initialize activityIndicator and add it to UIToolBar.
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.frame = CGRectMake(0, 0, 40, 40);
+    activityIndicator.center = self.view.center;
+    [bgToolBar addSubview:activityIndicator];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,6 +86,7 @@
 }
 
 - (IBAction)backButtonClicked:(id)sender {
+    [self deleteAllimageFiles];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -150,7 +156,16 @@
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString]};
     
-    [manager POST:[NSString stringWithFormat:@"%@reportSighting.php", SERVERNAME] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSLog(@"%@", parameters);
+    
+    // Start Animating activityIndicator
+    [activityIndicator startAnimating];
+    
+    // add bgToolbar to view
+    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
+    
+    NSString *url = [NSString stringWithFormat:@"%@reportSighting.php", SERVERNAME];
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i < filesCount; i++) {
             NSString *imgName = [NSString stringWithFormat:@"image%d", (int)(i + 1)];
             NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", filelist[i]]]];
@@ -159,9 +174,27 @@
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [self addSuccessView];
+        
+        // Stop Animating activityIndicator
+        [activityIndicator stopAnimating];
+        
+        NSDictionary *json = (NSDictionary *)responseObject;
+        
+        if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
+            NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
+            samaritan_points = [response objectForKey:@"samaritan_points"];
+            [self addSuccessView];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        [DeviceInfo errorInConnection];
+        [activityIndicator stopAnimating];
+        [bgToolBar removeFromSuperview];
     }];
 }
 
@@ -170,6 +203,10 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
+    CLLocationCoordinate2D coord = {.latitude = 37.423617, .longitude = -122.220154};
+    MKCoordinateSpan span = {.latitudeDelta = 0.005, .longitudeDelta = 0.005};
+    MKCoordinateRegion region = {coord, span};
+    [_mapView setRegion:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -206,9 +243,6 @@
             if (placemark.country != NULL) {
                 [address appendFormat:@"%@", placemark.country];
             }
-
-            //NSLog(@"currentLocation ==> %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
-            //NSLog(@"center ==> %f, %f", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude);
 
             if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
                 
@@ -329,13 +363,29 @@
         [datePickerSheet setBounds:CGRectMake(0,0,320, 464)];
         return NO;
     } else if(textField == self.txtRegistrationNo) {
-        [self.scrollView setContentOffset:CGPointMake(0, 55) animated:YES];
+        if ([DeviceInfo isIphone5]) {
+            //[self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        } else {
+            [self.scrollView setContentOffset:CGPointMake(0, 55) animated:YES];
+        }
     } else if(textField == self.txtMake) {
-        [self.scrollView setContentOffset:CGPointMake(0, 95) animated:YES];
+        if ([DeviceInfo isIphone5]) {
+            [self.scrollView setContentOffset:CGPointMake(0, 10) animated:YES];
+        } else {
+            [self.scrollView setContentOffset:CGPointMake(0, 95) animated:YES];
+        }
     } else if(textField == self.txtModel || textField == self.txtColor) {
-        [self.scrollView setContentOffset:CGPointMake(0, 130) animated:YES];
+        if ([DeviceInfo isIphone5]) {
+            [self.scrollView setContentOffset:CGPointMake(0, 45) animated:YES];
+        } else {
+            [self.scrollView setContentOffset:CGPointMake(0, 130) animated:YES];
+        }
     } else if (textField == self.txtComments) {
-        [self.scrollView setContentOffset:CGPointMake(0, 170) animated:YES];
+        if ([DeviceInfo isIphone5]) {
+            [self.scrollView setContentOffset:CGPointMake(0, 85) animated:YES];
+        } else {
+            [self.scrollView setContentOffset:CGPointMake(0, 170) animated:YES];
+        }
     }
     return YES;
 }
@@ -515,18 +565,17 @@
 }
 
 -(void)addSuccessView {
-    // add bgToolbar to view
-    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
     
     // view for success
     UIView *viewSuccess = [[UIView alloc] initWithFrame:CGRectZero];
     viewSuccess.backgroundColor = [UIColor whiteColor];
     viewSuccess.layer.cornerRadius = 5;
     viewSuccess.clipsToBounds = YES;
+    viewSuccess.frame = CGRectMake(20, 600, 280, 368);
     
     // UIImageView for +50 points
     UIImageView *ivPoints = [[UIImageView alloc] init];
-    ivPoints.image = [UIImage imageNamed:@"points_bg.png"];
+    ivPoints.image = [UIImage imageNamed:@"points_bg_ios.png"];
     ivPoints.frame = CGRectMake(50, 0, 180, 180);
     [viewSuccess addSubview:ivPoints];
     
@@ -552,7 +601,7 @@
     // UILabel for Total Points text
     UILabel *lblTotalPoints = [[UILabel alloc] init];
     lblTotalPoints.frame = CGRectMake(0, lblPoints.frame.origin.y + lblPoints.frame.size.height + 5, 280, 18);
-    lblTotalPoints.text = @"Total Samaritan Points: 70";
+    lblTotalPoints.text =  [NSString stringWithFormat:@"Total Samaritan Points: %@", samaritan_points];
     lblTotalPoints.textAlignment = NSTextAlignmentCenter;
     lblTotalPoints.textColor = [UIColor blackColor];
     lblTotalPoints.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
@@ -583,15 +632,40 @@
     btnProfile.frame = CGRectMake(141, ivDivider.frame.origin.y + ivDivider.frame.size.height + 1, 140, 60);
     [btnProfile setTitle:@"View Profile" forState:UIControlStateNormal];
     [btnProfile setTitleColor:btnClose.tintColor forState:UIControlStateNormal];
+    [btnClose addTarget:self action:@selector(openProfile) forControlEvents:UIControlEventTouchUpInside];
     [viewSuccess addSubview:btnProfile];
     
-    if ([DeviceInfo isIphone5]) {
-        viewSuccess.frame = CGRectMake(20, 100, 280, 368);
-    } else {
-        viewSuccess.frame = CGRectMake(20, 55, 280, 368);
-    }
-    
     [self.view.superview insertSubview:viewSuccess aboveSubview:bgToolBar];
+    
+    // Animate Success View
+    [UIView animateWithDuration:0.7f delay:0.2f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if ([DeviceInfo isIphone5]) {
+            viewSuccess.frame = CGRectMake(20, 100, 280, 368);
+        } else {
+            viewSuccess.frame = CGRectMake(20, 55, 280, 368);
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+-(void)deleteAllimageFiles {
+    // Delete all user's body picks from gallery folder
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *directory = [documentsDirectoryPath stringByAppendingPathComponent:@"gallery/"];
+    NSError *error = nil;
+    for (NSString *file in [fm contentsOfDirectoryAtPath:directory error:&error]) {
+        BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", directory, file] error:&error];
+        if (!success || error) {
+            // it failed.
+        }
+    }
+}
+
+-(void)openProfile {
+    // Code for open profile page
 }
 
 @end

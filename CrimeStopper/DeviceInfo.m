@@ -78,4 +78,9 @@
                                [NSCharacterSet whitespaceCharacterSet]];
 }
 
++ (void)errorInConnection {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please make sure you are connected to the internet and try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+}
+
 @end
