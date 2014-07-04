@@ -164,6 +164,18 @@
 		5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC21195C00B0003679C6 /* UIRefreshControl+AFNetworking.m */; };
 		5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */; };
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
+		ECEAE26A1966C13900BBA108 /* ReportSightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEAE2681966C13900BBA108 /* ReportSightingViewController.m */; };
+		ECEAE26B1966C13900BBA108 /* ReportSightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2691966C13900BBA108 /* ReportSightingViewController.xib */; };
+		ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */; };
+		ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */; };
+		ECEAE2791966C52A00BBA108 /* green_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2711966C52A00BBA108 /* green_pin.png */; };
+		ECEAE27A1966C52A00BBA108 /* green_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2721966C52A00BBA108 /* green_pin@2x.png */; };
+		ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2731966C52A00BBA108 /* points_bg_ios.png */; };
+		ECEAE27C1966C52A00BBA108 /* points_bg_ios@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2741966C52A00BBA108 /* points_bg_ios@2x.png */; };
+		ECEAE27D1966C52A00BBA108 /* points_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2751966C52A00BBA108 /* points_bg.png */; };
+		ECEAE27E1966C52A00BBA108 /* points_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2761966C52A00BBA108 /* points_bg@2x.png */; };
+		ECEAE27F1966C52A00BBA108 /* red_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2771966C52A00BBA108 /* red_pin.png */; };
+		ECEAE2801966C52A00BBA108 /* red_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2781966C52A00BBA108 /* red_pin@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,7 +260,7 @@
 		5E815EE81940949500CEAFAB /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		5E815EE91940949500CEAFAB /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		5E815EEC194095D400CEAFAB /* i_agree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_agree.png; sourceTree = "<group>"; };
-		5E9CC95C1949ABE3006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; name = "facebook-ios-sdk-3.14.1.pkg"; path = "../../../Downloads/facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
+		5E9CC95C1949ABE3006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; name = "facebook-ios-sdk-3.14.1.pkg"; path = "../../../Downloads/facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
 		5E9CCB991949AF2A006B43AE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5E9CCB9B1949AF44006B43AE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5E9CCB9D1949AF56006B43AE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -384,6 +396,20 @@
 		5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		5EFFBC85195C06E3003679C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		ECEAE2671966C13800BBA108 /* ReportSightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSightingViewController.h; sourceTree = "<group>"; };
+		ECEAE2681966C13900BBA108 /* ReportSightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSightingViewController.m; sourceTree = "<group>"; };
+		ECEAE2691966C13900BBA108 /* ReportSightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSightingViewController.xib; sourceTree = "<group>"; };
+		ECEAE26C1966C1AF00BBA108 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfo.h; sourceTree = "<group>"; };
+		ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
+		ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_photos@2x.png"; sourceTree = "<group>"; };
+		ECEAE2711966C52A00BBA108 /* green_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_pin.png; sourceTree = "<group>"; };
+		ECEAE2721966C52A00BBA108 /* green_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_pin@2x.png"; sourceTree = "<group>"; };
+		ECEAE2731966C52A00BBA108 /* points_bg_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = points_bg_ios.png; sourceTree = "<group>"; };
+		ECEAE2741966C52A00BBA108 /* points_bg_ios@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "points_bg_ios@2x.png"; sourceTree = "<group>"; };
+		ECEAE2751966C52A00BBA108 /* points_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = points_bg.png; sourceTree = "<group>"; };
+		ECEAE2761966C52A00BBA108 /* points_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "points_bg@2x.png"; sourceTree = "<group>"; };
+		ECEAE2771966C52A00BBA108 /* red_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_pin.png; sourceTree = "<group>"; };
+		ECEAE2781966C52A00BBA108 /* red_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_pin@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,6 +507,7 @@
 		5E095171194177C200DC97E2 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */,
 				5E9E35D119544CE500485733 /* im_next@1x.png */,
 				5E9E35D219544CE500485733 /* im_previous@1x.png */,
 				5E09517A19417C9B00DC97E2 /* login_btn_bg.png */,
@@ -496,6 +523,8 @@
 		5E09517D1941C43A00DC97E2 /* constant class */ = {
 			isa = PBXGroup;
 			children = (
+				ECEAE26C1966C1AF00BBA108 /* DeviceInfo.h */,
+				ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */,
 				5E0951811941C71D00DC97E2 /* constant.h */,
 			);
 			name = "constant class";
@@ -617,6 +646,9 @@
 				5E815ED91940859F00CEAFAB /* HomeScreenVC.h */,
 				5E815EDA1940859F00CEAFAB /* HomeScreenVC.m */,
 				5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */,
+				ECEAE2671966C13800BBA108 /* ReportSightingViewController.h */,
+				ECEAE2681966C13900BBA108 /* ReportSightingViewController.m */,
+				ECEAE2691966C13900BBA108 /* ReportSightingViewController.xib */,
 				5E815EE019408CE900CEAFAB /* DisclaimerViewController.h */,
 				5E815EE119408CE900CEAFAB /* DisclaimerViewController.m */,
 				5E815EE71940949500CEAFAB /* LoginVC.h */,
@@ -688,6 +720,14 @@
 				5E0324671942FBA2006EEA24 /* Registration */,
 				5E095171194177C200DC97E2 /* login */,
 				5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */,
+				ECEAE2711966C52A00BBA108 /* green_pin.png */,
+				ECEAE2721966C52A00BBA108 /* green_pin@2x.png */,
+				ECEAE2731966C52A00BBA108 /* points_bg_ios.png */,
+				ECEAE2741966C52A00BBA108 /* points_bg_ios@2x.png */,
+				ECEAE2751966C52A00BBA108 /* points_bg.png */,
+				ECEAE2761966C52A00BBA108 /* points_bg@2x.png */,
+				ECEAE2771966C52A00BBA108 /* red_pin.png */,
+				ECEAE2781966C52A00BBA108 /* red_pin@2x.png */,
 				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
 				5E815EE519408DFD00CEAFAB /* disclaimer_bg.png */,
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
@@ -921,6 +961,7 @@
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
+				ECEAE27D1966C52A00BBA108 /* points_bg.png in Resources */,
 				5EEF217E1955AC1900A0BA3F /* CrimeStopper-Info.plist in Resources */,
 				5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */,
 				5E05DCCC195EBDE90081256F /* default_profile@2x.png in Resources */,
@@ -928,11 +969,13 @@
 				5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */,
 				5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */,
 				5EEF21961955B44300A0BA3F /* female_active.png in Resources */,
+				ECEAE27E1966C52A00BBA108 /* points_bg@2x.png in Resources */,
 				5EE8C8FF19515089009550A1 /* ic_map.png in Resources */,
 				5E815EAF1940832700CEAFAB /* InfoPlist.strings in Resources */,
 				5EEF21931955B44300A0BA3F /* male_inactive.png in Resources */,
 				5EFE9196195948D80014669E /* incomplete.png in Resources */,
 				5E095173194177E400DC97E2 /* vehicle_graphic(5).png in Resources */,
+				ECEAE2791966C52A00BBA108 /* green_pin.png in Resources */,
 				5EFE9191195948D80014669E /* default_profile_bg.png in Resources */,
 				5EFE9193195948D80014669E /* edit_white.png in Resources */,
 				5EEEB9141963DA800083CC56 /* add_photos.png in Resources */,
@@ -946,6 +989,7 @@
 				5E04AF5119505CBD003F6CD4 /* ic_nav_emergency_numbers.png in Resources */,
 				5EFE9195195948D80014669E /* ic_male.png in Resources */,
 				5EEEB9151963DA800083CC56 /* ic_bike.png in Resources */,
+				ECEAE27C1966C52A00BBA108 /* points_bg_ios@2x.png in Resources */,
 				5EFE9187195945440014669E /* UserProfileVC.xib in Resources */,
 				5E04AF4E19505CBD003F6CD4 /* ic_about_us.png in Resources */,
 				5E04AF5019505CBD003F6CD4 /* ic_file_new_report.png in Resources */,
@@ -962,6 +1006,7 @@
 				5E04AF5319505CBD003F6CD4 /* ic_nav_home.png in Resources */,
 				5E9D1B391966738200F668EE /* EditInsuranceVC.xib in Resources */,
 				5E09517B19417C9B00DC97E2 /* login_btn_bg.png in Resources */,
+				ECEAE26B1966C13900BBA108 /* ReportSightingViewController.xib in Resources */,
 				5E04AF4D19505CBD003F6CD4 /* default_profile_home.png in Resources */,
 				5EFE9194195948D80014669E /* ic_female.png in Resources */,
 				5E04AF1119500608003F6CD4 /* TableViewCell.xib in Resources */,
@@ -971,9 +1016,12 @@
 				5EE8C90D19518BAB009550A1 /* ic_police_assistance.png in Resources */,
 				5E04AF5419505CBD003F6CD4 /* ic_nav_logout.png in Resources */,
 				5EEF21951955B44300A0BA3F /* female_inactive.png in Resources */,
+				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,
 				5EEF21771955A3FB00A0BA3F /* app_icon_120x120.png in Resources */,
 				5EFE9192195948D80014669E /* default_profile.png in Resources */,
+				ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */,
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
+				ECEAE27A1966C52A00BBA108 /* green_pin@2x.png in Resources */,
 				5EE8C91119518BAB009550A1 /* phone.png in Resources */,
 				5EEEB9171963DA800083CC56 /* ic_cycle.png in Resources */,
 				5E815EB71940832700CEAFAB /* Images.xcassets in Resources */,
@@ -983,6 +1031,7 @@
 				5E09517919417AEF00DC97E2 /* btn_register(5).png in Resources */,
 				5E182B4719654252003C1793 /* MyVehicleCell.xib in Resources */,
 				5EE8C90119515089009550A1 /* seperator.png in Resources */,
+				ECEAE2801966C52A00BBA108 /* red_pin@2x.png in Resources */,
 				5E0324701942FBB7006EEA24 /* ic_app.png in Resources */,
 				5EE8C90619517553009550A1 /* EmergencyNoVC.xib in Resources */,
 				5EEF21941955B44300A0BA3F /* male_active.png in Resources */,
@@ -1005,6 +1054,7 @@
 				5EA4BC71195D2C13006B4B5A /* AddDetailsVC.xib in Resources */,
 				5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */,
 				5EE8C91E1951AFFA009550A1 /* star_highlighted.png in Resources */,
+				ECEAE27F1966C52A00BBA108 /* red_pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1048,6 +1098,8 @@
 				5EA4BC70195D2C13006B4B5A /* AddDetailsVC.m in Sources */,
 				5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */,
 				5EFFBC70195C00B0003679C6 /* UIButton+AFNetworking.m in Sources */,
+				ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */,
+				ECEAE26A1966C13900BBA108 /* ReportSightingViewController.m in Sources */,
 				5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */,
 				5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */,
 				5E815EB11940832700CEAFAB /* main.m in Sources */,

@@ -30,6 +30,7 @@
 -(IBAction)btnNav_click:(id)sender;
 -(IBAction)btnAboutUs_Click:(id)sender;
 -(IBAction)btnProfile_click:(id)sender;
+- (IBAction)openReportSighting:(id)sender;
 
 
 @end
