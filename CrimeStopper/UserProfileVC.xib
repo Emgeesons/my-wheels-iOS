@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileVC">
             <connections>
                 <outlet property="btnAddDetails" destination="mWA-ts-NtC" id="e6D-PH-dDc"/>
+                <outlet property="btnAddVehicle" destination="GPu-Tx-1KS" id="Jkc-uQ-sCf"/>
                 <outlet property="btnsamaritan" destination="gV7-Ze-sKi" id="4na-1i-ZF8"/>
                 <outlet property="img" destination="Ygo-1x-5DS" id="AHK-1c-9gM"/>
                 <outlet property="img1" destination="jRE-46-eHU" id="CaZ-wc-hF1"/>
@@ -81,6 +82,10 @@
                                         <action selector="btnProfilepic_click:" destination="-1" eventType="touchUpInside" id="AU8-yu-84s"/>
                                     </connections>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_homeround.png" id="n7m-QA-8cU">
+                                    <rect key="frame" x="12" y="13" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_male.png" id="Ygo-1x-5DS">
                                     <rect key="frame" x="70" y="13" width="18" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -169,10 +174,13 @@
                             <rect key="frame" x="179" y="377" width="111" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="Add Vehicals">
+                            <state key="normal" title="Add Vehicle">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnAddVehicles_click:" destination="-1" eventType="touchUpInside" id="34L-zM-KJ7"/>
+                            </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Profile is 30% Complete." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oPg-0A-BYi">
                             <rect key="frame" x="27" y="311" width="273" height="21"/>
@@ -198,6 +206,7 @@
     <resources>
         <image name="default_profile.png" width="124" height="124"/>
         <image name="default_profile_bg.png" width="640" height="384"/>
+        <image name="default_profile_homeround.png" width="48" height="48"/>
         <image name="ic_male.png" width="30" height="30"/>
         <image name="points_design.png" width="128" height="116"/>
     </resources>

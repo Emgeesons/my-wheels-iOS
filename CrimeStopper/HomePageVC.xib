@@ -42,11 +42,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_home.png" id="2cI-wn-WXT">
-                            <rect key="frame" x="257" y="7" width="60" height="41"/>
+                            <rect key="frame" x="274" y="7" width="43" height="41"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sca-Cr-wKG">
-                            <rect key="frame" x="265" y="13" width="46" height="30"/>
+                            <rect key="frame" x="274" y="13" width="37" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,6 +55,10 @@
                                 <action selector="btnProfile_click:" destination="-1" eventType="touchUpInside" id="Er6-0C-TV1"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_homeround.png" id="96G-1R-6OA">
+                            <rect key="frame" x="274" y="7" width="43" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -213,6 +217,7 @@
     </objects>
     <resources>
         <image name="default_profile_home.png" width="25" height="32"/>
+        <image name="default_profile_homeround.png" width="48" height="48"/>
         <image name="ic_about_us.png" width="35" height="35"/>
         <image name="ic_app.png" width="72" height="96"/>
         <image name="ic_drawer.png" width="16" height="16"/>

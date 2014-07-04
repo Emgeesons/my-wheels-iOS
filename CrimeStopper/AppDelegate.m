@@ -16,6 +16,7 @@
 @synthesize strUserID;
 @synthesize strFBdob,strFBUserName,strGender;
 @synthesize strFacebookID,strFacebookPhotoURL,strFacebookToken,strFacebookEmail;
+@synthesize strVehicleId;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -42,6 +43,11 @@
     [self.revealSideViewController setPanInteractionsWhenClosed:PPRevealSideInteractionContentView | PPRevealSideInteractionNavigationBar];
     self.window.rootViewController = self.revealSideViewController;
     self.window.backgroundColor = [UIColor whiteColor];
+    UILocalNotification *locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (locationNotification) {
+        // Set icon badge number to zero
+        application.applicationIconBadgeNumber = 0;
+    }
     [self.window makeKeyAndVisible];
 //    self.window.rootViewController = self.HomeScreenVC;
 

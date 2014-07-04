@@ -184,7 +184,7 @@
 #pragma mark textfeild delegate methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
+     [textField setTextColor:[UIColor blackColor]];
   
     activeTextField=textField;
 }
