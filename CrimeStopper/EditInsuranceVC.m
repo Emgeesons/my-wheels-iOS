@@ -38,11 +38,8 @@ NSString *strDate;
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication ]delegate];
-    if([_txtExpiry.text isEqualToString:@"0000-00-00 00:00:00"])
-    {
-        _txtExpiry.text = @"expiry";
-        _txtExpiry.textColor = [UIColor lightGrayColor];
-    }
+    NSLog(@"date :%@",_txtExpiry.text);
+   
     NSLog(@"strvehicleId : %@",appdelegate.strVehicleId);
     if([_strVehicleType isEqualToString:@"Bicycle"])
     {
@@ -221,8 +218,17 @@ NSString *strDate;
     
     _txtCompanyName.text = _strCompanyName;
     _txtPolicyNo.text = _strPolicyNo;
-    _txtExpiry.text = _strExpiry;
-
+   
+    NSLog(@"strexpiry : %@",_strExpiry);
+    if([_strExpiry isEqualToString:@""])
+    {
+        [_txtExpiry setText:@"expiry"];
+        _txtExpiry.textColor = [UIColor lightGrayColor];
+    }
+    else
+    {
+         _txtExpiry.text = _strExpiry;
+    }
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -523,6 +529,7 @@ NSString *strDate;
     if(textField == _txtExpiry)
     {
         // Open DatePicker when age textfield is clicked
+        _txtExpiry.text = @"";
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
         
         timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];

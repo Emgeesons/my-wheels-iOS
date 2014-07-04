@@ -265,6 +265,8 @@ NSString *insuranceCompanyName;
       //  vc.strPhoneNo = _lbl
         vc.strPolicyNo = _lblPolicyNo.text;
         vc.strExpiry = _lblExpiry.text;
+        vc.strmake = make;
+        vc.strModel = model;
         [self.navigationController pushViewController:vc animated:YES];
     }
 
