@@ -11,7 +11,4 @@
 
 #define SERVERNAME   @"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/"
 
-#define OS_VERSION [[UIDevice currentDevice] systemVersion]
-#define MAKE [UIDevice currentDevice].model
-
 #endif
