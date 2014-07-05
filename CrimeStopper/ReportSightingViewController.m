@@ -64,7 +64,7 @@
     timeFormat = [[NSDateFormatter alloc] init];
     [timeFormat setDateFormat:@"HH:mm:ss"];
     
-    NSLog(@"%@", [DeviceInfo platformNiceString]);
+    //NSLog(@"%@", [DeviceInfo platformNiceString]);
     
     // Add UIToolBar to view with alpha 0.7 for transparency
     bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];

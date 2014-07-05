@@ -26,10 +26,15 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image1;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
+@property (weak, nonatomic) IBOutlet UITextField *txtDateTime;
+@property (weak, nonatomic) IBOutlet UITextField *txtSighting;
+@property (weak, nonatomic) IBOutlet UITextField *txtComments;
 
 
 - (IBAction)selectVehicles:(id)sender;
 - (IBAction)addImages:(id)sender;
+- (IBAction)sendClicked:(id)sender;
 
 
 @end

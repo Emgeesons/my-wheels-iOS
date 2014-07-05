@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FileNewReportViewController">
             <connections>
+                <outlet property="btnAddImage" destination="Bt0-u8-N50" id="StZ-MX-aZl"/>
                 <outlet property="image1" destination="oZZ-rT-kdx" id="Ro8-Nl-J5g"/>
                 <outlet property="image2" destination="VEH-fz-ARz" id="kfm-2J-q1X"/>
                 <outlet property="image3" destination="5mF-1Q-eiK" id="grE-ca-qNQ"/>
@@ -15,6 +16,9 @@
                 <outlet property="lblVehicleName" destination="AA6-0i-LkS" id="gqe-YM-5t5"/>
                 <outlet property="mapView" destination="hCN-5p-ETl" id="kd7-Lv-eiW"/>
                 <outlet property="scrollView" destination="Vcd-T0-8vn" id="FTT-YD-vEv"/>
+                <outlet property="txtComments" destination="Jhw-Rk-g0a" id="gky-W3-Hz8"/>
+                <outlet property="txtDateTime" destination="sOT-vw-Usm" id="mZC-nu-Fut"/>
+                <outlet property="txtSighting" destination="iyd-uk-OqC" id="xlC-39-CuP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vwFileReport" destination="3n8-xH-WG0" id="zGU-Mr-CvK"/>
                 <outlet property="vwNoVehicle" destination="eIL-Jv-816" id="n49-VA-WQu"/>
@@ -167,23 +171,32 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.86797299589999999" green="0.86797299589999999" blue="0.86797299589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="sOT-vw-Usm">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="date &amp; time" minimumFontSize="17" id="sOT-vw-Usm">
                                     <rect key="frame" x="10" y="141" width="300" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="itl-hS-SPr"/>
+                                    </connections>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="iyd-uk-OqC">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="type of report" minimumFontSize="17" id="iyd-uk-OqC">
                                     <rect key="frame" x="10" y="179" width="300" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="VDc-9H-u9m"/>
+                                    </connections>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Jhw-Rk-g0a">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comments" minimumFontSize="17" id="Jhw-Rk-g0a">
                                     <rect key="frame" x="10" y="217" width="300" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="9f0-7Z-5xO"/>
+                                    </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B3p-eh-YuY">
                                     <rect key="frame" x="118" y="280" width="84" height="39"/>
@@ -193,6 +206,9 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="sendClicked:" destination="-1" eventType="touchUpInside" id="sRS-1G-7zO"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

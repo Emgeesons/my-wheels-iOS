@@ -9,14 +9,17 @@
 #import "FileNewReportViewController.h"
 #import "UserProfileVC.h"
 
-@interface FileNewReportViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface FileNewReportViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
     CLGeocoder *geocoder;
     CLPlacemark *placemark;
     NSString *originalLatitude, *originalLongitude, *selectedLatitude, *selectedLongitude, *originalDate, *originalTime, *selectedDate, *selectedTime, *samaritan_points;
     NSMutableString *address;
-    UIActionSheet *sheet;
+    UIActionSheet *sheet, *imagePickerSheet, *sightingPicker, *datePickerSheet;
+    UIDatePicker *datePicker;
     NSMutableArray *vehicleID, *vehicleMake, *vehicleModel, *vehicleType, *vehicleRegistrationNumber;
     NSInteger selectedNumber;
+    NSDate *datePickerSelectedDate;
+    NSDateFormatter *dateFormat, *timeFormat;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UITableView *tableView;
@@ -53,6 +56,13 @@
     // set contentSize of scrollview here
     [self.scrollView setContentSize:CGSizeMake(0, 450)];
     
+    // initialize dateFormat & timeFormat
+    dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"YYYY-MM-dd"];
+    
+    timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm:ss"];
+    
     [self createFileNewReportFolder];
     
     NSArray *vehicles = [[NSUserDefaults standardUserDefaults] arrayForKey:@"vehicles"];
@@ -75,7 +85,6 @@
             [vehicleID addObject:[vehicleDic objectForKey:@"vehicle_id"]];
             [vehicleMake addObject:[vehicleDic objectForKey:@"vehicle_make"]];
             [vehicleModel addObject:[vehicleDic objectForKey:@"vehicle_model"]];
-            //[vehicleName addObject:[NSString stringWithFormat:@"%@ %@", [vehicleDic objectForKey:@"vehicle_make"], [vehicleDic objectForKey:@"vehicle_model"]]];
             [vehicleType addObject:[vehicleDic objectForKey:@"vehicle_type"]];
             [vehicleRegistrationNumber addObject:[vehicleDic objectForKey:@"registration_serial_no"]];
         }
@@ -270,11 +279,69 @@
     [sheet setBounds:CGRectMake( 0, 0, 320, 450)];
 }
 
+#pragma mark - UIActionSheet done/cancel buttons
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet == sightingPicker) {
+        if (buttonIndex == 4) {
+            // return when cancel is clicked
+            return;
+        }
+        NSString *title = [sightingPicker buttonTitleAtIndex:buttonIndex];
+        self.txtSighting.text = title;
+    } else if (actionSheet == imagePickerSheet) {
+        if (buttonIndex == 0) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:picker animated:YES completion:NULL];
+        } else if (buttonIndex == 1) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:picker animated:YES completion:NULL];
+        }
+    }
+}
+
 -(void)cancelClicked {
     [sheet dismissWithClickedButtonIndex:0 animated:YES];
+    [datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(void)dateDoneClicked {
+    
+    /*
+     Function for selecting date & time from datePicker.
+     */
+    
+    //format date
+    NSDateFormatter *FormatDate = [[NSDateFormatter alloc] init];
+    [FormatDate setLocale: [NSLocale currentLocale]];
+    
+    //set date format
+    [FormatDate setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    self.txtDateTime.text = [FormatDate stringFromDate:[datePicker date]];
+    
+    // set selected date & time
+    selectedDate = [dateFormat stringFromDate:[datePicker date]];
+    selectedTime = [timeFormat stringFromDate:[datePicker date]];
+    
+    datePicker.frame=CGRectMake(0, 44, 320, 416);
+    [self cancelClicked];
 }
 
 - (IBAction)addImages:(id)sender {
+    imagePickerSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
+    imagePickerSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [imagePickerSheet showInView:self.view];
+}
+
+- (IBAction)sendClicked:(id)sender {
+    // code for web service call
 }
 
 #pragma mark - UITableView Delegate methods
@@ -335,6 +402,157 @@
     selectedNumber = indexPath.row;
     
     [self cancelClicked];
+}
+
+#pragma mark - UIImagePicker Delegate methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    
+    // save image locally
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/fileNewReport"];
+    
+    // For image 1
+    NSString *savedImagePath1 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"1.png"]];
+    BOOL fileExists1 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath1];
+    if (!fileExists1) {
+        NSData *imageData = UIImagePNGRepresentation(chosenImage);
+        [imageData writeToFile:savedImagePath1 atomically:NO];
+        
+        [self loadImages];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
+    
+    // For image 2
+    NSString *savedImagePath2 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"2.png"]];
+    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath2];
+    if (!fileExists2) {
+        NSData *imageData = UIImagePNGRepresentation(chosenImage);
+        [imageData writeToFile:savedImagePath2 atomically:NO];
+        
+        [self loadImages];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
+    
+    // For image 3
+    NSString *savedImagePath3 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"3.png"]];
+    BOOL fileExists3 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath3];
+    if (!fileExists3) {
+        NSData *imageData = UIImagePNGRepresentation(chosenImage);
+        [imageData writeToFile:savedImagePath3 atomically:NO];
+        
+        [self loadImages];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)loadImages {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dataPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/fileNewReport"];
+    
+    // For image 1
+    NSString *savedImagePath1 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"1.png"]];
+    BOOL fileExists1 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath1];
+    if (fileExists1) {
+        // unhide image1
+        self.image1.hidden = NO;
+        self.image1.image = [UIImage imageWithContentsOfFile:savedImagePath1];
+    }
+    
+    // For image 2
+    NSString *savedImagePath2 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"2.png"]];
+    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath2];
+    if (fileExists2) {
+        // unhide image2
+        self.image2.hidden = NO;
+        self.image2.image = [UIImage imageWithContentsOfFile:savedImagePath2];
+    }
+    
+    // For image 3
+    NSString *savedImagePath3 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"3.png"]];
+    BOOL fileExists3 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath3];
+    if (fileExists3) {
+        // unhide image3
+        self.image3.hidden = NO;
+        self.image3.image = [UIImage imageWithContentsOfFile:savedImagePath3];
+        
+        // hide add image button
+        self.btnAddImage.hidden = YES;
+    }
+}
+
+#pragma mark - UITextField delegate Methods
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == self.txtSighting) {
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious activity", @"Other", nil];
+        sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        [sightingPicker showInView:self.view];
+        return NO;
+    } else if (textField == self.txtDateTime) {
+        // Open DatePicker when age textfield is clicked
+        datePickerSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        datePicker.backgroundColor = [UIColor whiteColor];
+        
+        // Open selected date when date is previously selected
+        if (datePickerSelectedDate) {
+            [datePicker setDate:datePickerSelectedDate];
+        }
+        
+        //format datePicker mode.
+        datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+        
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        toolbarPicker.backgroundColor = [UIColor whiteColor];
+        [toolbarPicker sizeToFit];
+        
+        // create Done button for selecting date from picker
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(260, 0, 60, 44)];
+        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        [bbitem setTitleColor:bbitem.tintColor forState:UIControlStateNormal];
+        [bbitem addTarget:self action:@selector(dateDoneClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        // create Cancel button for dismissing datepicker
+        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 44)];
+        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+        [bbitem1 setTitleColor:bbitem1.tintColor forState:UIControlStateNormal];
+        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add subviews
+        [toolbarPicker addSubview:bbitem];
+        [toolbarPicker addSubview:bbitem1];
+        [datePickerSheet addSubview:toolbarPicker];
+        [datePickerSheet addSubview:toolbarPicker];
+        [datePickerSheet addSubview:datePicker];
+        [datePickerSheet showInView:self.view];
+        [datePickerSheet setBounds:CGRectMake(0,0,320, 464)];
+        return NO;
+    } else if (textField == self.txtComments) {
+        if ([DeviceInfo isIphone5]) {
+            [self.scrollView setContentOffset:CGPointMake(0, 85) animated:YES];
+        } else {
+            [self.scrollView setContentOffset:CGPointMake(0, 170) animated:YES];
+        }
+    }
+    return YES;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end
