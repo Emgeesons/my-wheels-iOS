@@ -31,6 +31,7 @@
 -(IBAction)btnAboutUs_Click:(id)sender;
 -(IBAction)btnProfile_click:(id)sender;
 - (IBAction)openReportSighting:(id)sender;
+- (IBAction)openFileNewReport:(id)sender;
 
 
 @end

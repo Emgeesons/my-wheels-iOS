@@ -164,6 +164,12 @@
 		5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC21195C00B0003679C6 /* UIRefreshControl+AFNetworking.m */; };
 		5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */; };
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
+		EC5023E51967B65200E8550B /* FileNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5023E31967B65200E8550B /* FileNewReportViewController.m */; };
+		EC5023E61967B65200E8550B /* FileNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E41967B65200E8550B /* FileNewReportViewController.xib */; };
+		EC5023E81967BE5100E8550B /* im_complete_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E71967BE5100E8550B /* im_complete_profile@2x.png */; };
+		EC5023EA1967BE5800E8550B /* im_complete_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E91967BE5800E8550B /* im_complete_profile.png */; };
+		EC5023EC1967D6F400E8550B /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023EB1967D6F400E8550B /* edit@2x.png */; };
+		EC5023EE1967D6FE00E8550B /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023ED1967D6FE00E8550B /* edit.png */; };
 		ECEAE26A1966C13900BBA108 /* ReportSightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEAE2681966C13900BBA108 /* ReportSightingViewController.m */; };
 		ECEAE26B1966C13900BBA108 /* ReportSightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2691966C13900BBA108 /* ReportSightingViewController.xib */; };
 		ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */; };
@@ -396,6 +402,13 @@
 		5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		5EFFBC85195C06E3003679C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		EC5023E21967B65200E8550B /* FileNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNewReportViewController.h; sourceTree = "<group>"; };
+		EC5023E31967B65200E8550B /* FileNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNewReportViewController.m; sourceTree = "<group>"; };
+		EC5023E41967B65200E8550B /* FileNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileNewReportViewController.xib; sourceTree = "<group>"; };
+		EC5023E71967BE5100E8550B /* im_complete_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_complete_profile@2x.png"; sourceTree = "<group>"; };
+		EC5023E91967BE5800E8550B /* im_complete_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_complete_profile.png; sourceTree = "<group>"; };
+		EC5023EB1967D6F400E8550B /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
+		EC5023ED1967D6FE00E8550B /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
 		ECEAE2671966C13800BBA108 /* ReportSightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSightingViewController.h; sourceTree = "<group>"; };
 		ECEAE2681966C13900BBA108 /* ReportSightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSightingViewController.m; sourceTree = "<group>"; };
 		ECEAE2691966C13900BBA108 /* ReportSightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSightingViewController.xib; sourceTree = "<group>"; };
@@ -507,8 +520,10 @@
 		5E095171194177C200DC97E2 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				EC5023E71967BE5100E8550B /* im_complete_profile@2x.png */,
 				ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */,
 				5E9E35D119544CE500485733 /* im_next@1x.png */,
+				EC5023E91967BE5800E8550B /* im_complete_profile.png */,
 				5E9E35D219544CE500485733 /* im_previous@1x.png */,
 				5E09517A19417C9B00DC97E2 /* login_btn_bg.png */,
 				5E09517419417AEF00DC97E2 /* btn_login_with_facebook(5).png */,
@@ -704,6 +719,9 @@
 				5E9D1B351966738200F668EE /* EditInsuranceVC.h */,
 				5E9D1B361966738200F668EE /* EditInsuranceVC.m */,
 				5E9D1B371966738200F668EE /* EditInsuranceVC.xib */,
+				EC5023E21967B65200E8550B /* FileNewReportViewController.h */,
+				EC5023E31967B65200E8550B /* FileNewReportViewController.m */,
+				EC5023E41967B65200E8550B /* FileNewReportViewController.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -729,6 +747,8 @@
 				ECEAE2771966C52A00BBA108 /* red_pin.png */,
 				ECEAE2781966C52A00BBA108 /* red_pin@2x.png */,
 				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
+				EC5023EB1967D6F400E8550B /* edit@2x.png */,
+				EC5023ED1967D6FE00E8550B /* edit.png */,
 				5E815EE519408DFD00CEAFAB /* disclaimer_bg.png */,
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
 				5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */,
@@ -1011,11 +1031,14 @@
 				5EFE9194195948D80014669E /* ic_female.png in Resources */,
 				5E04AF1119500608003F6CD4 /* TableViewCell.xib in Resources */,
 				5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */,
+				EC5023EE1967D6FE00E8550B /* edit.png in Resources */,
 				5E04AF08194FFD7E003F6CD4 /* NavigationHomeVC.xib in Resources */,
 				5EE8C9201951AFFA009550A1 /* star.png in Resources */,
 				5EE8C90D19518BAB009550A1 /* ic_police_assistance.png in Resources */,
 				5E04AF5419505CBD003F6CD4 /* ic_nav_logout.png in Resources */,
 				5EEF21951955B44300A0BA3F /* female_inactive.png in Resources */,
+				EC5023EA1967BE5800E8550B /* im_complete_profile.png in Resources */,
+				EC5023EC1967D6F400E8550B /* edit@2x.png in Resources */,
 				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,
 				5EEF21771955A3FB00A0BA3F /* app_icon_120x120.png in Resources */,
 				5EFE9192195948D80014669E /* default_profile.png in Resources */,
@@ -1048,8 +1071,10 @@
 				5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */,
 				5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */,
 				5EEF21781955A3FB00A0BA3F /* app_icon_512x512.png in Resources */,
+				EC5023E81967BE5100E8550B /* im_complete_profile@2x.png in Resources */,
 				5EE8C8FD19515089009550A1 /* bullet.png in Resources */,
 				5E05DCCA195EBDE90081256F /* default_profile_homeround.png in Resources */,
+				EC5023E61967B65200E8550B /* FileNewReportViewController.xib in Resources */,
 				5EE8C91D1951AFFA009550A1 /* star_highlighted@2x.png in Resources */,
 				5EA4BC71195D2C13006B4B5A /* AddDetailsVC.xib in Resources */,
 				5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */,
@@ -1086,6 +1111,7 @@
 				5EFE9186195945440014669E /* UserProfileVC.m in Sources */,
 				5E0324651942F4CD006EEA24 /* RegistrationVC.m in Sources */,
 				5E815EE319408CE900CEAFAB /* DisclaimerViewController.m in Sources */,
+				EC5023E51967B65200E8550B /* FileNewReportViewController.m in Sources */,
 				5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */,
 				5EFD68551962AC80009F9399 /* AddInsuranceVC.m in Sources */,
 				5E9CCE9A1949B8AE006B43AE /* UserDetailsViewController.m in Sources */,
