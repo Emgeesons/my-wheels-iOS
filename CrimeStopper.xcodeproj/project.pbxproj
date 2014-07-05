@@ -79,6 +79,8 @@
 		5E9D1B341966678600F668EE /* EditVehicleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E9D1B321966678600F668EE /* EditVehicleVC.xib */; };
 		5E9D1B381966738200F668EE /* EditInsuranceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9D1B361966738200F668EE /* EditInsuranceVC.m */; };
 		5E9D1B391966738200F668EE /* EditInsuranceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E9D1B371966738200F668EE /* EditInsuranceVC.xib */; };
+		5E9D1B3D1966C0FB00F668EE /* SelectVehicleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9D1B3B1966C0FB00F668EE /* SelectVehicleCell.m */; };
+		5E9D1B3E1966C0FB00F668EE /* SelectVehicleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E9D1B3C1966C0FB00F668EE /* SelectVehicleCell.xib */; };
 		5E9E35D319544CE500485733 /* im_next@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E35D119544CE500485733 /* im_next@1x.png */; };
 		5E9E35D419544CE500485733 /* im_previous@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E35D219544CE500485733 /* im_previous@1x.png */; };
 		5EA4BC70195D2C13006B4B5A /* AddDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4BC6E195D2C13006B4B5A /* AddDetailsVC.m */; };
@@ -130,6 +132,8 @@
 		5EF4DF3F194AF66C00061EF3 /* LoginWithFacebookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF4DF3D194AF66C00061EF3 /* LoginWithFacebookVC.xib */; };
 		5EF532571947394C00BFD255 /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF532551947394C00BFD255 /* HomePageVC.m */; };
 		5EF532581947394C00BFD255 /* HomePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF532561947394C00BFD255 /* HomePageVC.xib */; };
+		5EF8D01B1967CFEE007424B2 /* ImParkingHereVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8D0191967CFEE007424B2 /* ImParkingHereVC.m */; };
+		5EF8D01C1967CFEE007424B2 /* ImParkingHereVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF8D01A1967CFEE007424B2 /* ImParkingHereVC.xib */; };
 		5EFB8D15195A959B003B6042 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */; };
 		5EFD685019627D48009F9399 /* VehicleProfilePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD684E19627D48009F9399 /* VehicleProfilePageVC.m */; };
 		5EFD685119627D48009F9399 /* VehicleProfilePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFD684F19627D48009F9399 /* VehicleProfilePageVC.xib */; };
@@ -267,6 +271,9 @@
 		5E9D1B351966738200F668EE /* EditInsuranceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditInsuranceVC.h; sourceTree = "<group>"; };
 		5E9D1B361966738200F668EE /* EditInsuranceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditInsuranceVC.m; sourceTree = "<group>"; };
 		5E9D1B371966738200F668EE /* EditInsuranceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditInsuranceVC.xib; sourceTree = "<group>"; };
+		5E9D1B3A1966C0FB00F668EE /* SelectVehicleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectVehicleCell.h; sourceTree = "<group>"; };
+		5E9D1B3B1966C0FB00F668EE /* SelectVehicleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectVehicleCell.m; sourceTree = "<group>"; };
+		5E9D1B3C1966C0FB00F668EE /* SelectVehicleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectVehicleCell.xib; sourceTree = "<group>"; };
 		5E9E35D119544CE500485733 /* im_next@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_next@1x.png"; sourceTree = "<group>"; };
 		5E9E35D219544CE500485733 /* im_previous@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_previous@1x.png"; sourceTree = "<group>"; };
 		5EA4BC6D195D2C13006B4B5A /* AddDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailsVC.h; sourceTree = "<group>"; };
@@ -326,6 +333,9 @@
 		5EF532541947394C00BFD255 /* HomePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageVC.h; sourceTree = "<group>"; };
 		5EF532551947394C00BFD255 /* HomePageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageVC.m; sourceTree = "<group>"; };
 		5EF532561947394C00BFD255 /* HomePageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageVC.xib; sourceTree = "<group>"; };
+		5EF8D0181967CFEE007424B2 /* ImParkingHereVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImParkingHereVC.h; sourceTree = "<group>"; };
+		5EF8D0191967CFEE007424B2 /* ImParkingHereVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImParkingHereVC.m; sourceTree = "<group>"; };
+		5EF8D01A1967CFEE007424B2 /* ImParkingHereVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImParkingHereVC.xib; sourceTree = "<group>"; };
 		5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5EFD684D19627D48009F9399 /* VehicleProfilePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VehicleProfilePageVC.h; sourceTree = "<group>"; };
 		5EFD684E19627D48009F9399 /* VehicleProfilePageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VehicleProfilePageVC.m; sourceTree = "<group>"; };
@@ -474,6 +484,9 @@
 				5E182B4319654252003C1793 /* MyVehicleCell.h */,
 				5E182B4419654252003C1793 /* MyVehicleCell.m */,
 				5E182B4519654252003C1793 /* MyVehicleCell.xib */,
+				5E9D1B3A1966C0FB00F668EE /* SelectVehicleCell.h */,
+				5E9D1B3B1966C0FB00F668EE /* SelectVehicleCell.m */,
+				5E9D1B3C1966C0FB00F668EE /* SelectVehicleCell.xib */,
 			);
 			name = "Custom Cell";
 			sourceTree = "<group>";
@@ -672,6 +685,9 @@
 				5E9D1B351966738200F668EE /* EditInsuranceVC.h */,
 				5E9D1B361966738200F668EE /* EditInsuranceVC.m */,
 				5E9D1B371966738200F668EE /* EditInsuranceVC.xib */,
+				5EF8D0181967CFEE007424B2 /* ImParkingHereVC.h */,
+				5EF8D0191967CFEE007424B2 /* ImParkingHereVC.m */,
+				5EF8D01A1967CFEE007424B2 /* ImParkingHereVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -917,6 +933,8 @@
 			files = (
 				5EE8C9171951AAEB009550A1 /* FeedBackVC.xib in Resources */,
 				5EE8C91019518BAB009550A1 /* ic_tow_truck.png in Resources */,
+				5E9D1B3E1966C0FB00F668EE /* SelectVehicleCell.xib in Resources */,
+				5EF8D01C1967CFEE007424B2 /* ImParkingHereVC.xib in Resources */,
 				5EEF21761955A3FB00A0BA3F /* app_icon_80x80.png in Resources */,
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
@@ -1032,6 +1050,7 @@
 				5EFE919C195964700014669E /* THProgressView.m in Sources */,
 				5EFFBC27195C00B0003679C6 /* AFHTTPRequestOperationManager.m in Sources */,
 				5E815EB51940832700CEAFAB /* AppDelegate.m in Sources */,
+				5EF8D01B1967CFEE007424B2 /* ImParkingHereVC.m in Sources */,
 				5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				5EFE9186195945440014669E /* UserProfileVC.m in Sources */,
 				5E0324651942F4CD006EEA24 /* RegistrationVC.m in Sources */,
@@ -1067,6 +1086,7 @@
 				5EF532571947394C00BFD255 /* HomePageVC.m in Sources */,
 				5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */,
 				5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */,
+				5E9D1B3D1966C0FB00F668EE /* SelectVehicleCell.m in Sources */,
 				5E0951871941C85B00DC97E2 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1144,7 +1164,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1177,7 +1197,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1212,7 +1232,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/GoogleAdMob-iOS-SDK-master",
 				);
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1245,7 +1265,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/GoogleAdMob-iOS-SDK-master",
 				);
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

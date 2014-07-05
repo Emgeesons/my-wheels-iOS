@@ -31,6 +31,7 @@
 @property (nonatomic,retain) NSString *strCompanyName,*strPhoneNo,*strPolicyNo,*strExpiry;
 
 
+
 -(IBAction)btnBack_click:(id)sender;
 
 -(IBAction)btnAdd_click:(id)sender;

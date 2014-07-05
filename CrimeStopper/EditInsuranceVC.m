@@ -218,7 +218,7 @@ NSString *strDate;
     
     _txtCompanyName.text = _strCompanyName;
     _txtPolicyNo.text = _strPolicyNo;
-   
+    _txtPhoneNo.text = _strPhoneNo;
     NSLog(@"strexpiry : %@",_strExpiry);
     if([_strExpiry isEqualToString:@""])
     {
@@ -404,7 +404,7 @@ NSString *strDate;
             [param setValue:pin forKey:@"pin"];
             [param setValue:latitude forKey:@"latitude"];
             [param setValue:longitude forKey:@"longitude"];
-            
+             [param setValue:_txtPhoneNo.text forKey:@"insuranceCompanyNumber"];
             [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
             [param setValue:_txtPolicyNo.text forKey:@"insurancePolicyNumber"];
             [param setValue:strDate forKey:@"insuranceExpiryDate"];

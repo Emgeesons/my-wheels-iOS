@@ -28,6 +28,9 @@ NSString *make;
 NSString *model;
 NSString *photo1,*photo2,*photo3;
 NSString *insuranceCompanyName;
+NSString *phoneNo;
+
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -136,6 +139,7 @@ NSString *insuranceCompanyName;
                   _lblVin.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vin_chasis_no"];
                   _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
                   _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
+                  phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
                   NSString *str1 = [make stringByAppendingString:@" "];
                   _lblMake1.text = [str1 stringByAppendingString:model];
                   _lblMake.text = [str1 stringByAppendingString:model];
@@ -228,6 +232,18 @@ NSString *insuranceCompanyName;
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     }
+    if(IsIphone5)
+    {
+        _scroll.frame = CGRectMake(0 , 58, 320, 568+50);
+        _scroll.contentSize = CGSizeMake(320, 700);
+    }
+    else
+    {
+        _scroll.frame = CGRectMake(0 , 58, 320, 568+50);
+        
+        _scroll.contentSize = CGSizeMake(320, 700);
+    }
+
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -262,7 +278,7 @@ NSString *insuranceCompanyName;
     {
         EditInsuranceVC *vc = [[EditInsuranceVC alloc]init];
         vc.strCompanyName = _lblCompanyName.text;
-      //  vc.strPhoneNo = _lbl
+        vc.strPhoneNo = phoneNo;
         vc.strPolicyNo = _lblPolicyNo.text;
         vc.strExpiry = _lblExpiry.text;
         vc.strmake = make;

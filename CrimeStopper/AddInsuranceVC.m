@@ -383,6 +383,7 @@ NSString *strDate;
              longitude
              vehicleId
              insuranceCompanyName
+             insuranceCompanyNumber
              insurancePolicyNumber
              insuranceExpiryDate (yyyy-mm-dd) - optional field (if not filled, pass 000-00-00)
              os
@@ -397,6 +398,7 @@ NSString *strDate;
             
             [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
             [param setValue:_txtPolicyNo.text forKey:@"insurancePolicyNumber"];
+            [param setValue:_txtPhoneNo.text forKey:@"insuranceCompanyNumber"];
             [param setValue:strDate forKey:@"insuranceExpiryDate"];
             [param setValue:appdelegate.strVehicleId forKey:@"vehicleId"];
             [param setValue:@"ios7" forKey:@"os"];

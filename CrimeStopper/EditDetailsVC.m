@@ -53,10 +53,13 @@ NSString *strBirthDate;
     NSString *strPin3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin3"];
     NSString *strPin4 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin4"];
     NSDate *todayDate = [NSDate date];
-    
+    NSLog(@"dob : %@",dob);
+    NSLog(@"street : %@",strstreet);
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
+    NSLog(@"dob: %@",dob);
     int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
+    NSLog(@"time : %d",time);
     int allDays = (((time/60)/60)/24);
     int days = allDays%365;
     int years = (allDays-days)/365;
@@ -309,7 +312,7 @@ NSString *strBirthDate;
     {
         [_txtDob setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
-    else if ( _txtPostCode.text.length < 4 || _txtPostCode.text.length >= 5)
+    else if ( _txtPostCode.text.length != 4)
     {
         [_txtPostCode setTextColor:[UIColor redColor]];
     }
@@ -981,7 +984,8 @@ NSString *strBirthDate;
                   //[[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
                  // [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtPostCode.text forKey:@"postcode"];
-                 
+                 //street
+                  [[NSUserDefaults standardUserDefaults] setValue:_txtStreet.text forKey:@"street"];
                   //[[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtAnswer.text forKey:@"security_answer"];
                   [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];

@@ -13,6 +13,8 @@
 #import "AboutUsVC.h"
 #import "UserProfileVC.h"
 #import "LoginVC.h"
+#import "SelectVehicleCell.h"
+#import "ImParkingHereVC.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -41,6 +43,44 @@
     self.library = [[ALAssetsLibrary alloc] init];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSLog(@"user id:%@",appdelegate.strUserID);
+    [_voewMakeModel setHidden:YES];
+    [_tblMakeModel setSeparatorInset:UIEdgeInsetsZero];
+    _arrVehicles = [[NSDictionary alloc]init];
+    _arrVehicles = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
+    NSLog(@"vehivle count : :%d",[_arrVehicles count]);
+    appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSLog(@"arr vehicles : %@",_arrVehicles);
+    int countVehicle = [_arrVehicles count];
+    if(countVehicle == 1)
+    {
+        NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:0];
+        NSString *str1 = [[_arrVehicles valueForKey:@"vehicle_model"] objectAtIndex:0];
+        NSString *str4 = [str stringByAppendingString:@" "];
+        NSString *str2 = [str4 stringByAppendingString:str1];
+        NSString  *strVehicleId = [[_arrVehicles valueForKey:@"vehicle_id"] objectAtIndex:0];
+        [_btnHeading setTitle:str2 forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
+        [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
+        [_voewMakeModel setHidden:YES];
+    }
+    
+    
+    NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
+    NSString *strCurrentVehicleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
+    NSLog(@"strcurrent : %@",strCurrentVehicleID);
+    NSLog(@"strCurretn Vehicle name :%@",strCurrentVehicleName);
+     if(strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null])
+    {
+        NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:0];
+        NSString *str1 = [[_arrVehicles valueForKey:@"vehicle_model"] objectAtIndex:0];
+        NSString *str4 = [str stringByAppendingString:@" "];
+        NSString *str2 = [str4 stringByAppendingString:str1];
+        NSString  *strVehicleId = [[_arrVehicles valueForKey:@"vehicle_id"] objectAtIndex:0];
+        [_btnHeading setTitle:str2 forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
+        [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
+        [_voewMakeModel setHidden:YES];
+    }
     // Do any additional setup after loading the view from its nib.
    // [self CurrentLocationIdentifier];
     locationManager = [[CLLocationManager alloc] init];
@@ -72,7 +112,8 @@
     NSString *filename = [parts objectAtIndex:[parts count]-1];
     NSLog(@"file name : %@",filename);
     
-   
+   NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
+    [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
     
     if(photoURL == nil || photoURL == (id)[NSNull null])
     {
@@ -142,6 +183,20 @@
     
 
     self.navigationController.navigationBarHidden = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.ViewMain addGestureRecognizer:tap];
+}
+
+
+- (void) dismissKeyboard
+{
+    // add self
+    [self.voewMakeModel setHidden:YES];
+    [self.ViewMain setBackgroundColor:[UIColor clearColor]];
+    [self.ViewMain setAlpha:0.9];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -184,6 +239,12 @@
 }
 
 #pragma mark button click event
+-(IBAction)btnCancel_clck:(id)sender
+{
+    [self.voewMakeModel setHidden:YES];
+    [self.ViewMain setBackgroundColor:[UIColor clearColor]];
+    [self.ViewMain setAlpha:0.9];
+}
 -(IBAction)btnNav_click:(id)sender
 {
     NavigationHomeVC *obj = [[NavigationHomeVC alloc] initWithNibName:@"NavigationHomeVC" bundle:[NSBundle mainBundle]];
@@ -211,6 +272,33 @@
     }
    
 }
+-(IBAction)btnHeading_click:(id)sender
+{
+    if([_arrVehicles count] > 1)
+    {
+//        self.ViewMain.backgroundColor = [UIColor blackColor];
+//        self.ViewMain.alpha = 0.5;
+        
+        self.ViewMain.userInteractionEnabled = NO ;
+        [self.ViewMain setBackgroundColor:[UIColor grayColor]];
+           self.ViewMain.alpha = 0.5;
+        [self.voewMakeModel setHidden:NO];
+
+
+    }
+    
+}
+
+-(IBAction)btnMParking_click:(id)sender
+{
+    ImParkingHereVC *vc = [[ImParkingHereVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(IBAction)btnFindVehicle_click:(id)sender
+{
+
+}
+
 #pragma mark get current location
 -(void)CurrentLocationIdentifier
 {
@@ -260,4 +348,71 @@
           ------*/
      }];
 }
+#pragma mark table view delegate methods
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 59;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_arrVehicles count];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *simpleTableIdentifier = @"SelectVehicleCell";
+    SelectVehicleCell *cell = (SelectVehicleCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SelectVehicleCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    
+    NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:indexPath.row];
+    NSString *str1 = [[_arrVehicles valueForKey:@"vehicle_model"] objectAtIndex:indexPath.row];
+    NSString *str4 = [str stringByAppendingString:@" "];
+    NSString *str2 = [str4 stringByAppendingString:str1];
+    cell.lblMakeModel.text = str2;
+    cell.lblRegistrationNumber.text = [[_arrVehicles valueForKey:@"registration_serial_no"] objectAtIndex:indexPath.row];
+    NSString *vehivleType = [[_arrVehicles valueForKey:@"vehicle_type"] objectAtIndex:indexPath.row];
+   
+    
+    if([vehivleType isEqualToString:@"Car"])
+    {
+        [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
+    }
+    else if ([vehivleType isEqualToString:@"Bicycle"])
+    {
+        [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+    }
+    else if ([vehivleType isEqualToString:@"Motor Cycle"])
+    {
+        [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+    }
+    else
+    {
+        [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+    }
+    
+    //    cell.lblExercise.text = [ExerciseArray objectAtIndex:[indexPath row]];
+    //    cell.lblDuration.text = [NSString stringWithFormat:@"%@",[DurationArray objectAtIndex:[indexPath row]]];
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:indexPath.row];
+    NSString *str1 = [[_arrVehicles valueForKey:@"vehicle_model"] objectAtIndex:indexPath.row];
+    NSString *str4 = [str stringByAppendingString:@" "];
+    NSString *str2 = [str4 stringByAppendingString:str1];
+     NSString  *strVehicleId = [[_arrVehicles valueForKey:@"vehicle_id"] objectAtIndex:indexPath.row];
+    [_btnHeading setTitle:str2 forState:UIControlStateNormal];
+     [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
+    [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
+    [_voewMakeModel setHidden:YES];
+    [self.voewMakeModel setHidden:YES];
+    [self.ViewMain setBackgroundColor:[UIColor clearColor]];
+    [self.ViewMain setAlpha:0.9];
+    
+   
+}
+
 @end
