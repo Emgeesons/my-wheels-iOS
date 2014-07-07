@@ -27,6 +27,7 @@
 @property (nonatomic,retain) NSString *strFacebookEmail;
 @property (nonatomic,retain) NSString *strOldPin;
 @property (nonatomic,retain) NSString *strVehicleId;
+@property (nonatomic,retain) NSString *strVehicleType;
 
 @property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
 

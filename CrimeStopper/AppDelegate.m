@@ -16,7 +16,7 @@
 @synthesize strUserID;
 @synthesize strFBdob,strFBUserName,strGender;
 @synthesize strFacebookID,strFacebookPhotoURL,strFacebookToken,strFacebookEmail;
-@synthesize strVehicleId;
+@synthesize strVehicleId,strVehicleType;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

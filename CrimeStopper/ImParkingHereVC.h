@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface ImParkingHereVC : UIViewController
+@interface ImParkingHereVC : UIViewController<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic,retain) IBOutlet UIButton *btnVehicleName;
 @property (nonatomic,retain) IBOutlet UIButton *btnHome;
+@property (nonatomic,retain) IBOutlet UIView  *viewComment;
+@property (nonatomic,retain) IBOutlet UITableView *tblCheckList;
+@property (nonatomic,retain) IBOutlet NSMutableArray *arrCar,*arrBike,*arrcycle;
+@property (nonatomic,retain) NSMutableArray *arrrandValue;
+@property (nonatomic,retain) IBOutlet UILabel *lblLocation;
+@property (nonatomic,retain) IBOutlet UIButton *btnBack;
+@property (nonatomic,retain) IBOutlet UIButton *btnRating;
 
+-(IBAction)btnBack_click:(id)sender;
+-(IBAction)btnRating_click:(id)sender;
+-(IBAction)btnTip_click:(id)sender;
 @end
