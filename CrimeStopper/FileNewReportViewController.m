@@ -8,6 +8,8 @@
 
 #import "FileNewReportViewController.h"
 #import "UserProfileVC.h"
+#import "AFNetworking.h"
+#import "ShareNewReportViewController.h"
 
 @interface FileNewReportViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
     CLGeocoder *geocoder;
@@ -20,6 +22,8 @@
     NSInteger selectedNumber;
     NSDate *datePickerSelectedDate;
     NSDateFormatter *dateFormat, *timeFormat;
+    UIToolbar *bgToolBar;
+    UIActivityIndicatorView *activityIndicator;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UITableView *tableView;
@@ -54,7 +58,7 @@
     [_locationManager startUpdatingLocation]; // start updating for current location
     
     // set contentSize of scrollview here
-    [self.scrollView setContentSize:CGSizeMake(0, 450)];
+    [self.scrollView setContentSize:CGSizeMake(0, 470)];
     
     // initialize dateFormat & timeFormat
     dateFormat = [[NSDateFormatter alloc] init];
@@ -64,6 +68,18 @@
     [timeFormat setDateFormat:@"HH:mm:ss"];
     
     [self createFileNewReportFolder];
+    
+    // Add UIToolBar to view with alpha 0.7 for transparency
+    bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];
+    bgToolBar.barStyle = UIBarStyleBlack;
+    bgToolBar.alpha = 0.7;
+    bgToolBar.translucent = YES;
+    
+    // initialize activityIndicator and add it to UIToolBar.
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.frame = CGRectMake(0, 0, 40, 40);
+    activityIndicator.center = self.view.center;
+    [bgToolBar addSubview:activityIndicator];
     
     NSArray *vehicles = [[NSUserDefaults standardUserDefaults] arrayForKey:@"vehicles"];
     if (vehicles.count == 0) {
@@ -342,6 +358,96 @@
 
 - (IBAction)sendClicked:(id)sender {
     // code for web service call
+    
+    // get the count of files in gallery folder
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dataPath = [[docPaths objectAtIndex:0] stringByAppendingPathComponent:@"/fileNewReport"];
+    NSArray *filelist= [fm contentsOfDirectoryAtPath:dataPath error:nil];
+    //NSLog(@"%lu", (unsigned long)filelist.count);
+    int filesCount = (int)[filelist count];
+    
+    // get current date & time
+    NSDate *currentDate = [NSDate date];
+    
+    // set original date & time
+    originalDate = [dateFormat stringFromDate:currentDate];
+    originalTime = [timeFormat stringFromDate:currentDate];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    
+    NSDictionary *parameters = @{@"userId" : UserID,
+                                 @"vehicleId" : vehicleID[selectedNumber],
+                                 @"pin" : pin,
+                                 @"originalLatitude": originalLatitude,
+                                 @"originalLongitude" : originalLongitude,
+                                 @"selectedLatitutde" : selectedLatitude,
+                                 @"selectedLongitude" : selectedLongitude,
+                                 @"location" : address,
+                                 @"originalDate" : originalDate,
+                                 @"orginalTime" : originalTime,
+                                 @"selectedDate" : selectedDate,
+                                 @"selectedTime" : selectedTime,
+                                 @"reportType" : self.txtSighting.text,
+                                 @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
+                                 @"comments" : self.txtComments.text,
+                                 @"os" : OS_VERSION,
+                                 @"make" : MAKE,
+                                 @"model" : [DeviceInfo platformNiceString]};
+    
+    NSLog(@"%@", parameters);
+    
+    // Start Animating activityIndicator
+    [activityIndicator startAnimating];
+    
+    // add bgToolbar to view
+    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
+    
+    NSString *url = [NSString stringWithFormat:@"%@fileNewReport.php", SERVERNAME];
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i < filesCount; i++) {
+            NSString *imgName = [NSString stringWithFormat:@"image%d", (int)(i + 1)];
+            NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", filelist[i]]]];
+            [formData appendPartWithFileData:imgData name:imgName fileName:filelist[i] mimeType:@"image/png"];
+        }
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        
+        // Stop Animating activityIndicator
+        [activityIndicator stopAnimating];
+        
+        NSDictionary *json = (NSDictionary *)responseObject;
+        //NSLog(@"%@", json);
+        
+        if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
+            NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
+            NSString *photo1 = [response objectForKey:@"photo1"];
+            NSString *photo2 = [response objectForKey:@"photo2"];
+            NSString *photo3 = [response objectForKey:@"photo3"];
+            
+            ShareNewReportViewController *vc = [[ShareNewReportViewController alloc] init];
+            vc.photo1 = photo1;
+            vc.photo2 = photo2;
+            vc.photo3 = photo3;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        [DeviceInfo errorInConnection];
+        [activityIndicator stopAnimating];
+        [bgToolBar removeFromSuperview];
+    }];
 }
 
 #pragma mark - UITableView Delegate methods
@@ -541,9 +647,9 @@
         return NO;
     } else if (textField == self.txtComments) {
         if ([DeviceInfo isIphone5]) {
-            [self.scrollView setContentOffset:CGPointMake(0, 85) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 110) animated:YES];
         } else {
-            [self.scrollView setContentOffset:CGPointMake(0, 170) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 195) animated:YES];
         }
     }
     return YES;

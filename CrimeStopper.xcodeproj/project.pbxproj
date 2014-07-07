@@ -164,6 +164,14 @@
 		5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC21195C00B0003679C6 /* UIRefreshControl+AFNetworking.m */; };
 		5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */; };
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
+		EC4661B8196A5F4C00884581 /* ShareNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4661B6196A5F4C00884581 /* ShareNewReportViewController.m */; };
+		EC4661B9196A5F4C00884581 /* ShareNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC4661B7196A5F4C00884581 /* ShareNewReportViewController.xib */; };
+		EC4661BD196A6F2400884581 /* ReportSubmittedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4661BB196A6F2400884581 /* ReportSubmittedViewController.m */; };
+		EC4661BE196A6F2400884581 /* ReportSubmittedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC4661BC196A6F2400884581 /* ReportSubmittedViewController.xib */; };
+		EC4661C0196A71B400884581 /* report_submitted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661BF196A71B400884581 /* report_submitted@2x.png */; };
+		EC4661C2196A71C300884581 /* report_submitted.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C1196A71C300884581 /* report_submitted.png */; };
+		EC4661C4196A76EE00884581 /* headphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C3196A76EE00884581 /* headphone@2x.png */; };
+		EC4661C6196A76FF00884581 /* headphone.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C5196A76FF00884581 /* headphone.png */; };
 		EC5023E51967B65200E8550B /* FileNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5023E31967B65200E8550B /* FileNewReportViewController.m */; };
 		EC5023E61967B65200E8550B /* FileNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E41967B65200E8550B /* FileNewReportViewController.xib */; };
 		EC5023E81967BE5100E8550B /* im_complete_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E71967BE5100E8550B /* im_complete_profile@2x.png */; };
@@ -402,6 +410,16 @@
 		5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		5EFFBC85195C06E3003679C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		EC4661B5196A5F4C00884581 /* ShareNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareNewReportViewController.h; sourceTree = "<group>"; };
+		EC4661B6196A5F4C00884581 /* ShareNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareNewReportViewController.m; sourceTree = "<group>"; };
+		EC4661B7196A5F4C00884581 /* ShareNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareNewReportViewController.xib; sourceTree = "<group>"; };
+		EC4661BA196A6F2400884581 /* ReportSubmittedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSubmittedViewController.h; sourceTree = "<group>"; };
+		EC4661BB196A6F2400884581 /* ReportSubmittedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSubmittedViewController.m; sourceTree = "<group>"; };
+		EC4661BC196A6F2400884581 /* ReportSubmittedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSubmittedViewController.xib; sourceTree = "<group>"; };
+		EC4661BF196A71B400884581 /* report_submitted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report_submitted@2x.png"; sourceTree = "<group>"; };
+		EC4661C1196A71C300884581 /* report_submitted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report_submitted.png; sourceTree = "<group>"; };
+		EC4661C3196A76EE00884581 /* headphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headphone@2x.png"; sourceTree = "<group>"; };
+		EC4661C5196A76FF00884581 /* headphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headphone.png; sourceTree = "<group>"; };
 		EC5023E21967B65200E8550B /* FileNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNewReportViewController.h; sourceTree = "<group>"; };
 		EC5023E31967B65200E8550B /* FileNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNewReportViewController.m; sourceTree = "<group>"; };
 		EC5023E41967B65200E8550B /* FileNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileNewReportViewController.xib; sourceTree = "<group>"; };
@@ -722,6 +740,12 @@
 				EC5023E21967B65200E8550B /* FileNewReportViewController.h */,
 				EC5023E31967B65200E8550B /* FileNewReportViewController.m */,
 				EC5023E41967B65200E8550B /* FileNewReportViewController.xib */,
+				EC4661B5196A5F4C00884581 /* ShareNewReportViewController.h */,
+				EC4661B6196A5F4C00884581 /* ShareNewReportViewController.m */,
+				EC4661B7196A5F4C00884581 /* ShareNewReportViewController.xib */,
+				EC4661BA196A6F2400884581 /* ReportSubmittedViewController.h */,
+				EC4661BB196A6F2400884581 /* ReportSubmittedViewController.m */,
+				EC4661BC196A6F2400884581 /* ReportSubmittedViewController.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -746,10 +770,14 @@
 				ECEAE2761966C52A00BBA108 /* points_bg@2x.png */,
 				ECEAE2771966C52A00BBA108 /* red_pin.png */,
 				ECEAE2781966C52A00BBA108 /* red_pin@2x.png */,
+				EC4661C5196A76FF00884581 /* headphone.png */,
+				EC4661C3196A76EE00884581 /* headphone@2x.png */,
 				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
 				EC5023EB1967D6F400E8550B /* edit@2x.png */,
 				EC5023ED1967D6FE00E8550B /* edit.png */,
 				5E815EE519408DFD00CEAFAB /* disclaimer_bg.png */,
+				EC4661C1196A71C300884581 /* report_submitted.png */,
+				EC4661BF196A71B400884581 /* report_submitted@2x.png */,
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
 				5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */,
 				5E05DCC6195EBDE90081256F /* default_profile_homeround.png */,
@@ -946,6 +974,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Emgeesons;
 				TargetAttributes = {
+					5E815EA01940832700CEAFAB = {
+						DevelopmentTeam = 44C2WNQ95S;
+					};
 					5E815EBB1940832700CEAFAB = {
 						TestTargetID = 5E815EA01940832700CEAFAB;
 					};
@@ -990,7 +1021,9 @@
 				5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */,
 				5EEF21961955B44300A0BA3F /* female_active.png in Resources */,
 				ECEAE27E1966C52A00BBA108 /* points_bg@2x.png in Resources */,
+				EC4661C2196A71C300884581 /* report_submitted.png in Resources */,
 				5EE8C8FF19515089009550A1 /* ic_map.png in Resources */,
+				EC4661C0196A71B400884581 /* report_submitted@2x.png in Resources */,
 				5E815EAF1940832700CEAFAB /* InfoPlist.strings in Resources */,
 				5EEF21931955B44300A0BA3F /* male_inactive.png in Resources */,
 				5EFE9196195948D80014669E /* incomplete.png in Resources */,
@@ -1024,7 +1057,9 @@
 				5E04AF5719505CBD003F6CD4 /* ic_report_sighting.png in Resources */,
 				5E04AF5819505CBD003F6CD4 /* ic_updates.png in Resources */,
 				5E04AF5319505CBD003F6CD4 /* ic_nav_home.png in Resources */,
+				EC4661C6196A76FF00884581 /* headphone.png in Resources */,
 				5E9D1B391966738200F668EE /* EditInsuranceVC.xib in Resources */,
+				EC4661B9196A5F4C00884581 /* ShareNewReportViewController.xib in Resources */,
 				5E09517B19417C9B00DC97E2 /* login_btn_bg.png in Resources */,
 				ECEAE26B1966C13900BBA108 /* ReportSightingViewController.xib in Resources */,
 				5E04AF4D19505CBD003F6CD4 /* default_profile_home.png in Resources */,
@@ -1033,6 +1068,7 @@
 				5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */,
 				EC5023EE1967D6FE00E8550B /* edit.png in Resources */,
 				5E04AF08194FFD7E003F6CD4 /* NavigationHomeVC.xib in Resources */,
+				EC4661BE196A6F2400884581 /* ReportSubmittedViewController.xib in Resources */,
 				5EE8C9201951AFFA009550A1 /* star.png in Resources */,
 				5EE8C90D19518BAB009550A1 /* ic_police_assistance.png in Resources */,
 				5E04AF5419505CBD003F6CD4 /* ic_nav_logout.png in Resources */,
@@ -1070,6 +1106,7 @@
 				5EEEB9161963DA800083CC56 /* ic_car.png in Resources */,
 				5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */,
 				5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */,
+				EC4661C4196A76EE00884581 /* headphone@2x.png in Resources */,
 				5EEF21781955A3FB00A0BA3F /* app_icon_512x512.png in Resources */,
 				EC5023E81967BE5100E8550B /* im_complete_profile@2x.png in Resources */,
 				5EE8C8FD19515089009550A1 /* bullet.png in Resources */,
@@ -1138,9 +1175,11 @@
 				5EFFBC2A195C00B0003679C6 /* AFSecurityPolicy.m in Sources */,
 				5EA4BC75195D7BF1006B4B5A /* EditDetailsVC.m in Sources */,
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
+				EC4661B8196A5F4C00884581 /* ShareNewReportViewController.m in Sources */,
 				5EFFBC2D195C00B0003679C6 /* AFURLResponseSerialization.m in Sources */,
 				5EFFBC2C195C00B0003679C6 /* AFURLRequestSerialization.m in Sources */,
 				5E182B4619654252003C1793 /* MyVehicleCell.m in Sources */,
+				EC4661BD196A6F2400884581 /* ReportSubmittedViewController.m in Sources */,
 				5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */,
 				5EF532571947394C00BFD255 /* HomePageVC.m in Sources */,
 				5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */,
@@ -1267,8 +1306,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1290,7 +1330,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/GoogleAdMob-iOS-SDK-master",
 				);
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1301,7 +1341,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1323,7 +1364,7 @@
 					"$(PROJECT_DIR)/CrimeStopper/GoogleAdMob-iOS-SDK-master",
 				);
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

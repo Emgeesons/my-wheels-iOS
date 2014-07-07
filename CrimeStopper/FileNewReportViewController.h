@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Emgeesons. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 @import MapKit;
 
 @interface FileNewReportViewController : UIViewController
