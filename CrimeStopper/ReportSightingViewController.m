@@ -9,6 +9,7 @@
 #import "ReportSightingViewController.h"
 @import CoreLocation;
 #import "AFNetworking.h"
+#import "Reachability.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
@@ -91,6 +92,14 @@
 }
 
 - (IBAction)btnSendClicked:(id)sender {
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        return;
+    }
     
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
@@ -202,11 +211,23 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+    
+    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Error" message:@"Location service is not enabled.\nGo to \"Settings->Privacy->LocationServices\"\nto enable location services." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
     NSLog(@"didFailWithError: %@", error);
     CLLocationCoordinate2D coord = {.latitude = 37.423617, .longitude = -122.220154};
     MKCoordinateSpan span = {.latitudeDelta = 0.005, .longitudeDelta = 0.005};
     MKCoordinateRegion region = {coord, span};
     [_mapView setRegion:region];
+    
+    originalLatitude = [NSString stringWithFormat:@"%f", 37.423617];
+    originalLongitude = [NSString stringWithFormat:@"%f", -122.220154];
+    selectedLatitude = originalLatitude;
+    selectedLongitude = originalLongitude;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -500,7 +521,7 @@
     [FormatDate setLocale: [NSLocale currentLocale]];
     
     //set date format
-    [FormatDate setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [FormatDate setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
     
     self.txtDateTime.text = [FormatDate stringFromDate:[datePicker date]];
     

@@ -172,6 +172,8 @@
 		EC4661C2196A71C300884581 /* report_submitted.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C1196A71C300884581 /* report_submitted.png */; };
 		EC4661C4196A76EE00884581 /* headphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C3196A76EE00884581 /* headphone@2x.png */; };
 		EC4661C6196A76FF00884581 /* headphone.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C5196A76FF00884581 /* headphone.png */; };
+		EC4D5A58196BC711003B9CFF /* FHSStream.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4D5A55196BC711003B9CFF /* FHSStream.m */; };
+		EC4D5A59196BC711003B9CFF /* FHSTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4D5A57196BC711003B9CFF /* FHSTwitterEngine.m */; };
 		EC5023E51967B65200E8550B /* FileNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5023E31967B65200E8550B /* FileNewReportViewController.m */; };
 		EC5023E61967B65200E8550B /* FileNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E41967B65200E8550B /* FileNewReportViewController.xib */; };
 		EC5023E81967BE5100E8550B /* im_complete_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E71967BE5100E8550B /* im_complete_profile@2x.png */; };
@@ -420,6 +422,10 @@
 		EC4661C1196A71C300884581 /* report_submitted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report_submitted.png; sourceTree = "<group>"; };
 		EC4661C3196A76EE00884581 /* headphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headphone@2x.png"; sourceTree = "<group>"; };
 		EC4661C5196A76FF00884581 /* headphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headphone.png; sourceTree = "<group>"; };
+		EC4D5A54196BC711003B9CFF /* FHSStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSStream.h; sourceTree = "<group>"; };
+		EC4D5A55196BC711003B9CFF /* FHSStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSStream.m; sourceTree = "<group>"; };
+		EC4D5A56196BC711003B9CFF /* FHSTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSTwitterEngine.h; sourceTree = "<group>"; };
+		EC4D5A57196BC711003B9CFF /* FHSTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSTwitterEngine.m; sourceTree = "<group>"; };
 		EC5023E21967B65200E8550B /* FileNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNewReportViewController.h; sourceTree = "<group>"; };
 		EC5023E31967B65200E8550B /* FileNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNewReportViewController.m; sourceTree = "<group>"; };
 		EC5023E41967B65200E8550B /* FileNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileNewReportViewController.xib; sourceTree = "<group>"; };
@@ -566,6 +572,7 @@
 		5E0951841941C84100DC97E2 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				EC4D5A53196BC711003B9CFF /* FHSTwitterEngine */,
 				5EFFBB5A195BE0F5003679C6 /* AFNetworking */,
 				5EFE9199195964470014669E /* THProgressView */,
 				5E04AF00194FFC1E003F6CD4 /* PPRevealSideViewController */,
@@ -927,6 +934,17 @@
 			path = "AFNetworking-master 2/UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		EC4D5A53196BC711003B9CFF /* FHSTwitterEngine */ = {
+			isa = PBXGroup;
+			children = (
+				EC4D5A54196BC711003B9CFF /* FHSStream.h */,
+				EC4D5A55196BC711003B9CFF /* FHSStream.m */,
+				EC4D5A56196BC711003B9CFF /* FHSTwitterEngine.h */,
+				EC4D5A57196BC711003B9CFF /* FHSTwitterEngine.m */,
+			);
+			path = FHSTwitterEngine;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1167,6 +1185,7 @@
 				5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */,
 				5E815EB11940832700CEAFAB /* main.m in Sources */,
 				5EFFBC26195C00B0003679C6 /* AFHTTPRequestOperation.m in Sources */,
+				EC4D5A58196BC711003B9CFF /* FHSStream.m in Sources */,
 				5EFFBC2E195C00B0003679C6 /* AFURLSessionManager.m in Sources */,
 				5EFFBC72195C00B0003679C6 /* UIProgressView+AFNetworking.m in Sources */,
 				5EE8C9161951AAEB009550A1 /* FeedBackVC.m in Sources */,
@@ -1177,6 +1196,7 @@
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
 				EC4661B8196A5F4C00884581 /* ShareNewReportViewController.m in Sources */,
 				5EFFBC2D195C00B0003679C6 /* AFURLResponseSerialization.m in Sources */,
+				EC4D5A59196BC711003B9CFF /* FHSTwitterEngine.m in Sources */,
 				5EFFBC2C195C00B0003679C6 /* AFURLRequestSerialization.m in Sources */,
 				5E182B4619654252003C1793 /* MyVehicleCell.m in Sources */,
 				EC4661BD196A6F2400884581 /* ReportSubmittedViewController.m in Sources */,

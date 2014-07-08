@@ -7,8 +7,10 @@
 //
 
 #import "ReportSubmittedViewController.h"
+#import "HomePageVC.h"
 
 @interface ReportSubmittedViewController ()
+- (IBAction)reportSummaryClicked:(id)sender;
 
 @end
 
@@ -35,4 +37,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)reportSummaryClicked:(id)sender {
+    
+    // open report summary
+    
+    HomePageVC *homeVC = [[HomePageVC alloc] init];
+    [self.navigationController pushViewController:homeVC animated:YES];
+}
 @end
