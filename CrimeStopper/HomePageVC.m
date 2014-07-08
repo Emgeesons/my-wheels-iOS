@@ -14,6 +14,7 @@
 #import "UserProfileVC.h"
 #import "LoginVC.h"
 #import "ReportSightingViewController.h"
+#import "FileNewReportViewController.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
