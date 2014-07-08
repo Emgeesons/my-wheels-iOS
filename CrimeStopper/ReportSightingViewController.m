@@ -9,6 +9,7 @@
 #import "ReportSightingViewController.h"
 @import CoreLocation;
 #import "AFNetworking.h"
+#import "Reachability.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
