@@ -14,6 +14,7 @@
 #import "UserProfileVC.h"
 #import "LoginVC.h"
 #import "ReportSightingViewController.h"
+#import "FileNewReportViewController.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -224,6 +225,21 @@
     else
     {
         ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (IBAction)openFileNewReport:(id)sender {
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSLog(@"str : %@",UserID);
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        LoginVC *vc = [[LoginVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+        FileNewReportViewController *vc = [[FileNewReportViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
