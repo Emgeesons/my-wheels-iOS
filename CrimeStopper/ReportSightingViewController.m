@@ -9,7 +9,6 @@
 #import "ReportSightingViewController.h"
 @import CoreLocation;
 #import "AFNetworking.h"
-#import "Reachability.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
@@ -92,14 +91,6 @@
 }
 
 - (IBAction)btnSendClicked:(id)sender {
-    
-    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    if (networkStatus == NotReachable)
-    {
-        [DeviceInfo errorInConnection];
-        return;
-    }
     
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
