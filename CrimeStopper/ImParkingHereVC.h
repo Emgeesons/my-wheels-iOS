@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface ImParkingHereVC : UIViewController<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
-
+@interface ImParkingHereVC : UIViewController<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate,UITextFieldDelegate>
+{
+    UITextField *activeTextField;
+    UIActionSheet *sheet;
+}
 @property (nonatomic,retain) IBOutlet UIButton *btnVehicleName;
 @property (nonatomic,retain) IBOutlet UIButton *btnHome;
 @property (nonatomic,retain) IBOutlet UIView  *viewComment;
@@ -20,8 +23,15 @@
 @property (nonatomic,retain) IBOutlet UILabel *lblLocation;
 @property (nonatomic,retain) IBOutlet UIButton *btnBack;
 @property (nonatomic,retain) IBOutlet UIButton *btnRating;
+@property (nonatomic,retain) IBOutlet UILabel *lblHeading;
+@property (nonatomic,retain) NSMutableDictionary *arrVehiclePark;
+@property (nonatomic,retain) IBOutlet UITextField *txtComment;
+@property (nonatomic,retain) IBOutlet UIScrollView *scroll;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (nonatomic,retain) IBOutlet UIButton *btnDone;
 
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnRating_click:(id)sender;
 -(IBAction)btnTip_click:(id)sender;
+-(IBAction)btnDone_click:(id)sender;
 @end

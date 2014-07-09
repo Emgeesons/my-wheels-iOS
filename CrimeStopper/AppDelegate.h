@@ -28,7 +28,7 @@
 @property (nonatomic,retain) NSString *strOldPin;
 @property (nonatomic,retain) NSString *strVehicleId;
 @property (nonatomic,retain) NSString *strVehicleType;
-
+@property (nonatomic,retain) NSMutableArray *arrMutvehiclePark;
 @property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
 
 @end

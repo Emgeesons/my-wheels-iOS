@@ -1,3 +1,5 @@
+
+
 //
 //  HomePageVC.m
 //  CrimeStopper
@@ -15,6 +17,7 @@
 #import "LoginVC.h"
 #import "SelectVehicleCell.h"
 #import "ImParkingHereVC.h"
+#import "FindVehicleVC.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -27,7 +30,7 @@
 @implementation HomePageVC
 @synthesize btnNav;
 @synthesize viewNewReport,viewReport,viewUpdates,viewAboutUs;
-
+int intblue;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -51,6 +54,9 @@
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSLog(@"arr vehicles : %@",_arrVehicles);
     int countVehicle = [_arrVehicles count];
+    [_btnFindVehicle setEnabled:NO];
+    [_imgTick setHidden:YES];
+    
     if(countVehicle == 1)
     {
         NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:0];
@@ -112,6 +118,40 @@
     NSString *filename = [parts objectAtIndex:[parts count]-1];
     NSLog(@"file name : %@",filename);
     
+    //parkVehicle
+    NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
+   
+    NSLog(@"arr : %@",arr);
+    NSLog(@"arr counbt :%d",[arr count]);
+    if(arr == nil || arr == (id)[NSNull null])
+    {
+    
+    }
+    else
+    {
+    for(int i=0;i<=[arr count]-1;i++)
+    {
+        NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
+        NSLog(@"strvid : %@",strvid);
+        if(strvid == strCurrentVehicleID && strvid != nil)
+        {
+            [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+             [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_imgTick setHidden:NO];
+            intblue = 1;
+            [_btnFindVehicle setEnabled:YES];
+        }
+        else
+        {
+             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
+            [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [_imgTick setHidden:YES];
+            [_btnFindVehicle setEnabled:NO];
+        }
+    }
+    }
+   
+
    NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
     
@@ -292,12 +332,28 @@
 
 -(IBAction)btnMParking_click:(id)sender
 {
-    ImParkingHereVC *vc = [[ImParkingHereVC alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+   if(intblue == 1)
+    {
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Cancel parking"
+                                                               message:@"Please confirm your vehicle is not parked here."
+                                                              delegate:self
+                                                    cancelButtonTitle:@"Yes"
+                                                     otherButtonTitles:@"No", nil];
+        CheckAlert.tag =1;
+           [CheckAlert show];
+   }
+    else
+    {
+        ImParkingHereVC *vc = [[ImParkingHereVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
 }
 -(IBAction)btnFindVehicle_click:(id)sender
 {
-
+    FindVehicleVC *vc = [[FindVehicleVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark get current location
@@ -324,7 +380,7 @@
              NSLog(@"\nCurrent Location Detected\n");
              NSLog(@"placemark %@",placemark);
              NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
-             NSString *Address = [[NSString alloc]initWithString:locatedAt];
+            // NSString *Address = [[NSString alloc]initWithString:locatedAt];
              NSString *Area = [[NSString alloc]initWithString:placemark.locality];
              NSString *Country = [[NSString alloc]initWithString:placemark.country];
              NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
@@ -415,8 +471,55 @@
     [self.voewMakeModel setHidden:YES];
     [self.ViewMain setBackgroundColor:[UIColor clearColor]];
     [self.ViewMain setAlpha:0.9];
+    NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
     
+    NSLog(@"arr : %@",arr);
+    NSLog(@"arr counbt :%d",[arr count]);
+    if(arr == nil || arr == (id)[NSNull null])
+    {
+        
+    }
+    else
+    {
+        for(int i=0;i<=[arr count]-1;i++)
+        {
+            NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
+            NSLog(@"strvid : %@",strvid);
+            if(strvid == strVehicleId && strvid != nil)
+            {
+                [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+                [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [_imgTick setHidden:NO];
+                [_btnFindVehicle setEnabled:YES];
+                intblue =1;
+                return;
+            }
+            else
+            {
+                [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
+                [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+                [_btnFindVehicle setEnabled:NO];
+                [_imgTick setHidden:YES];
+            }
+        }
+    }
    
 }
-
+#pragma mark alert view delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == 1)
+    {
+        if(buttonIndex == 0)
+        {
+            [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
+            [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [_imgTick setHidden:YES];
+            
+        }
+        else
+        {
+            
+        }
+    }
+}
 @end

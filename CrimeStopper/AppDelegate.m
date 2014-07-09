@@ -51,6 +51,7 @@
     [self.window makeKeyAndVisible];
 //    self.window.rootViewController = self.HomeScreenVC;
 
+    _arrMutvehiclePark = [[NSMutableArray alloc]init];
     return YES;
 }
 

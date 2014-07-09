@@ -27,7 +27,7 @@
     CLPlacemark *placemark;
 }
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-
+NSMutableDictionary *dicCounter;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,7 +42,12 @@
     [super viewDidLoad];
     NSString *strVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
     NSString *strCurrentVehicleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
-    [_btnVehicleName setTitle:strCurrentVehicleName forState:UIControlStateNormal];
+    _arrVehiclePark = [[NSMutableDictionary alloc]init];
+   
+    
+    
+//    [_btnVehicleName setTitle:strCurrentVehicleName forState:UIControlStateNormal];
+      [_lblHeading setText:strCurrentVehicleName];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSLog(@"appdelegate str vehicle type: %@",appDelegate.strVehicleType);
     _arrrandValue = [[NSMutableArray alloc]init];
@@ -53,17 +58,21 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     [locationManager startUpdatingLocation];
-    if(IsIphone5)
-    {
-        _viewComment.frame = CGRectMake(0 , 410, 320, 44);
-     
-    }
-    else
-    {
-        _viewComment.frame = CGRectMake(0 , 370, 320, 44);
-        
-    }
+//    if(IsIphone5)
+//    {
+//        _viewComment.frame = CGRectMake(0 , 410, 320, 44);
+//     
+//    }
+//    else
+//    {
+//        _viewComment.frame = CGRectMake(0 , 370, 320, 44);
+//        
+//    }
+    [self.txtComment setDelegate:self];
     
+    [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
+    
+    [self.txtComment setInputAccessoryView:self.toolbar];
     _arrCar = [[NSMutableArray alloc]init];
     [_arrCar addObject:@"what’s the My Wheels User Rating here?"];
     [_arrCar addObject:@"well lit spot?"];
@@ -124,12 +133,22 @@
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
     
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-    [param setValue:UserID forKey:@"userId"];
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        [param setValue:@"0" forKey:@"userId"];
+        [param setValue:@"0" forKey:@"vehicleId"];
+    }
+    else
+    {
+         [param setValue:UserID forKey:@"userId"];
+         [param setValue:strVehicleID forKey:@"vehicleId"];
+    }
+   
     [param setValue:pin forKey:@"pin"];
     [param setValue:latitude forKey:@"latitude"];
     [param setValue:longitude forKey:@"longitude"];
     
-    [param setValue:strVehicleID forKey:@"vehicleId"];
+   
   
     [param setValue:@"ios7" forKey:@"os"];
     [param setValue:@"iPhone" forKey:@"make"];
@@ -163,9 +182,15 @@
         {
             NSString *strRating = @"rating";
             NSString *strRate = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"rating"];
-            NSString *str = [strRate stringByAppendingString:strRating];
-            [_btnRating setTitle:str forState:UIControlStateApplication];
-            
+            if(strRate == nil || strRate == (id)[NSNull null])
+            {
+                 [_btnRating setTitle:@"" forState:UIControlStateNormal];
+            }
+            else
+            {
+                NSString *str = [strRate stringByAppendingString:strRating];
+                [_btnRating setTitle:str forState:UIControlStateNormal];
+            }
             
         }
         [SVProgressHUD dismiss];
@@ -177,6 +202,21 @@
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     
     
+    if(IsIphone5)
+    {
+        _scroll.frame = CGRectMake(0 , 35, 320, 568+300);
+        _scroll.contentSize = CGSizeMake(320, 700);
+         _viewComment.frame = CGRectMake(0 , 400, 320, 44);
+        _btnDone.frame = CGRectMake(0, 470, 320, 30);
+        
+    }
+    else
+    {
+        _scroll.frame = CGRectMake(0 , 35, 320, 568+50);
+        
+        _scroll.contentSize = CGSizeMake(320, 700);
+        _viewComment.frame = CGRectMake(0 , 315, 320, 44);
+    }
 
 
 
@@ -188,6 +228,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark table view delegate methods
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -236,22 +277,31 @@
         
          [cell.lblCheckList setText:[_arrCar objectAtIndex: chk]];
  }
-   // cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
    
     [cell.imgCheck setImage:[UIImage imageNamed:@""]];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   // [tableView reloadSections:indexPath.section withRowAnimation:UITableViewRowAnimationFade];
+     mParkingCell *cell = (mParkingCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark.png"]];
     
-    //get cell for the currently selected row
-       mParkingCell *cell = (mParkingCell *)[tableView cellForRowAtIndexPath:indexPath];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
+    //Get the old counter
+    int counterForCell = [[dicCounter valueForKey:cellIdentifier] intValue];
+    //increment it
+    counterForCell++;
+    //set it in the dictionary
+    [dicCounter setValue:[NSNumber numberWithInt:counterForCell] forKey:cellIdentifier];
+    NSLog(@"counter for cell : %d",counterForCell);
+    NSLog(@"didcounter : %@",dicCounter);
+    NSLog(@"section : %d",indexPath.section);
 
-    cell.imgCheck.frame = CGRectMake(400, 31, 25, 22);
-
-    //set image
-    [cell.imageView setImage: [UIImage imageNamed:@"tick_mark.png"]];
+}
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 -(NSMutableArray *)getEightRandomLessThan:(int)M {
@@ -308,5 +358,116 @@
 {
     HomePageVC *vc = [[HomePageVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+-(IBAction)btnDone_click:(id)sender
+{
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+      NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
+    NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
+    NSString *strVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
+
+  
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        [_arrVehiclePark setValue:@"0" forKey:@"VehivleID"];
+    }
+    else
+    {
+       [_arrVehiclePark setValue:strVehicleID forKey:@"VehivleID"];
+    }
+    [_arrVehiclePark setValue:latitude forKey:@"parkingLatitude"];
+    [_arrVehiclePark setValue:longitude forKey:@"prkingLongitude"];
+    
+    [_arrVehiclePark setValue:_txtComment.text forKey:@"Comment"];
+    [appDelegate.arrMutvehiclePark addObject:_arrVehiclePark];
+    
+    NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
+     [[NSUserDefaults standardUserDefaults] setValue:appDelegate.arrMutvehiclePark forKey:@"parkVehicle"];
+    HomePageVC *vc = [[HomePageVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+#pragma mark textfield delegate methods
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    [textField setTextColor:[UIColor blackColor]];
+    activeTextField=textField;
+       int y=0;
+       if(textField == _txtComment)
+    {
+        y=200;
+        //[btnSubmit setHidden:NO];
+    }
+    
+    NSLog(@"y = %d",y);
+    [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
+        CGRect rc = [textField bounds];
+        rc = [textField convertRect:rc toView:_scroll];
+        rc.origin.x = 0 ;
+        rc.origin.y = y ;
+        CGPoint pt=rc.origin;
+        [self.scroll setContentOffset:pt animated:YES];
+    }completion:nil];
+    // return YES;
+    
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+   
+    [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlDown animations:^{
+        CGRect rc = [textField bounds];
+        rc = [textField convertRect:rc toView:_scroll];
+        rc.origin.x = 0 ;
+        rc.origin.y = -20;
+        CGPoint pt=rc.origin;
+        [self.scroll setContentOffset:pt animated:YES];
+    }completion:nil];
+}
+#pragma mark toolbarr's button click event
+- (IBAction)btnMinimize_Click:(id)sender
+{
+    [activeTextField resignFirstResponder];
+    //int y=0;
+    [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlDown animations:^{
+        CGRect rc = [_txtComment bounds];
+        rc = [_txtComment convertRect:rc toView:_scroll];
+        rc.origin.x = 0 ;
+        rc.origin.y = -20;
+        CGPoint pt=rc.origin;
+        [self.scroll setContentOffset:pt animated:YES];
+    }completion:nil];
+}
+- (IBAction)btnNext_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    
+    
+}
+- (IBAction)btnPreviuse_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag-1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    
+    
+    
 }
 @end

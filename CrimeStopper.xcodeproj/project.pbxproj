@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E02BD73196C136B00897687 /* FindVehicleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E02BD71196C136B00897687 /* FindVehicleVC.m */; };
+		5E02BD74196C136B00897687 /* FindVehicleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E02BD72196C136B00897687 /* FindVehicleVC.xib */; };
 		5E0324651942F4CD006EEA24 /* RegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0324631942F4CD006EEA24 /* RegistrationVC.m */; };
 		5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E0324641942F4CD006EEA24 /* RegistrationVC.xib */; };
 		5E0324701942FBB7006EEA24 /* ic_app.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03246A1942FBB7006EEA24 /* ic_app.png */; };
@@ -142,6 +144,12 @@
 		5EF532571947394C00BFD255 /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF532551947394C00BFD255 /* HomePageVC.m */; };
 		5EF8D01B1967CFEE007424B2 /* ImParkingHereVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8D0191967CFEE007424B2 /* ImParkingHereVC.m */; };
 		5EF8D01C1967CFEE007424B2 /* ImParkingHereVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF8D01A1967CFEE007424B2 /* ImParkingHereVC.xib */; };
+		5EFABB36196D4A8F007C0781 /* MyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFABB35196D4A8F007C0781 /* MyLocation.m */; };
+		5EFABB39196D4D20007C0781 /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFABB38196D4D20007C0781 /* MyAnnotation.m */; };
+		5EFABB40196D621D007C0781 /* vehicle_parked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFABB3C196D621D007C0781 /* vehicle_parked.png */; };
+		5EFABB41196D621D007C0781 /* vehicle_parked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFABB3D196D621D007C0781 /* vehicle_parked@2x.png */; };
+		5EFABB44196D7060007C0781 /* current_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFABB42196D7060007C0781 /* current_location.png */; };
+		5EFABB45196D7060007C0781 /* current_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFABB43196D7060007C0781 /* current_location@2x.png */; };
 		5EFB8D15195A959B003B6042 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */; };
 		5EFD685019627D48009F9399 /* VehicleProfilePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD684E19627D48009F9399 /* VehicleProfilePageVC.m */; };
 		5EFD685119627D48009F9399 /* VehicleProfilePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFD684F19627D48009F9399 /* VehicleProfilePageVC.xib */; };
@@ -201,6 +209,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E02BD70196C136B00897687 /* FindVehicleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindVehicleVC.h; sourceTree = "<group>"; };
+		5E02BD71196C136B00897687 /* FindVehicleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVehicleVC.m; sourceTree = "<group>"; };
+		5E02BD72196C136B00897687 /* FindVehicleVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindVehicleVC.xib; sourceTree = "<group>"; };
 		5E0324621942F4CD006EEA24 /* RegistrationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationVC.h; sourceTree = "<group>"; };
 		5E0324631942F4CD006EEA24 /* RegistrationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationVC.m; sourceTree = "<group>"; };
 		5E0324641942F4CD006EEA24 /* RegistrationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationVC.xib; sourceTree = "<group>"; };
@@ -365,6 +376,14 @@
 		5EF8D0181967CFEE007424B2 /* ImParkingHereVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImParkingHereVC.h; sourceTree = "<group>"; };
 		5EF8D0191967CFEE007424B2 /* ImParkingHereVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImParkingHereVC.m; sourceTree = "<group>"; };
 		5EF8D01A1967CFEE007424B2 /* ImParkingHereVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImParkingHereVC.xib; sourceTree = "<group>"; };
+		5EFABB34196D4A8F007C0781 /* MyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocation.h; sourceTree = "<group>"; };
+		5EFABB35196D4A8F007C0781 /* MyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLocation.m; sourceTree = "<group>"; };
+		5EFABB37196D4D20007C0781 /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
+		5EFABB38196D4D20007C0781 /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
+		5EFABB3C196D621D007C0781 /* vehicle_parked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vehicle_parked.png; sourceTree = "<group>"; };
+		5EFABB3D196D621D007C0781 /* vehicle_parked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle_parked@2x.png"; sourceTree = "<group>"; };
+		5EFABB42196D7060007C0781 /* current_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = current_location.png; sourceTree = "<group>"; };
+		5EFABB43196D7060007C0781 /* current_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "current_location@2x.png"; sourceTree = "<group>"; };
 		5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5EFD684D19627D48009F9399 /* VehicleProfilePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VehicleProfilePageVC.h; sourceTree = "<group>"; };
 		5EFD684E19627D48009F9399 /* VehicleProfilePageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VehicleProfilePageVC.m; sourceTree = "<group>"; };
@@ -566,6 +585,7 @@
 		5E0951841941C84100DC97E2 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				5EFABB33196D4A73007C0781 /* mapkit */,
 				5EFFBB5A195BE0F5003679C6 /* AFNetworking */,
 				5EFE9199195964470014669E /* THProgressView */,
 				5E04AF00194FFC1E003F6CD4 /* PPRevealSideViewController */,
@@ -753,6 +773,9 @@
 				5EF8D0181967CFEE007424B2 /* ImParkingHereVC.h */,
 				5EF8D0191967CFEE007424B2 /* ImParkingHereVC.m */,
 				5EF8D01A1967CFEE007424B2 /* ImParkingHereVC.xib */,
+				5E02BD70196C136B00897687 /* FindVehicleVC.h */,
+				5E02BD71196C136B00897687 /* FindVehicleVC.m */,
+				5E02BD72196C136B00897687 /* FindVehicleVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -833,6 +856,10 @@
 		5EEEB90E1963DA150083CC56 /* Vehicles */ = {
 			isa = PBXGroup;
 			children = (
+				5EFABB42196D7060007C0781 /* current_location.png */,
+				5EFABB43196D7060007C0781 /* current_location@2x.png */,
+				5EFABB3C196D621D007C0781 /* vehicle_parked.png */,
+				5EFABB3D196D621D007C0781 /* vehicle_parked@2x.png */,
 				5EEEB90F1963DA800083CC56 /* add_photos.png */,
 				5EEEB9101963DA800083CC56 /* ic_bike.png */,
 				5EEEB9111963DA800083CC56 /* ic_car.png */,
@@ -840,6 +867,17 @@
 				5EEEB9131963DA800083CC56 /* ic_other.png */,
 			);
 			name = Vehicles;
+			sourceTree = "<group>";
+		};
+		5EFABB33196D4A73007C0781 /* mapkit */ = {
+			isa = PBXGroup;
+			children = (
+				5EFABB37196D4D20007C0781 /* MyAnnotation.h */,
+				5EFABB38196D4D20007C0781 /* MyAnnotation.m */,
+				5EFABB34196D4A8F007C0781 /* MyLocation.h */,
+				5EFABB35196D4A8F007C0781 /* MyLocation.m */,
+			);
+			name = mapkit;
 			sourceTree = "<group>";
 		};
 		5EFE9188195948C60014669E /* Profile page */ = {
@@ -1010,6 +1048,7 @@
 				5E9D1B3E1966C0FB00F668EE /* SelectVehicleCell.xib in Resources */,
 				5EF8D01C1967CFEE007424B2 /* ImParkingHereVC.xib in Resources */,
 				5EEF21761955A3FB00A0BA3F /* app_icon_80x80.png in Resources */,
+				5EFABB45196D7060007C0781 /* current_location@2x.png in Resources */,
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
@@ -1031,6 +1070,7 @@
 				5EFE9191195948D80014669E /* default_profile_bg.png in Resources */,
 				5EFE9193195948D80014669E /* edit_white.png in Resources */,
 				5EEEB9141963DA800083CC56 /* add_photos.png in Resources */,
+				5EFABB41196D621D007C0781 /* vehicle_parked@2x.png in Resources */,
 				5E3C3FBA196A9A11007E6AFA /* ic_unlike_blue.png in Resources */,
 				5EFE9198195948D80014669E /* profile_bar.png in Resources */,
 				5EE8C8FE19515089009550A1 /* ic_call.png in Resources */,
@@ -1038,6 +1078,7 @@
 				5EEF21791955A3FB00A0BA3F /* app_icon_1024x1024.png in Resources */,
 				5EF2C4EB1953127900781789 /* login_bg(5).png in Resources */,
 				5EE8C90019515089009550A1 /* im_about_us.png in Resources */,
+				5EFABB44196D7060007C0781 /* current_location.png in Resources */,
 				5E9E35D319544CE500485733 /* im_next@1x.png in Resources */,
 				5E04AF5119505CBD003F6CD4 /* ic_nav_emergency_numbers.png in Resources */,
 				5EFE9195195948D80014669E /* ic_male.png in Resources */,
@@ -1045,6 +1086,7 @@
 				ECEAE27C1966C52A00BBA108 /* points_bg_ios@2x.png in Resources */,
 				5EFE9187195945440014669E /* UserProfileVC.xib in Resources */,
 				5E04AF4E19505CBD003F6CD4 /* ic_about_us.png in Resources */,
+				5E02BD74196C136B00897687 /* FindVehicleVC.xib in Resources */,
 				5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */,
 				5E04AF5019505CBD003F6CD4 /* ic_file_new_report.png in Resources */,
 				5E9E35D419544CE500485733 /* im_previous@1x.png in Resources */,
@@ -1086,6 +1128,7 @@
 				5EFD68561962AC80009F9399 /* AddInsuranceVC.xib in Resources */,
 				5EEF21751955A3FB00A0BA3F /* app_icon_58x58.png in Resources */,
 				5E04AF5619505CBD003F6CD4 /* ic_nav_share_app.png in Resources */,
+				5EFABB40196D621D007C0781 /* vehicle_parked.png in Resources */,
 				5E09517919417AEF00DC97E2 /* btn_register(5).png in Resources */,
 				5E3C3FAA196A6859007E6AFA /* HomePageVC.xib in Resources */,
 				5E182B4719654252003C1793 /* MyVehicleCell.xib in Resources */,
@@ -1146,6 +1189,7 @@
 				5EFE9186195945440014669E /* UserProfileVC.m in Sources */,
 				5E0324651942F4CD006EEA24 /* RegistrationVC.m in Sources */,
 				5E815EE319408CE900CEAFAB /* DisclaimerViewController.m in Sources */,
+				5EFABB36196D4A8F007C0781 /* MyLocation.m in Sources */,
 				5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */,
 				5EFD68551962AC80009F9399 /* AddInsuranceVC.m in Sources */,
 				5E9CCE9A1949B8AE006B43AE /* UserDetailsViewController.m in Sources */,
@@ -1174,7 +1218,9 @@
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
 				5EFFBC2D195C00B0003679C6 /* AFURLResponseSerialization.m in Sources */,
 				5EFFBC2C195C00B0003679C6 /* AFURLRequestSerialization.m in Sources */,
+				5EFABB39196D4D20007C0781 /* MyAnnotation.m in Sources */,
 				5E182B4619654252003C1793 /* MyVehicleCell.m in Sources */,
+				5E02BD73196C136B00897687 /* FindVehicleVC.m in Sources */,
 				5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */,
 				5E3C3FAE196A6975007E6AFA /* mParkingCell.m in Sources */,
 				5EF532571947394C00BFD255 /* HomePageVC.m in Sources */,

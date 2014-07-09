@@ -33,6 +33,7 @@
 @property (nonatomic,retain) IBOutlet UIView *ViewMain;
 @property (nonatomic,retain) IBOutlet UIButton *btnMParking;
 @property (nonatomic,retain) IBOutlet UIButton *btnFindVehicle;
+@property (nonatomic,retain) IBOutlet UIImageView *imgTick;
 
 -(IBAction)btnMParking_click:(id)sender;
 -(IBAction)btnFindVehicle_click:(id)sender;
