@@ -10,6 +10,6 @@
 
 @interface ShareNewReportViewController : UIViewController
 
-@property (nonatomic, strong) NSString *photo1, *photo2, *photo3;
+@property (nonatomic, strong) NSString *photo1;
 
 @end

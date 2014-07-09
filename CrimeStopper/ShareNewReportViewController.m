@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *switchTwitter;
 @property (strong, nonatomic) NSArray *photoArray;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+- (IBAction)switchClicked:(id)sender;
 
 @end
 
@@ -43,7 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.photoArray = @[self.photo1, self.photo2, self.photo3];
+    self.photoArray = @[self.photo1];
     
     self.tvFacebook.layer.borderWidth = 0.2f;
     self.tvFacebook.layer.borderColor = [UIColor darkGrayColor].CGColor;
@@ -97,7 +98,7 @@
     
     // For Facebook
     if (self.switchFacebook.on) {
-        if (FBSession.activeSession.isOpen)
+        /*if (FBSession.activeSession.isOpen)
         {
             // post to wall
             NSLog(@"post to wall");
@@ -118,24 +119,24 @@
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 [session openWithBehavior:FBSessionLoginBehaviorWithNoFallbackToWebView completionHandler:^(FBSession *sess, FBSessionState status, NSError *error) {
-                    [FBSession setActiveSession:sess];
+                    [FBSession setActiveSession:sess];*/
                     [self postOnFacebook];
-                }];
+                /*}];
             }
-        }
+        }*/
     }
     
     // For Twitter
     if (self.switchTwitter.on) {
-        if ([[NSUserDefaults standardUserDefaults]objectForKey:@"SavedAccessHTTPBody"] == NULL) {
+        /*if ([[NSUserDefaults standardUserDefaults]objectForKey:@"SavedAccessHTTPBody"] == NULL) {
             // open login page
             UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
                 [self postOnTwitter];
             }];
             [self presentViewController:loginController animated:YES completion:nil];
-        } else {
+        } else {*/
             [self postOnTwitter];
-        }
+        //}
     }
     
     //[self skipClicked:nil];
@@ -150,7 +151,15 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @autoreleasepool {
             NSString *tweet = self.tvtwitter.text;
-            id returned = [[FHSTwitterEngine sharedEngine] postTweet:tweet withImageData:[NSData dataWithContentsOfFile:directory]];
+            
+            id returned = nil;
+            
+            if (![self.photo1 isEqualToString:@""]) {
+                returned = [[FHSTwitterEngine sharedEngine] postTweet:tweet withImageData:[NSData dataWithContentsOfFile:directory]];
+            } else {
+                returned = [[FHSTwitterEngine sharedEngine] postTweet:tweet];
+            }
+            
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             
             if ([returned isKindOfClass:[NSError class]]) {
@@ -171,17 +180,20 @@
 }
 
 -(void)postOnFacebook {
-    if (![self.photo1 isEqualToString:@""]) {
-        [self makeRequestToUpdateStatus:self.tvFacebook.text title:nil description:nil image:self.photo1 link:nil];
-    }
+    [self makeRequestToUpdateStatus:self.tvFacebook.text title:nil description:nil image:self.photo1 link:nil];
 }
 
 - (void)makeRequestToUpdateStatus:(NSString *)message title:(NSString *)title description:(NSString *)description image:(NSString *)image link:(NSString *)link {
     // Put together the dialog parameters
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   message, @"message",
-                                   image, @"picture",
-                                   nil];
+    NSMutableDictionary *params = nil;
+    
+    if (![self.photo1 isEqualToString:@""]) {
+        params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                      message, @"message", image, @"picture", nil];
+    } else {
+        params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                      message, @"message", nil];
+    }
     
     // Make the request
     [FBRequestConnection startWithGraphPath:@"/me/feed"
@@ -250,4 +262,48 @@
     return YES;
 }
 
+- (IBAction)switchClicked:(id)sender {
+    if (sender == self.switchFacebook) {
+        if (self.switchFacebook.on) {
+            if (FBSession.activeSession.isOpen)
+            {
+                // post to wall
+                //NSLog(@"post to wall");
+                // Do Nothing
+            } else {
+                // try to open session with existing valid token
+                NSArray *permissions = @[@"publish_actions"];
+                FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
+                [FBSession setActiveSession:session];
+                if([FBSession openActiveSessionWithAllowLoginUI:NO]) {
+                    // post to wall
+                    //NSLog(@"post to wall");
+                    // Do Nothing
+                } else {
+                    // you need to log the user
+                    NSLog(@"you need to log the user");
+                    NSArray *permissions = @[@"publish_actions"];
+                    FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
+                    [FBSession setActiveSession:session];
+                    [session openWithBehavior:FBSessionLoginBehaviorWithNoFallbackToWebView completionHandler:^(FBSession *sess, FBSessionState status, NSError *error) {
+                        [FBSession setActiveSession:sess];
+                        // Do Nothing
+                    }];
+                }
+            }
+        }
+    } else if (sender == self.switchTwitter) {
+        if (self.switchTwitter.on) {
+            if ([[NSUserDefaults standardUserDefaults]objectForKey:@"SavedAccessHTTPBody"] == NULL) {
+                // open login page
+                UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
+                    // Do Nothing
+                }];
+                [self presentViewController:loginController animated:YES completion:nil];
+            } else {
+                // Do Nothing
+            }
+        }
+    }
+}
 @end

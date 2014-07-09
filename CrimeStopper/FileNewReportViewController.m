@@ -124,6 +124,13 @@
         } else {
             self.imgVehicle.image = [UIImage imageNamed:@"ic_other.png"];
         }
+        
+        // set current date & time in textbox here
+        NSDate *date = [NSDate date];
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
+        
+        self.txtDateTime.text = [format stringFromDate:date];
     }
 }
 
@@ -381,6 +388,13 @@
         return;
     }
     
+    // Check Type of Sighting
+    if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of Sighting" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
     // get the count of files in gallery folder
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -449,13 +463,11 @@
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
             NSString *photo1 = [response objectForKey:@"photo1"];
-            NSString *photo2 = [response objectForKey:@"photo2"];
-            NSString *photo3 = [response objectForKey:@"photo3"];
+            //NSString *photo2 = [response objectForKey:@"photo2"];
+            //NSString *photo3 = [response objectForKey:@"photo3"];
             
             ShareNewReportViewController *vc = [[ShareNewReportViewController alloc] init];
             vc.photo1 = photo1;
-            vc.photo2 = photo2;
-            vc.photo3 = photo3;
             [self.navigationController pushViewController:vc animated:YES];
             
         } else {

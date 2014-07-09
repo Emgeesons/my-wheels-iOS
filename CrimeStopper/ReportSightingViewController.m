@@ -78,6 +78,13 @@
     activityIndicator.frame = CGRectMake(0, 0, 40, 40);
     activityIndicator.center = self.view.center;
     [bgToolBar addSubview:activityIndicator];
+    
+    // set current date & time in textbox here
+    NSDate *date = [NSDate date];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
+    
+    self.txtDateTime.text = [format stringFromDate:date];
 }
 
 - (void)didReceiveMemoryWarning
