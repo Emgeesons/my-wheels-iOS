@@ -98,45 +98,12 @@
     
     // For Facebook
     if (self.switchFacebook.on) {
-        /*if (FBSession.activeSession.isOpen)
-        {
-            // post to wall
-            NSLog(@"post to wall");
-            [self postOnFacebook];
-        } else {
-            // try to open session with existing valid token
-            NSArray *permissions = @[@"publish_actions"];
-            FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
-            [FBSession setActiveSession:session];
-            if([FBSession openActiveSessionWithAllowLoginUI:NO]) {
-                // post to wall
-                NSLog(@"post to wall");
-                [self postOnFacebook];
-            } else {
-                // you need to log the user
-                NSLog(@"you need to log the user");
-                NSArray *permissions = @[@"publish_actions"];
-                FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
-                [FBSession setActiveSession:session];
-                [session openWithBehavior:FBSessionLoginBehaviorWithNoFallbackToWebView completionHandler:^(FBSession *sess, FBSessionState status, NSError *error) {
-                    [FBSession setActiveSession:sess];*/
-                    [self postOnFacebook];
-                /*}];
-            }
-        }*/
+        [self postOnFacebook];
     }
     
     // For Twitter
     if (self.switchTwitter.on) {
-        /*if ([[NSUserDefaults standardUserDefaults]objectForKey:@"SavedAccessHTTPBody"] == NULL) {
-            // open login page
-            UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
-                [self postOnTwitter];
-            }];
-            [self presentViewController:loginController animated:YES completion:nil];
-        } else {*/
-            [self postOnTwitter];
-        //}
+        [self postOnTwitter];
     }
     
     //[self skipClicked:nil];
@@ -154,10 +121,12 @@
             
             id returned = nil;
             
+            NSString *tweetWithhashTag = [NSString stringWithFormat:@"%@ #MyWheels", tweet];
+            
             if (![self.photo1 isEqualToString:@""]) {
-                returned = [[FHSTwitterEngine sharedEngine] postTweet:tweet withImageData:[NSData dataWithContentsOfFile:directory]];
+                returned = [[FHSTwitterEngine sharedEngine] postTweet:tweetWithhashTag withImageData:[NSData dataWithContentsOfFile:directory]];
             } else {
-                returned = [[FHSTwitterEngine sharedEngine] postTweet:tweet];
+                returned = [[FHSTwitterEngine sharedEngine] postTweet:tweetWithhashTag];
             }
             
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
