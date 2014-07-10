@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
-
+#import "AFNetworking.h"
 
 /*feedback.php
  Parameters to pass - userId, rating (compulsory), feedback (optional field), os, make, model.*/
@@ -85,32 +85,52 @@
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
     //[obj callAPI_POST:@"feedback.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/feedback.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        
+        NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+        NSLog(@"data : %@",jsonDictionary);
+        
+        NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+        NSLog(@"message %@",EntityID);
+        if ([EntityID isEqualToString:@"failure"])
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:@"Something went wrong. Please Try Again."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+        }
+        else
+        {
+            
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
+                                                                message:@"Thank you for your feedback."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            CheckAlert.tag = 1;
+            
+            [CheckAlert show];
+            
+        }
+        [SVProgressHUD dismiss];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+    }];
+    
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+
 }
 
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        
-    }
-    else
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
-                                                            message:@"Thank you for your feedback."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        CheckAlert.tag = 1;
-        
-        [CheckAlert show];
-    }
-    [SVProgressHUD dismiss];
-}
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(alertView.tag == 1)

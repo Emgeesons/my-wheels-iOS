@@ -31,7 +31,8 @@ NSInteger intImage;
 
 @implementation UserProfileVC
 @synthesize customActionSheetView;
-
+NSDate *datedob;
+NSString *dob1 ;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -111,9 +112,9 @@ NSInteger intImage;
 
     int intSamaritan_points = [samaritan_points intValue];
     
-    _lblsamaritan.text = samaritan_points;
+    
     dateFormatter = [[NSDateFormatter alloc] init];
-     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
+    
     if(intSamaritan_points > 0)
     {
         [_viewsamaritan setBackgroundColor: [UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1]];
@@ -145,18 +146,7 @@ NSInteger intImage;
     }
     
     //NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
-    NSDate *todayDate = [NSDate date];
-    
-    NSDate *datedob = [dateFormatter dateFromString:dob];
-    NSLog(@"dob : %@",datedob);
-    
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    int years = (allDays-days)/365;
-    
-    NSLog(@"You live since %i years and %i days",years,days);
-    _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
+   
    
     CATransition *transDown=[CATransition animation];
     [transDown setDuration:0.5];
@@ -266,15 +256,6 @@ NSInteger intImage;
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-    /*userId
-     pin
-     latitude
-     longitude
-     vehicleId
-     make
-     model
-     os
-     */
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
@@ -326,7 +307,7 @@ NSInteger intImage;
                       NSLog(@"data : %@",jsonDictionary);
                       appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
                       
-                      NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
+                     dob1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
                       NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
                       NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
                       NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
@@ -349,10 +330,10 @@ NSInteger intImage;
                       NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
                       NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                       arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
-                     
+                      
                       
                       [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
-                      [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
+                      [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
                       [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
                       [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
                       [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
@@ -374,16 +355,33 @@ NSInteger intImage;
                       [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
                       [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                       [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
-                      
-                      [[NSUserDefaults standardUserDefaults] synchronize];
+                     
                   }
                   [SVProgressHUD dismiss];
-                  
+                 
               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   NSLog(@"Error: %@ ***** %@", operation.responseString, error);
               }];
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        _lblsamaritan.text = samaritan_points;
+        NSLog(@"dob1 : %@",dob1 );
+        [dateFormatter setDateFormat:@"'yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        datedob = [dateFormatter dateFromString:dob1];
+        NSDate *todayDate = [NSDate date];
+        
+        
+        NSLog(@"dob : %@",datedob);
+        
+        int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
+        int allDays = (((time/60)/60)/24);
+        int days = allDays%365;
+        int years = (allDays-days)/365;
+        
+        NSLog(@"You live since %i years and %i days",years,days);
+        _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     }
     NSMutableArray *vehicle = [[NSMutableArray alloc]init];

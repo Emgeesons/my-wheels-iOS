@@ -129,7 +129,7 @@ int intblue;
     }
     else
     {
-    for(int i=0;i<=[arr count]-1;i++)
+    for(int i=0;i<[arr count];i++)
     {
         NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
         NSLog(@"strvid : %@",strvid);
@@ -346,7 +346,7 @@ int intblue;
     {
         ImParkingHereVC *vc = [[ImParkingHereVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-    }
+   }
     
     
 }
@@ -481,7 +481,7 @@ int intblue;
     }
     else
     {
-        for(int i=0;i<=[arr count]-1;i++)
+        for(int i=0;i<[arr count];i++)
         {
             NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
             NSLog(@"strvid : %@",strvid);
@@ -511,6 +511,27 @@ int intblue;
     {
         if(buttonIndex == 0)
         {
+           // NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
+            NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
+            
+            NSMutableArray  *arr = [[NSMutableArray alloc]init];
+            arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
+            
+            NSLog(@"arr : %@",arr);
+            NSLog(@"current vehicle id : %@",strCurrentVehicleID);
+            for(int i=0;i< [arr count];i++)
+            {
+                NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
+                NSLog(@"veh : %@",veh);
+                if(veh == strCurrentVehicleID)
+                {
+                    [arr removeObjectAtIndex:i];
+                }
+                
+            }
+            
+            NSLog(@"arr : %@",arr);
+            
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
             [_imgTick setHidden:YES];

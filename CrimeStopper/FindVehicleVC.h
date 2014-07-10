@@ -12,15 +12,27 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface FindVehicleVC : UIViewController<CLLocationManagerDelegate,MKAnnotation>
+@interface FindVehicleVC : UIViewController<CLLocationManagerDelegate,MKAnnotation,UIActionSheetDelegate,UIToolbarDelegate,UITextViewDelegate>
 {
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
+     UIActionSheet *sheet;
+     UITextView *activeTextField;
 }
 @property (nonatomic,retain) IBOutlet MKMapView *map;
 @property (nonatomic,retain) IBOutlet UILabel *lblParking;
 @property (nonatomic,retain) IBOutlet UIButton *btnLocated;
-
+@property (nonatomic,retain) IBOutlet UIButton *btnPost,*btnSkip;
+@property (nonatomic,retain) IBOutlet UIView *viewLocated;
+@property (nonatomic,retain) IBOutlet UILabel *lblplaceholder;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (nonatomic,retain) IBOutlet UIView *viewHeading;
+@property (nonatomic,retain) IBOutlet UITextView *txtComment;
+@property (nonatomic,retain) IBOutlet UIScrollView *scroll;
+@property (nonatomic,retain) IBOutlet UISlider *slide;
+@property (nonatomic,retain) IBOutlet UILabel *lblRating;
 -(IBAction)btnLocated_click:(id)sender;
 -(IBAction)btnBack_click:(id)sender;
+-(IBAction)btnPost_click:(id)sender;
+-(IBAction)btnSkip_click:(id)sender;
 @end

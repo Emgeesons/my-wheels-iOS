@@ -12,9 +12,15 @@
 #import "MyLocation.h"
 #import "MyAnnotation.h"
 #import "HomePageVC.h"
+#import "AppDelegate.h"
+#import "SVProgressHUD.h"
+#import "AFNetworking.h"
+#import "Reachability.h"
 
 @interface FindVehicleVC ()
-
+{
+    AppDelegate *appDelegate;
+}
 @end
 
 @implementation FindVehicleVC
@@ -32,14 +38,25 @@ NSInteger flag;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    // [self CurrentLocationIdentifier];
+    
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
     [locationManager startUpdatingLocation];
     [ self.map.delegate self];
-
+    
+    [_viewLocated setHidden:YES];
+   
+  
+    [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
+    [_txtComment setInputAccessoryView:self.toolbar];
+    _btnPost.layer.borderWidth=0.5f;
+    _btnPost.layer.borderColor=[[UIColor lightGrayColor] CGColor];
+    _btnSkip.layer.borderWidth=0.5f;
+    _btnSkip.layer.borderColor=[[UIColor lightGrayColor] CGColor];
+    /// zoom map
     NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
     float currlat = [latitude floatValue];
@@ -50,12 +67,12 @@ NSInteger flag;
     
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
     [self.map setRegion:region animated:YES];
-    //
+    //sow current location and parked location on map
      NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
     
     NSLog(@"arr : %@",arr);
-    NSLog(@"arr counbt :%d",[arr count]);
+   
     if(arr == nil || arr == (id)[NSNull null])
     {
         
@@ -235,8 +252,227 @@ NSInteger flag;
     }
     else
     {
+//        // Open DatePicker when age textfield is clicked
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//
+//      //  _viewLocated = [[UIView alloc] initWithFrame:CGRectMake ( 16 ,416, 278, 356)];
+//        
+//        
+//       
+//        
+//        [sheet addSubview:_viewLocated];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 656)];
         
+        self.map.userInteractionEnabled = NO ;
+        [self.map setAlpha:0.9f];
+        [_btnLocated setAlpha:0.9f];
+        _btnLocated.userInteractionEnabled = NO;
+        [_viewHeading setAlpha:0.8f];
+        _viewHeading.userInteractionEnabled = NO;
+        
+        [_viewLocated setHidden:NO];
     }
+}
+-(IBAction)btnPost_click:(id)sender
+{
+ 
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    } else {
+        NSLog(@"There IS internet connection");
+        
+    if(_lblRating.text == nil || _lblRating.text == (id)[NSNull null])
+   {
+       UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                           message:@"Please give feedback rating."
+                                                          delegate:self
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil, nil];
+       [CheckAlert show];
+
+   }
+else
+{
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+        NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
+    /*
+     
+     userId (0 if guest)
+     pin
+     vehicleId (0 if default)
+     latitude
+     longitude
+     feedback
+     rating
+     os
+     make
+     model
+*/
+    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSLog(@"str : %@",UserID);
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        [param setValue:@"0" forKey:@"userId"];
+    }
+    else
+    {
+        [param setValue:UserID forKey:@"userId"];
+    }
+    [param setValue:strCurrentVehicleID forKey:@"vehicleId"];
+    [param setValue:pin forKey:@"pin"];
+    [param setValue:latitude forKey:@"latitude"];
+    [param setValue:longitude forKey:@"longitude"];
+    [param setValue:_txtComment.text forKey:@"feedback"];
+   
+    [param setValue:_lblRating.text forKey:@"rating"];
+    [param setValue:@"ios7" forKey:@"os"];
+    [param setValue:@"iPhone" forKey:@"make"];
+    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    
+    // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/parkingFeedback.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        
+        NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+        NSLog(@"data : %@",jsonDictionary);
+        
+        NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+        NSLog(@"message %@",EntityID);
+        if ([EntityID isEqualToString:@"failure"])
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:@"Something went wrong. Please Try Again."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+        }
+        else
+        {
+            NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
+           
+            
+            NSMutableArray  *arr = [[NSMutableArray alloc]init];
+            arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
+            
+            NSLog(@"arr : %@",arr);
+            NSLog(@"current vehicle id : %@",strCurrentVehicleID);
+            for(int i=0;i< [arr count];i++)
+            {
+                NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
+                NSLog(@"veh : %@",veh);
+                if(veh == strCurrentVehicleID)
+                {
+                    [arr removeObjectAtIndex:i];
+                }
+                
+            }
+            
+            NSLog(@"arr : %@",arr);
+            HomePageVC *vc = [[HomePageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        [SVProgressHUD dismiss];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+    }];
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    }
+    }
+}
+-(IBAction)btnSkip_click:(id)sender
+{
+    HomePageVC *vc = [[HomePageVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (IBAction)btnMinimize_Click:(id)sender {
+    [activeTextField resignFirstResponder];
+}
+- (IBAction)btnNext_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+}
+- (IBAction)btnPreviuse_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag-1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    
+}
+#pragma mark slider change
+-(IBAction) sliderChanged:(id) sender{
+	
+	int progressAsInt =(int)(_slide.value + 0.5f);
+	NSString *newText =[[NSString alloc] initWithFormat:@"%d",progressAsInt];
+	_lblRating.text = newText;
+	
+}
+#pragma mark textfield delegate methods
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    activeTextField = textView;
+    int y;
+    y=150;
+    
+
+NSLog(@"y = %d",y);
+[UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
+    CGRect rc = [textView bounds];
+    rc = [textView convertRect:rc toView:_scroll];
+    rc.origin.x = 0 ;
+    rc.origin.y = y ;
+    CGPoint pt=rc.origin;
+    [self.scroll setContentOffset:pt animated:YES];
+}completion:nil];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textField
+{
+       int y=0;
+    [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlDown animations:^{
+        CGRect rc = [textField bounds];
+        rc = [textField convertRect:rc toView:_scroll];
+        rc.origin.x = 0 ;
+        rc.origin.y = y ;
+        CGPoint pt=rc.origin;
+        [self.scroll setContentOffset:pt animated:YES];
+    }completion:nil];
 }
 
 @end
