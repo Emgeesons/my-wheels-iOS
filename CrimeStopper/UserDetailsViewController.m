@@ -7,6 +7,8 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 #import "LoginWithFacebookVC.h"
+#import "AFNetworking.h"
+#import "SVProgressHUD.h"
 
 @implementation UserDetailsViewController
 {
@@ -268,59 +270,90 @@
         [param setValue:@"iOS7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
         [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
-        //[obj callAPI_POST:@"fbLoginRegister.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         
-//        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-//        if (!urlConnection) {
-//            NSLog(@"Failed to download picture");
-//        }
-    }
-}
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:[jsonDictionary valueForKey:@"message"]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
-       
-    }
-    else
-    {
-      if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
-      {
-          HomePageVC *vc = [[HomePageVC alloc]init];
-          [self presentViewController:vc animated:YES completion:nil];
-      }
-      else if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"New User"])
-      {
-          LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
-          [self presentViewController:vc animated:YES completion:nil];
-      }
-      else if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Complete Profile"])
-      {
-          appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];;
-          appdelegate.strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];;
-          NSLog(@"user id :%@",appdelegate.strUserID);
-          NSLog(@"pin :%@",appdelegate.strOldPin);
-          LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
-          [self presentViewController:vc animated:YES completion:nil];
-      }
-      else
-      {
-          
-      }
-    }
+        NSLog(@"param : %@",param);
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+           AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/fbLoginRegister.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+        }
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  
+                  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                  
+                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                  NSLog(@"data : %@",jsonDictionary);
+                  NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                  NSLog(@"message %@",EntityID);
+                  if ([EntityID isEqualToString:@"failure"])
+                  {
+                     
+                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                          message:[jsonDictionary valueForKey:@"message"]
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"OK"
+                                                                otherButtonTitles:nil, nil];
+                      [CheckAlert show];
+                  }
+                  else
+                   {
+                       if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
+                       {
+                           HomePageVC *vc = [[HomePageVC alloc]init];
+                           [self presentViewController:vc animated:YES completion:nil];
+                       }
+                       else if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"New User"])
+                       {
+                           LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
+                           [self presentViewController:vc animated:YES completion:nil];
+                       }
+                       else if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Complete Profile"])
+                       {
+                           appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];;
+                           appdelegate.strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];;
+                           NSLog(@"user id :%@",appdelegate.strUserID);
+                           NSLog(@"pin :%@",appdelegate.strOldPin);
+                         /*  dob = "1989-09-14";
+                           email = "asha@emgeesons.com";
+                           fbId = 1432652336998546;
+                           fbToken = CAAKZAJ9fPrl4BAJNb9Gn7KyJNBgNdQJ1ZATyGe9KZCZBQzJwmyLuZA33T32A2GiaLeDOupSD4pUZBwbgfG0RCScAKRMEWalK4ZAurvnjZCn5k4xnIRyWWI8TyPrgDgwP0ZAdh4ZBuqHes4e1fNXtjIKMiKepl9sBkSs6NVBBV9hRCwv065ds83xSn479yGE8r5hMy0ImZBMja6bzwZDZD;
+                           firstName = Asha;
+                           gender = female;
+                           lastName = Sharma;
+                           make = iPhone;
+                           model = "iPhone5,iPhone5S";
+                           os = iOS7;*/
+                           
+                             [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"] forKey:@"dob"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"] forKey:@"email"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"firstName"] forKey:@"first_name"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"] forKey:@"gender"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"lastName"] forKey:@"last_name"];
+                           
+                           
+                           
+                           LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
+                           [self presentViewController:vc animated:YES completion:nil];
+                       }
+                       else
+                       {
+                           
+                       }
+                   }
+                  
+                  [SVProgressHUD dismiss];
    
-    [SVProgressHUD dismiss];
+                  
+                  
+              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              }];
+        
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 
 @end

@@ -12,6 +12,7 @@
                 <outlet property="scrollview" destination="FGQ-4H-lu2" id="LMZ-Qj-zFs"/>
                 <outlet property="switchPin" destination="EPa-lQ-qUJ" id="Pjb-UU-mNE"/>
                 <outlet property="tblSecurityQuestion" destination="Gq9-KD-Un2" id="eKU-fw-36Z"/>
+                <outlet property="toolbar" destination="g7a-Dz-sV2" id="UyC-qm-Eu7"/>
                 <outlet property="txtAnswer" destination="KX5-jY-Xmv" id="Y6k-zo-llO"/>
                 <outlet property="txtMobileNo" destination="fjD-dL-383" id="YIG-Hf-mFa"/>
                 <outlet property="txtPin1" destination="vyy-gp-w5h" id="kQA-eO-gh9"/>
@@ -24,7 +25,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="iyB-ps-EIh">
@@ -39,6 +40,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnBack_click:" destination="-1" eventType="touchUpInside" id="RIS-UR-yRH"/>
+                            </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login With Facebook" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a5g-Ym-YKw">
                             <rect key="frame" x="59" y="16" width="261" height="34"/>
@@ -51,8 +55,8 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="FGQ-4H-lu2">
-                    <rect key="frame" x="0.0" y="73" width="320" height="495"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="0.0" y="55" width="320" height="513"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="zQE-uC-N97">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="495"/>
@@ -62,7 +66,7 @@
                                     <rect key="frame" x="30" y="40" width="273" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
-                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="XDD-uK-myQ"/>
                                     </connections>
@@ -200,7 +204,32 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="g7a-Dz-sV2">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem title="Previous /" id="8fg-V3-fSD">
+                    <connections>
+                        <action selector="btnPreviuse_Click:" destination="-1" id="Dpw-T2-I0Y"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Next" id="xpo-v0-HYl">
+                    <connections>
+                        <action selector="btnNext_Click:" destination="-1" id="Pgh-Ao-oTR"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="7ZR-gh-oVg"/>
+                <barButtonItem title="Done" width="96" id="kr7-0y-Jb0">
+                    <connections>
+                        <action selector="btnMinimize_Click:" destination="-1" id="mo4-Iu-jM9"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-1" id="lda-MC-aKZ"/>
+            </connections>
+        </toolbar>
     </objects>
 </document>

@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface LoginWithFacebookVC : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
+@interface LoginWithFacebookVC : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate,UIToolbarDelegate>
 {
     UITextField *txtOtherQuestion;
+     UITextField *activeTextField;
 }
 @property (nonatomic,retain) IBOutlet UIButton *btnBack,*btnSubmit,*btnSecurityQuestion;
 @property (nonatomic,retain) IBOutlet UITextField *txtMobileNo,*txtPin1,*txtPin2,*txtPin3,*txtPin4,*txtSecurityQuestion,*txtAnswer;
@@ -21,7 +22,7 @@
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnSubmit_click:(id)sender;
 -(IBAction)btnSecurityQuestion_click:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic,retain) IBOutlet UIView *viewSecurityQuestion;
 @property (nonatomic,retain) IBOutlet UITableView *tblSecurityQuestion;
 @property (nonatomic,retain) NSMutableArray *arrSecurityQuestion;

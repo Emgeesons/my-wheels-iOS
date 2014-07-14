@@ -56,60 +56,7 @@ NSString *dob1 ;
          NSString *Mobileno = [[NSUserDefaults standardUserDefaults] objectForKey:@"mobile_number"];
         NSString *gender = [[NSUserDefaults standardUserDefaults] objectForKey:@"gender"];
         NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
-    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-    
-    // Create the Album:
-    NSString *albumName = @"My Wheels";
-    [self.library addAssetsGroupAlbumWithName:albumName
-                                  resultBlock:^(ALAssetsGroup *group) {
-                                      NSLog(@"added album:%@", albumName);
-                                  }
-                                 failureBlock:^(NSError *error) {
-                                     NSLog(@"error adding album");
-                                 }];
-
-   __block ALAssetsGroup* groupToAddTo;
-    [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-                                usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                                    if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
-                                        NSLog(@"found album %@", albumName);
-                                        groupToAddTo = group;
-                                    }
-                                }
-                              failureBlock:^(NSError* error) {
-                                  NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
-                              }];
-    
-   
-    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-    NSString *filename = [parts objectAtIndex:[parts count]-1];
-    NSLog(@"file name : %@",filename);
-    
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-    
-  UIImage *image1 = [UIImage imageWithData:imageData];
-    
-    if(photoURL == nil || photoURL == (id)[NSNull null])
-    {
-        _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_home"];
-    }
-    else
-    {
-        if(filename == nil || filename == (id)[NSNull null])
-        {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            _imgUserProfilepic.image = [UIImage imageWithData:imageData];
-        }
-        else
-        {
-             _imgUserProfilepic.image = image1;
-        }
-        
-        
-    }
-    
-    NSLog(@"photo url : %@",photoURL);
-
+  
     int intSamaritan_points = [samaritan_points intValue];
     
     
@@ -269,6 +216,7 @@ NSString *dob1 ;
     }
     else
     {
+        
         NSLog(@"There IS internet connection");
         NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
         [param setValue:UserID forKey:@"userId"];
@@ -331,6 +279,20 @@ NSString *dob1 ;
                       NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                       arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                       
+                      [dateFormatter setDateFormat:@"'yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+                      datedob = [dateFormatter dateFromString:dob1];
+                      NSDate *todayDate = [NSDate date];
+                      
+                      
+                      NSLog(@"dob : %@",datedob);
+                      
+                      int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
+                      int allDays = (((time/60)/60)/24);
+                      int days = allDays%365;
+                      int years = (allDays-days)/365;
+                      
+                      NSLog(@"You live since %i years and %i days",years,days);
+                      _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
                       
                       [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
                       [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
@@ -366,20 +328,7 @@ NSString *dob1 ;
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         _lblsamaritan.text = samaritan_points;
         NSLog(@"dob1 : %@",dob1 );
-        [dateFormatter setDateFormat:@"'yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-        datedob = [dateFormatter dateFromString:dob1];
-        NSDate *todayDate = [NSDate date];
-        
-        
-        NSLog(@"dob : %@",datedob);
-        
-        int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
-        int allDays = (((time/60)/60)/24);
-        int days = allDays%365;
-        int years = (allDays-days)/365;
-        
-        NSLog(@"You live since %i years and %i days",years,days);
-        _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
+       
         
         [[NSUserDefaults standardUserDefaults] synchronize];
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -395,6 +344,63 @@ NSString *dob1 ;
     {
         [_btnAddVehicle setTitle:@"My Vehicle" forState:UIControlStateNormal];
     }
+
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    
+    // Create the Album:
+    NSString *albumName = @"My Wheels";
+    [self.library addAssetsGroupAlbumWithName:albumName
+                                  resultBlock:^(ALAssetsGroup *group) {
+                                      NSLog(@"added album:%@", albumName);
+                                  }
+                                 failureBlock:^(NSError *error) {
+                                     NSLog(@"error adding album");
+                                 }];
+    
+    __block ALAssetsGroup* groupToAddTo;
+    [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                                usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                                    if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
+                                        NSLog(@"found album %@", albumName);
+                                        groupToAddTo = group;
+                                    }
+                                }
+                              failureBlock:^(NSError* error) {
+                                  NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
+                              }];
+    
+    
+    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+    NSString *filename = [parts objectAtIndex:[parts count]-1];
+    NSLog(@"file name : %@",filename);
+    
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+    
+    UIImage *image1 = [UIImage imageWithData:imageData];
+    
+    if(photoURL == nil || photoURL == (id)[NSNull null])
+    {
+        _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_home"];
+    }
+    else
+    {
+        if(filename == nil || filename == (id)[NSNull null])
+        {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+            _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+        }
+        else
+        {
+             _imgUserProfilepic.image = image1;
+        }
+        
+        
+    }
+    
+    NSLog(@"photo url : %@",photoURL);
 
 }
 #pragma mark camera click

@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
 #import "Reachability.h"
+#import "DirectionMapVC.h"
 
 @interface FindVehicleVC ()
 {
@@ -381,7 +382,17 @@ else
                 NSLog(@"veh : %@",veh);
                 if(veh == strCurrentVehicleID)
                 {
-                    [arr removeObjectAtIndex:i];
+                    if([arr count] == 1)
+                    {
+                        [arr removeAllObjects];
+                    }
+                    else
+                    {
+                        [arr removeObjectAtIndex:i];
+                    }
+                    
+                    
+                    
                 }
                 
             }
@@ -434,6 +445,11 @@ else
         [activeTextField resignFirstResponder];
     }
     
+}
+-(IBAction)btnDirection_click:(id)sender
+{
+    DirectionMapVC *vc = [[DirectionMapVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark slider change
 -(IBAction) sliderChanged:(id) sender{

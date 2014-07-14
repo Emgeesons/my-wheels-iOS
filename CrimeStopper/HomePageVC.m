@@ -155,69 +155,7 @@ int intblue;
    NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
     
-    if(photoURL == nil || photoURL == (id)[NSNull null])
-    {
-        _imgProfilepic.image = [UIImage imageNamed:@"default_profile_home.png"];
-    }
-    else
-    {
-        if(filename == nil || filename == (id)[NSNull null])
-        {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            _imgProfilepic.image = [UIImage imageWithData:imageData];
-        }
-        else
-        {
-//            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-//            
-//            UIImage *image1 = [UIImage imageWithData:imageData];
-//            _imgProfilepic.image = image1;
-//            
-//            __block ALAssetsGroup* groupToAddTo;
-//            [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-//                                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-//                                            if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
-//                                                NSLog(@"found album %@", albumName);
-//                                                groupToAddTo = group;
-//                                            }
-//                                        }
-//                                      failureBlock:^(NSError* error) {
-//                                          NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
-//                                      }];
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSString *documentsDirectory = [paths objectAtIndex:0];
-//            NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
-//            NSData *imageData = [NSData dataWithContentsOfMappedFile:savedImagePath];
-//            _imgProfilepic.image = [UIImage imageWithData:imageData];
-            
-//            NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
-//            void (^assetGroupEnumerator) (ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop){
-//                NSLog(@"hi");
-//                if(group != nil) {
-//                    [assetGroups addObject:group];
-//                    
-//                    NSLog(@"Number of assets in group: %d",[group numberOfAssets]);
-//                }
-//            };
-//            
-//            assetGroups = [[NSMutableArray alloc] init];
-//            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//            NSUInteger groupTypes = ALAssetsGroupSavedPhotos;
-//            
-//            [library enumerateGroupsWithTypes:groupTypes
-//                                   usingBlock:assetGroupEnumerator
-//                                 failureBlock:^(NSError *error) {NSLog(@"A problem occurred");
-//            }];
-//            
-//            NSLog(@"Asset groups: %@", assetGroups);
-//            [library release];
-//            [assetGroups release];
-            
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            _imgProfilepic.image = [UIImage imageWithData:imageData];
-        
-        }
-        }
+
     NSLog(@"%@",latitude);
     NSLog(@"%@",longitude);
     
@@ -242,6 +180,91 @@ int intblue;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
+    
+    // Create the Album:
+    NSString *albumName = @"My Wheels";
+    [self.library addAssetsGroupAlbumWithName:albumName
+                                  resultBlock:^(ALAssetsGroup *group) {
+                                      NSLog(@"added album:%@", albumName);
+                                  }
+                                 failureBlock:^(NSError *error) {
+                                     NSLog(@"error adding album");
+                                 }];
+    
+    
+    
+    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+    NSString *filename = [parts objectAtIndex:[parts count]-1];
+    NSLog(@"file name : %@",filename);
+    
+    
+    if(photoURL == nil || photoURL == (id)[NSNull null])
+    {
+        _imgProfilepic.image = [UIImage imageNamed:@"default_profile_home.png"];
+    }
+    else
+    {
+        if(filename == nil || filename == (id)[NSNull null])
+        {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+            _imgProfilepic.image = [UIImage imageWithData:imageData];
+        }
+        else
+        {
+            //            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+            //
+            //            UIImage *image1 = [UIImage imageWithData:imageData];
+            //            _imgProfilepic.image = image1;
+            //
+            //            __block ALAssetsGroup* groupToAddTo;
+            //            [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+            //                                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            //                                            if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
+            //                                                NSLog(@"found album %@", albumName);
+            //                                                groupToAddTo = group;
+            //                                            }
+            //                                        }
+            //                                      failureBlock:^(NSError* error) {
+            //                                          NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
+            //                                      }];
+            //            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            //            NSString *documentsDirectory = [paths objectAtIndex:0];
+            //            NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
+            //            NSData *imageData = [NSData dataWithContentsOfMappedFile:savedImagePath];
+            //            _imgProfilepic.image = [UIImage imageWithData:imageData];
+            
+            //            NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
+            //            void (^assetGroupEnumerator) (ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop){
+            //                NSLog(@"hi");
+            //                if(group != nil) {
+            //                    [assetGroups addObject:group];
+            //
+            //                    NSLog(@"Number of assets in group: %d",[group numberOfAssets]);
+            //                }
+            //            };
+            //
+            //            assetGroups = [[NSMutableArray alloc] init];
+            //            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            //            NSUInteger groupTypes = ALAssetsGroupSavedPhotos;
+            //
+            //            [library enumerateGroupsWithTypes:groupTypes
+            //                                   usingBlock:assetGroupEnumerator
+            //                                 failureBlock:^(NSError *error) {NSLog(@"A problem occurred");
+            //            }];
+            //
+            //            NSLog(@"Asset groups: %@", assetGroups);
+            //            [library release];
+            //            [assetGroups release];
+            NSLog(@"photo url : %@",photoURL);
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+            NSLog(@"image :%@",imageData);
+            _imgProfilepic.image = [UIImage imageWithData:imageData];
+            
+        }
+    }
+
     if(IsIphone5)
     {
         //scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
@@ -339,6 +362,7 @@ int intblue;
                                                               delegate:self
                                                     cancelButtonTitle:@"Yes"
                                                      otherButtonTitles:@"No", nil];
+        intblue = 0;
         CheckAlert.tag =1;
            [CheckAlert show];
    }

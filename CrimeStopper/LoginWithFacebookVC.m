@@ -8,9 +8,10 @@
 
 #import "LoginWithFacebookVC.h"
 #import "Reachability.h"
-
+#import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
+#import "LoginVC.h"
 
 @interface LoginWithFacebookVC ()
 {
@@ -24,6 +25,7 @@
 @synthesize switchPin;
 @synthesize arrSecurityQuestion;
 @synthesize mainView,viewSecurityQuestion,scrollview;
+NSString *strBirthDate;
 
 NSString *strQues;
 int intques;
@@ -55,6 +57,29 @@ int intques;
     [arrSecurityQuestion addObject:@"All time favourite movie"];
     [arrSecurityQuestion addObject:@"First paid job"];
     [arrSecurityQuestion addObject:@"Other"];
+    
+    [self.txtAnswer setDelegate:self];
+    [self.txtMobileNo setDelegate:self];
+    [self.txtPin1 setDelegate:self];
+    [self.txtPin2 setDelegate:self];
+    [self.txtPin3 setDelegate:self];
+    [self.txtPin4 setDelegate:self];
+    
+    
+    // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
+    [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
+    // [txtDateOfBirth setInputAccessoryView:self.toolbar];
+    
+    [txtAnswer setInputAccessoryView:self.toolbar];
+  
+    [txtMobileNo setInputAccessoryView:self.toolbar];
+    [txtOtherQuestion setInputAccessoryView:self.toolbar];
+    [txtPin1 setInputAccessoryView:self.toolbar];
+    [txtPin2 setInputAccessoryView:self.toolbar];
+    [txtPin3 setInputAccessoryView:self.toolbar];
+    [txtPin4 setInputAccessoryView:self.toolbar];
+    [txtOtherQuestion setInputAccessoryView:self.toolbar];
+
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -68,8 +93,43 @@ int intques;
 #pragma mark button click event
 -(IBAction)btnBack_click:(id)sender
 {
-
+    LoginVC *vc = [[LoginVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
+- (IBAction)btnMinimize_Click:(id)sender {
+    [activeTextField resignFirstResponder];
+}
+- (IBAction)btnNext_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    
+    
+}
+- (IBAction)btnPreviuse_Click:(id)sender
+{
+    NSInteger nextTag = activeTextField.tag-1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    
+        
+}
+
 -(IBAction)btnSubmit_click:(id)sender
 {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -246,11 +306,12 @@ int intques;
 #pragma mark textfield delegate methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+      activeTextField=textField;
     int y=0;
      [textField setTextColor:[UIColor blackColor]];
     if(textField == txtAnswer)
     {
-        y=80;
+        y=140;
     }
     NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
@@ -458,33 +519,75 @@ int intques;
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
-    //[obj callAPI_POST:@"fbCompleteRegistration.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    NSLog(@"param : %@",param);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/fbCompleteRegistration.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              
+              NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+              
+              NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+              NSLog(@"data : %@",jsonDictionary);
+              NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+              NSLog(@"message %@",EntityID);
+              if ([EntityID isEqualToString:@"invalid"])
+              {
+                  NSString *strmessage = [jsonDictionary valueForKey:@"message"];
+                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                      message:strmessage
+                                                                     delegate:self
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil, nil];
+                  [CheckAlert show];
+              }
+              else
+              {
+                 
+                  NSLog(@"Json dictionary :: %@",jsonDictionary);
+                  NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                  NSLog(@"message %@",EntityID);
+                  if ([EntityID isEqualToString:@"failure"])
+                  {
+                      
+                  }
+                  else
+                  {
+                      NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+                    
+                      [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
+                      [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
+                      [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
+                      [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+                      
+                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                          message:@"My Wheel would like to access your current location."
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"Don't Allow"
+                                                                otherButtonTitles:@"Allow", nil];
+                      
+                      
+                      
+                      CheckAlert.tag =2;
+                      [CheckAlert show];
+
+                  }
+                 
+
+              }
+              [SVProgressHUD dismiss];
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+          }];
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 }
 
--(void)service_reponse:(NSString *)apiAlias Response:(NSData *)response
-{
-    NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"Json dictionary :: %@",jsonDictionary);
-    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-    NSLog(@"message %@",EntityID);
-    if ([EntityID isEqualToString:@"failure"])
-    {
-        
-    }
-    else
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"My Wheel would like to access your current location."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Don't Allow"
-                                                  otherButtonTitles:@"Allow", nil];
-        
-        CheckAlert.tag =2;
-        [CheckAlert show];
-    }
-    [SVProgressHUD dismiss];
-}
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(alertView .tag ==2)

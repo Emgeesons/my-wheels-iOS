@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
 #import "Reachability.h"
+#import "RatingTipsVC.h"
 
 @interface ImParkingHereVC ()
 {
@@ -25,6 +26,7 @@
     CLLocationManager *locationManager;
     CLGeocoder *geocoder;
     CLPlacemark *placemark;
+    NSString *strRating1;
 }
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 NSMutableDictionary *dicCounter;
@@ -189,6 +191,7 @@ NSMutableDictionary *dicCounter;
             else
             {
                 NSString *str = [strRate stringByAppendingString:strRating];
+                strRating1 = str;
                 [_btnRating setTitle:str forState:UIControlStateNormal];
             }
             
@@ -386,6 +389,22 @@ NSMutableDictionary *dicCounter;
     HomePageVC *vc = [[HomePageVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
+}
+-(IBAction)btnRating_click:(id)sender
+{
+    RatingTipsVC * vc = [[RatingTipsVC alloc]init];
+    vc.strLocation = _lblLocation.text;
+    vc.strrating = strRating1;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(IBAction)btnTip_click:(id)sender
+{
+    RatingTipsVC * vc = [[RatingTipsVC alloc]init];
+    vc.strLocation = _lblLocation.text;
+    vc.strrating = strRating1;
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark textfield delegate methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField

@@ -13,6 +13,9 @@
 		5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E0324641942F4CD006EEA24 /* RegistrationVC.xib */; };
 		5E0324701942FBB7006EEA24 /* ic_app.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03246A1942FBB7006EEA24 /* ic_app.png */; };
 		5E0324731942FBB7006EEA24 /* ic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03246D1942FBB7006EEA24 /* ic_back.png */; };
+		5E0369DE197393F000E5009F /* VehicleTipsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0369DC197393F000E5009F /* VehicleTipsCell.m */; };
+		5E0369DF197393F000E5009F /* VehicleTipsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E0369DD197393F000E5009F /* VehicleTipsCell.xib */; };
+		5E0369E21973F55F00E5009F /* images1111.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5E0369E11973F55F00E5009F /* images1111.jpeg */; };
 		5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E04AF02194FFC70003F6CD4 /* PPRevealSideViewController.m */; };
 		5E04AF07194FFD7E003F6CD4 /* NavigationHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E04AF05194FFD7E003F6CD4 /* NavigationHomeVC.m */; };
 		5E04AF08194FFD7E003F6CD4 /* NavigationHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF06194FFD7E003F6CD4 /* NavigationHomeVC.xib */; };
@@ -98,6 +101,10 @@
 		5EA4BC71195D2C13006B4B5A /* AddDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA4BC6F195D2C13006B4B5A /* AddDetailsVC.xib */; };
 		5EA4BC75195D7BF1006B4B5A /* EditDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4BC73195D7BF1006B4B5A /* EditDetailsVC.m */; };
 		5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA4BC74195D7BF1006B4B5A /* EditDetailsVC.xib */; };
+		5EB5B208196FC7CD00DE2ABE /* DirectionMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5B206196FC7CD00DE2ABE /* DirectionMapVC.m */; };
+		5EB5B209196FC7CD00DE2ABE /* DirectionMapVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB5B207196FC7CD00DE2ABE /* DirectionMapVC.xib */; };
+		5EB5B2121970033D00DE2ABE /* RatingTipsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */; };
+		5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */; };
 		5ED385D819612578007DD44F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED385D719612578007DD44F /* FacebookSDK.framework */; };
 		5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED385DA196166E0007DD44F /* AddVehiclesVC.m */; };
 		5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */; };
@@ -217,6 +224,10 @@
 		5E0324641942F4CD006EEA24 /* RegistrationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationVC.xib; sourceTree = "<group>"; };
 		5E03246A1942FBB7006EEA24 /* ic_app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_app.png; sourceTree = "<group>"; };
 		5E03246D1942FBB7006EEA24 /* ic_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_back.png; sourceTree = "<group>"; };
+		5E0369DB197393F000E5009F /* VehicleTipsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VehicleTipsCell.h; sourceTree = "<group>"; };
+		5E0369DC197393F000E5009F /* VehicleTipsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VehicleTipsCell.m; sourceTree = "<group>"; };
+		5E0369DD197393F000E5009F /* VehicleTipsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VehicleTipsCell.xib; sourceTree = "<group>"; };
+		5E0369E11973F55F00E5009F /* images1111.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images1111.jpeg; sourceTree = "<group>"; };
 		5E04AF01194FFC70003F6CD4 /* PPRevealSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRevealSideViewController.h; sourceTree = "<group>"; };
 		5E04AF02194FFC70003F6CD4 /* PPRevealSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRevealSideViewController.m; sourceTree = "<group>"; };
 		5E04AF04194FFD7E003F6CD4 /* NavigationHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationHomeVC.h; sourceTree = "<group>"; };
@@ -323,6 +334,12 @@
 		5EA4BC72195D7BF1006B4B5A /* EditDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDetailsVC.h; sourceTree = "<group>"; };
 		5EA4BC73195D7BF1006B4B5A /* EditDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDetailsVC.m; sourceTree = "<group>"; };
 		5EA4BC74195D7BF1006B4B5A /* EditDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditDetailsVC.xib; sourceTree = "<group>"; };
+		5EB5B205196FC7CD00DE2ABE /* DirectionMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionMapVC.h; sourceTree = "<group>"; };
+		5EB5B206196FC7CD00DE2ABE /* DirectionMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionMapVC.m; sourceTree = "<group>"; };
+		5EB5B207196FC7CD00DE2ABE /* DirectionMapVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectionMapVC.xib; sourceTree = "<group>"; };
+		5EB5B20F1970033D00DE2ABE /* RatingTipsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingTipsVC.h; sourceTree = "<group>"; };
+		5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingTipsVC.m; sourceTree = "<group>"; };
+		5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingTipsVC.xib; sourceTree = "<group>"; };
 		5ED385D719612578007DD44F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = CrimeStopper/FacebookSDK.framework; sourceTree = "<group>"; };
 		5ED385D9196166E0007DD44F /* AddVehiclesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddVehiclesVC.h; sourceTree = "<group>"; };
 		5ED385DA196166E0007DD44F /* AddVehiclesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddVehiclesVC.m; sourceTree = "<group>"; };
@@ -552,6 +569,9 @@
 				5E3C3FAB196A6975007E6AFA /* mParkingCell.h */,
 				5E3C3FAC196A6975007E6AFA /* mParkingCell.m */,
 				5E3C3FAD196A6975007E6AFA /* mParkingCell.xib */,
+				5E0369DB197393F000E5009F /* VehicleTipsCell.h */,
+				5E0369DC197393F000E5009F /* VehicleTipsCell.m */,
+				5E0369DD197393F000E5009F /* VehicleTipsCell.xib */,
 			);
 			name = "Custom Cell";
 			sourceTree = "<group>";
@@ -776,6 +796,12 @@
 				5E02BD70196C136B00897687 /* FindVehicleVC.h */,
 				5E02BD71196C136B00897687 /* FindVehicleVC.m */,
 				5E02BD72196C136B00897687 /* FindVehicleVC.xib */,
+				5EB5B205196FC7CD00DE2ABE /* DirectionMapVC.h */,
+				5EB5B206196FC7CD00DE2ABE /* DirectionMapVC.m */,
+				5EB5B207196FC7CD00DE2ABE /* DirectionMapVC.xib */,
+				5EB5B20F1970033D00DE2ABE /* RatingTipsVC.h */,
+				5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */,
+				5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -883,6 +909,7 @@
 		5EFE9188195948C60014669E /* Profile page */ = {
 			isa = PBXGroup;
 			children = (
+				5E0369E11973F55F00E5009F /* images1111.jpeg */,
 				5EFE9189195948D80014669E /* default_profile_bg.png */,
 				5EFE918A195948D80014669E /* default_profile.png */,
 				5EFE918B195948D80014669E /* edit_white.png */,
@@ -1050,6 +1077,7 @@
 				5EEF21761955A3FB00A0BA3F /* app_icon_80x80.png in Resources */,
 				5EFABB45196D7060007C0781 /* current_location@2x.png in Resources */,
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
+				5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
 				ECEAE27D1966C52A00BBA108 /* points_bg.png in Resources */,
@@ -1069,6 +1097,7 @@
 				ECEAE2791966C52A00BBA108 /* green_pin.png in Resources */,
 				5EFE9191195948D80014669E /* default_profile_bg.png in Resources */,
 				5EFE9193195948D80014669E /* edit_white.png in Resources */,
+				5E0369E21973F55F00E5009F /* images1111.jpeg in Resources */,
 				5EEEB9141963DA800083CC56 /* add_photos.png in Resources */,
 				5EFABB41196D621D007C0781 /* vehicle_parked@2x.png in Resources */,
 				5E3C3FBA196A9A11007E6AFA /* ic_unlike_blue.png in Resources */,
@@ -1122,11 +1151,13 @@
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
 				ECEAE27A1966C52A00BBA108 /* green_pin@2x.png in Resources */,
 				5E3C3FAF196A6975007E6AFA /* mParkingCell.xib in Resources */,
+				5E0369DF197393F000E5009F /* VehicleTipsCell.xib in Resources */,
 				5EE8C91119518BAB009550A1 /* phone.png in Resources */,
 				5EEEB9171963DA800083CC56 /* ic_cycle.png in Resources */,
 				5E815EB71940832700CEAFAB /* Images.xcassets in Resources */,
 				5EFD68561962AC80009F9399 /* AddInsuranceVC.xib in Resources */,
 				5EEF21751955A3FB00A0BA3F /* app_icon_58x58.png in Resources */,
+				5EB5B209196FC7CD00DE2ABE /* DirectionMapVC.xib in Resources */,
 				5E04AF5619505CBD003F6CD4 /* ic_nav_share_app.png in Resources */,
 				5EFABB40196D621D007C0781 /* vehicle_parked.png in Resources */,
 				5E09517919417AEF00DC97E2 /* btn_register(5).png in Resources */,
@@ -1203,6 +1234,7 @@
 				5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */,
 				5EFFBC70195C00B0003679C6 /* UIButton+AFNetworking.m in Sources */,
 				ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */,
+				5E0369DE197393F000E5009F /* VehicleTipsCell.m in Sources */,
 				ECEAE26A1966C13900BBA108 /* ReportSightingViewController.m in Sources */,
 				5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */,
 				5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */,
@@ -1214,6 +1246,7 @@
 				5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */,
 				5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */,
 				5EFFBC2A195C00B0003679C6 /* AFSecurityPolicy.m in Sources */,
+				5EB5B208196FC7CD00DE2ABE /* DirectionMapVC.m in Sources */,
 				5EA4BC75195D7BF1006B4B5A /* EditDetailsVC.m in Sources */,
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
 				5EFFBC2D195C00B0003679C6 /* AFURLResponseSerialization.m in Sources */,
@@ -1222,6 +1255,7 @@
 				5E182B4619654252003C1793 /* MyVehicleCell.m in Sources */,
 				5E02BD73196C136B00897687 /* FindVehicleVC.m in Sources */,
 				5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */,
+				5EB5B2121970033D00DE2ABE /* RatingTipsVC.m in Sources */,
 				5E3C3FAE196A6975007E6AFA /* mParkingCell.m in Sources */,
 				5EF532571947394C00BFD255 /* HomePageVC.m in Sources */,
 				5EF4DF3E194AF66C00061EF3 /* LoginWithFacebookVC.m in Sources */,
