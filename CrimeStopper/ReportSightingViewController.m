@@ -10,6 +10,7 @@
 @import CoreLocation;
 #import "AFNetworking.h"
 #import "Reachability.h"
+#import "UserProfileVC.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
@@ -85,6 +86,10 @@
     [format setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
     
     self.txtDateTime.text = [format stringFromDate:date];
+    
+    // set selected date & time
+    selectedDate = [dateFormat stringFromDate:date];
+    selectedTime = [timeFormat stringFromDate:date];
 }
 
 - (void)didReceiveMemoryWarning
@@ -686,6 +691,8 @@
 
 -(void)openProfile {
     // Code for open profile page
+    UserProfileVC *vc = [[UserProfileVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

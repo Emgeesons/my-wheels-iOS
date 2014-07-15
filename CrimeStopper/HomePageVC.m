@@ -15,6 +15,7 @@
 #import "LoginVC.h"
 #import "ReportSightingViewController.h"
 #import "FileNewReportViewController.h"
+#import "UpdatesViewController.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -242,6 +243,11 @@
         FileNewReportViewController *vc = [[FileNewReportViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (IBAction)openUpdates:(id)sender {
+    UpdatesViewController *updatesVC = [[UpdatesViewController alloc] init];
+    [self.navigationController pushViewController:updatesVC animated:YES];
 }
 #pragma mark get current location
 -(void)CurrentLocationIdentifier

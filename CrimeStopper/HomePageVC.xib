@@ -197,6 +197,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="openUpdates:" destination="-1" eventType="touchUpInside" id="s6t-26-gTe"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_updates.png" id="Emj-mV-TvQ">
                             <rect key="frame" x="11" y="18" width="38" height="40"/>

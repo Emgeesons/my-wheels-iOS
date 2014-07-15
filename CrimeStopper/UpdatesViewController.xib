@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdatesViewController">
+            <connections>
+                <outlet property="segmentedControl" destination="sJK-EB-Wv6" id="jMC-7V-Etd"/>
+                <outlet property="tableViewOthers" destination="pIY-wg-MZ8" id="g5e-sg-RaL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewOthers" destination="vRM-Os-9Uj" id="ch6-eJ-FL1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fGc-ip-3xN">
+                    <rect key="frame" x="0.0" y="16" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
+                    <items>
+                        <navigationItem title="Updates" id="YvU-wF-Hlo">
+                            <barButtonItem key="leftBarButtonItem" title="Back" id="qYz-jS-lAG">
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="-1" id="EdB-Xb-BKg"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJK-EB-Wv6">
+                    <rect key="frame" x="80" y="77" width="160" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="5kP-7k-1BN"/>
+                        <constraint firstAttribute="height" constant="28" id="9dL-jt-pb6"/>
+                    </constraints>
+                    <segments>
+                        <segment title="Others"/>
+                        <segment title="My Updates"/>
+                    </segments>
+                    <connections>
+                        <action selector="segmentedClicked:" destination="-1" eventType="valueChanged" id="469-2e-B2W"/>
+                    </connections>
+                </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRM-Os-9Uj">
+                    <rect key="frame" x="0.0" y="113" width="320" height="455"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pIY-wg-MZ8">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="5Cn-Fg-hFw"/>
+                                <outlet property="delegate" destination="-1" id="fA2-Ku-juX"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="pIY-wg-MZ8" secondAttribute="trailing" id="918-PY-rJj"/>
+                        <constraint firstAttribute="bottom" secondItem="pIY-wg-MZ8" secondAttribute="bottom" id="IMv-TB-Qtw"/>
+                        <constraint firstItem="pIY-wg-MZ8" firstAttribute="top" secondItem="vRM-Os-9Uj" secondAttribute="top" id="WZH-8z-Btw"/>
+                        <constraint firstItem="pIY-wg-MZ8" firstAttribute="leading" secondItem="vRM-Os-9Uj" secondAttribute="leading" id="YWf-U2-KDi"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="vRM-Os-9Uj" secondAttribute="bottom" id="L7x-7w-Ll1"/>
+                <constraint firstItem="sJK-EB-Wv6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="M5c-ag-kSa"/>
+                <constraint firstAttribute="trailing" secondItem="vRM-Os-9Uj" secondAttribute="trailing" id="YbR-mj-Pvl"/>
+                <constraint firstItem="sJK-EB-Wv6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="77" id="ZY5-GE-0aJ"/>
+                <constraint firstItem="vRM-Os-9Uj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="113" id="w6D-RE-weW"/>
+                <constraint firstItem="vRM-Os-9Uj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yBS-5g-ydv"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+</document>

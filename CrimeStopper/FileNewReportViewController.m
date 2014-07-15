@@ -131,6 +131,10 @@
         [format setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
         
         self.txtDateTime.text = [format stringFromDate:date];
+        
+        // set selected date & time
+        selectedDate = [dateFormat stringFromDate:date];
+        selectedTime = [timeFormat stringFromDate:date];
     }
 }
 
@@ -320,7 +324,7 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == sightingPicker) {
-        if (buttonIndex == 4) {
+        if (buttonIndex == 3) {
             // return when cancel is clicked
             return;
         }
@@ -634,7 +638,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious activity", @"Other", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"stolen / Abandoned Vehicle?", nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
