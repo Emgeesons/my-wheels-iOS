@@ -53,18 +53,25 @@ NSString *strBirthDate;
     NSString *strPin3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin3"];
     NSString *strPin4 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin4"];
     NSDate *todayDate = [NSDate date];
+   
+    
     NSLog(@"dob : %@",dob);
-    NSLog(@"street : %@",strstreet);
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-mm-dd"];
-    NSLog(@"dob: %@",dob);
+    dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *datedob = [dateFormatter dateFromString:dob];
+    
+    NSLog(@"dob : %@",datedob);
+    
     int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
-    NSLog(@"time : %d",time);
     int allDays = (((time/60)/60)/24);
     int days = allDays%365;
-    int years = (allDays-days)/365;
+   int  years = (allDays-days)/365;
     
     NSLog(@"You live since %i years and %i days",years,days);
+   
+    NSLog(@"dob1 : %@",dob );
+
     _txtDob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
     if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
     {
@@ -905,9 +912,10 @@ NSString *strBirthDate;
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
   //  NSString *strQue;
-    strQuestion = @"What is your ";
+    
     if(intques == 2)
     {
+        strQuestion = @"What is your ";
         strQuestion = [strQuestion stringByAppendingString:strQues];
         NSLog(@"ques :: %@",strQuestion);
     }
@@ -917,9 +925,10 @@ NSString *strBirthDate;
     }
     else
     {
+        strQuestion =  _btnSecurityQuestion.currentTitle;
     }
 
-    
+
     // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:UserID forKey:@"userId"];
@@ -929,7 +938,15 @@ NSString *strBirthDate;
     [param setValue:_txtLname.text forKey:@"lastName"];
     [param setValue:_txtMobileNo.text forKey:@"mobileNumber"];
     // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
+    if(strBirthDate == nil || strBirthDate == (id)[NSNull null] || [strBirthDate isEqualToString:@""])
+    {
+         NSString *dob = [[NSUserDefaults standardUserDefaults] objectForKey:@"dob"];
+         [param setValue:dob forKey:@"dob"];
+    }
+    else
+    {
     [param setValue:strBirthDate forKey:@"dob"];
+    }
     [param setValue:strGender forKey:@"gender"];
     [param setValue:strQuestion forKey:@"securityQuestion"];
     [param setValue:_txtAnswer.text  forKey:@"securityAnswer"];
@@ -943,6 +960,7 @@ NSString *strBirthDate;
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
+    NSLog(@"param : %@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -969,7 +987,16 @@ NSString *strBirthDate;
               else
               {
                   [[NSUserDefaults standardUserDefaults] setValue:UserID forKey:@"UserID"];
-                  [[NSUserDefaults standardUserDefaults] setValue:@"1999-02-02" forKey:@"dob"];
+                  if(strBirthDate == nil || strBirthDate == (id)[NSNull null] || [strBirthDate isEqualToString:@""])
+                  {
+                      NSString *dob = [[NSUserDefaults standardUserDefaults] objectForKey:@"dob"];
+                      [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
+                  }
+                  else
+                  {
+                      [[NSUserDefaults standardUserDefaults] setValue:strBirthDate forKey:@"dob"];
+                  }
+                  
                   [[NSUserDefaults standardUserDefaults] setValue:_txtEmail.text forKey:@"email"];
                 //  [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
                  // [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];

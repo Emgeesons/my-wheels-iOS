@@ -30,7 +30,8 @@
 @implementation HomePageVC
 @synthesize btnNav;
 @synthesize viewNewReport,viewReport,viewUpdates,viewAboutUs;
-int intblue;
+@synthesize intblue;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -75,8 +76,10 @@ int intblue;
     NSString *strCurrentVehicleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     NSLog(@"strcurrent : %@",strCurrentVehicleID);
     NSLog(@"strCurretn Vehicle name :%@",strCurrentVehicleName);
-     if(strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null])
+    if([_arrVehicles count] > 0)
     {
+      if(strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null])
+      {
         NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:0];
         NSString *str1 = [[_arrVehicles valueForKey:@"vehicle_model"] objectAtIndex:0];
         NSString *str4 = [str stringByAppendingString:@" "];
@@ -86,6 +89,13 @@ int intblue;
         [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
         [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
         [_voewMakeModel setHidden:YES];
+      }
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"CurrentVehicleID"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"CurrentVehicleName"];
+        [_btnHeading setTitle:@"" forState:UIControlStateNormal];
     }
     // Do any additional setup after loading the view from its nib.
    // [self CurrentLocationIdentifier];
@@ -155,10 +165,9 @@ int intblue;
    NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
     
-
+   
     NSLog(@"%@",latitude);
     NSLog(@"%@",longitude);
-    
 
     self.navigationController.navigationBarHidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -167,7 +176,6 @@ int intblue;
     
     [self.ViewMain addGestureRecognizer:tap];
 }
-
 
 - (void) dismissKeyboard
 {
@@ -181,9 +189,8 @@ int intblue;
 {
     [super viewDidAppear:animated];
     NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-    NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
+    // NSString *photoURL = @"https://pullquotesandexcerpts.files.wordpress.com/2013/11/silver-apple-logo.png?w=360";
     
-    // Create the Album:
     NSString *albumName = @"My Wheels";
     [self.library addAssetsGroupAlbumWithName:albumName
                                   resultBlock:^(ALAssetsGroup *group) {
@@ -200,69 +207,23 @@ int intblue;
     NSLog(@"file name : %@",filename);
     
     
-    if(photoURL == nil || photoURL == (id)[NSNull null])
+    if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
     {
-        _imgProfilepic.image = [UIImage imageNamed:@"default_profile_home.png"];
+        _imgProfilepic .image = [UIImage imageNamed:@"default_profile_1.png"];
     }
     else
     {
-        if(filename == nil || filename == (id)[NSNull null])
-        {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            _imgProfilepic.image = [UIImage imageWithData:imageData];
-        }
-        else
-        {
-            //            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            //
-            //            UIImage *image1 = [UIImage imageWithData:imageData];
-            //            _imgProfilepic.image = image1;
-            //
-            //            __block ALAssetsGroup* groupToAddTo;
-            //            [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-            //                                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            //                                            if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
-            //                                                NSLog(@"found album %@", albumName);
-            //                                                groupToAddTo = group;
-            //                                            }
-            //                                        }
-            //                                      failureBlock:^(NSError* error) {
-            //                                          NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
-            //                                      }];
-            //            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            //            NSString *documentsDirectory = [paths objectAtIndex:0];
-            //            NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
-            //            NSData *imageData = [NSData dataWithContentsOfMappedFile:savedImagePath];
-            //            _imgProfilepic.image = [UIImage imageWithData:imageData];
             
-            //            NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
-            //            void (^assetGroupEnumerator) (ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop){
-            //                NSLog(@"hi");
-            //                if(group != nil) {
-            //                    [assetGroups addObject:group];
-            //
-            //                    NSLog(@"Number of assets in group: %d",[group numberOfAssets]);
-            //                }
-            //            };
-            //
-            //            assetGroups = [[NSMutableArray alloc] init];
-            //            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            //            NSUInteger groupTypes = ALAssetsGroupSavedPhotos;
-            //
-            //            [library enumerateGroupsWithTypes:groupTypes
-            //                                   usingBlock:assetGroupEnumerator
-            //                                 failureBlock:^(NSError *error) {NSLog(@"A problem occurred");
-            //            }];
-            //
-            //            NSLog(@"Asset groups: %@", assetGroups);
-            //            [library release];
-            //            [assetGroups release];
-            NSLog(@"photo url : %@",photoURL);
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            NSLog(@"image :%@",imageData);
-            _imgProfilepic.image = [UIImage imageWithData:imageData];
+            UIImage *image = [UIImage imageWithData:imageData];
             
-        }
+            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                
+                _imgProfilepic.image = image;
+                
+            });
+        });
     }
 
     if(IsIphone5)

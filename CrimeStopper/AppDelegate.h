@@ -30,5 +30,5 @@
 @property (nonatomic,retain) NSString *strVehicleType;
 @property (nonatomic,retain) NSMutableArray *arrMutvehiclePark;
 @property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
-
+@property (nonatomic) int *years;
 @end

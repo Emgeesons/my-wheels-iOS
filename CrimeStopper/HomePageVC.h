@@ -34,6 +34,8 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnMParking;
 @property (nonatomic,retain) IBOutlet UIButton *btnFindVehicle;
 @property (nonatomic,retain) IBOutlet UIImageView *imgTick;
+@property (nonatomic,retain) IBOutlet UIView *viewHeading;
+@property (nonatomic) int intblue;
 
 -(IBAction)btnMParking_click:(id)sender;
 -(IBAction)btnFindVehicle_click:(id)sender;

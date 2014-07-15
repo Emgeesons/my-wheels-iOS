@@ -26,6 +26,8 @@
 
 @implementation FindVehicleVC
 #define METERS_PER_MILE 1609.344
+int progressAsInt;
+
 NSInteger flag;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -253,18 +255,6 @@ NSInteger flag;
     }
     else
     {
-//        // Open DatePicker when age textfield is clicked
-//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-//
-//      //  _viewLocated = [[UIView alloc] initWithFrame:CGRectMake ( 16 ,416, 278, 356)];
-//        
-//        
-//       
-//        
-//        [sheet addSubview:_viewLocated];
-//        [sheet showInView:self.view];
-//        [sheet setBounds:CGRectMake(0,0,320, 656)];
-        
         self.map.userInteractionEnabled = NO ;
         [self.map setAlpha:0.9f];
         [_btnLocated setAlpha:0.9f];
@@ -277,7 +267,17 @@ NSInteger flag;
 }
 -(IBAction)btnPost_click:(id)sender
 {
- 
+ if(progressAsInt == 0)
+ {
+     UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                         message:@"Please give feedback rating."
+                                                        delegate:self
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil, nil];
+     [CheckAlert show];
+ }
+    else
+    {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
@@ -372,7 +372,7 @@ else
            
             
             NSMutableArray  *arr = [[NSMutableArray alloc]init];
-            arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
+            arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"]mutableCopy];
             
             NSLog(@"arr : %@",arr);
             NSLog(@"current vehicle id : %@",strCurrentVehicleID);
@@ -399,6 +399,7 @@ else
             
             NSLog(@"arr : %@",arr);
             HomePageVC *vc = [[HomePageVC alloc]init];
+            vc.intblue = 0;
             [self.navigationController pushViewController:vc animated:YES];
         }
         [SVProgressHUD dismiss];
@@ -410,10 +411,40 @@ else
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     }
     }
+    }
 }
 -(IBAction)btnSkip_click:(id)sender
 {
+     NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
+    NSMutableArray  *arr = [[NSMutableArray alloc]init];
+    arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"] mutableCopy];
+    
+    NSLog(@"arr : %@",arr);
+    NSLog(@"current vehicle id : %@",strCurrentVehicleID);
+    for(int i=0;i< [arr count];i++)
+    {
+        NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
+        NSLog(@"veh : %@",veh);
+        if(veh == strCurrentVehicleID)
+        {
+            if([arr count] == 1)
+            {
+                [arr removeObjectAtIndex:0];
+            }
+            else
+            {
+                [arr removeObjectAtIndex:i];
+            }
+            
+            
+            
+        }
+        
+    }
+     [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"parkVehicle"];
+    NSLog(@"arr : %@",arr);
     HomePageVC *vc = [[HomePageVC alloc]init];
+    vc.intblue = 0;
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)btnMinimize_Click:(id)sender {
@@ -454,7 +485,7 @@ else
 #pragma mark slider change
 -(IBAction) sliderChanged:(id) sender{
 	
-	int progressAsInt =(int)(_slide.value + 0.5f);
+    progressAsInt =(int)(_slide.value + 0.5f);
 	NSString *newText =[[NSString alloc] initWithFormat:@"%d",progressAsInt];
 	_lblRating.text = newText;
 	

@@ -346,8 +346,51 @@ NSString *phoneNo;
                  os
                  make
                  model
+                 [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
+                 [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
 
                  */
+                NSString *vid = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
+//                NSString *vname = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
+                
+                
+                
+                NSMutableArray  *arr = [[NSMutableArray alloc]init];
+                arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"] mutableCopy];
+                
+                NSLog(@"arr : %@",arr);
+                NSLog(@"current vehicle id : %@",appDelegate.strVehicleId);
+                for(int i=0;i< [arr count];i++)
+                {
+                    NSString *veh = [[arr objectAtIndex:i] valueForKey:@"vehicle_id"];
+                    NSLog(@"veh : %@",veh);
+                    if(veh == appDelegate.strVehicleId)
+                    {
+                        if([arr count] == 1)
+                        {
+                            [arr removeObjectAtIndex:0];
+                        }
+                        else
+                        {
+                            [arr removeObjectAtIndex:i];
+                        }
+                        
+                        
+                        
+                    }
+                    if(veh == vid)
+                    {
+                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+                    }
+                    
+                }
+                 [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"vehicles"];
+                
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                dic =  [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
+                NSLog(@"dixt : %@",dic);
+                
                 NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
                 NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
                 NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -356,6 +399,21 @@ NSString *phoneNo;
                 NSString *licence = [[NSUserDefaults standardUserDefaults] objectForKey:@"license_no"];
                 NSLog(@"profile complete :: %@",profile_completed);
                 
+                UIApplication *app = [UIApplication sharedApplication];
+                NSArray *eventArray = [app scheduledLocalNotifications];
+                for (int i=0; i<[eventArray count]; i++)
+                {
+                    UILocalNotification* oneEvent = [eventArray objectAtIndex:i];
+                    NSDictionary *userInfoCurrent = oneEvent.userInfo;
+                    NSString *uid=[NSString stringWithFormat:@"%@",[userInfoCurrent valueForKey:@"vehicle_id"]];
+                    if ([uid isEqualToString:appDelegate.strVehicleId])
+                    {
+                        //Cancelling local notification
+                        [app cancelLocalNotification:oneEvent];
+                        break;
+                    }
+                }
+
                 NSLog(@"There IS internet connection");
                 NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
                 [param setValue:UserID forKey:@"userId"];
@@ -431,7 +489,9 @@ NSString *phoneNo;
                           else
                           {
                               MyVehicleVC *vc = [[MyVehicleVC alloc]init];
+                             
                               [self.navigationController pushViewController:vc animated:YES];
+                              
                               
                           }
                           [SVProgressHUD dismiss];

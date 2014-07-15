@@ -68,11 +68,6 @@
                             <rect key="frame" x="0.0" y="111" width="320" height="69"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile.png" id="jRE-46-eHU">
-                                    <rect key="frame" x="16" y="20" width="40" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hkL-D4-YOW">
                                     <rect key="frame" x="12" y="13" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -83,6 +78,11 @@
                                         <action selector="btnProfilepic_click:" destination="-1" eventType="touchUpInside" id="AU8-yu-84s"/>
                                     </connections>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_2.png" id="jRE-46-eHU">
+                                    <rect key="frame" x="16" y="20" width="40" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_homeround.png" id="n7m-QA-8cU">
                                     <rect key="frame" x="16" y="20" width="40" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -205,7 +205,7 @@
         </view>
     </objects>
     <resources>
-        <image name="default_profile.png" width="124" height="124"/>
+        <image name="default_profile_2.png" width="124" height="124"/>
         <image name="default_profile_bg.png" width="640" height="384"/>
         <image name="default_profile_homeround.png" width="48" height="48"/>
         <image name="ic_male.png" width="30" height="30"/>

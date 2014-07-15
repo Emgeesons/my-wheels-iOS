@@ -33,6 +33,7 @@ NSInteger intImage;
 @synthesize customActionSheetView;
 NSDate *datedob;
 NSString *dob1 ;
+int years;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +47,8 @@ NSString *dob1 ;
 {
     [super viewDidLoad];
     self.library = [[ALAssetsLibrary alloc] init];
+    dateFormatter = [[NSDateFormatter alloc] init];
+
     // NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
           NSString *Fname = [[NSUserDefaults standardUserDefaults] objectForKey:@"first_name"];
@@ -60,7 +63,27 @@ NSString *dob1 ;
     int intSamaritan_points = [samaritan_points intValue];
     
     
-    dateFormatter = [[NSDateFormatter alloc] init];
+    NSString *ques = [[NSUserDefaults standardUserDefaults] objectForKey:@"security_question"];
+    NSLog(@"ques: %@",ques);
+    NSLog(@"dob : %@",dob);
+    dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    datedob = [dateFormatter dateFromString:dob];
+    NSDate *todayDate = [NSDate date];
+    
+    
+    NSLog(@"dob : %@",datedob);
+    
+    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
+    int allDays = (((time/60)/60)/24);
+    int days = allDays%365;
+    years = (allDays-days)/365;
+    
+    NSLog(@"You live since %i years and %i days",years,days);
+    _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
+    NSLog(@"dob1 : %@",dob1 );
+
     
     if(intSamaritan_points > 0)
     {
@@ -274,25 +297,12 @@ NSString *dob1 ;
                       NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
                       NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
                       NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
-                      NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
+                      NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
                       NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
                       NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                       arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                       
-                      [dateFormatter setDateFormat:@"'yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-                      datedob = [dateFormatter dateFromString:dob1];
-                      NSDate *todayDate = [NSDate date];
-                      
-                      
-                      NSLog(@"dob : %@",datedob);
-                      
-                      int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
-                      int allDays = (((time/60)/60)/24);
-                      int days = allDays%365;
-                      int years = (allDays-days)/365;
-                      
-                      NSLog(@"You live since %i years and %i days",years,days);
-                      _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
+                     
                       
                       [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
                       [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
@@ -327,11 +337,11 @@ NSString *dob1 ;
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         _lblsamaritan.text = samaritan_points;
-        NSLog(@"dob1 : %@",dob1 );
-       
+        
+        
         
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        
     }
     NSMutableArray *vehicle = [[NSMutableArray alloc]init];
    vehicle = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
@@ -348,60 +358,46 @@ NSString *dob1 ;
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-    
-    // Create the Album:
-    NSString *albumName = @"My Wheels";
-    [self.library addAssetsGroupAlbumWithName:albumName
-                                  resultBlock:^(ALAssetsGroup *group) {
-                                      NSLog(@"added album:%@", albumName);
-                                  }
-                                 failureBlock:^(NSError *error) {
-                                     NSLog(@"error adding album");
-                                 }];
-    
-    __block ALAssetsGroup* groupToAddTo;
-    [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-                                usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                                    if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
-                                        NSLog(@"found album %@", albumName);
-                                        groupToAddTo = group;
-                                    }
-                                }
-                              failureBlock:^(NSError* error) {
-                                  NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
-                              }];
-    
-    
-    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-    NSString *filename = [parts objectAtIndex:[parts count]-1];
-    NSLog(@"file name : %@",filename);
-    
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-    
-    UIImage *image1 = [UIImage imageWithData:imageData];
-    
-    if(photoURL == nil || photoURL == (id)[NSNull null])
-    {
-        _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_home"];
-    }
-    else
-    {
-        if(filename == nil || filename == (id)[NSNull null])
-        {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            _imgUserProfilepic.image = [UIImage imageWithData:imageData];
-        }
-        else
-        {
-             _imgUserProfilepic.image = image1;
-        }
+   
+        [super viewDidAppear:animated];
+       NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+         // NSString *photoURL = @"https://pullquotesandexcerpts.files.wordpress.com/2013/11/silver-apple-logo.png?w=360";
+     
+        NSString *albumName = @"My Wheels";
+        [self.library addAssetsGroupAlbumWithName:albumName
+                                      resultBlock:^(ALAssetsGroup *group) {
+                                          NSLog(@"added album:%@", albumName);
+                                      }
+                                     failureBlock:^(NSError *error) {
+                                         NSLog(@"error adding album");
+                                     }];
         
         
-    }
+        
+        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+        NSString *filename = [parts objectAtIndex:[parts count]-1];
+        NSLog(@"file name : %@",filename);
     
-    NSLog(@"photo url : %@",photoURL);
-
+    
+            if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
+            {
+                _imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
+            }
+            else
+            {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+                    
+                    UIImage *image = [UIImage imageWithData:imageData];
+                    
+                    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                        
+                        _img.image = image;
+                        
+                    });
+                });
+            }
+    
 }
 #pragma mark camera click
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

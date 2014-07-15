@@ -170,6 +170,11 @@
          [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
          [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
          [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+        //parkVehicle
+                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
         [[NSUserDefaults standardUserDefaults]synchronize ];
         appdelegate.strUserID = @"";
         LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
