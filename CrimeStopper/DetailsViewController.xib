@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailsViewController">
             <connections>
                 <outlet property="btnReportSoghting" destination="R91-eL-0sF" id="2x5-no-qrp"/>
+                <outlet property="navItem" destination="jTX-XE-WN4" id="tUI-Kf-0pv"/>
                 <outlet property="tableView" destination="l60-xt-v7C" id="vJ0-ub-np4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

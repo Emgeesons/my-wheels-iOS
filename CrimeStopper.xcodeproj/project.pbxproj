@@ -164,6 +164,8 @@
 		5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC21195C00B0003679C6 /* UIRefreshControl+AFNetworking.m */; };
 		5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */; };
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
+		EC2601B41974E8A200FE6E30 /* CustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2601B31974E8A200FE6E30 /* CustomImageView.m */; };
+		EC2601B51974FDAF00FE6E30 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2601B01974E5DA00FE6E30 /* QuickLook.framework */; };
 		EC352FCA196FA05A0041F992 /* UpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC352FC8196FA05A0041F992 /* UpdatesViewController.m */; };
 		EC352FCB196FA05A0041F992 /* UpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC352FC9196FA05A0041F992 /* UpdatesViewController.xib */; };
 		EC352FCF196FB9290041F992 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC352FCD196FB9290041F992 /* DetailsViewController.m */; };
@@ -419,6 +421,9 @@
 		5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		5EFFBC85195C06E3003679C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		EC2601B01974E5DA00FE6E30 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		EC2601B21974E8A200FE6E30 /* CustomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImageView.h; sourceTree = "<group>"; };
+		EC2601B31974E8A200FE6E30 /* CustomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageView.m; sourceTree = "<group>"; };
 		EC352FC7196FA05A0041F992 /* UpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatesViewController.h; sourceTree = "<group>"; };
 		EC352FC8196FA05A0041F992 /* UpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatesViewController.m; sourceTree = "<group>"; };
 		EC352FC9196FA05A0041F992 /* UpdatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdatesViewController.xib; sourceTree = "<group>"; };
@@ -471,6 +476,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2601B51974FDAF00FE6E30 /* QuickLook.framework in Frameworks */,
 				5ED385D819612578007DD44F /* FacebookSDK.framework in Frameworks */,
 				5E05577B196121C9003A84AD /* Parse.framework in Frameworks */,
 				5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */,
@@ -584,6 +590,8 @@
 				EC352FD2196FFCF40041F992 /* UIColor+Extra.m */,
 				ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */,
 				5E0951811941C71D00DC97E2 /* constant.h */,
+				EC2601B21974E8A200FE6E30 /* CustomImageView.h */,
+				EC2601B31974E8A200FE6E30 /* CustomImageView.m */,
 			);
 			name = "constant class";
 			sourceTree = "<group>";
@@ -631,6 +639,7 @@
 		5E815EA31940832700CEAFAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC2601B01974E5DA00FE6E30 /* QuickLook.framework */,
 				5ED385D719612578007DD44F /* FacebookSDK.framework */,
 				5E05577A196121C9003A84AD /* Parse.framework */,
 				5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */,
@@ -1197,6 +1206,7 @@
 				5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				5EFE9186195945440014669E /* UserProfileVC.m in Sources */,
 				5E0324651942F4CD006EEA24 /* RegistrationVC.m in Sources */,
+				EC2601B41974E8A200FE6E30 /* CustomImageView.m in Sources */,
 				5E815EE319408CE900CEAFAB /* DisclaimerViewController.m in Sources */,
 				EC5023E51967B65200E8550B /* FileNewReportViewController.m in Sources */,
 				5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */,

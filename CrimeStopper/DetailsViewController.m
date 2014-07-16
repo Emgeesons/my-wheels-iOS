@@ -9,12 +9,16 @@
 #import "DetailsViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIButton+AFNetworking.h"
 #import "UIColor+Extra.h"
+#import "CustomImageView.h"
+@import QuickLook;
 
 #define MIN_HEIGHT 10.0f
 
-@interface DetailsViewController () <UITableViewDataSource, UITableViewDelegate> {
+@interface DetailsViewController () <UITableViewDataSource, UITableViewDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate> {
     NSMutableArray *comments, *first_name, *location, *photo1, *photo2, *photo3, *sighting_id, *report_type, *selected_date, *selected_time;
+    NSMutableArray *selectedImage;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReportSoghting;
@@ -48,6 +52,10 @@
     selected_date = [[NSMutableArray alloc] init];
     selected_time = [[NSMutableArray alloc] init];
     
+    [self createDownloadFolder];
+    
+    self.navItem.title = [NSString stringWithFormat:@"%@ %@", self.makeHeader, self.modelHeader];
+    
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
     self.tableView.backgroundColor = self.view.backgroundColor;
     
@@ -63,8 +71,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)createDownloadFolder {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/download"];
+    
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+}
+
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(UIImage *) getImageFromURL:(NSString *)fileURL {
+    UIImage * result;
+    
+    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
+    result = [UIImage imageWithData:data];
+    
+    return result;
+}
+
+-(void) saveImage:(UIImage *)image withFileName:(NSString *)imageName ofType:(NSString *)extension inDirectory:(NSString *)directoryPath {
+    if ([[extension lowercaseString] isEqualToString:@"png"]) {
+        [UIImagePNGRepresentation(image) writeToFile:[directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", imageName, @"png"]] options:NSAtomicWrite error:nil];
+    } else if ([[extension lowercaseString] isEqualToString:@"jpg"] || [[extension lowercaseString] isEqualToString:@"jpeg"]) {
+        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", imageName, @"jpg"]] options:NSAtomicWrite error:nil];
+    } else {
+        //ALog(@"Image Save Failed\nExtension: (%@) is not recognized, use (PNG/JPG)", extension);
+    }
 }
 
 -(void)loadDetailsUpdates {
@@ -337,27 +375,38 @@
         }
         
         if (strImage1.length > 0) {
-            UIImageView *ivImage1 = [[UIImageView alloc] initWithFrame:CGRectMake(10, top + 10, 60, 60)];
+            
+            CustomImageView *ivImage1 = [[CustomImageView alloc] initWithFrame:CGRectMake(10, top + 10, 60, 60)];
+            [ivImage1 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
             ivImage1.layer.cornerRadius = 30;
             ivImage1.clipsToBounds = YES;
-            [ivImage1 setImageWithURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@""]];
+            ivImage1.userInteractionEnabled = YES;
+            ivImage1.imageFileURL = strImage1;
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
             [viewBottom addSubview:ivImage1];
             
-            UIImageView *ivImage2 = [[UIImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
+            CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
             ivImage2.layer.cornerRadius = ivImage1.layer.cornerRadius;
             ivImage2.clipsToBounds = ivImage1.clipsToBounds;
             if ([self.photo2Header length] > 0) {
-                [ivImage2 setImageWithURL:[NSURL URLWithString:self.photo2Header] placeholderImage:[UIImage imageNamed:@""]];
+                [ivImage2 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
+                ivImage2.userInteractionEnabled = YES;
+                ivImage2.imageFileURL = self.photo2Header;
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo2Header]];
+                [viewBottom addSubview:ivImage2];
             }
-            [viewBottom addSubview:ivImage2];
             
-            UIImageView *ivImage3 = [[UIImageView alloc] initWithFrame:CGRectMake(ivImage2.frame.origin.x + ivImage2.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
+            CustomImageView *ivImage3 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage2.frame.origin.x + ivImage2.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
             ivImage3.layer.cornerRadius = ivImage1.layer.cornerRadius;
             ivImage3.clipsToBounds = ivImage1.clipsToBounds;
             if ([self.photo3Header length] > 0) {
-                [ivImage3 setImageWithURL:[NSURL URLWithString:self.photo3Header] placeholderImage:[UIImage imageNamed:@""]];
+                [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
+                ivImage3.userInteractionEnabled = YES;
+                ivImage3.imageFileURL = self.photo3Header;
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo3Header]];
+                [viewBottom addSubview:ivImage3];
             }
-            [viewBottom addSubview:ivImage3];
+            
         }
     }
     
@@ -388,6 +437,72 @@
     }
     
     return nil;
+}
+
+-(void)openImage:(CustomImageView *)imageView {
+    
+    [self deleteAllimageFiles];
+    
+    selectedImage = [[NSMutableArray alloc] init];
+    
+    QLPreviewController *previewController = [[QLPreviewController alloc] init];
+    previewController.dataSource = self;
+    previewController.currentPreviewItemIndex = 0;
+    
+    NSURL *URL = [NSURL URLWithString:imageView.imageFileURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSString *fileName = [URL lastPathComponent];
+    [selectedImage addObject:fileName];
+    
+    // save image here
+    NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [documentsDirectoryPath stringByAppendingPathComponent:@"/download"];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", path, fileName];
+    
+    AFHTTPRequestOperation *downloadRequest = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSData *data = [[NSData alloc] initWithData:responseObject];
+        [data writeToFile:filePath atomically:YES];
+        NSLog(@"saved");
+        [self presentViewController:previewController animated:YES completion:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"file downloading error : %@", [error localizedDescription]);
+    }];
+    [downloadRequest start];
+    
+}
+
+#pragma mark - QLPreviewControllerDataSource Methods
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller
+{
+    return [selectedImage count];
+}
+
+- (id <QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index
+{
+    NSURL *fileURL = nil;
+    NSString *fileName = [selectedImage objectAtIndex:index];
+    NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [documentsDirectoryPath stringByAppendingPathComponent:@"/download"];
+    NSString *previewFileFullPath = [path stringByAppendingPathComponent:fileName];
+    fileURL = [NSURL fileURLWithPath:previewFileFullPath];
+    return fileURL;
+}
+
+-(void)deleteAllimageFiles {
+    // Delete all user's body picks from gallery folder
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *directory = [documentsDirectoryPath stringByAppendingPathComponent:@"download/"];
+    NSError *error = nil;
+    for (NSString *file in [fm contentsOfDirectoryAtPath:directory error:&error]) {
+        BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", directory, file] error:&error];
+        if (!success || error) {
+            // it failed.
+        }
+    }
 }
 
 -(id)plotViewWithIndexNumber:(NSInteger)indexPath andType:(NSString *)typeView {
@@ -431,11 +546,6 @@
     // Add Bottom view for other information
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
-    
-    /*// Add horizontal line here
-    UIImageView *ivHR = [[UIImageView alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblRegistration.frame.origin.y + lblRegistration.frame.size.height + 5, lblRegistration.frame.size.width, 1)];
-    ivHR.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-    [viewBottom addSubview:ivHR];*/
     
     // Add Date here
     UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 160, 20)];
@@ -522,27 +632,42 @@
         }
         
         if (strImage1.length > 0) {
-            UIImageView *ivImage1 = [[UIImageView alloc] initWithFrame:CGRectMake(10, top + 10, 60, 60)];
+            
+            CustomImageView *ivImage1 = [[CustomImageView alloc] initWithFrame:CGRectMake(10, top + 10, 60, 60)];
+            [ivImage1 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
             ivImage1.layer.cornerRadius = 30;
             ivImage1.clipsToBounds = YES;
-            [ivImage1 setImageWithURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@""]];
+            ivImage1.userInteractionEnabled = YES;
+            ivImage1.imageFileURL = strImage1;
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
             [viewBottom addSubview:ivImage1];
             
-            UIImageView *ivImage2 = [[UIImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
+            CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
             ivImage2.layer.cornerRadius = ivImage1.layer.cornerRadius;
             ivImage2.clipsToBounds = ivImage1.clipsToBounds;
-            if ([photo2[indexPath] length] > 0) {
-                [ivImage2 setImageWithURL:[NSURL URLWithString:photo2[indexPath]] placeholderImage:[UIImage imageNamed:@""]];
-            }
-            [viewBottom addSubview:ivImage2];
             
-            UIImageView *ivImage3 = [[UIImageView alloc] initWithFrame:CGRectMake(ivImage2.frame.origin.x + ivImage2.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
+            if ([photo2[indexPath] length] > 0) {
+                [ivImage2 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
+
+                ivImage2.userInteractionEnabled = YES;
+                ivImage2.imageFileURL = photo2[indexPath];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]]];
+                
+                [viewBottom addSubview:ivImage2];
+            }
+            
+            CustomImageView *ivImage3 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage2.frame.origin.x + ivImage2.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
             ivImage3.layer.cornerRadius = ivImage1.layer.cornerRadius;
             ivImage3.clipsToBounds = ivImage1.clipsToBounds;
+            
             if ([photo3[indexPath] length] > 0) {
-                [ivImage3 setImageWithURL:[NSURL URLWithString:photo3[indexPath]] placeholderImage:[UIImage imageNamed:@""]];
+                [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
+                ivImage3.userInteractionEnabled = YES;
+                ivImage3.imageFileURL = photo3[indexPath];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]]];
+                
+                [viewBottom addSubview:ivImage3];
             }
-            [viewBottom addSubview:ivImage3];
         }
     }
     
