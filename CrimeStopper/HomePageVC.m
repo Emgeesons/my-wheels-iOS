@@ -109,7 +109,8 @@
     [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:@"latitude"];
     [[NSUserDefaults standardUserDefaults] setValue:longitude forKey:@"longitude"];
     
-    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    
+    
     NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
     
     // Create the Album:
@@ -124,9 +125,6 @@
     
        
     
-    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-    NSString *filename = [parts objectAtIndex:[parts count]-1];
-    NSLog(@"file name : %@",filename);
     
     //parkVehicle
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
@@ -214,15 +212,28 @@
     else
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            //NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
             
             UIImage *image = [UIImage imageWithData:imageData];
-            
+//            NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+//            NSString *filename = [parts objectAtIndex:[parts count]-1];
+//            NSLog(@"file name : %@",filename);
+//            
+//            NSString *str = @"My_Wheels_";
+//            NSString *strFileName = [str stringByAppendingString:filename];
+//            NSLog(@"strfilename : %@",strFileName);
+//            
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSString *documentsDirectory = [paths objectAtIndex:0];
+//            NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
+//            NSData *imageData1 = [NSData dataWithContentsOfMappedFile:savedImagePath];
             dispatch_sync(dispatch_get_main_queue(), ^(void) {
                 
                 _imgProfilepic.image = image;
                 
-            });
+              });
         });
     }
 

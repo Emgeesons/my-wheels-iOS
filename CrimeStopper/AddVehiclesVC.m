@@ -123,43 +123,8 @@ NSString *strBody;
         
     {
         NSLog(@"There IS internet connection");
-        
-        if([strvehivcle isEqualToString:@"Car" ] || [strvehivcle isEqualToString:@"Motor Cycle"])
+        if([strvehivcle isEqualToString:@"Car"] || [strvehivcle isEqualToString:@"Motor Cycle"] )
         {
-            if (_txtEngineNo.text.length>0 && _txtEngineNo.text.length >13)
-            {
-                [_txtEngineNo setTextColor:[UIColor redColor]];
-            }
-            else if (_txtEngineNo.text.length == 0)
-            {
-                [_txtEngineNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            else
-            {
-            
-            }
-            
-        }
-        //
-        if([strvehivcle isEqualToString:@"Car" ] || [strvehivcle isEqualToString:@"Motor Cycle"])
-        {
-            if (_txtChassisNo.text.length>0 && _txtChassisNo.text.length >17)
-            {
-                [_txtChassisNo setTextColor:[UIColor redColor]];
-            }
-            else if (_txtChassisNo.text.length == 0)
-            {
-                [_txtChassisNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            else
-            {
-            
-            }
-            
-        }
-
-        
-        
         if (_txtMake.text.length==0 || _txtModel.text.length==0 || _txtRegistrationNo.text.length==0 || _txtEngineNo.text.length==0 || _txtChassisNo.text.length==0 || _txtColor.text.length==0 )
         {
             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
@@ -168,8 +133,6 @@ NSString *strBody;
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
             [CheckAlert show];
-            
-            
             
         }
         else if (_txtMake.text.length>0 && _txtMake.text.length <2)
@@ -180,8 +143,29 @@ NSString *strBody;
         {
             [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
-//
-//        
+
+       
+        else if( _txtEngineNo.text.length>0 && _txtEngineNo.text.length < 13)
+        {
+            [_txtEngineNo setTextColor:[UIColor redColor]];
+        }
+            else if (_txtEngineNo.text.length == 0)
+            {
+                [_txtEngineNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            }
+            
+        //
+       
+      else if( _txtChassisNo.text.length>0 && _txtChassisNo.text.length < 17)
+      {
+           [_txtChassisNo setTextColor:[UIColor redColor]];
+       }
+       else if (_txtChassisNo.text.length == 0)
+        {
+            [_txtChassisNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+           
+ 
         else if (_txtModel.text.length>0 && _txtModel.text.length <2)
         {
             [_txtModel setTextColor:[UIColor redColor]];
@@ -292,6 +276,141 @@ NSString *strBody;
             
         }
     }
+    else
+    {
+        if (_txtMake.text.length==0 || _txtModel.text.length==0 || _txtRegistrationNo.text.length==0 || _txtColor.text.length==0 )
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:@"Something went wrong. Please try again later."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+            
+        }
+        else if (_txtMake.text.length>0 && _txtMake.text.length <2)
+        {
+            [_txtMake setTextColor:[UIColor redColor]];
+        }
+        else if (_txtMake.text.length == 0)
+        {
+            [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        
+        
+        else if (_txtModel.text.length>0 && _txtModel.text.length <2)
+        {
+            [_txtModel setTextColor:[UIColor redColor]];
+        }
+        else if (_txtModel.text.length == 0)
+        {
+            [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        else if (_txtRegistrationNo.text.length>0 && _txtRegistrationNo.text.length != 10)
+        {
+            [_txtRegistrationNo setTextColor:[UIColor redColor]];
+        }
+        else if (_txtRegistrationNo.text.length == 0)
+        {
+            [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        else if (_txtColor.text.length>0 && _txtColor.text.length <3)
+        {
+            [_txtColor setTextColor:[UIColor redColor]];
+        }
+        else if (_txtColor.text.length == 0)
+        {
+            [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        //
+        
+        
+        
+        else
+        {
+            NSLog(@"in api");
+            NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+            NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+            NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+            NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+            
+            NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+            [param setValue:UserID forKey:@"userId"];
+            [param setValue:pin forKey:@"pin"];
+            [param setValue:latitude forKey:@"latitude"];
+            [param setValue:longitude forKey:@"longitude"];
+            if([strvehivcle isEqualToString:@"Other"])
+            {
+                [param setValue:_txtOtherVehicle.text forKey:@"vehicleType"];
+            }
+            else
+            {
+                [param setValue:strvehivcle forKey:@"vehicleType"];
+            }
+            [param setValue:_txtMake.text forKey:@"vehicleMake"];
+            [param setValue:_txtModel.text forKey:@"vehicleModel"];
+            [param setValue:strBody forKey:@"vehicleBodyType"];
+            [param setValue:_txtRegistrationNo.text forKey:@"registrationSerialNo"];
+            [param setValue:_txtEngineNo.text forKey:@"engineNo"];
+            [param setValue:_txtChassisNo.text forKey:@"vinChassisNo"];
+            [param setValue:_txtColor.text forKey:@"colour"];
+            [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
+            
+            [param setValue:@"ios7" forKey:@"os"];
+            [param setValue:@"iPhone" forKey:@"make"];
+            [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+            
+            // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/addVehicle.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                
+            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                
+                NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                
+                NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                NSLog(@"data : %@",jsonDictionary);
+                
+                NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                NSLog(@"message %@",EntityID);
+                if ([EntityID isEqualToString:@"failure"])
+                {
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                        message:@"Something went wrong. Please Try Again."
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil, nil];
+                    [CheckAlert show];
+                }
+                else
+                {
+                    
+                    VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
+                    appdelegate.strVehicleId = @"";
+                    appdelegate.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"];
+                    vc.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"] ;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                    
+                    //                    UserProfileVC *vc = [[UserProfileVC alloc]init];
+                    //                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                [SVProgressHUD dismiss];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+            }];
+            
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+            
+            
+        }
+ 
+    }
+  }
+   
 
 }
 -(IBAction)btnBack_click:(id)sender

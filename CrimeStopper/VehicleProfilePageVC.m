@@ -99,138 +99,278 @@ NSString *phoneNo;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getVehicleProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSLog(@"url : %@",manager);
-    }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              
-              NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-              
-              NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-              NSLog(@"data : %@",jsonDictionary);
-              //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-              
-              //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-              NSLog(@"Json dictionary :: %@",jsonDictionary);
-              NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-              NSLog(@"message %@",EntityID);
-             
-              
-              if ([EntityID isEqualToString:@"failure"])
-              {
-                  
-              }
-              else
-              {
-                  _lblAccessories.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"accessories_unique_features"];
-                  _lblNodyType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"body_type"];
-                  _lblColor.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"colour"];
-                  _lblEngineNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"engine_no"];
-                  _lblMake2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
-                  make = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
-                  //_lblMake.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
-                  _lblModel.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
-                 model = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
-                  _lblModel2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
-                  _lblRegistrationNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"registration_serial_no"];
-                  _lblStatus.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"status"];
-                  _lblVehicleType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_type"];
-                  _lblVin.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vin_chasis_no"];
-                  _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
-                  _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
-                  phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
-                  NSString *str1 = [make stringByAppendingString:@" "];
-                  _lblMake1.text = [str1 stringByAppendingString:model];
-                  _lblMake.text = [str1 stringByAppendingString:model];
-                  photo1 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_1"];
-                  photo2 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_2"];
-                  photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
-                  insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
-                  
-                  [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-                  NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
-                  
-                  NSLog(@"date : %@",str);
-                  NSString *date = [dateFormatter stringFromDate:str];
-                  
-                  NSLog(@"date1 : %@",date);
-                  
-                  
-                  _lblExpiry.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"];
-                  /*Bicycle
-                  Car
-                  Motor Cycle
-                Other*/
-                  
-                if([_lblVehicleType.text isEqualToString:@"Bicycle"])
-                {
-                    [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
-                }
-                else if ([_lblVehicleType.text isEqualToString:@"Car"])
-                {
-                    [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
-                }
-                else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
-                {
-                    [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+        @try {
+            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getVehicleProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                NSLog(@"url : %@",manager);
+            }
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       
-                }
-                else if ([_lblVehicleType.text isEqualToString:@"Other"])
-                {
-                    [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
-                }
-                else
-                {
-                    [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
-                }
-
-                if([_lblStatus.text isEqualToString:@""])
-                {
-                    
-                }
-                  else
-                  {
-                       [_imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];
-                  }
-                  
-                  if([_lblCompanyName.text isEqualToString:@""])
-                  {
-                      [_view4 setHidden:YES];
-                      [_view4 setAlpha:0];
-                  }
-                  else
-                  {
-                      [_view4 setAlpha:1];
-                      [_view4 setHidden:NO];
-                  }
-                  
-                  if([_lblCompanyName.text isEqualToString:@""])
-                  {
-                      [_btnAddInsurance setTitle:@"Add Insurance" forState:UIControlStateNormal];
-                     // [_btnAddInsurance setBackgroundColor:[UIColor blueColor]];
-                  }
-                  else
-                  {
-                      [_btnAddInsurance setTitle:@"Edit Insurance" forState:UIControlStateNormal];
-                      [_btnAddInsurance setBackgroundColor:[UIColor whiteColor]];
-                      _btnAddInsurance.layer.borderWidth=1.0f;
-                     
-                      _btnAddInsurance.layer.borderColor=[[UIColor lightGrayColor] CGColor];
-                      _btnAddInsurance.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-                      [_btnAddInsurance setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                       
-                  }
-                  
-              }
-              [SVProgressHUD dismiss];
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-          }];
-    
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+                      NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      
+                      NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                      NSLog(@"data : %@",jsonDictionary);
+                      //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      
+                      //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                      NSLog(@"Json dictionary :: %@",jsonDictionary);
+                      NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                      NSLog(@"message %@",EntityID);
+                      
+                      
+                      if ([EntityID isEqualToString:@"failure"])
+                      {
+                          
+                      }
+                      else
+                      {
+                          _lblAccessories.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"accessories_unique_features"];
+                          _lblNodyType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"body_type"];
+                          _lblColor.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"colour"];
+                          _lblEngineNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"engine_no"];
+                          _lblMake2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
+                          make = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
+                          //_lblMake.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
+                          _lblModel.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
+                          model = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
+                          _lblModel2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
+                          _lblRegistrationNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"registration_serial_no"];
+                          _lblStatus.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"status"];
+                          _lblVehicleType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_type"];
+                          _lblVin.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vin_chasis_no"];
+                          _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
+                          _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
+                          phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
+                          NSString *str1 = [make stringByAppendingString:@" "];
+                          _lblMake1.text = [str1 stringByAppendingString:model];
+                          _lblMake.text = [str1 stringByAppendingString:model];
+                          photo1 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_1"];
+                          photo2 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_2"];
+                          photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
+                          insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
+                          
+                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                          NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
+                          
+                          NSLog(@"date : %@",str);
+                          NSString *date = [dateFormatter stringFromDate:str];
+                          
+                          NSLog(@"date1 : %@",date);
+                          
+                          
+                          _lblExpiry.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"];
+                          /*Bicycle
+                           Car
+                           Motor Cycle
+                           Other*/
+                          
+                          if([_lblVehicleType.text isEqualToString:@"Bicycle"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Car"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+                              
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Other"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                          }
+                          else
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                          }
+                          
+                          if([_lblStatus.text isEqualToString:@""])
+                          {
+                              
+                          }
+                          else
+                          {
+                              [_imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];
+                          }
+                          
+                          if([_lblCompanyName.text isEqualToString:@""])
+                          {
+                              [_view4 setHidden:YES];
+                              [_view4 setAlpha:0];
+                          }
+                          else
+                          {
+                              [_view4 setAlpha:1];
+                              [_view4 setHidden:NO];
+                          }
+                          
+                          if([_lblCompanyName.text isEqualToString:@""])
+                          {
+                              [_btnAddInsurance setTitle:@"Add Insurance" forState:UIControlStateNormal];
+                              // [_btnAddInsurance setBackgroundColor:[UIColor blueColor]];
+                          }
+                          else
+                          {
+                              [_btnAddInsurance setTitle:@"Edit Insurance" forState:UIControlStateNormal];
+                              [_btnAddInsurance setBackgroundColor:[UIColor whiteColor]];
+                              _btnAddInsurance.layer.borderWidth=1.0f;
+                              
+                              _btnAddInsurance.layer.borderColor=[[UIColor lightGrayColor] CGColor];
+                              _btnAddInsurance.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+                              [_btnAddInsurance setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                              
+                          }
+                          
+                      }
+                      [SVProgressHUD dismiss];
+                      
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                  }];
+            
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        }
+        @catch (NSException *exception) {
+            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getVehicleProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                NSLog(@"url : %@",manager);
+            }
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      
+                      
+                      NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      
+                      NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                      NSLog(@"data : %@",jsonDictionary);
+                      //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      
+                      //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                      NSLog(@"Json dictionary :: %@",jsonDictionary);
+                      NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                      NSLog(@"message %@",EntityID);
+                      
+                      
+                      if ([EntityID isEqualToString:@"failure"])
+                      {
+                          
+                      }
+                      else
+                      {
+                          _lblAccessories.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"accessories_unique_features"];
+                          _lblNodyType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"body_type"];
+                          _lblColor.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"colour"];
+                          _lblEngineNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"engine_no"];
+                          _lblMake2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
+                          make = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
+                          //_lblMake.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
+                          _lblModel.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
+                          model = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
+                          _lblModel2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
+                          _lblRegistrationNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"registration_serial_no"];
+                          _lblStatus.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"status"];
+                          _lblVehicleType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_type"];
+                          _lblVin.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vin_chasis_no"];
+                          _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
+                          _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
+                          phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
+                          NSString *str1 = [make stringByAppendingString:@" "];
+                          _lblMake1.text = [str1 stringByAppendingString:model];
+                          _lblMake.text = [str1 stringByAppendingString:model];
+                          photo1 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_1"];
+                          photo2 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_2"];
+                          photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
+                          insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
+                          
+                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                          NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
+                          
+                          NSLog(@"date : %@",str);
+                          NSString *date = [dateFormatter stringFromDate:str];
+                          
+                          NSLog(@"date1 : %@",date);
+                          
+                          
+                          _lblExpiry.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"];
+                          /*Bicycle
+                           Car
+                           Motor Cycle
+                           Other*/
+                          
+                          if([_lblVehicleType.text isEqualToString:@"Bicycle"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Car"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+                              
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Other"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                          }
+                          else
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                          }
+                          
+                          if([_lblStatus.text isEqualToString:@""])
+                          {
+                              
+                          }
+                          else
+                          {
+                              [_imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];
+                          }
+                          
+                          if([_lblCompanyName.text isEqualToString:@""])
+                          {
+                              [_view4 setHidden:YES];
+                              [_view4 setAlpha:0];
+                          }
+                          else
+                          {
+                              [_view4 setAlpha:1];
+                              [_view4 setHidden:NO];
+                          }
+                          
+                          if([_lblCompanyName.text isEqualToString:@""])
+                          {
+                              [_btnAddInsurance setTitle:@"Add Insurance" forState:UIControlStateNormal];
+                              // [_btnAddInsurance setBackgroundColor:[UIColor blueColor]];
+                          }
+                          else
+                          {
+                              [_btnAddInsurance setTitle:@"Edit Insurance" forState:UIControlStateNormal];
+                              [_btnAddInsurance setBackgroundColor:[UIColor whiteColor]];
+                              _btnAddInsurance.layer.borderWidth=1.0f;
+                              
+                              _btnAddInsurance.layer.borderColor=[[UIColor lightGrayColor] CGColor];
+                              _btnAddInsurance.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+                              [_btnAddInsurance setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                              
+                          }
+                          
+                      }
+                      [SVProgressHUD dismiss];
+                      
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                  }];
+            
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        }
+        @finally {
+            
+        }
+        
     }
     if(IsIphone5)
     {

@@ -251,89 +251,183 @@ int years;
         [param setValue:@"ios7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
         [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
-        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            NSLog(@"url : %@",manager);
-        }
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  
-                  
-                  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-                  
-                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                
-                  NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                  NSLog(@"message %@",EntityID);
-                  
-                  
-                  if ([EntityID isEqualToString:@"failure"])
-                  {
+        @try
+        {
+            
+            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+              
+            }
+             
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       
-                  }
-                  else
-                  {
+                      
+                      NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      
                       NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                      NSLog(@"data : %@",jsonDictionary);
-                      appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
                       
-                     dob1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
-                      NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
-                      NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
-                      NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
-                      NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
-                      NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
-                      NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
-                      NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
-                      NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
-                      NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
-                      NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
-                      NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
-                      NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
-                      NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
-                      NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
-                      NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
-                      NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
-                      NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
-                      NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
-                      NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
-                      NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
-                      NSDictionary *arrVehicle = [[NSDictionary alloc]init];
-                      arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
+                      NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                      NSLog(@"message %@",EntityID);
                       
-                     
                       
-                      [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
-                      [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
-                      [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
-                      [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
-                      [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
-                      [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
-                      [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
-                      [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
-                      [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
-                      [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
-                      [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
-                      [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
-                      [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
-                      [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
-                      [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
-                      [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
-                      [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
-                      [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
-                      [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
-                      [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
-                      [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
-                      [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
-                      [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
-                     
-                  }
-                  [SVProgressHUD dismiss];
+                      if ([EntityID isEqualToString:@"failure"])
+                      {
+                          
+                      }
+                      else
+                      {
+                          NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                          NSLog(@"data : %@",jsonDictionary);
+                          appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+                          
+                          dob1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
+                          NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
+                          NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
+                          NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
+                          NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
+                          NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
+                          NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
+                          NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
+                          NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
+                          NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
+                          NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
+                          NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
+                          NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
+                          NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+                          NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
+                          NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
+                          NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+                          NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
+                          NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+                          NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
+                          NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+                          NSDictionary *arrVehicle = [[NSDictionary alloc]init];
+                          arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
+                          
+                          
+                          
+                          [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
+                          [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
+                          [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
+                          [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+                          [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+                          [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+                          [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+                          [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
+                          [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
+                          [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
+                          [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
+                          [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+                          [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
+                          [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
+                          [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+                          [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
+                          [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
+                          [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
+                          [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
+                          [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
+                          [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
+                          [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
+                          [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
+                          
+                      }
+                      [SVProgressHUD dismiss];
+                      
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                  }];
+            
+        }
+        @catch (NSException *exception)
+        {
+                [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+               
+            }
                  
-              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-              }];
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          
+                          
+                          NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                          
+                          NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                          
+                          NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                          NSLog(@"message %@",EntityID);
+                          
+                          
+                          if ([EntityID isEqualToString:@"failure"])
+                          {
+                              
+                          }
+                          else
+                          {
+                              NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                              NSLog(@"data : %@",jsonDictionary);
+                              appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+                              
+                              dob1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
+                              NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
+                              NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
+                              NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
+                              NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
+                              NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
+                              NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
+                              NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
+                              NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
+                              NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
+                              NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
+                              NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
+                              NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
+                              NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+                              NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
+                              NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
+                              NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+                              NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
+                              NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
+                              NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
+                              NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+                              NSDictionary *arrVehicle = [[NSDictionary alloc]init];
+                              arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
+                              
+                              
+                              
+                              [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
+                              [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
+                              [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
+                              [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+                              [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+                              [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+                              [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+                              [[NSUserDefaults standardUserDefaults] setValue:first_name forKey:@"first_name"];
+                              [[NSUserDefaults standardUserDefaults] setValue:gender forKey:@"gender"];
+                              [[NSUserDefaults standardUserDefaults] setValue:last_name forKey:@"last_name"];
+                              [[NSUserDefaults standardUserDefaults] setValue:license_no forKey:@"license_no"];
+                              [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+                              [[NSUserDefaults standardUserDefaults] setValue:mobile_number forKey:@"mobile_number"];
+                              [[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
+                              [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+                              [[NSUserDefaults standardUserDefaults] setValue:postcode forKey:@"postcode"];
+                              [[NSUserDefaults standardUserDefaults] setValue:profile_completed forKey:@"profile_completed"];
+                              [[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
+                              [[NSUserDefaults standardUserDefaults] setValue:security_answer forKey:@"security_answer"];
+                              [[NSUserDefaults standardUserDefaults] setValue:security_question forKey:@"security_question"];
+                              [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
+                              [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
+                              [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
+                              
+                          }
+                          [SVProgressHUD dismiss];
+                          
+                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                      }];
+        }
+        @finally 
+        {
+            NSLog(@"...");
+        }
+       
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         _lblsamaritan.text = samaritan_points;
@@ -392,7 +486,7 @@ int years;
                     
                     dispatch_sync(dispatch_get_main_queue(), ^(void) {
                         
-                        _img.image = image;
+                        _imgUserProfilepic.image = image;
                         
                     });
                 });
@@ -492,69 +586,31 @@ int years;
         {
             NSString *photo_url = [jsonDictionary valueForKey:@"response"] ;
             [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+            NSArray *parts = [photo_url componentsSeparatedByString:@"/"];
+            NSString *filename = [parts objectAtIndex:[parts count]-1];
+            NSLog(@"file name : %@",filename);
             
-//            ALAssetsLibrary* libraryFolder = [[ALAssetsLibrary alloc] init];
-//            [libraryFolder addAssetsGroupAlbumWithName:@"My Wheels" resultBlock:^(ALAssetsGroup *group)
-//             {
-//             resultBlock:^(ALAssetsGroup *group) {
-//               //  NSLog(@"added album:%@", albumName);
-//             }
-//                 
-//                 NSLog(@"Adding Folder:'My Album', success: %s", group.editable ? "Success" : "Already created: Not Success");
-//                 
-//                 
-//
-//                  // UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-//             } failureBlock:^(NSError *error)
-//             {
-//                 NSLog(@"Error: Adding on Folder");
-//             }];
-           // Create the Album:
-            NSString *albumName = @"My Wheels";
-            [self.library addAssetsGroupAlbumWithName:albumName
-                                          resultBlock:^(ALAssetsGroup *group) {
-                                              NSLog(@"added album:%@", albumName);
-                                          }
-                                         failureBlock:^(NSError *error) {
-                                             NSLog(@"error adding album");
-                                         }];
-          //  Find the Album:
+            NSString *str = @"My_Wheels_";
+            NSString *strFileName = [str stringByAppendingString:filename];
+            NSLog(@"strfilename : %@",strFileName);
             
-            __block ALAssetsGroup* groupToAddTo;
-            [self.library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-                                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                                            if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
-                                                NSLog(@"found album %@", albumName);
-                                                groupToAddTo = group;
-                                            }
-                                        }
-                                      failureBlock:^(NSError* error) {
-                                          NSLog(@"failed to enumerate albums:\nError: %@", [error localizedDescription]);
-                                      }];
-          //  Save the Image to Asset Library, and put it into the album:
             
-            CGImageRef img = [image CGImage];
-            [self.library writeImageToSavedPhotosAlbum:img
-                                              metadata:[info objectForKey:UIImagePickerControllerMediaMetadata]
-                                       completionBlock:^(NSURL* assetURL, NSError* error) {
-                                           if (error.code == 0) {
-                                               NSLog(@"saved image completed:\nurl: %@", assetURL);
-                                               
-                                               // try to get the asset
-                                               [self.library assetForURL:assetURL
-                                                             resultBlock:^(ALAsset *asset) {
-                                                                 // assign the photo to the album
-                                                                 [groupToAddTo addAsset:asset];
-                                                                 NSLog(@"Added %@ to %@", [[asset defaultRepresentation] filename], albumName);
-                                                             }
-                                                            failureBlock:^(NSError* error) {
-                                                                NSLog(@"failed to retrieve image asset:\nError: %@ ", [error localizedDescription]);
-                                                            }];
-                                           }
-                                           else {
-                                               NSLog(@"saved image failed.\nerror code %i\n%@", error.code, [error localizedDescription]);
-                                           }
-                                       }];        }
+            
+//            [_imgUserProfilepic.image set]
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImageWriteToSavedPhotosAlbum(_imgUserProfilepic.image, nil, nil, nil);
+                
+                NSData *webData = UIImagePNGRepresentation(_imgUserProfilepic.image);
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString *documentsDirectory = [paths objectAtIndex:0];
+              
+                [webData writeToFile:documentsDirectory atomically:YES];
+                NSLog(@"localFilePath.%@",documentsDirectory);
+                
+                 UIImage *image = [UIImage imageWithContentsOfFile:documentsDirectory];
+          });
+    
+        }
 
         [SVProgressHUD dismiss];
     }
