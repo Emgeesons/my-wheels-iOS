@@ -54,7 +54,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="twO-OJ-RKI">
-                            <rect key="frame" x="279" y="19" width="42" height="40"/>
+                            <rect key="frame" x="279" y="18" width="42" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <state key="normal">
@@ -64,13 +64,13 @@
                                 <action selector="btnProfile_click:" destination="-1" eventType="touchUpInside" id="yFU-Vj-j21"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_1.png" id="JuL-wr-jq5">
-                            <rect key="frame" x="276" y="19" width="35" height="35"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images1111.jpeg" id="JuL-wr-jq5">
+                            <rect key="frame" x="279" y="21" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_home1.png" id="akn-gQ-HHx">
-                            <rect key="frame" x="276" y="19" width="35" height="35"/>
+                            <rect key="frame" x="276" y="18" width="35" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
@@ -282,7 +282,6 @@
         </view>
     </objects>
     <resources>
-        <image name="default_profile_1.png" width="25" height="32"/>
         <image name="default_profile_home1.png" width="40" height="40"/>
         <image name="ic_about_us.png" width="35" height="35"/>
         <image name="ic_app.png" width="72" height="96"/>
@@ -290,6 +289,7 @@
         <image name="ic_file_new_report.png" width="35" height="35"/>
         <image name="ic_report_sighting.png" width="35" height="35"/>
         <image name="ic_updates.png" width="35" height="35"/>
+        <image name="images1111.jpeg" width="133" height="133"/>
         <image name="tick_mark.png" width="20" height="20"/>
     </resources>
 </document>

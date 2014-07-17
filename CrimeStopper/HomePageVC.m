@@ -173,7 +173,41 @@
                                    action:@selector(dismissKeyboard)];
     
     [self.ViewMain addGestureRecognizer:tap];
-}
+    
+    
+    // profile pic
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        _imgProfilepic.image = [UIImage imageNamed:@"default_profile_2.png"];
+    }
+    else
+    {
+        NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+        
+        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+        NSString *filename = [parts objectAtIndex:[parts count]-1];
+        NSLog(@"file name : %@",filename);
+        
+        NSString *str = @"My_Wheels_";
+        NSString *strFileName = [str stringByAppendingString:filename];
+        NSLog(@"strfilename : %@",strFileName);
+        appdelegate.strPhotoURL = strFileName;
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSData *imageData = [defaults dataForKey:strFileName];
+        UIImage *contactImage = [UIImage imageWithData:imageData];
+        if(imageData == nil)
+        {
+            _imgProfilepic.image = [UIImage imageNamed:@"default_profile_2.png"];
+        }
+        else
+        {
+            _imgProfilepic.image = contactImage;
+        }
+
+    }
+   }
 
 - (void) dismissKeyboard
 {
@@ -212,26 +246,39 @@
     else
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-            //NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-            
-            UIImage *image = [UIImage imageWithData:imageData];
-//            NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-//            NSString *filename = [parts objectAtIndex:[parts count]-1];
-//            NSLog(@"file name : %@",filename);
-//            
-//            NSString *str = @"My_Wheels_";
-//            NSString *strFileName = [str stringByAppendingString:filename];
-//            NSLog(@"strfilename : %@",strFileName);
-//            
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSString *documentsDirectory = [paths objectAtIndex:0];
-//            NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
-//            NSData *imageData1 = [NSData dataWithContentsOfMappedFile:savedImagePath];
+           
             dispatch_sync(dispatch_get_main_queue(), ^(void) {
                 
-                _imgProfilepic.image = image;
+                NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+                
+                NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+                NSString *filename = [parts objectAtIndex:[parts count]-1];
+                NSLog(@"file name : %@",filename);
+                
+                NSString *str = @"My_Wheels_";
+                NSString *strFileName = [str stringByAppendingString:filename];
+                NSLog(@"strfilename : %@",strFileName);
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                NSData *imageData = [defaults dataForKey:strFileName];
+              
+                if(imageData == nil)
+                {
+                    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+                    UIImage *image = [UIImage imageWithData:imageData];
+                    _imgProfilepic.image = image;
+                    
+               
+                    // Store the data
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    
+                    [defaults setObject:imageData forKey:strFileName];
+                    [defaults synchronize];
+                }
+                else
+                {  UIImage *contactImage = [UIImage imageWithData:imageData];
+                    _imgProfilepic.image = contactImage;
+                }
                 
               });
         });

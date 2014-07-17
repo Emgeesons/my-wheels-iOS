@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VehicleProfilePageVC : UIViewController
+@interface VehicleProfilePageVC : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
     NSDateFormatter *dateFormatter;
 }
@@ -27,12 +27,21 @@
 
 @property (nonatomic,retain) IBOutlet UIImageView *imgVehicleType,*imgStatus;
 @property (nonatomic,retain) NSDictionary *arrVehicle;
+@property (nonatomic,retain) IBOutlet UIButton *btnAddPhoto;
+@property (nonatomic,retain) IBOutlet UIButton *btnPhoto1,*btnPhoto2,*btnPhoto3;
+@property (nonatomic,retain) IBOutlet UIImageView *imgvehicle1,*imgvehicle2,*imgvehicle3;
+@property (nonatomic,retain) IBOutlet UIImageView *imgRound1,*imgRound2,*imgRound3;
+
+
 
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnAdd_click:(id)sender;
 -(IBAction)btnAddInsurance_click:(id)sender;
 -(IBAction)btnEditInfo_click:(id)sender;
 -(IBAction)btnDelete_click:(id)sender;
-
+-(IBAction)btnAddPhoto_click:(id)sender;
+-(IBAction)btnAddPhoto1_click:(id)sender;
+-(IBAction)btnAddPhoto2_click:(id)sender;
+-(IBAction)btnAddPhoto3_click:(id)sender;
 
 @end

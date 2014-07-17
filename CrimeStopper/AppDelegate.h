@@ -31,4 +31,6 @@
 @property (nonatomic,retain) NSMutableArray *arrMutvehiclePark;
 @property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
 @property (nonatomic) int *years;
+@property (nonatomic,retain) NSString *strPhotoURL;
+
 @end

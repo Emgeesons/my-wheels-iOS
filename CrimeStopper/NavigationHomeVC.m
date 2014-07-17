@@ -175,6 +175,20 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
+        
+        //remove profile pic
+       NSString *photoURL = appdelegate.strPhotoURL;
+        NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
+        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+        NSString *filename = [parts objectAtIndex:[parts count]-1];
+        NSLog(@"file name : %@",filename);
+        
+        NSString *str = @"My_Wheels_";
+        NSString *strFileName = [str stringByAppendingString:filename];
+        NSLog(@"strfilename : %@",strFileName);
+        
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
+        
         [[NSUserDefaults standardUserDefaults]synchronize ];
         appdelegate.strUserID = @"";
         LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];

@@ -7,11 +7,21 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VehicleProfilePageVC">
             <connections>
                 <outlet property="btnAddInsurance" destination="tOs-h1-Yee" id="dAa-gW-AvY"/>
+                <outlet property="btnAddPhoto" destination="OTB-lQ-5Wz" id="pXd-wr-fnC"/>
                 <outlet property="btnBack" destination="rkP-BX-3pd" id="IJ7-Hq-Rzf"/>
                 <outlet property="btnDelete" destination="XDz-xU-lgd" id="XPc-hV-bLq"/>
                 <outlet property="btnEditInfo" destination="5J9-ec-ao9" id="KtE-4I-2jB"/>
+                <outlet property="btnPhoto1" destination="XtO-ZJ-Fyj" id="aS4-9V-9TX"/>
+                <outlet property="btnPhoto2" destination="PKu-n6-QQQ" id="rYB-Kp-CS0"/>
+                <outlet property="btnPhoto3" destination="lQZ-zc-DNf" id="sya-w4-C3C"/>
+                <outlet property="imgRound1" destination="0tw-jN-2xN" id="Aew-Gi-Lou"/>
+                <outlet property="imgRound2" destination="qfa-Oi-a68" id="J1s-sH-kCl"/>
+                <outlet property="imgRound3" destination="ziC-4a-XEF" id="mGs-yD-nlt"/>
                 <outlet property="imgStatus" destination="nAO-yx-Z2K" id="kxj-Mv-Hks"/>
                 <outlet property="imgVehicleType" destination="EB4-Cc-xH6" id="oRa-8g-SAR"/>
+                <outlet property="imgvehicle1" destination="47x-RB-SjX" id="1TC-6y-i5v"/>
+                <outlet property="imgvehicle2" destination="jhw-7M-CSH" id="WU7-9u-QSa"/>
+                <outlet property="imgvehicle3" destination="lln-PB-SQa" id="Zyh-tM-0c8"/>
                 <outlet property="lblAccessories" destination="lrk-1m-Vrh" id="6o6-G8-uFu"/>
                 <outlet property="lblColor" destination="c6D-YL-xxI" id="CHh-P3-viy"/>
                 <outlet property="lblCompanyName" destination="vRc-P8-npk" id="4gv-bG-e6C"/>
@@ -66,7 +76,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="nyh-33-Qdo">
-                    <rect key="frame" x="0.0" y="55" width="320" height="598"/>
+                    <rect key="frame" x="0.0" y="53" width="320" height="598"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="ak5-7p-QXu">
@@ -353,7 +363,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="6ui-xH-iWI">
-                            <rect key="frame" x="0.0" y="401" width="320" height="107"/>
+                            <rect key="frame" x="0.0" y="487" width="320" height="58"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tOs-h1-Yee">
@@ -397,6 +407,109 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
+                        <view contentMode="scaleToFill" id="wwV-xK-HyZ">
+                            <rect key="frame" x="0.0" y="400" width="320" height="89"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e6H-iY-TUW">
+                                    <rect key="frame" x="5" y="0.0" width="310" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sHg-wF-03W">
+                                    <rect key="frame" x="5" y="87" width="310" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XB8-CT-rru">
+                                    <rect key="frame" x="5" y="0.0" width="1" height="89"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PMR-bI-hdZ">
+                                    <rect key="frame" x="315" y="0.0" width="1" height="89"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OTB-lQ-5Wz">
+                                    <rect key="frame" x="254" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" backgroundImage="add_photos.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnAddPhoto_click:" destination="-1" eventType="touchUpInside" id="mD5-Zj-dZh"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PKu-n6-QQQ">
+                                    <rect key="frame" x="93" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnAddPhoto2_click:" destination="-1" eventType="touchUpInside" id="86e-QX-hon"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XtO-ZJ-Fyj">
+                                    <rect key="frame" x="14" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnAddPhoto1_click:" destination="-1" eventType="touchUpInside" id="nCT-1m-Whe"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lQZ-zc-DNf">
+                                    <rect key="frame" x="172" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnAddPhoto3_click:" destination="-1" eventType="touchUpInside" id="LWp-tW-NrJ"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_photos.png" id="47x-RB-SjX">
+                                    <rect key="frame" x="14" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_photos.png" id="jhw-7M-CSH">
+                                    <rect key="frame" x="93" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_photos.png" id="lln-PB-SQa">
+                                    <rect key="frame" x="172" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vehicle-pic_2.png" id="0tw-jN-2xN">
+                                    <rect key="frame" x="14" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vehicle-pic_2.png" id="qfa-Oi-a68">
+                                    <rect key="frame" x="172" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vehicle-pic_2.png" id="ziC-4a-XEF">
+                                    <rect key="frame" x="93" y="15" width="59" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                 </scrollView>
             </subviews>
@@ -405,4 +518,8 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="add_photos.png" width="158" height="158"/>
+        <image name="vehicle-pic_2.png" width="80" height="80"/>
+    </resources>
 </document>

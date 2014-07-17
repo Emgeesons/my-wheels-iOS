@@ -162,6 +162,8 @@
 		5EFD685119627D48009F9399 /* VehicleProfilePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFD684F19627D48009F9399 /* VehicleProfilePageVC.xib */; };
 		5EFD68551962AC80009F9399 /* AddInsuranceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD68531962AC80009F9399 /* AddInsuranceVC.m */; };
 		5EFD68561962AC80009F9399 /* AddInsuranceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFD68541962AC80009F9399 /* AddInsuranceVC.xib */; };
+		5EFDA27B1977EF1100AC7E6A /* vehicle-pic_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFDA2791977EF1100AC7E6A /* vehicle-pic_1.png */; };
+		5EFDA27C1977EF1100AC7E6A /* vehicle-pic_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFDA27A1977EF1100AC7E6A /* vehicle-pic_2.png */; };
 		5EFE9186195945440014669E /* UserProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE9184195945440014669E /* UserProfileVC.m */; };
 		5EFE9187195945440014669E /* UserProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFE9185195945440014669E /* UserProfileVC.xib */; };
 		5EFE9191195948D80014669E /* default_profile_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFE9189195948D80014669E /* default_profile_bg.png */; };
@@ -408,6 +410,8 @@
 		5EFD68521962AC80009F9399 /* AddInsuranceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddInsuranceVC.h; sourceTree = "<group>"; };
 		5EFD68531962AC80009F9399 /* AddInsuranceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddInsuranceVC.m; sourceTree = "<group>"; };
 		5EFD68541962AC80009F9399 /* AddInsuranceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddInsuranceVC.xib; sourceTree = "<group>"; };
+		5EFDA2791977EF1100AC7E6A /* vehicle-pic_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle-pic_1.png"; sourceTree = "<group>"; };
+		5EFDA27A1977EF1100AC7E6A /* vehicle-pic_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle-pic_2.png"; sourceTree = "<group>"; };
 		5EFE9183195945440014669E /* UserProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileVC.h; sourceTree = "<group>"; };
 		5EFE9184195945440014669E /* UserProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileVC.m; sourceTree = "<group>"; };
 		5EFE9185195945440014669E /* UserProfileVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileVC.xib; sourceTree = "<group>"; };
@@ -882,6 +886,8 @@
 		5EEEB90E1963DA150083CC56 /* Vehicles */ = {
 			isa = PBXGroup;
 			children = (
+				5EFDA2791977EF1100AC7E6A /* vehicle-pic_1.png */,
+				5EFDA27A1977EF1100AC7E6A /* vehicle-pic_2.png */,
 				5EFABB42196D7060007C0781 /* current_location.png */,
 				5EFABB43196D7060007C0781 /* current_location@2x.png */,
 				5EFABB3C196D621D007C0781 /* vehicle_parked.png */,
@@ -1176,9 +1182,11 @@
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
 				5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
+				5EFDA27B1977EF1100AC7E6A /* vehicle-pic_1.png in Resources */,
 				5EEEB9161963DA800083CC56 /* ic_car.png in Resources */,
 				5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */,
 				5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */,
+				5EFDA27C1977EF1100AC7E6A /* vehicle-pic_2.png in Resources */,
 				5EEF21781955A3FB00A0BA3F /* app_icon_512x512.png in Resources */,
 				5EE8C8FD19515089009550A1 /* bullet.png in Resources */,
 				5E3C3FB9196A9A11007E6AFA /* ic_like_grey.png in Resources */,

@@ -29,7 +29,7 @@ NSString *model;
 NSString *photo1,*photo2,*photo3;
 NSString *insuranceCompanyName;
 NSString *phoneNo;
-
+NSInteger intImage;
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -392,6 +392,142 @@ NSString *phoneNo;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark camera click
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            [self takeNewPhotoFromCamera];
+            break;
+        case 1:
+            [self choosePhotoFromExistingImages];
+        default:
+            break;
+    }
+}
+
+- (void)takeNewPhotoFromCamera
+{
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+    {
+        intImage = 2;
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypeCamera;
+        controller.allowsEditing = YES;
+        controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
+        controller.delegate = (id)self;
+        //[_btnprofilePic setBackgroundImage:controller forState:UIControlStateNormal];
+        
+        [self.navigationController presentViewController: controller animated: YES completion: nil];
+    }
+}
+
+-(void)choosePhotoFromExistingImages
+{
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        intImage =1;
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        controller.allowsEditing = NO;
+        controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
+        controller.delegate = (id)self;
+        [self.navigationController presentViewController: controller animated: YES completion: nil];
+    }
+    
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+   
+    [_imgvehicle1 setImage:image];
+    [_btnPhoto1 setImage:image forState:UIControlStateNormal];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    
+    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+    
+    [param setValue:UserID forKey:@"userId"];
+    //   // [param setValue:@"1111" forKey:@"pin"];
+    
+    
+    [param setValue:@"ios7" forKey:@"os"];
+    [param setValue:@"iPhone" forKey:@"make"];
+    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    
+    
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/uploadProfilePic.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //do not put image inside parameters dictionary as I did, but append it!
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
+    }
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+         NSLog(@"data : %@",jsonDictionary);
+         
+         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+         NSLog(@"message %@",EntityID);
+         if ([EntityID isEqualToString:@"failure"])
+         {
+             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
+                                                                 message:@"Image has not been uploaded."
+                                                                delegate:self
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles:nil, nil];
+             [CheckAlert show];
+         }
+         else
+         {
+             NSString *photo_url = [jsonDictionary valueForKey:@"response"] ;
+             [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+             NSArray *parts = [photo_url componentsSeparatedByString:@"/"];
+             NSString *filename = [parts objectAtIndex:[parts count]-1];
+             NSLog(@"file name : %@",filename);
+             
+             NSString *str = @"My_Wheels_";
+             NSString *strFileName = [str stringByAppendingString:filename];
+             NSLog(@"strfilename : %@",strFileName);
+             // Store the data
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             
+             [defaults setObject:imageData forKey:strFileName];
+             [defaults synchronize];
+             
+             //  UIImage *contactImage = [UIImage imageWithData:imageData];
+             _imgvehicle1.image = [UIImage imageWithData:imageData];
+             
+             
+             
+         }
+         
+         [SVProgressHUD dismiss];
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+     }];
+    
+    
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo: (void *)contextInfo
+{
+    if (error != nil)
+    {
+        NSLog(@"Image Can not be saved");
+    }
+    else
+    {
+        NSLog(@"Successfully saved Image");
+    }
+}
+
 #pragma mark button click event
 -(IBAction)btnBack_click:(id)sender
 {
@@ -455,6 +591,29 @@ NSString *phoneNo;
     CheckAlert.tag = 1;
     
     [CheckAlert show];
+}
+-(IBAction)btnAddPhoto_click:(id)sender
+{
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Take Photo",
+                            @"Choose Existing",
+                            
+                            nil];
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+-(IBAction)btnAddPhoto1_click:(id)sender
+{
+
+}
+-(IBAction)btnAddPhoto2_click:(id)sender
+{
+
+}
+-(IBAction)btnAddPhoto3_click:(id)sender
+{
+
 }
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

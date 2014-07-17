@@ -55,11 +55,31 @@ int years;
          NSString *Lname = [[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"];
          NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
          NSString *dob = [[NSUserDefaults standardUserDefaults] objectForKey:@"dob"];
-    NSLog(@"dob :%@",dob);
+        NSLog(@"dob :%@",dob);
          NSString *Mobileno = [[NSUserDefaults standardUserDefaults] objectForKey:@"mobile_number"];
         NSString *gender = [[NSUserDefaults standardUserDefaults] objectForKey:@"gender"];
         NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
-  
+        NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    
+    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+    NSString *filename = [parts objectAtIndex:[parts count]-1];
+    NSLog(@"file name : %@",filename);
+    
+    NSString *str = @"My_Wheels_";
+    NSString *strFileName = [str stringByAppendingString:filename];
+    NSLog(@"strfilename : %@",strFileName);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *imageData = [defaults dataForKey:strFileName];
+    UIImage *contactImage = [UIImage imageWithData:imageData];
+    if(imageData == nil)
+    {
+        _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_2.png"];
+    }
+    else
+    {
+        _imgUserProfilepic.image = contactImage;
+    }
     int intSamaritan_points = [samaritan_points intValue];
     
     
@@ -480,13 +500,40 @@ int years;
             else
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-                    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+                  //  NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
                     
-                    UIImage *image = [UIImage imageWithData:imageData];
+//                    UIImage *image = [UIImage imageWithData:imageData];
                     
                     dispatch_sync(dispatch_get_main_queue(), ^(void) {
                         
-                        _imgUserProfilepic.image = image;
+                      //  _imgUserProfilepic.image = image;
+                        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+                        NSString *filename = [parts objectAtIndex:[parts count]-1];
+                        NSLog(@"file name : %@",filename);
+                        
+                        NSString *str = @"My_Wheels_";
+                        NSString *strFileName = [str stringByAppendingString:filename];
+                        NSLog(@"strfilename : %@",strFileName);
+                       
+                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                        NSData *imageData = [defaults dataForKey:strFileName];
+                      
+                        if(imageData == nil)
+                        {
+                              NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+                             UIImage *image = [UIImage imageWithData:imageData];
+                            _imgUserProfilepic.image = image;
+                           
+                            // Store the data
+                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                            
+                            [defaults setObject:imageData forKey:strFileName];
+                            [defaults synchronize];
+                        }
+                        else
+                        {  UIImage *contactImage = [UIImage imageWithData:imageData];
+                            _imgUserProfilepic.image = contactImage;
+                        }
                         
                     });
                 });
@@ -541,7 +588,7 @@ int years;
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_img1 setImage:image];
-  
+    [_imgUserProfilepic setImage:image];
     [_btnprofilePic setImage:image forState:UIControlStateNormal];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -593,33 +640,25 @@ int years;
             NSString *str = @"My_Wheels_";
             NSString *strFileName = [str stringByAppendingString:filename];
             NSLog(@"strfilename : %@",strFileName);
-            
-            
-            
-//            [_imgUserProfilepic.image set]
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImageWriteToSavedPhotosAlbum(_imgUserProfilepic.image, nil, nil, nil);
+            // Store the data
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 
-                NSData *webData = UIImagePNGRepresentation(_imgUserProfilepic.image);
-                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString *documentsDirectory = [paths objectAtIndex:0];
-              
-                [webData writeToFile:documentsDirectory atomically:YES];
-                NSLog(@"localFilePath.%@",documentsDirectory);
+            [defaults setObject:imageData forKey:strFileName];
+            [defaults synchronize];
                 
-                 UIImage *image = [UIImage imageWithContentsOfFile:documentsDirectory];
-          });
+              //  UIImage *contactImage = [UIImage imageWithData:imageData];
+                _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+                
+         
     
         }
 
         [SVProgressHUD dismiss];
-    }
-    failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
 
-    
+   
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
  
