@@ -19,6 +19,7 @@
 @interface DetailsViewController () <UITableViewDataSource, UITableViewDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate> {
     NSMutableArray *comments, *first_name, *location, *photo1, *photo2, *photo3, *sighting_id, *report_type, *selected_date, *selected_time;
     NSMutableArray *selectedImage;
+    NSInteger initialValue;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReportSoghting;
@@ -52,6 +53,9 @@
     selected_date = [[NSMutableArray alloc] init];
     selected_time = [[NSMutableArray alloc] init];
     
+    // set initialValue here as 0
+    initialValue = 0;
+    
     [self createDownloadFolder];
     
     self.navItem.title = [NSString stringWithFormat:@"%@ %@", self.makeHeader, self.modelHeader];
@@ -61,6 +65,8 @@
     
     //[self.btnReportSoghting setTintColor:[UIColor colorWithHexString:@"#00B268"]];
     [self.btnReportSoghting setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
+    
+    self.tableView.hidden = YES;
     
     [self loadDetailsUpdates];
 }
@@ -123,7 +129,7 @@
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdatesDetails.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        NSLog(@"Details ==> %@", responseObject);
         
         // Stop Animating activityIndicator
         //[activityIndicator stopAnimating];
@@ -145,7 +151,8 @@
                 [photo2 addObject:reportData[i][@"photo2"]];
                 [photo3 addObject:reportData[i][@"photo3"]];
             }
-            
+            initialValue = 1;
+            self.tableView.hidden = NO;
             [self.tableView reloadData];
             
         } else {
@@ -168,7 +175,14 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sighting_id.count;
+    if (initialValue != 0) {
+        if (sighting_id.count == 0) {
+            return 1;
+        }
+        return sighting_id.count;
+    } else {
+        return 0;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,13 +194,39 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = self.tableView.backgroundColor;
     }
-    
-    [cell.contentView addSubview:[self plotViewWithIndexNumber:indexPath.row andType:@"view"]];
-    
+    NSLog(@"call");
+    if (sighting_id.count == 0) {
+        // create Stay tuned view here
+        UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
+        viewBG.backgroundColor = [UIColor colorWithHexString:@"e6e6e6"];
+        
+        // Add Stay Tuned label here
+        UILabel *lblStayTuned = [[UILabel alloc] initWithFrame:CGRectMake(0, (viewBG.frame.size.height/2) - 30, 320, 20)];
+        lblStayTuned.text = @"Stay Tuned!";
+        lblStayTuned.textAlignment = NSTextAlignmentCenter;
+        lblStayTuned.textColor = [UIColor colorWithHexString:@"#0067AD"];
+        lblStayTuned.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+        [viewBG addSubview:lblStayTuned];
+        
+        // Add General text label here
+        UILabel *lblUpdate = [[UILabel alloc] initWithFrame:CGRectMake(0, lblStayTuned.frame.origin.y + lblStayTuned.frame.size.height + 5, 320, 20)];
+        lblUpdate.text = @"Updates on this report will appear here";
+        lblUpdate.textAlignment = NSTextAlignmentCenter;
+        lblUpdate.textColor = [UIColor grayColor];
+        lblUpdate.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+        [viewBG addSubview:lblUpdate];
+        
+        [cell.contentView addSubview:viewBG];
+    } else {
+        [cell.contentView addSubview:[self plotViewWithIndexNumber:indexPath.row andType:@"view"]];
+    }
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (sighting_id.count == 0) {
+        return 300;
+    }
     CGFloat height = [[self plotViewWithIndexNumber:indexPath.row andType:@"height"] floatValue];
     return height + 10;
 }

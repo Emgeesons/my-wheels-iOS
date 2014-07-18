@@ -13,6 +13,7 @@
 #import "UIButton+AFNetworking.h"
 #import "UIColor+Extra.h"
 #import "CustomImageView.h"
+#import "ReportSummaryViewController.h"
 @import QuickLook;
 
 #define MIN_HEIGHT 10.0f
@@ -25,9 +26,16 @@
     BOOL loadMore;
     UIActivityIndicatorView *activityIndicator, *navActivityIndicator;
     
-    NSMutableArray *firstNameHeader, *vehicleHeader, *makeHeader, *modelHeader, *typeSightingHeader, *regNoHeader, *dateHeader, *timeHeader, *locationHeader, *commentHeader, *photo1Header, *photo2Header, *photo3Header, *vehicleID, *reportIDHeader;
+    NSMutableArray *vehicleHeader, *makeHeader, *modelHeader, *typeSightingHeader, *regNoHeader, *dateHeader, *timeHeader, *locationHeader, *commentHeader, *photo1Header, *photo2Header, *photo3Header, *vehicleID, *reportIDHeader, *insurance_company_numberHeader;
     
     NSMutableArray *commentsMy, *first_nameMy, *locationMy, *makeMy, *modelMy, *photo1My, *photo2My, *photo3My, *registration_serial_noMy, *report_idMy, *report_typeMy, *selected_dateMy, *selected_timeMy, *vehicle_idMy, *vehicle_typeMy;
+    
+    UIToolbar *bgToolBar;
+    
+    UIActionSheet *sheet;
+    
+    //NSArray for sending details to ReportSummary Screen
+    NSArray *detailsArray;
     
 }
 @property (weak, nonatomic) IBOutlet UIView *viewOthers;
@@ -81,7 +89,6 @@
     vehicle_type = [[NSMutableArray alloc] init];
     
     // initialize all MyUpdates Header Part NSMutableArray
-    firstNameHeader = [[NSMutableArray alloc] init];
     vehicleHeader = [[NSMutableArray alloc] init];
     makeHeader = [[NSMutableArray alloc] init];
     modelHeader = [[NSMutableArray alloc] init];
@@ -96,6 +103,7 @@
     photo3Header = [[NSMutableArray alloc] init];
     vehicleID = [[NSMutableArray alloc] init];
     reportIDHeader = [[NSMutableArray alloc] init];
+    insurance_company_numberHeader = [[NSMutableArray alloc] init];
     
     // initialize all MyUpdates Rows Part NSMutableArray
     commentsMy = [[NSMutableArray alloc] init];
@@ -115,6 +123,12 @@
     vehicle_typeMy = [[NSMutableArray alloc] init];
     
     [self.btnVehicleRecovered setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
+    
+    // Add UIToolBar to view with alpha 0.7 for transparency
+    bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];
+    bgToolBar.barStyle = UIBarStyleBlack;
+    bgToolBar.alpha = 0.7;
+    bgToolBar.translucent = YES;
 
     
     // Hide My updates view at load time
@@ -143,11 +157,10 @@
     
     
     // initialize activityIndicator and add it to navigationBar.
-    navActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    navActivityIndicator.frame = CGRectMake(0, 0, 20, 40);
-    //navActivityIndicator.center = self.view.center;
-    UIBarButtonItem* spinner = [[UIBarButtonItem alloc] initWithCustomView: navActivityIndicator];
-    self.navigationItem.rightBarButtonItem = spinner;
+    navActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    navActivityIndicator.frame = CGRectMake(0, 0, 40, 40);
+    navActivityIndicator.center = self.view.center;
+    [bgToolBar addSubview:navActivityIndicator];
     
     //set loadMore as Yes at start
     loadMore = YES;
@@ -314,9 +327,12 @@
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSArray *reportData = (NSArray *)[json objectForKey:@"response"];
             //NSLog(@"%d", reportData.count);
+            
+            // Set detailsArray value here
+            detailsArray = reportData;
+            
             for (int i = 0; i < reportData.count; i++) {
                 [commentHeader addObject:reportData[i][@"comments"]];
-                //[firstNameHeader addObject:reportData[i][@"first_name"]];
                 [reportIDHeader addObject:reportData[i][@"report_id"]];
                 [typeSightingHeader addObject:reportData[i][@"report_type"]];
                 [vehicleHeader addObject:reportData[i][@"vehicle_type"]];
@@ -330,6 +346,7 @@
                 [photo1Header addObject:reportData[i][@"photo1"]];
                 [photo2Header addObject:reportData[i][@"photo2"]];
                 [photo3Header addObject:reportData[i][@"photo3"]];
+                [insurance_company_numberHeader addObject:reportData[i][@"insurance_company_number"]];
             }
             
             NSArray *sightingData = (NSArray *)[json objectForKey:@"sightings"];
@@ -373,21 +390,22 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableViewOthers) {
         return type.count;
-    } else {
+    } else if(tableView == self.tableViewMyUpdates) {
         if (registration_serial_no.count == 0) {
             return 1;
         }
         return registration_serial_no.count;
     }
-    
+    return 0;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.tableViewOthers) {
         return 1;
-    } else {
+    } else if(tableView == self.tableViewMyUpdates) {
         return vehicleID.count;
     }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -402,7 +420,7 @@
     }
     if (tableView == self.tableViewOthers) {
         [cell.contentView addSubview:[self plotViewWithIndexNumber:indexPath.row andType:@"view"]];
-    } else {
+    } else if (tableView == self.tableViewMyUpdates) {
         NSLog(@"%d", vehicle_idMy.count);
         // code for my updates
         if (vehicle_idMy.count == 0) {
@@ -675,7 +693,7 @@
     if (tableView == self.tableViewOthers) {
         CGFloat height = [[self plotViewWithIndexNumber:indexPath.row andType:@"height"] floatValue];
         return height + 10;
-    } else {
+    } else if (tableView == self.tableViewOthers) {
         if (vehicle_idMy.count == 0) {
             // create Stay tuned view here
             return 300;
@@ -684,6 +702,7 @@
             return height + 10;
         }
     }
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -835,9 +854,13 @@
 
 -(id)plotHeaderViewWithType:(NSString *)typeView withIndex:(NSInteger)indexPath {
     
+    //Add TapGesture to open ReportSummary Screen
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openReportSummary:)];
+    
     // Add 1 background view as container
     UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 80)];
     viewBG.backgroundColor = [UIColor whiteColor];
+    [viewBG addGestureRecognizer:tap];
     
     // Add Bottom view for other information
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
@@ -1283,5 +1306,140 @@
 
 - (IBAction)btnVehicleRecoveredClicked:(id)sender {
     
+    // Start Animating activityIndicator
+    [navActivityIndicator startAnimating];
+    
+    // add bgToolbar to view
+    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    
+    NSDate *date = [NSDate date];
+    
+    NSDateFormatter *dtFormat = [NSDateFormatter new];
+    [dtFormat setDateFormat:@"yyyy-MM-dd"];
+    NSString *dtString = [dtFormat stringFromDate:date];
+    [dtFormat setDateFormat:@"hh:mm:ss"];
+    NSString *tmString = [dtFormat stringFromDate:date];
+    
+    /*NSLog(@"%@", dtString);
+    NSLog(@"%@", tmString);*/
+    
+    NSDictionary *parameters = @{@"userId" : UserID,
+                                 @"pin" : pin,
+                                 @"reportId" : reportIDHeader[0],
+                                 @"vehicleId" : vehicleID[0],
+                                 @"date" : dtString,
+                                 @"time" : tmString};
+    
+    //NSLog(@"%@", parameters);
+    
+    NSString *url = [NSString stringWithFormat:@"%@vehicleRecovered.php", SERVERNAME];
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        
+        // Stop Animating activityIndicator
+        [navActivityIndicator stopAnimating];
+        [bgToolBar removeFromSuperview];
+        
+        NSDictionary *json = (NSDictionary *)responseObject;
+        
+        if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
+            // Show ActionSheet Here
+            sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            
+            // Create BackgroundView as Container
+            UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 450)];
+            viewBG.backgroundColor = [UIColor whiteColor];
+            [viewBG sizeToFit];
+            
+            // Add Done button here
+            UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 300, 40)];
+            [btnDone setTitle:@"Done" forState:UIControlStateNormal];
+            btnDone.titleLabel.textColor = [UIColor whiteColor];
+            btnDone.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+            btnDone.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+            [btnDone addTarget:self action:@selector(btnDoneClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [viewBG addSubview:btnDone];
+            
+            // Add Image of success here
+            UIImageView *ivSuccess = [[UIImageView alloc] initWithFrame:CGRectMake(125, btnDone.frame.origin.y + btnDone.frame.size.height + 5, 90, 90)];
+            [ivSuccess setImage:[UIImage imageNamed:@"target_symbol.png"]];
+            [viewBG addSubview:ivSuccess];
+            
+            // Add Date Time label here
+            UILabel *lblDtTm = [[UILabel alloc] initWithFrame:CGRectMake(0, ivSuccess.frame.origin.y + ivSuccess.frame.size.height + 5, 320, 30)];
+            [dtFormat setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
+            lblDtTm.textAlignment = NSTextAlignmentCenter;
+            lblDtTm.text = [dtFormat stringFromDate:date];
+            [viewBG addSubview:lblDtTm];
+            
+            // Add Police Button here
+            UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblDtTm.frame.origin.y + lblDtTm.frame.size.height + 15, 135, 40)];
+            [btnPolice setTitle:@"Call Police" forState:UIControlStateNormal];
+            btnPolice.titleLabel.textColor = btnDone.titleLabel.textColor;
+            btnPolice.backgroundColor = btnDone.backgroundColor;
+            btnPolice.titleLabel.font = btnDone.titleLabel.font;
+            [btnPolice addTarget:self action:@selector(btnCallPoliceClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [viewBG addSubview:btnPolice];
+            
+            // Add Insurer Button here
+            UIButton *btnInsurer = [[UIButton alloc] initWithFrame:CGRectMake(btnPolice.frame.origin.x + btnPolice.frame.size.width + 10, btnPolice.frame.origin.y, btnPolice.frame.size.width, btnPolice.frame.size.height)];
+            [btnInsurer setTitle:@"Call Insurer" forState:UIControlStateNormal];
+            btnInsurer.titleLabel.textColor = btnDone.titleLabel.textColor;
+            btnInsurer.backgroundColor = btnDone.backgroundColor;
+            btnInsurer.titleLabel.font = btnDone.titleLabel.font;
+            [btnInsurer addTarget:self action:@selector(btnCallInsurerClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [viewBG addSubview:btnInsurer];
+            
+            [sheet addSubview:viewBG];
+            
+            [sheet showInView:self.view];
+            [sheet setBounds:CGRectMake( 0, 0, 320, 450)];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        [DeviceInfo errorInConnection];
+        
+        // Stop Animating activityIndicator
+        [navActivityIndicator stopAnimating];
+        [bgToolBar removeFromSuperview];
+
+    }];
 }
+
+-(void)btnDoneClicked:(UIButton *)sender {
+    // open home page
+    [sheet dismissWithClickedButtonIndex:0 animated:YES];
+    
+    [self backButtonClicked:nil];
+}
+
+-(void)btnCallPoliceClicked:(UIButton *)sender {
+    NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", @"131444"]];
+    [[UIApplication sharedApplication] openURL:telURL];
+}
+
+-(void)btnCallInsurerClicked:(UIButton *)sender {
+    NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", insurance_company_numberHeader[0]]];
+    [[UIApplication sharedApplication] openURL:telURL];
+}
+
+#pragma mark - UITagGestureRecognizer methods
+
+-(void)openReportSummary:(UITapGestureRecognizer *)recognizer {
+    // open Report Summary screen
+    ReportSummaryViewController *reportVC = [[ReportSummaryViewController alloc] init];
+    reportVC.detailsArray = detailsArray;
+    [self.navigationController pushViewController:reportVC animated:YES];
+}
+
 @end

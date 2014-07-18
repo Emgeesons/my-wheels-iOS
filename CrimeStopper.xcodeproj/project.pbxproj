@@ -181,8 +181,12 @@
 		EC4661C6196A76FF00884581 /* headphone.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4661C5196A76FF00884581 /* headphone.png */; };
 		EC4D5A58196BC711003B9CFF /* FHSStream.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4D5A55196BC711003B9CFF /* FHSStream.m */; };
 		EC4D5A59196BC711003B9CFF /* FHSTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4D5A57196BC711003B9CFF /* FHSTwitterEngine.m */; };
+		EC4D83FA1977823A00A95D30 /* target_symbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4D83F91977823A00A95D30 /* target_symbol@2x.png */; };
+		EC4D83FC1977824300A95D30 /* target_symbol.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4D83FB1977824300A95D30 /* target_symbol.png */; };
 		EC4EBFD21973A0C7007BF09E /* ic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4EBFD11973A0C7007BF09E /* ic_location.png */; };
 		EC4EBFD41973A0D3007BF09E /* ic_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4EBFD31973A0D3007BF09E /* ic_location@2x.png */; };
+		EC4FDA041977973E005E80A3 /* ReportSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4FDA021977973E005E80A3 /* ReportSummaryViewController.m */; };
+		EC4FDA051977973E005E80A3 /* ReportSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC4FDA031977973E005E80A3 /* ReportSummaryViewController.xib */; };
 		EC5023E51967B65200E8550B /* FileNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5023E31967B65200E8550B /* FileNewReportViewController.m */; };
 		EC5023E61967B65200E8550B /* FileNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E41967B65200E8550B /* FileNewReportViewController.xib */; };
 		EC5023E81967BE5100E8550B /* im_complete_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC5023E71967BE5100E8550B /* im_complete_profile@2x.png */; };
@@ -446,8 +450,13 @@
 		EC4D5A55196BC711003B9CFF /* FHSStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSStream.m; sourceTree = "<group>"; };
 		EC4D5A56196BC711003B9CFF /* FHSTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSTwitterEngine.h; sourceTree = "<group>"; };
 		EC4D5A57196BC711003B9CFF /* FHSTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSTwitterEngine.m; sourceTree = "<group>"; };
+		EC4D83F91977823A00A95D30 /* target_symbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target_symbol@2x.png"; sourceTree = "<group>"; };
+		EC4D83FB1977824300A95D30 /* target_symbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target_symbol.png; sourceTree = "<group>"; };
 		EC4EBFD11973A0C7007BF09E /* ic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_location.png; sourceTree = "<group>"; };
 		EC4EBFD31973A0D3007BF09E /* ic_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_location@2x.png"; sourceTree = "<group>"; };
+		EC4FDA011977973E005E80A3 /* ReportSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSummaryViewController.h; sourceTree = "<group>"; };
+		EC4FDA021977973E005E80A3 /* ReportSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSummaryViewController.m; sourceTree = "<group>"; };
+		EC4FDA031977973E005E80A3 /* ReportSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSummaryViewController.xib; sourceTree = "<group>"; };
 		EC5023E21967B65200E8550B /* FileNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNewReportViewController.h; sourceTree = "<group>"; };
 		EC5023E31967B65200E8550B /* FileNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNewReportViewController.m; sourceTree = "<group>"; };
 		EC5023E41967B65200E8550B /* FileNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileNewReportViewController.xib; sourceTree = "<group>"; };
@@ -787,6 +796,9 @@
 				EC352FCC196FB9290041F992 /* DetailsViewController.h */,
 				EC352FCD196FB9290041F992 /* DetailsViewController.m */,
 				EC352FCE196FB9290041F992 /* DetailsViewController.xib */,
+				EC4FDA011977973E005E80A3 /* ReportSummaryViewController.h */,
+				EC4FDA021977973E005E80A3 /* ReportSummaryViewController.m */,
+				EC4FDA031977973E005E80A3 /* ReportSummaryViewController.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -821,6 +833,8 @@
 				EC4EBFD31973A0D3007BF09E /* ic_location@2x.png */,
 				EC4661C1196A71C300884581 /* report_submitted.png */,
 				EC4661BF196A71B400884581 /* report_submitted@2x.png */,
+				EC4D83FB1977824300A95D30 /* target_symbol.png */,
+				EC4D83F91977823A00A95D30 /* target_symbol@2x.png */,
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
 				5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */,
 				5E05DCC6195EBDE90081256F /* default_profile_homeround.png */,
@@ -1077,6 +1091,7 @@
 				ECEAE27E1966C52A00BBA108 /* points_bg@2x.png in Resources */,
 				EC4661C2196A71C300884581 /* report_submitted.png in Resources */,
 				5EE8C8FF19515089009550A1 /* ic_map.png in Resources */,
+				EC4D83FA1977823A00A95D30 /* target_symbol@2x.png in Resources */,
 				EC4661C0196A71B400884581 /* report_submitted@2x.png in Resources */,
 				5E815EAF1940832700CEAFAB /* InfoPlist.strings in Resources */,
 				5EEF21931955B44300A0BA3F /* male_inactive.png in Resources */,
@@ -1135,6 +1150,7 @@
 				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,
 				5EEF21771955A3FB00A0BA3F /* app_icon_120x120.png in Resources */,
 				5EFE9192195948D80014669E /* default_profile.png in Resources */,
+				EC4D83FC1977824300A95D30 /* target_symbol.png in Resources */,
 				ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */,
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
 				ECEAE27A1966C52A00BBA108 /* green_pin@2x.png in Resources */,
@@ -1159,6 +1175,7 @@
 				5EE8C90F19518BAB009550A1 /* ic_suburban_taxi.png in Resources */,
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
 				5E05DCCB195EBDE90081256F /* default_profile@1x.png in Resources */,
+				EC4FDA051977973E005E80A3 /* ReportSummaryViewController.xib in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
 				5EEEB9161963DA800083CC56 /* ic_car.png in Resources */,
 				5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */,
@@ -1222,6 +1239,7 @@
 				5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */,
 				5EFFBC70195C00B0003679C6 /* UIButton+AFNetworking.m in Sources */,
 				ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */,
+				EC4FDA041977973E005E80A3 /* ReportSummaryViewController.m in Sources */,
 				ECEAE26A1966C13900BBA108 /* ReportSightingViewController.m in Sources */,
 				5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */,
 				5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */,

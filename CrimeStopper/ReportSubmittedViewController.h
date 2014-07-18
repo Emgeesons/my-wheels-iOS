@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ReportSubmittedViewController : UIViewController
-
+@property (nonatomic, strong) NSString *vehicleID;
 @end

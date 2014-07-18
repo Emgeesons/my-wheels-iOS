@@ -472,6 +472,7 @@
             
             ShareNewReportViewController *vc = [[ShareNewReportViewController alloc] init];
             vc.photo1 = photo1;
+            vc.vehicleId = vehicleID[selectedNumber];
             [self.navigationController pushViewController:vc animated:YES];
             
         } else {
@@ -638,7 +639,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"stolen / Abandoned Vehicle?", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Stolen / Abandoned Vehicle?", nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;

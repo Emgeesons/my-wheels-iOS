@@ -86,6 +86,7 @@
         [self deleteAllimageFiles];
         
         ReportSubmittedViewController *vc = [[ReportSubmittedViewController alloc] init];
+        vc.vehicleID = self.vehicleId;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
