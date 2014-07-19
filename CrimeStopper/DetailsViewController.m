@@ -12,6 +12,7 @@
 #import "UIButton+AFNetworking.h"
 #import "UIColor+Extra.h"
 #import "CustomImageView.h"
+#import "ReportSightingViewController.h"
 @import QuickLook;
 
 #define MIN_HEIGHT 10.0f
@@ -23,6 +24,7 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReportSoghting;
+- (IBAction)btnReportSightingClicked:(id)sender;
 
 @end
 
@@ -260,7 +262,15 @@
     
     // add UILabel for Name of user
     UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 30)];
-    NSString *strName = [NSString stringWithFormat:@"%@ lost her vehicle", self.firstNameHeader];
+    NSString *strName;// = [NSString stringWithFormat:@"%@ lost her vehicle", self.firstNameHeader];
+    
+    if ([self.typeSightingHeader isEqualToString:@"Theft"]) {
+        strName = [NSString stringWithFormat:@"%@ lost their vehicle", self.firstNameHeader];
+    } else if ([self.typeSightingHeader isEqualToString:@"Vandalism"]) {
+        strName = [NSString stringWithFormat:@"%@ reported a %@", self.firstNameHeader, self.typeSightingHeader];
+    } else if ([self.typeSightingHeader isEqualToString:@"Stolen /Abandoned Vehicle?"]) {
+        strName = [NSString stringWithFormat:@"%@ reported a Stolen /Abandoned Vehicle", self.firstNameHeader];
+    }
     
     // Attribute string for User name and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
@@ -510,7 +520,6 @@
         NSLog(@"file downloading error : %@", [error localizedDescription]);
     }];
     [downloadRequest start];
-    
 }
 
 #pragma mark - QLPreviewControllerDataSource Methods
@@ -740,6 +749,13 @@
     return nil;
 }
 
-
-
+- (IBAction)btnReportSightingClicked:(id)sender {
+    // open report sighting screen
+    ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
+    vc.sighting = self.typeSightingHeader;
+    vc.regNo = self.regNoHeader;
+    vc.make = self.makeHeader;
+    vc.model = self.modelHeader;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

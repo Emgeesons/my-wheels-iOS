@@ -23,6 +23,7 @@
 - (IBAction)backButtonClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)btnCallPoliceClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnCallPolice;
 
 @end
 
@@ -41,6 +42,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.btnCallPolice.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     
     //NSLog(@"%d", self.detailsArray.count);
     [self displayDetails];

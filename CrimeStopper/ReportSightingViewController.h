@@ -30,4 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
 - (IBAction)addImage:(id)sender;
 
+@property (strong, nonatomic) NSString *sighting, *regNo, *make, *model;
+
 @end

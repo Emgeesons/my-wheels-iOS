@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportSummaryViewController">
             <connections>
+                <outlet property="btnCallPolice" destination="OMy-lZ-iuy" id="Xkc-Q9-fKS"/>
                 <outlet property="scrollView" destination="vHp-p7-44n" id="BM6-mf-fBp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

@@ -14,6 +14,8 @@
 #import "UIColor+Extra.h"
 #import "CustomImageView.h"
 #import "ReportSummaryViewController.h"
+#import "LoginVC.h"
+#import "UserProfileVC.h"
 @import QuickLook;
 
 #define MIN_HEIGHT 10.0f
@@ -171,6 +173,19 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
     self.tableViewOthers.backgroundColor = self.view.backgroundColor;
+    
+    for (int i=0; i<[self.segmentedControl.subviews count]; i++)
+    {
+        if ([[self.segmentedControl.subviews objectAtIndex:i]isSelected] )
+        {
+            UIColor *tintcolor=[UIColor colorWithHexString:@"#0067AD"];
+            [[self.segmentedControl.subviews objectAtIndex:i] setTintColor:tintcolor];
+        }
+        else
+        {
+            [[self.segmentedControl.subviews objectAtIndex:i] setTintColor:nil];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -183,6 +198,20 @@
 }
 
 - (IBAction)segmentedClicked:(id)sender {
+    
+    for (int i=0; i<[self.segmentedControl.subviews count]; i++)
+    {
+        if ([[self.segmentedControl.subviews objectAtIndex:i]isSelected] )
+        {
+            UIColor *tintcolor=[UIColor colorWithHexString:@"#0067AD"];
+            [[self.segmentedControl.subviews objectAtIndex:i] setTintColor:tintcolor];
+        }
+        else
+        {
+            [[self.segmentedControl.subviews objectAtIndex:i] setTintColor:nil];
+        }
+    }
+    
     if (self.segmentedControl.selectedSegmentIndex == 0) {
         NSLog(@"Other");
         self.viewOthers.hidden = NO;
@@ -222,19 +251,24 @@
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     
+    if (UserID == NULL) {
+        UserID = @"0";
+        pin = @"0000";
+    }
+    
     NSDictionary *parameters = @{@"userId" : UserID,
                                  @"pin" : pin,
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString],
-                                 @"countReports" : [NSString stringWithFormat:@"%d",report],
-                                 @"countSightings" : [NSString stringWithFormat:@"%d",sighting]};
+                                 @"countReports" : [NSString stringWithFormat:@"%ld",(long)report],
+                                 @"countSightings" : [NSString stringWithFormat:@"%ld",(long)sighting]};
     
     //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -307,17 +341,22 @@
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     
+    if (UserID == NULL) {
+        UserID = @"0";
+        pin = @"0000";
+    }
+    
     NSDictionary *parameters = @{@"userId" : UserID,
                                  @"pin" : pin,
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString]};
     
-    NSLog(@"%@", parameters);
+    //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -391,10 +430,11 @@
     if (tableView == self.tableViewOthers) {
         return type.count;
     } else if(tableView == self.tableViewMyUpdates) {
-        if (registration_serial_no.count == 0) {
+        NSLog(@"vehicle_idMy ==> %lu", (unsigned long)vehicle_idMy.count);
+        if (vehicle_idMy.count == 0) {
             return 1;
         }
-        return registration_serial_no.count;
+        return vehicle_idMy.count;
     }
     return 0;
 }
@@ -421,7 +461,6 @@
     if (tableView == self.tableViewOthers) {
         [cell.contentView addSubview:[self plotViewWithIndexNumber:indexPath.row andType:@"view"]];
     } else if (tableView == self.tableViewMyUpdates) {
-        NSLog(@"%d", vehicle_idMy.count);
         // code for my updates
         if (vehicle_idMy.count == 0) {
             // create Stay tuned view here
@@ -467,8 +506,24 @@
     
     // add UILabel for Name of user
     UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 30)];
-    NSString *strName = [NSString stringWithFormat:@"%@ lost her vehicle", first_name[indexPath]];
+    NSString *strName; //[NSString stringWithFormat:@"%@ lost her vehicle", first_name[indexPath]];
     
+    if ([type[indexPath] isEqualToString:@"report"]) {
+        if ([report_type[indexPath] isEqualToString:@"Theft"]) {
+            strName = [NSString stringWithFormat:@"%@ lost their vehicle", first_name[indexPath]];
+        } else if ([report_type[indexPath] isEqualToString:@"Vandalism"]) {
+            strName = [NSString stringWithFormat:@"%@ reported a %@", first_name[indexPath], report_type[indexPath]];
+        } else if ([report_type[indexPath] isEqualToString:@"Stolen /Abandoned Vehicle?"]) {
+            strName = [NSString stringWithFormat:@"%@ reported a Stolen /Abandoned Vehicle", first_name[indexPath]];
+        }
+    } else {
+        if ([report_type[indexPath] isEqualToString:@"Theft"] || [report_type[indexPath] isEqualToString:@"Vandalism"] || [report_type[indexPath] isEqualToString:@"Suspicious Activity"]) {
+            strName = [NSString stringWithFormat:@"%@ spotted a %@", first_name[indexPath], report_type[indexPath]];
+        } else {
+            strName = [NSString stringWithFormat:@"%@ spotted a Suspicious Activity", first_name[indexPath]];
+        }
+    }
+    //NSLog(@"%@", strName);
     // Attribute string for User anme and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
     [attrStringName addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f] range:NSMakeRange(0, strName.length)];
@@ -693,7 +748,7 @@
     if (tableView == self.tableViewOthers) {
         CGFloat height = [[self plotViewWithIndexNumber:indexPath.row andType:@"height"] floatValue];
         return height + 10;
-    } else if (tableView == self.tableViewOthers) {
+    } else if (tableView == self.tableViewMyUpdates) {
         if (vehicle_idMy.count == 0) {
             // create Stay tuned view here
             return 300;
@@ -847,7 +902,17 @@
 }
 
 - (IBAction)btnLoginClicked:(id)sender {
+    NSString *btnTitle = self.btnLogin.currentTitle;
     
+    if ([btnTitle isEqualToString:@"Let's Go"]) {
+        // open profile page
+        UserProfileVC *vc = [[UserProfileVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        // open login page
+        LoginVC *vc = [[LoginVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark Header View For MyUpdates TableView
@@ -1082,7 +1147,7 @@
     
     // add UILabel for Name of user
     UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 30)];
-    NSString *strName = [NSString stringWithFormat:@"%@ lost her vehicle", first_nameMy[indexPath]];
+    NSString *strName = [NSString stringWithFormat:@"%@ spotted your %@", first_nameMy[indexPath], vehicle_typeMy[indexPath]];
     
     // Attribute string for User anme and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];

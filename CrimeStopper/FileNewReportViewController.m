@@ -26,6 +26,8 @@
     NSDateFormatter *dateFormat, *timeFormat;
     UIToolbar *bgToolBar;
     UIActivityIndicatorView *activityIndicator;
+    
+    BOOL isLocationEnabled;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UITableView *tableView;
@@ -136,6 +138,9 @@
         selectedDate = [dateFormat stringFromDate:date];
         selectedTime = [timeFormat stringFromDate:date];
     }
+    
+    // setLocationEnabled as NO
+    isLocationEnabled = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -165,14 +170,18 @@
         [alert show];
     }
     
+    isLocationEnabled = NO;
+    
     NSLog(@"didFailWithError: %@", error);
-    CLLocationCoordinate2D coord = {.latitude = 37.423617, .longitude = -122.220154};
-    MKCoordinateSpan span = {.latitudeDelta = 0.005, .longitudeDelta = 0.005};
+    CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+    MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
     MKCoordinateRegion region = {coord, span};
     [_mapView setRegion:region];
     
-    originalLatitude = [NSString stringWithFormat:@"%f", 37.423617];
-    originalLongitude = [NSString stringWithFormat:@"%f", -122.220154];
+    _lblAddress.text = @"5601 SA Australia";
+    
+    originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+    originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
     selectedLatitude = originalLatitude;
     selectedLongitude = originalLongitude;
 }
@@ -185,6 +194,8 @@
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
             placemark = [placemarks lastObject];
+            
+            isLocationEnabled = YES;
             
             address = [[NSMutableString alloc] init];
             
@@ -271,7 +282,9 @@
                 [address appendFormat:@"%@", placemark.country];
             }
             
-            _lblAddress.text = address;
+            if (isLocationEnabled == YES) {
+                _lblAddress.text = address;
+            }
             
             
         } else {
@@ -639,7 +652,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Stolen / Abandoned Vehicle?", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Stolen /Abandoned Vehicle?", nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
