@@ -42,6 +42,8 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="view1" destination="ak5-7p-QXu" id="2f6-tz-IM3"/>
                 <outlet property="view4" destination="l4t-TE-gpo" id="uF2-u2-LWE"/>
+                <outlet property="viewButton" destination="6ui-xH-iWI" id="ybP-4G-ICV"/>
+                <outlet property="viewPics" destination="wwV-xK-HyZ" id="OQz-kq-gSg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

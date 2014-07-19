@@ -72,6 +72,11 @@ NSInteger intImage;
      model
      os
 */
+    _intPosition = 0;
+    _intNoPhoto = 0;
+    
+    
+    
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
@@ -225,6 +230,30 @@ NSInteger intImage;
                           
                       }
                       [SVProgressHUD dismiss];
+                      if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
+                      {
+                          [_btnAddPhoto setHidden:NO];
+                      }
+                      else
+                      {
+                          [_btnAddPhoto setHidden:YES];
+                          [_btnAddPhoto setAlpha:0.0f];
+                          
+                      }
+                      
+                      if([_lblCompanyName.text isEqualToString: @""])
+                      {
+                          [_view4 setHidden:YES];
+                          _viewPics.frame = CGRectMake(0, 313, 320, 89);
+                          _viewButton.frame = CGRectMake(0,402, 320, 58);
+                      }
+                      else
+                      {
+                          [_view4 setHidden:NO];
+                          _viewPics.frame = CGRectMake(0, 400, 320, 89);
+                          _viewButton.frame = CGRectMake(0, 487, 320, 58);
+
+                      }
                       
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"Error: %@ ***** %@", operation.responseString, error);
@@ -386,6 +415,68 @@ NSInteger intImage;
 
     // Do any additional setup after loading the view from its nib.
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    NSLog(@"photo : %@",photo1);
+    NSLog(@"photo2 : %@",photo2);
+    NSLog(@"photo3: %@",photo3);
+    // NSString *photoURL = @"https://pullquotesandexcerpts.files.wordpress.com/2013/11/silver-apple-logo.png?w=360";
+    if(photo1 == nil || photo1 == (id)[NSNull null] || [photo1 isEqualToString:@""])
+    {
+        //_imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
+    }
+    else
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo1]];
+        UIImage *image = [UIImage imageWithData:imageData];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                
+                  _imgvehicle1.image = image;
+                
+            });
+        });
+    }
+    if(photo2 == nil || photo2 == (id)[NSNull null] || [photo2 isEqualToString:@""])
+    {
+        //_imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
+    }
+    else
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo2]];
+            UIImage *image = [UIImage imageWithData:imageData];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                
+                _imgvehicle2.image = image;
+                
+            });
+        });
+    }
+    if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
+    {
+        //_imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
+    }
+    else
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo3]];
+            UIImage *image = [UIImage imageWithData:imageData];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                
+                _imgvehicle3.image = image;
+                
+            });
+        });
+    }
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -440,27 +531,39 @@ NSInteger intImage;
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
    
-    [_imgvehicle1 setImage:image];
-    [_btnPhoto1 setImage:image forState:UIControlStateNormal];
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    /*userId
+     vehicleId
+     position
+     noPhotos (already existing)
+     noVehicles
+     os
+     make
+     model
+*/
+    
     NSData *imageData = UIImagePNGRepresentation(image);
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    
+    NSString *strcount = [NSString stringWithFormat:@"%d", [_arrVehiclesCount count]];
+    NSString *strPostion = [NSString stringWithFormat:@"%d", _intPosition];
+    NSString *strNoPhoto = [NSString stringWithFormat:@"%d", _intNoPhoto];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     
     [param setValue:UserID forKey:@"userId"];
-    //   // [param setValue:@"1111" forKey:@"pin"];
-    
-    
+    [param setValue:appDelegate.strVehicleId forKey:@"vehicleId"];
+    [param setValue:strcount forKey:@"noVehicles"];
+    [param setValue:strPostion forKey:@"position"];
+    [param setValue:strNoPhoto forKey:@"noPhotos"];
     [param setValue:@"ios7" forKey:@"os"];
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
     
     
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/uploadProfilePic.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/uploadVehiclePic.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //do not put image inside parameters dictionary as I did, but append it!
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
     }
@@ -483,23 +586,28 @@ NSInteger intImage;
          }
          else
          {
-             NSString *photo_url = [jsonDictionary valueForKey:@"response"] ;
-             [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
-             NSArray *parts = [photo_url componentsSeparatedByString:@"/"];
-             NSString *filename = [parts objectAtIndex:[parts count]-1];
-             NSLog(@"file name : %@",filename);
-             
-             NSString *str = @"My_Wheels_";
-             NSString *strFileName = [str stringByAppendingString:filename];
-             NSLog(@"strfilename : %@",strFileName);
-             // Store the data
-             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-             
-             [defaults setObject:imageData forKey:strFileName];
-             [defaults synchronize];
              
              //  UIImage *contactImage = [UIImage imageWithData:imageData];
-             _imgvehicle1.image = [UIImage imageWithData:imageData];
+             if(_intPosition == 1)
+             {
+                 _imgvehicle1.image = [UIImage imageWithData:imageData];
+                 _intNoPhoto = 1;
+                 
+             }
+             else if(_intPosition == 2)
+             {
+                 _imgvehicle2.image = [UIImage imageWithData:imageData];
+                 _intNoPhoto = 2;
+                 
+             }
+             else
+             {
+                _imgvehicle3.image = [UIImage imageWithData:imageData];
+                 _intNoPhoto = 3;
+                 [_btnAddPhoto setHidden:YES];
+                 
+             }
+             
              
              
              
@@ -599,21 +707,43 @@ NSInteger intImage;
                             @"Choose Existing",
                             
                             nil];
+    _intPosition ++ ;
     popup.tag = 1;
     [popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 -(IBAction)btnAddPhoto1_click:(id)sender
 {
-
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Take Photo",
+                            @"Choose Existing",
+                            
+                            nil];
+    _intPosition = 1 ;
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 -(IBAction)btnAddPhoto2_click:(id)sender
 {
-
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Take Photo",
+                            @"Choose Existing",
+                            
+                            nil];
+    _intPosition = 2 ;
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 -(IBAction)btnAddPhoto3_click:(id)sender
 {
-
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Take Photo",
+                            @"Choose Existing",
+                            
+                            nil];
+    _intPosition =3 ;
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

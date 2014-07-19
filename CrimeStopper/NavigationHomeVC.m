@@ -14,6 +14,9 @@
 #import "HomePageVC.h"
 #import "LoginVC.h"
 #import "AppDelegate.h"
+#import "UAConfig.h"
+#import "UAPush.h"
+#import "UAirship.h"
 
 @interface NavigationHomeVC ()
 {
@@ -177,17 +180,19 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
         
         //remove profile pic
-       NSString *photoURL = appdelegate.strPhotoURL;
-        NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
-        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-        NSString *filename = [parts objectAtIndex:[parts count]-1];
-        NSLog(@"file name : %@",filename);
+//       NSString *photoURL = appdelegate.strPhotoURL;
+//        NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
+//        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+//        NSString *filename = [parts objectAtIndex:[parts count]-1];
+//        NSLog(@"file name : %@",filename);
+//        
+//        NSString *str = @"My_Wheels_";
+//        NSString *strFileName = [str stringByAppendingString:filename];
+//        NSLog(@"strfilename : %@",strFileName);
+//        
+//         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
         
-        NSString *str = @"My_Wheels_";
-        NSString *strFileName = [str stringByAppendingString:filename];
-        NSLog(@"strfilename : %@",strFileName);
-        
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
+        [[UAPush shared] setPushEnabled:NO];
         
         [[NSUserDefaults standardUserDefaults]synchronize ];
         appdelegate.strUserID = @"";

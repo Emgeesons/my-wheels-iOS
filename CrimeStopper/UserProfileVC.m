@@ -34,6 +34,9 @@ NSInteger intImage;
 NSDate *datedob;
 NSString *dob1 ;
 int years;
+int intSamaritan_points;
+NSDictionary *arrVehicle;
+ NSString *samaritan_points1 = @"0";
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,7 +51,7 @@ int years;
     [super viewDidLoad];
     self.library = [[ALAssetsLibrary alloc] init];
     dateFormatter = [[NSDateFormatter alloc] init];
-
+   arrVehicle = [[NSDictionary alloc]init];
     // NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
           NSString *Fname = [[NSUserDefaults standardUserDefaults] objectForKey:@"first_name"];
@@ -60,7 +63,12 @@ int years;
         NSString *gender = [[NSUserDefaults standardUserDefaults] objectForKey:@"gender"];
         NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
         NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
+    {
     
+    }
+    else
+    {
     NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
     NSString *filename = [parts objectAtIndex:[parts count]-1];
     NSLog(@"file name : %@",filename);
@@ -80,45 +88,7 @@ int years;
     {
         _imgUserProfilepic.image = contactImage;
     }
-    int intSamaritan_points = [samaritan_points intValue];
-    
-    
-    NSString *ques = [[NSUserDefaults standardUserDefaults] objectForKey:@"security_question"];
-    NSLog(@"ques: %@",ques);
-    NSLog(@"dob : %@",dob);
-    dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    datedob = [dateFormatter dateFromString:dob];
-    NSDate *todayDate = [NSDate date];
-    
-    
-    NSLog(@"dob : %@",datedob);
-    
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    years = (allDays-days)/365;
-    
-    NSLog(@"You live since %i years and %i days",years,days);
-    _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
-    NSLog(@"dob1 : %@",dob1 );
-
-    
-    if(intSamaritan_points > 0)
-    {
-        [_viewsamaritan setBackgroundColor: [UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1]];
-        [_btnsamaritan setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //[_imgsamaritan setImage:[UIImage imageNamed:@""]];
-        [_lblsamaritan setTextColor:[UIColor whiteColor]];
     }
-    else
-    {
-        [_viewsamaritan setBackgroundColor:[UIColor grayColor]];
-        [_btnsamaritan setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-         [_lblsamaritan setTextColor:[UIColor darkGrayColor]];
-    }
-    
     
     
     _lblFname.text = Fname;
@@ -271,6 +241,7 @@ int years;
         [param setValue:@"ios7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
         [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+       
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         @try
@@ -317,7 +288,7 @@ int years;
                           NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
                           NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
                           NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
-                          NSString *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+                        NSString  *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
                           NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
                           NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                           NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
@@ -351,7 +322,54 @@ int years;
                           [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                           [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                           
+                          intSamaritan_points  = [samaritan_points intValue];
+                          
+                          
                       }
+                      NSLog(@"dob : %@",dob);
+                      dateFormatter = [[NSDateFormatter alloc]init];
+                      [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                      
+                      datedob = [dateFormatter dateFromString:dob];
+                      NSDate *todayDate = [NSDate date];
+                      
+                      
+                      NSLog(@"dob : %@",datedob);
+                      
+                      int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob1]];
+                      int allDays = (((time/60)/60)/24);
+                      int days = allDays%365;
+                      years = (allDays-days)/365;
+                      
+                      NSLog(@"You live since %i years and %i days",years,days);
+                      _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
+                      NSLog(@"dob1 : %@",dob1 );
+                      
+                      
+                      
+                      
+                      
+                      NSString *ques = [[NSUserDefaults standardUserDefaults] objectForKey:@"security_question"];
+                      NSLog(@"ques: %@",ques);
+                      
+                      samaritan_points1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
+                      _lblsamaritan.text = samaritan_points1;
+                      if(intSamaritan_points > 0)
+                      {
+                          [_viewsamaritan setBackgroundColor: [UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1]];
+                          [_btnsamaritan setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                          //[_imgsamaritan setImage:[UIImage imageNamed:@""]];
+                          [_lblsamaritan setTextColor:[UIColor whiteColor]];
+                      }
+                      else
+                      {
+                          [_viewsamaritan setBackgroundColor:[UIColor grayColor]];
+                          [_btnsamaritan setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+                          [_lblsamaritan setTextColor:[UIColor darkGrayColor]];
+                      }
+                      
+
+                      
                       [SVProgressHUD dismiss];
                       
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -407,7 +425,7 @@ int years;
                               NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                               NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
                               NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
-                              NSDictionary *arrVehicle = [[NSDictionary alloc]init];
+                             
                               arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                               
                               
@@ -436,6 +454,8 @@ int years;
                               [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                               [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                               
+                              
+                              
                           }
                           [SVProgressHUD dismiss];
                           
@@ -450,7 +470,7 @@ int years;
        
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-        _lblsamaritan.text = samaritan_points;
+       
         
         
         
@@ -459,7 +479,6 @@ int years;
     }
     NSMutableArray *vehicle = [[NSMutableArray alloc]init];
    vehicle = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
-  
     if([vehicle count] == 0)
     {
         [_btnAddVehicle setTitle:@"Add Vehicle" forState:UIControlStateNormal];
@@ -468,8 +487,83 @@ int years;
     {
         [_btnAddVehicle setTitle:@"My Vehicle" forState:UIControlStateNormal];
     }
+   
+    
+    NSString *photoURL1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    if(photoURL1 == nil || photoURL1 == (id)[NSNull null] || [photoURL1 isEqualToString:@""])
+    {
+    
+    }
+    else
+    {
+    
+    NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
+    NSString *filename = [parts objectAtIndex:[parts count]-1];
+    NSLog(@"file name : %@",filename);
+    
+    NSString *str = @"My_Wheels_";
+    NSString *strFileName = [str stringByAppendingString:filename];
+    NSLog(@"strfilename : %@",strFileName);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *imageData = [defaults dataForKey:strFileName];
+    
+    if(imageData == nil)
+    {
+        
+        [self downloadImageWithURL:[NSURL URLWithString:photoURL] completionBlock:^(BOOL succeeded, UIImage *image) {
+            if (succeeded) {
+                // change the image in the cell
+                _imgUserProfilepic.image = image;
+                // Store the data
+               
 
+                
+            }
+        }];
+        
+        
+           }
+    else
+    {  UIImage *contactImage = [UIImage imageWithData:imageData];
+        _imgUserProfilepic.image = contactImage;
+    }
+    
+    }
+    
+    
 }
+- (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if ( !error )
+                               {
+                                   UIImage *image = [[UIImage alloc] initWithData:data];
+                                   
+                                   
+                                   NSString *photoURL1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+                                   NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
+                                   NSString *filename = [parts objectAtIndex:[parts count]-1];
+                                   NSLog(@"file name : %@",filename);
+                                   
+                                   NSString *str = @"My_Wheels_";
+                                   NSString *strFileName = [str stringByAppendingString:filename];
+                                   NSLog(@"strfilename : %@",strFileName);
+                                   
+                                   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                  
+                                   [defaults setObject:data forKey:strFileName];
+                                   [defaults synchronize];
+                                   completionBlock(YES,image);
+                               } else{
+                                   completionBlock(NO,nil);
+                               }
+                           }];
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
    
@@ -499,44 +593,44 @@ int years;
             }
             else
             {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-                  //  NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-                    
-//                    UIImage *image = [UIImage imageWithData:imageData];
-                    
-                    dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                        
-                      //  _imgUserProfilepic.image = image;
-                        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-                        NSString *filename = [parts objectAtIndex:[parts count]-1];
-                        NSLog(@"file name : %@",filename);
-                        
-                        NSString *str = @"My_Wheels_";
-                        NSString *strFileName = [str stringByAppendingString:filename];
-                        NSLog(@"strfilename : %@",strFileName);
-                       
-                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                        NSData *imageData = [defaults dataForKey:strFileName];
-                      
-                        if(imageData == nil)
-                        {
-                              NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-                             UIImage *image = [UIImage imageWithData:imageData];
-                            _imgUserProfilepic.image = image;
-                           
-                            // Store the data
-                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                            
-                            [defaults setObject:imageData forKey:strFileName];
-                            [defaults synchronize];
-                        }
-                        else
-                        {  UIImage *contactImage = [UIImage imageWithData:imageData];
-                            _imgUserProfilepic.image = contactImage;
-                        }
-                        
-                    });
-                });
+//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+//                  //  NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+//                    
+////                    UIImage *image = [UIImage imageWithData:imageData];
+//                    
+//                    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+//                        
+//                      //  _imgUserProfilepic.image = image;
+//                        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+//                        NSString *filename = [parts objectAtIndex:[parts count]-1];
+//                        NSLog(@"file name : %@",filename);
+//                        
+//                        NSString *str = @"My_Wheels_";
+//                        NSString *strFileName = [str stringByAppendingString:filename];
+//                        NSLog(@"strfilename : %@",strFileName);
+//                       
+//                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                        NSData *imageData = [defaults dataForKey:strFileName];
+//                      
+//                        if(imageData == nil)
+//                        {
+//                              NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+//                             UIImage *image = [UIImage imageWithData:imageData];
+//                            _imgUserProfilepic.image = image;
+//                           
+//                            // Store the data
+//                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                            
+//                            [defaults setObject:imageData forKey:strFileName];
+//                            [defaults synchronize];
+//                        }
+//                        else
+//                        {  UIImage *contactImage = [UIImage imageWithData:imageData];
+//                            _imgUserProfilepic.image = contactImage;
+//                        }
+//                        
+//                    });
+//                });
             }
     
 }

@@ -18,6 +18,9 @@
 #import "SelectVehicleCell.h"
 #import "ImParkingHereVC.h"
 #import "FindVehicleVC.h"
+#import "coachmarkVC.h"
+#import "AFNetworking.h"
+
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -48,6 +51,7 @@
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSLog(@"user id:%@",appdelegate.strUserID);
     [_voewMakeModel setHidden:YES];
+    [_viewCoach setHidden:YES];
     [_tblMakeModel setSeparatorInset:UIEdgeInsetsZero];
     _arrVehicles = [[NSDictionary alloc]init];
     _arrVehicles = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
@@ -57,6 +61,14 @@
     int countVehicle = [_arrVehicles count];
     [_btnFindVehicle setEnabled:NO];
     [_imgTick setHidden:YES];
+    
+   if( appdelegate.intReg == 1)
+   {
+       timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(callDisclaimer:) userInfo:nil repeats:NO];
+       appdelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+       self.navigationController.navigationBarHidden = YES;
+
+   }
     
     if(countVehicle == 1)
     {
@@ -113,19 +125,7 @@
     
     NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
     
-    // Create the Album:
-    NSString *albumName = @"My Wheels";
-    [self.library addAssetsGroupAlbumWithName:albumName
-                                  resultBlock:^(ALAssetsGroup *group) {
-                                      NSLog(@"added album:%@", albumName);
-                                  }
-                                 failureBlock:^(NSError *error) {
-                                     NSLog(@"error adding album");
-                                 }];
-    
-       
-    
-    
+ 
     //parkVehicle
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
    
@@ -174,41 +174,76 @@
     
     [self.ViewMain addGestureRecognizer:tap];
     
-    
-    // profile pic
-    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    if(UserID == nil || UserID == (id)[NSNull null])
+     NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+    if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
     {
-        _imgProfilepic.image = [UIImage imageNamed:@"default_profile_2.png"];
+    
     }
     else
     {
-        NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-        
-        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-        NSString *filename = [parts objectAtIndex:[parts count]-1];
-        NSLog(@"file name : %@",filename);
-        
-        NSString *str = @"My_Wheels_";
-        NSString *strFileName = [str stringByAppendingString:filename];
-        NSLog(@"strfilename : %@",strFileName);
-        appdelegate.strPhotoURL = strFileName;
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSData *imageData = [defaults dataForKey:strFileName];
-        UIImage *contactImage = [UIImage imageWithData:imageData];
-        if(imageData == nil)
-        {
-            _imgProfilepic.image = [UIImage imageNamed:@"default_profile_2.png"];
-        }
-        else
-        {
-            _imgProfilepic.image = contactImage;
-        }
+    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+    NSString *filename = [parts objectAtIndex:[parts count]-1];
+    NSLog(@"file name : %@",filename);
+    
+    NSString *str = @"My_Wheels_";
+    NSString *strFileName = [str stringByAppendingString:filename];
+    NSLog(@"strfilename : %@",strFileName);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *imageData = [defaults dataForKey:strFileName];
+    
+    if(imageData == nil)
+    {
+       
+        [self downloadImageWithURL:[NSURL URLWithString:photoURL] completionBlock:^(BOOL succeeded, UIImage *image) {
+            if (succeeded) {
+                // change the image in the cell
+                _imgProfilepic.image = image;
+            }
+        }];
 
+        
+        // Store the data
+        
     }
-   }
-
+    else
+    {  UIImage *contactImage = [UIImage imageWithData:imageData];
+        _imgProfilepic.image = contactImage;
+    }
+    
+    }
+   
+    
+}
+- (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if ( !error )
+                               {
+                                   UIImage *image = [[UIImage alloc] initWithData:data];
+                                   
+                                   NSString *photoURL1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
+                                   NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
+                                   NSString *filename = [parts objectAtIndex:[parts count]-1];
+                                   NSLog(@"file name : %@",filename);
+                                   
+                                   NSString *str = @"My_Wheels_";
+                                   NSString *strFileName = [str stringByAppendingString:filename];
+                                   NSLog(@"strfilename : %@",strFileName);
+                                   
+                                   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                   
+                                   [defaults setObject:data forKey:strFileName];
+                                   [defaults synchronize];
+                                   completionBlock(YES,image);
+                               } else{
+                                   completionBlock(NO,nil);
+                               }
+                           }];
+}
 - (void) dismissKeyboard
 {
     // add self
@@ -220,71 +255,54 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-    // NSString *photoURL = @"https://pullquotesandexcerpts.files.wordpress.com/2013/11/silver-apple-logo.png?w=360";
     
-    NSString *albumName = @"My Wheels";
-    [self.library addAssetsGroupAlbumWithName:albumName
-                                  resultBlock:^(ALAssetsGroup *group) {
-                                      NSLog(@"added album:%@", albumName);
-                                  }
-                                 failureBlock:^(NSError *error) {
-                                     NSLog(@"error adding album");
-                                 }];
-    
-    
-    
-    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-    NSString *filename = [parts objectAtIndex:[parts count]-1];
-    NSLog(@"file name : %@",filename);
-    
-    
-    if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
-    {
-        _imgProfilepic .image = [UIImage imageNamed:@"default_profile_1.png"];
-    }
-    else
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-           
-            dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                
-                NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
-                
-                NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-                NSString *filename = [parts objectAtIndex:[parts count]-1];
-                NSLog(@"file name : %@",filename);
-                
-                NSString *str = @"My_Wheels_";
-                NSString *strFileName = [str stringByAppendingString:filename];
-                NSLog(@"strfilename : %@",strFileName);
-                
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                NSData *imageData = [defaults dataForKey:strFileName];
-              
-                if(imageData == nil)
-                {
-                    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
-                    UIImage *image = [UIImage imageWithData:imageData];
-                    _imgProfilepic.image = image;
-                    
-               
-                    // Store the data
-                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                    
-                    [defaults setObject:imageData forKey:strFileName];
-                    [defaults synchronize];
-                }
-                else
-                {  UIImage *contactImage = [UIImage imageWithData:imageData];
-                    _imgProfilepic.image = contactImage;
-                }
-                
-              });
-        });
-    }
+//    if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
+//    {
+//        _imgProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
+//    }
+//    else
+//    {
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+//            //  NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+//            
+//            //                    UIImage *image = [UIImage imageWithData:imageData];
+//            
+//            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+//                
+//                //  _imgUserProfilepic.image = image;
+//                NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+//                NSString *filename = [parts objectAtIndex:[parts count]-1];
+//                NSLog(@"file name : %@",filename);
+//                
+//                NSString *str = @"My_Wheels_";
+//                NSString *strFileName = [str stringByAppendingString:filename];
+//                NSLog(@"strfilename : %@",strFileName);
+//                
+//                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                NSData *imageData = [defaults dataForKey:strFileName];
+//                
+//                if(imageData == nil)
+//                {
+//                    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoURL]];
+//                    UIImage *image = [UIImage imageWithData:imageData];
+//                    _imgProfilepic.image = image;
+//                    
+//                    // Store the data
+//                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                    
+//                    [defaults setObject:imageData forKey:strFileName];
+//                    [defaults synchronize];
+//                }
+//                else
+//                {  UIImage *contactImage = [UIImage imageWithData:imageData];
+//                    _imgProfilepic.image = contactImage;
+//                }
+//                
+//            });
+//        });
+//    }
 
-    if(IsIphone5)
+      if(IsIphone5)
     {
         //scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
        // self.scrollview.contentSize = CGSizeMake(320, 800);
@@ -319,7 +337,57 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma mark selectore method
+- (IBAction)tapDetected:(UIGestureRecognizer *)sender {
+//    [_viewCoach setHidden:YES];
+    CGRect theFrame = _viewCoach.frame;
+    theFrame.origin = CGPointMake(_viewCoach.frame.origin.x, 0);
+    _viewCoach.frame = theFrame;
+    theFrame.origin = CGPointMake(0,-1000);
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0f];
+    _viewCoach.frame = theFrame;
+    [UIView commitAnimations];
+    
+    
+}
+-(void)swipe:(UISwipeGestureRecognizer *)swipeGes{
+    if(swipeGes.direction == UISwipeGestureRecognizerDirectionUp){
+        [UIView animateWithDuration:.5 animations:^{
+            //set frame of bottom view to top of screen (show 100%)
+            _viewCoach.frame =CGRectMake(0, 0, 320, _viewCoach.frame.size.height);
+        }];
+    }
+    else if (swipeGes.direction == UISwipeGestureRecognizerDirectionDown){
+        [UIView animateWithDuration:.5 animations:^{
+            //set frame of bottom view to bottom of screen (show 60%)
+            _viewCoach.frame =CGRectMake(0, 300, 320, _viewCoach.frame.size.height);
+        }];
+    }
+}
+-(void)callDisclaimer:(NSTimer *)theTimer
+{
+    [_viewCoach setHidden:NO];
+    CGRect theFrame = _viewCoach.frame;
+    theFrame.origin = CGPointMake(_viewCoach.frame.origin.x, -1000);
+   _viewCoach.frame = theFrame;
+    theFrame.origin = CGPointMake(0,0);
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0f];
+   _viewCoach.frame = theFrame;
+    [UIView commitAnimations];
+   
+    
+//    [UIView animateWithDuration:30.0 animations:^{
+//        _viewCoach.frame = CGRectMake(_viewCoach.frame.origin.x, -210, _viewCoach.frame.size.width, _viewCoach.frame.size.height);
+//    } completion:^(BOOL finished) {
+//        [_viewCoach removeFromSuperview];
+//    }];
+     [self.view addSubview:_viewCoach];
+    
+    appdelegate.intReg = 0;
+    
+}
 #pragma mark button click event
 -(IBAction)btnCancel_clck:(id)sender
 {
@@ -398,7 +466,11 @@
     FindVehicleVC *vc = [[FindVehicleVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+-(IBAction)btnGo_Click:(id)sender
+{
+    UserProfileVC *vc = [[UserProfileVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark get current location
 -(void)CurrentLocationIdentifier
 {

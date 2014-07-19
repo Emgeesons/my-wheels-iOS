@@ -14,6 +14,7 @@
                 <outlet property="imgTick" destination="OG2-mC-g2h" id="o7C-lV-TS9"/>
                 <outlet property="tblMakeModel" destination="JXE-L9-rp0" id="O1A-7r-Mwj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewCoach" destination="ktH-ex-bGP" id="QhG-jX-Ym1"/>
                 <outlet property="viewHeading" destination="zYJ-WH-qV8" id="lR9-dC-ny8"/>
                 <outlet property="voewMakeModel" destination="PAp-Yx-htA" id="Xip-AJ-vwQ"/>
             </connections>
@@ -64,7 +65,7 @@
                                 <action selector="btnProfile_click:" destination="-1" eventType="touchUpInside" id="yFU-Vj-j21"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images1111.jpeg" id="JuL-wr-jq5">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_2.png" id="JuL-wr-jq5">
                             <rect key="frame" x="279" y="21" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -275,21 +276,68 @@
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
+                <view alpha="0.89999999999999991" contentMode="scaleToFill" id="ktH-ex-bGP">
+                    <rect key="frame" x="-1" y="0.0" width="321" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_coachmark.png" id="Z6N-qA-agP">
+                            <rect key="frame" x="111" y="211" width="98" height="32"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ui9-Gl-VCH">
+                            <rect key="frame" x="117" y="313" width="92" height="45"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.11372549830000001" green="0.58823531870000001" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
+                            <state key="normal" title="Let's Go">
+                                <color key="titleColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnGo_Click:" destination="-1" eventType="touchUpInside" id="dgw-tn-yrM"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete your profile now, you will thanks us later" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B6O-du-bXM">
+                            <rect key="frame" x="0.0" y="277" width="320" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lets Get Startted !!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AUi-YB-YUa">
+                            <rect key="frame" x="52" y="251" width="216" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="2WY-Qd-xh9" appends="YES" id="BeO-se-H2d"/>
+                    </connections>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <tapGestureRecognizer id="2WY-Qd-xh9">
+            <connections>
+                <action selector="tapDetected:" destination="-1" id="2hv-TO-Xex"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="default_profile_2.png" width="124" height="124"/>
         <image name="default_profile_home1.png" width="40" height="40"/>
         <image name="ic_about_us.png" width="35" height="35"/>
         <image name="ic_app.png" width="72" height="96"/>
+        <image name="ic_coachmark.png" width="118" height="44"/>
         <image name="ic_drawer.png" width="16" height="16"/>
         <image name="ic_file_new_report.png" width="35" height="35"/>
         <image name="ic_report_sighting.png" width="35" height="35"/>
         <image name="ic_updates.png" width="35" height="35"/>
-        <image name="images1111.jpeg" width="133" height="133"/>
         <image name="tick_mark.png" width="20" height="20"/>
     </resources>
 </document>

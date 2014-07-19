@@ -19,7 +19,7 @@
 @property (nonatomic,retain) IBOutlet UILabel *lblCompanyName,*lblPolicyNo,*lblExpiry;
 
 @property (nonatomic,retain) IBOutlet UIButton *btnBack,*btnAdd,*btnAddInsurance,*btnEditInfo,*btnDelete;
-@property (nonatomic,retain) IBOutlet UIView *view1,*vew2,*view3,*view4;
+@property (nonatomic,retain) IBOutlet UIView *view1,*vew2,*view3,*view4,*viewPics,*viewButton;;
 
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 
@@ -31,7 +31,8 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnPhoto1,*btnPhoto2,*btnPhoto3;
 @property (nonatomic,retain) IBOutlet UIImageView *imgvehicle1,*imgvehicle2,*imgvehicle3;
 @property (nonatomic,retain) IBOutlet UIImageView *imgRound1,*imgRound2,*imgRound3;
-
+@property (nonatomic,retain) NSDictionary *arrVehiclesCount;
+@property (nonatomic) NSInteger intPosition, intNoPhoto;
 
 
 -(IBAction)btnBack_click:(id)sender;

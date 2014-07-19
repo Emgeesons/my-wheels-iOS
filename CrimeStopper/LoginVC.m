@@ -9,7 +9,9 @@
 #import "SVProgressHUD.h"
 #import "LoginWithFacebookVC.h"
 #import "AFNetworking.h"
-
+#import "UAConfig.h"
+#import "UAPush.h"
+#import "UAirship.h"
 
 //#import "PPRevealSideViewController.h"
 
@@ -335,6 +337,7 @@
 -(IBAction)btnbtnRegister_click:(id)sender
 {
     RegistrationVC *vc = [[RegistrationVC alloc]init];
+    
     [self.navigationController pushViewController:vc animated:YES];
 
 }
@@ -867,7 +870,14 @@
                     [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
                     [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                     [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
+                    //URBAN AIRSHIP SET UP
+                    NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+                    NSString *yourAlias = UserId;
+                    [UAPush shared].alias = yourAlias;
+                    [[UAPush shared] setPushEnabled:YES];
+                    //End of Urban Airship Set up
                     
+                  
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     HomePageVC *obj=[[HomePageVC alloc]init];
                   

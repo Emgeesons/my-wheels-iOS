@@ -12,12 +12,15 @@
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
+#import "coachmarkVC.h"
+#import "AppDelegate.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface RegistrationVC ()
 {
     UIActionSheet *actionSheet;
+    AppDelegate *appDelegate;
 }
 @end
 
@@ -56,6 +59,8 @@ int intques;
 {
     [super viewDidLoad];
     [pickerDateOfBirth setHidden:YES];
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
      [pickerDateOfBirth addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventValueChanged];
     dateFormatter = [[NSDateFormatter alloc] init];
     [self.gender setImage:[[UIImage imageNamed:@"male_active.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:0];
@@ -565,8 +570,20 @@ int intques;
         }
         else
         {
+           // coachmarkVC *myViewController = [[coachmarkVC alloc] initWithNibName:nil bundle:nil];
+            
+//            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:myViewController];
+//            //now present this navigation controller as modally
+//            [self presentModalViewController:[navigationController YES]];
+//            
             HomePageVC *vc = [[HomePageVC alloc]init];
+            appDelegate.intReg = 1;
             [self.navigationController pushViewController:vc animated:YES];
+            
+           
+           
+            
+        
 
         }
     }

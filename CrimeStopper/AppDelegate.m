@@ -11,13 +11,17 @@
 #import <Parse/Parse.h>
 #import "HomePageVC.h"
 
+#import "UAConfig.h"
+#import "UAPush.h"
+
+
 @implementation AppDelegate
 @synthesize intud;
 @synthesize strUserID;
 @synthesize strFBdob,strFBUserName,strGender;
 @synthesize strFacebookID,strFacebookPhotoURL,strFacebookToken,strFacebookEmail;
 @synthesize strVehicleId,strVehicleType,years;
-@synthesize strPhotoURL;
+@synthesize strPhotoURL,intReg;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -53,6 +57,17 @@
 //    self.window.rootViewController = self.HomeScreenVC;
 
     _arrMutvehiclePark = [[NSMutableArray alloc]init];
+    
+    UAConfig *config = [UAConfig defaultConfig];
+    [UAirship takeOff:config];
+    [UAPush shared].notificationTypes = (UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert);
+    [UAPush setDefaultPushEnabledValue:NO];
+    // This will trigger the proper registration or de-registration code in the library.
+    //[[UAPush shared] setPushEnabled:YES];
+
+    
     return YES;
 }
 
