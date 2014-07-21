@@ -20,7 +20,9 @@
 #import "FindVehicleVC.h"
 #import "coachmarkVC.h"
 #import "AFNetworking.h"
-
+#import "FileNewReportViewController.h"
+#import "UpdatesViewController.h"
+#import "ReportSightingViewController.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -389,6 +391,20 @@
     
 }
 #pragma mark button click event
+- (IBAction)openFileNewReport:(id)sender {
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSLog(@"str : %@",UserID);
+    if(UserID == nil || UserID == (id)[NSNull null])
+    {
+        LoginVC *vc = [[LoginVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+        FileNewReportViewController *vc = [[FileNewReportViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 -(IBAction)btnCancel_clck:(id)sender
 {
     [self.voewMakeModel setHidden:YES];
@@ -469,6 +485,15 @@
 -(IBAction)btnGo_Click:(id)sender
 {
     UserProfileVC *vc = [[UserProfileVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (IBAction)openUpdates:(id)sender {
+    UpdatesViewController *updatesVC = [[UpdatesViewController alloc] init];
+    [self.navigationController pushViewController:updatesVC animated:YES];
+}
+-(IBAction)btnReportSighting_click:(id)sender
+{
+    ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark get current location

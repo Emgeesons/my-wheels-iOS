@@ -48,5 +48,7 @@
 -(IBAction)btnProfile_click:(id)sender;
 -(IBAction)btnHeading_click:(id)sender;
 -(IBAction)btnCancel_clck:(id)sender;
-
+- (IBAction)openFileNewReport:(id)sender;
+- (IBAction)openUpdates:(id)sender;
+-(IBAction)btnReportSighting_click:(id)sender;
 @end

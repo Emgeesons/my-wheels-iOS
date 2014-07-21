@@ -118,6 +118,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnReportSighting_click:" destination="-1" eventType="touchUpInside" id="At5-Ni-QtD"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_report_sighting.png" id="x47-WD-aqB">
                             <rect key="frame" x="11" y="10" width="38" height="40"/>
@@ -149,6 +152,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="openFileNewReport:" destination="-1" eventType="touchUpInside" id="yHN-9F-mvI"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_file_new_report.png" id="8bs-d0-UXU">
                             <rect key="frame" x="11" y="10" width="38" height="40"/>
@@ -215,6 +221,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="openUpdates:" destination="-1" eventType="touchUpInside" id="Vhl-3W-dk0"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_updates.png" id="Emj-mV-TvQ">
                             <rect key="frame" x="11" y="18" width="38" height="40"/>

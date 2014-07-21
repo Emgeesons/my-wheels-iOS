@@ -9,6 +9,8 @@
 #import "ReportSightingViewController.h"
 @import CoreLocation;
 #import "AFNetworking.h"
+#import "Reachability.h"
+#import "UserProfileVC.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
@@ -21,6 +23,7 @@
     NSDateFormatter *dateFormat, *timeFormat;
     UIActivityIndicatorView *activityIndicator;
     UIToolbar *bgToolBar;
+    BOOL isLocationEnabled;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @end
@@ -64,7 +67,7 @@
     timeFormat = [[NSDateFormatter alloc] init];
     [timeFormat setDateFormat:@"HH:mm:ss"];
     
-    NSLog(@"%@", [DeviceInfo platformNiceString]);
+    //NSLog(@"%@", [DeviceInfo platformNiceString]);
     
     // Add UIToolBar to view with alpha 0.7 for transparency
     bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];
@@ -77,6 +80,30 @@
     activityIndicator.frame = CGRectMake(0, 0, 40, 40);
     activityIndicator.center = self.view.center;
     [bgToolBar addSubview:activityIndicator];
+    
+    // set current date & time in textbox here
+    NSDate *date = [NSDate date];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
+    
+    self.txtDateTime.text = [format stringFromDate:date];
+    
+    // set selected date & time
+    selectedDate = [dateFormat stringFromDate:date];
+    selectedTime = [timeFormat stringFromDate:date];
+    
+    // Check If this page opened from UpdatesVC or not,
+    if ([self.sighting isEqualToString:@""] || self.sighting == NULL) {
+        NSLog(@"direct");
+    } else {
+        self.txtSighting.text = self.sighting;
+        self.txtRegistrationNo.text = self.regNo;
+        self.txtMake.text = self.make;
+        self.txtModel.text = self.model;
+    }
+    
+    // setLocationEnabled as NO
+    isLocationEnabled = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -202,11 +229,27 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+    
+    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Error" message:@"Location service is not enabled.\nGo to \"Settings->Privacy->LocationServices\"\nto enable location services." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    isLocationEnabled = NO;
+    
     NSLog(@"didFailWithError: %@", error);
-    CLLocationCoordinate2D coord = {.latitude = 37.423617, .longitude = -122.220154};
-    MKCoordinateSpan span = {.latitudeDelta = 0.005, .longitudeDelta = 0.005};
+    CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+    MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
     MKCoordinateRegion region = {coord, span};
     [_mapView setRegion:region];
+            
+    _lblAddress.text = @"5601 SA Australia";
+    
+    originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+    originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
+    selectedLatitude = originalLatitude;
+    selectedLongitude = originalLongitude;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -217,6 +260,8 @@
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
             placemark = [placemarks lastObject];
+            
+            isLocationEnabled = YES;
 
             address = [[NSMutableString alloc] init];
             
@@ -303,8 +348,9 @@
                 [address appendFormat:@"%@", placemark.country];
             }
             
-            _lblAddress.text = address;
-            
+            if (isLocationEnabled == YES) {
+                _lblAddress.text = address;
+            }
             
         } else {
             NSLog(@"%@", error.debugDescription);
@@ -317,7 +363,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious activity", @"Other", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious Activity", @"Other", nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
@@ -500,7 +546,7 @@
     [FormatDate setLocale: [NSLocale currentLocale]];
     
     //set date format
-    [FormatDate setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [FormatDate setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
     
     self.txtDateTime.text = [FormatDate stringFromDate:[datePicker date]];
     
@@ -666,6 +712,8 @@
 
 -(void)openProfile {
     // Code for open profile page
+    UserProfileVC *vc = [[UserProfileVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
