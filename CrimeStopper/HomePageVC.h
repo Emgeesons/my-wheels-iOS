@@ -17,6 +17,7 @@
 {
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
+     NSTimer *timer;
 }
 @property (nonatomic,retain) IBOutlet UIButton *btnNav;
 @property (nonatomic,retain) IBOutlet UIView *viewReport,*viewNewReport,*viewAboutUs,*viewUpdates;
@@ -36,6 +37,9 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgTick;
 @property (nonatomic,retain) IBOutlet UIView *viewHeading;
 @property (nonatomic) int intblue;
+@property (nonatomic,retain) IBOutlet UIView *viewCoach;
+
+- (IBAction)tapDetected:(UITapGestureRecognizer *)sender;
 
 -(IBAction)btnMParking_click:(id)sender;
 -(IBAction)btnFindVehicle_click:(id)sender;

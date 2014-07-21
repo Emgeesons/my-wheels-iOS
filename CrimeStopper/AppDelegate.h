@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UAirship.h"
 #import <Parse/Parse.h>
 #import "PPRevealSideViewController.h"
 
@@ -32,5 +33,6 @@
 @property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
 @property (nonatomic) int *years;
 @property (nonatomic,retain) NSString *strPhotoURL;
+@property (nonatomic) NSInteger intReg;
 
 @end

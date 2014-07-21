@@ -380,11 +380,11 @@ else
             {
                 NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
                 NSLog(@"veh : %@",veh);
-                if(veh == strCurrentVehicleID)
+                if([veh isEqualToString:strCurrentVehicleID])
                 {
                     if([arr count] == 1)
                     {
-                        [arr removeAllObjects];
+                        [arr removeObjectAtIndex:0];
                     }
                     else
                     {
@@ -396,8 +396,10 @@ else
                 }
                 
             }
-            
+            [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"parkVehicle"];
             NSLog(@"arr : %@",arr);
+
+           
             HomePageVC *vc = [[HomePageVC alloc]init];
             vc.intblue = 0;
             [self.navigationController pushViewController:vc animated:YES];
@@ -425,7 +427,7 @@ else
     {
         NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
         NSLog(@"veh : %@",veh);
-        if(veh == strCurrentVehicleID)
+        if([veh isEqualToString:strCurrentVehicleID])
         {
             if([arr count] == 1)
             {

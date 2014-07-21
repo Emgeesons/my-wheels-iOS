@@ -117,6 +117,9 @@
     vc.strVehicleId = [[_arrVehicles valueForKey:@"vehicle_id"] objectAtIndex:indexPath.row];
     app.strVehicleId = NULL;
     app.strVehicleId = [[_arrVehicles valueForKey:@"vehicle_id"] objectAtIndex:indexPath.row];
+    vc.arrVehiclesCount = [[NSDictionary alloc]init];
+    vc.arrVehiclesCount = [_arrVehicles mutableCopy];
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark button click event
