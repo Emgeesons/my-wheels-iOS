@@ -14,5 +14,5 @@
     NSTimer *timer;
 }
 @property (nonatomic,retain) NSString *str;
-
+-(IBAction)btn_lik:(id)sender;
 @end

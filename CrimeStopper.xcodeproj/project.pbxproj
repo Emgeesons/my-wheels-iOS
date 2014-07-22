@@ -44,8 +44,6 @@
 		5E09517919417AEF00DC97E2 /* btn_register(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517619417AEF00DC97E2 /* btn_register(5).png */; };
 		5E09517B19417C9B00DC97E2 /* login_btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E09517A19417C9B00DC97E2 /* login_btn_bg.png */; };
 		5E0951871941C85B00DC97E2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0951851941C85B00DC97E2 /* SVProgressHUD.m */; };
-		5E0B0A4D1979009A00672A2E /* coachmarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0B0A4B1979009A00672A2E /* coachmarkVC.m */; };
-		5E0B0A4E1979009A00672A2E /* coachmarkVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E0B0A4C1979009A00672A2E /* coachmarkVC.xib */; };
 		5E0B0A501979035E00672A2E /* ic_coachmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E0B0A4F1979035E00672A2E /* ic_coachmark.png */; };
 		5E182B3E19653D6E003C1793 /* MyVehicleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E182B3C19653D6E003C1793 /* MyVehicleVC.m */; };
 		5E182B3F19653D6E003C1793 /* MyVehicleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E182B3D19653D6E003C1793 /* MyVehicleVC.xib */; };
@@ -287,9 +285,6 @@
 		5E0951811941C71D00DC97E2 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 		5E0951851941C85B00DC97E2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		5E0951861941C85B00DC97E2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		5E0B0A4A1979009A00672A2E /* coachmarkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coachmarkVC.h; sourceTree = "<group>"; };
-		5E0B0A4B1979009A00672A2E /* coachmarkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = coachmarkVC.m; sourceTree = "<group>"; };
-		5E0B0A4C1979009A00672A2E /* coachmarkVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = coachmarkVC.xib; sourceTree = "<group>"; };
 		5E0B0A4F1979035E00672A2E /* ic_coachmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_coachmark.png; sourceTree = "<group>"; };
 		5E182B3B19653D6E003C1793 /* MyVehicleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVehicleVC.h; sourceTree = "<group>"; };
 		5E182B3C19653D6E003C1793 /* MyVehicleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVehicleVC.m; sourceTree = "<group>"; };
@@ -897,9 +892,6 @@
 				5EB5B20F1970033D00DE2ABE /* RatingTipsVC.h */,
 				5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */,
 				5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */,
-				5E0B0A4A1979009A00672A2E /* coachmarkVC.h */,
-				5E0B0A4B1979009A00672A2E /* coachmarkVC.m */,
-				5E0B0A4C1979009A00672A2E /* coachmarkVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -1189,7 +1181,6 @@
 				5EEF21761955A3FB00A0BA3F /* app_icon_80x80.png in Resources */,
 				5EFABB45196D7060007C0781 /* current_location@2x.png in Resources */,
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
-				5E0B0A4E1979009A00672A2E /* coachmarkVC.xib in Resources */,
 				5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */,
 				5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
@@ -1368,7 +1359,6 @@
 				5E815EB11940832700CEAFAB /* main.m in Sources */,
 				5EFFBC26195C00B0003679C6 /* AFHTTPRequestOperation.m in Sources */,
 				5EFFBC2E195C00B0003679C6 /* AFURLSessionManager.m in Sources */,
-				5E0B0A4D1979009A00672A2E /* coachmarkVC.m in Sources */,
 				5EFFBC72195C00B0003679C6 /* UIProgressView+AFNetworking.m in Sources */,
 				5EE8C9161951AAEB009550A1 /* FeedBackVC.m in Sources */,
 				5E04AF03194FFC70003F6CD4 /* PPRevealSideViewController.m in Sources */,
@@ -1472,7 +1462,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1505,7 +1495,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1546,7 +1536,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1585,7 +1575,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

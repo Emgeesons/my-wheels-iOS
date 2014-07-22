@@ -103,7 +103,7 @@
     
     if(IsIphone5)
     {
-        self.scrollview.frame = CGRectMake(0, -20, 320, 588);
+        self.scrollview.frame = CGRectMake(0, 0, 320, 588);
 
         [self.scrollview setContentSize:CGSizeMake(320, 568)];
          imgBackGround.frame = CGRectMake(0, 0, 320, 568);
@@ -881,7 +881,8 @@
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     HomePageVC *obj=[[HomePageVC alloc]init];
                   
-                    [self.navigationController pushViewController:obj animated:YES];
+                   [self.navigationController pushViewController:obj animated:YES];
+                   // [self presentViewController:obj animated:YES completion:nil];
                  }
                 [SVProgressHUD dismiss];
 

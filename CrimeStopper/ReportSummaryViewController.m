@@ -405,7 +405,7 @@
 }
 
 -(void)deleteAllimageFiles {
-    // Delete all user's body picks from gallery folder
+    // Delete all r u rser's body picks from gallery folder
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     NSFileManager *fm = [NSFileManager defaultManager];

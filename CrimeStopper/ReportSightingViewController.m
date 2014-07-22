@@ -135,7 +135,8 @@
     
     // get the count of files in gallery folder
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);    NSLog(@"%@", docPaths);
+    NSLog(@"%@", docPaths);
     NSString *dataPath = [[docPaths objectAtIndex:0] stringByAppendingPathComponent:@"/gallery"];
     NSArray *filelist= [fm contentsOfDirectoryAtPath:dataPath error:nil];
     //NSLog(@"%lu", (unsigned long)filelist.count);
@@ -678,7 +679,7 @@
     btnProfile.frame = CGRectMake(141, ivDivider.frame.origin.y + ivDivider.frame.size.height + 1, 140, 60);
     [btnProfile setTitle:@"View Profile" forState:UIControlStateNormal];
     [btnProfile setTitleColor:btnClose.tintColor forState:UIControlStateNormal];
-    [btnClose addTarget:self action:@selector(openProfile) forControlEvents:UIControlEventTouchUpInside];
+    [btnProfile addTarget:self action:@selector(openProfile) forControlEvents:UIControlEventTouchUpInside];
     [viewSuccess addSubview:btnProfile];
     
     [self.view.superview insertSubview:viewSuccess aboveSubview:bgToolBar];
@@ -712,7 +713,7 @@
 
 -(void)openProfile {
     // Code for open profile page
-    UserProfileVC *vc = [[UserProfileVC alloc]init];
+    UserProfileVC *vc = [[UserProfileVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

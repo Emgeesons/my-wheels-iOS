@@ -39,6 +39,8 @@
 @property (nonatomic) int intblue;
 @property (nonatomic,retain) IBOutlet UIView *viewCoach;
 
+
+
 - (IBAction)tapDetected:(UITapGestureRecognizer *)sender;
 
 -(IBAction)btnMParking_click:(id)sender;
@@ -51,4 +53,5 @@
 - (IBAction)openFileNewReport:(id)sender;
 - (IBAction)openUpdates:(id)sender;
 -(IBAction)btnReportSighting_click:(id)sender;
+
 @end

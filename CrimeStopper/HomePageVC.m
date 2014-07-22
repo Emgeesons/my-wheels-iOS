@@ -18,7 +18,7 @@
 #import "SelectVehicleCell.h"
 #import "ImParkingHereVC.h"
 #import "FindVehicleVC.h"
-#import "coachmarkVC.h"
+
 #import "AFNetworking.h"
 #import "FileNewReportViewController.h"
 #import "UpdatesViewController.h"
@@ -63,7 +63,7 @@
     int countVehicle = [_arrVehicles count];
     [_btnFindVehicle setEnabled:NO];
     [_imgTick setHidden:YES];
-    
+
    if( appdelegate.intReg == 1)
    {
        timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(callDisclaimer:) userInfo:nil repeats:NO];
@@ -496,6 +496,7 @@
     ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 #pragma mark get current location
 -(void)CurrentLocationIdentifier
 {

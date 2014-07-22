@@ -11,6 +11,7 @@
 #import "LoginVC.h"
 #import "HomePageVC.h"
 
+
 @interface HomeScreenVC ()
 {
     AppDelegate *appdelegate;
@@ -55,8 +56,7 @@
         if(UserID == nil || UserID == (id)[NSNull null])
         {
             LoginVC *vc = [[LoginVC alloc]init];
-            //        [self presentViewController:vc animated:YES completion:nil];
-            [self.navigationController pushViewController:vc animated:YES];
+                    [self.navigationController pushViewController:vc animated:YES];
 
         }
         else

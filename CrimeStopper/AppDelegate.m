@@ -10,9 +10,10 @@
 #import "HomeScreenVC.h"
 #import <Parse/Parse.h>
 #import "HomePageVC.h"
-
+#import "LoginVC.h"
 #import "UAConfig.h"
 #import "UAPush.h"
+
 
 
 @implementation AppDelegate
@@ -22,6 +23,7 @@
 @synthesize strFacebookID,strFacebookPhotoURL,strFacebookToken,strFacebookEmail;
 @synthesize strVehicleId,strVehicleType,years;
 @synthesize strPhotoURL,intReg;
+@synthesize strCurrentTime,strPinTimeStamp;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -36,6 +38,7 @@
     [PFFacebookUtils initializeFacebook];
 
     
+    // Override point for customization after application launch.
     // Override point for customization after application launch.
     self.HomeScreenVC = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
     self.window.rootViewController = self.HomeScreenVC;
@@ -69,6 +72,14 @@
 
     
     return YES;
+}
+#pragma mark background methods
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    /*
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
+    
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 #pragma mark - PPRevealSideViewController delegate
@@ -130,13 +141,6 @@
                         withSession:[PFFacebookUtils session]];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
-    
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     /*
@@ -160,6 +164,35 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+//    NSLog(@"wlcome to crime stoper....");
+//     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+//    if(UserID == nil || UserID == (id)[NSNull null] || [UserID isEqualToString:@""])
+//    {
+//        LoginVC *vc = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
+//        [vc.navigationController pushViewController:vc animated:YES];
+//        
+////        self.window.rootViewController = vc;
+////        
+////        LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
+////        vc = obj;
+//       // nav = [[UINavigationController alloc] initWithRootViewController:obj];
+//        //[self.navi  pushViewController:vc animated:YES];
+//       
+//        [vc viewDidLoad];
+//    }
+//    else
+//    {
+//        HomePageVC *vc = [[HomePageVC alloc]init];
+//        self.everyTimeLogin = [[EvertTimePinVC alloc] initWithNibName:@"EvertTimePinVC" bundle:nil];
+//        self.window.rootViewController = self.everyTimeLogin;
+//        
+//        EvertTimePinVC *obj = [[EvertTimePinVC alloc] initWithNibName:@"EvertTimePinVC" bundle:nil];
+//        self.everyTimeLogin = obj;
+//        [vc.navigationController pushViewController:obj animated:YES];
+//    }
+//    [self.nav pushViewController:vc animated:YES];
+    
+    
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 

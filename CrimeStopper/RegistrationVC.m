@@ -12,7 +12,7 @@
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
-#import "coachmarkVC.h"
+
 #import "AppDelegate.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )

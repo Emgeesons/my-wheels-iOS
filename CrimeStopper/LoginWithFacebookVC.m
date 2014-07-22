@@ -599,7 +599,8 @@ int intques;
         else
         {
             HomePageVC *vc = [[HomePageVC alloc]init];
-            [self presentViewController:vc animated:YES completion:nil];
+
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }
