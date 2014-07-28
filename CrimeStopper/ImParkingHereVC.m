@@ -46,7 +46,7 @@ NSMutableDictionary *dicCounter;
     NSString *strCurrentVehicleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     _arrVehiclePark = [[NSMutableDictionary alloc]init];
    
-    
+    [_viewLocationGuide setHidden:YES];
     
 //    [_btnVehicleName setTitle:strCurrentVehicleName forState:UIControlStateNormal];
       [_lblHeading setText:strCurrentVehicleName];
@@ -60,6 +60,9 @@ NSMutableDictionary *dicCounter;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     [locationManager startUpdatingLocation];
+    
+   
+    
 //    if(IsIphone5)
 //    {
 //        _viewComment.frame = CGRectMake(0 , 410, 320, 44);
@@ -133,7 +136,13 @@ NSMutableDictionary *dicCounter;
      */
     NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
+     NSLog(@"current location : %@",latitude);
     
+    if([latitude isEqualToString:@"0.000000"])
+    {
+        [_viewLocationGuide setHidden:NO];
+    }
+
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     if(UserID == nil || UserID == (id)[NSNull null])
     {
@@ -159,7 +168,9 @@ NSMutableDictionary *dicCounter;
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/parkingHere.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+     NSString *url = [NSString stringWithFormat:@"%@parkingHere.php", SERVERNAME];
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -230,6 +241,21 @@ NSMutableDictionary *dicCounter;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+#pragma mark alert view delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == 2)
+    {
+        if(buttonIndex == 0)
+        {
+            _lblLocation.text = @"Location";
+            
+        }
+        else
+        {
+            [_viewLocationGuide setHidden:NO];
+        }
+    }
 }
 
 #pragma mark table view delegate methods
@@ -322,6 +348,8 @@ NSMutableDictionary *dicCounter;
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+    
+    
     NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -406,7 +434,29 @@ NSMutableDictionary *dicCounter;
     
     [self.navigationController pushViewController:vc animated:YES];
 }
+-(IBAction)btnGotit_click:(id)sender
+{
+    [_viewLocationGuide setHidden:YES];
+}
 #pragma mark textfield delegate methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    
+    activeTextField=textField;
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+        
+    }
+    return YES;
+}
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     

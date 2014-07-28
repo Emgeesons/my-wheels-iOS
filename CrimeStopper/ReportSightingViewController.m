@@ -44,6 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [_viewLocationGuide setHidden:YES];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
     
@@ -54,6 +55,15 @@
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
     
     [_locationManager startUpdatingLocation]; // start updating for current location
+    //get current location
+    NSString *latitude=[NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
+   
+    NSLog(@"current location : %@",latitude);
+    
+    if([latitude isEqualToString:@"0.000000"])
+    {
+        [_viewLocationGuide setHidden:NO];
+    }
     
     // set contentSize of scrollview here
     [self.scrollView setContentSize:CGSizeMake(0, 450)];
@@ -111,7 +121,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(IBAction)btnLocation_click:(id)sender
+{
+    [_viewLocationGuide setHidden:YES];
+}
 - (IBAction)backButtonClicked:(id)sender {
     [self deleteAllimageFiles];
     [self.navigationController popViewControllerAnimated:YES];

@@ -46,7 +46,7 @@ NSInteger intImage;
     [super viewDidLoad];
     
     dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-mm-dd"];
+     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     _btnEditInfo.layer.borderWidth=1.0f;
     _btnEditInfo.layer.borderColor=[[UIColor lightGrayColor] CGColor];
@@ -105,7 +105,9 @@ NSInteger intImage;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
         @try {
-            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getVehicleProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSString *url = [NSString stringWithFormat:@"%@getVehicleProfile.php", SERVERNAME];
+            
+            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 NSLog(@"url : %@",manager);
             }
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -154,20 +156,17 @@ NSInteger intImage;
                           photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
                           insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
                           
-                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                          
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
                           
                           NSLog(@"date : %@",str);
+                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                           NSString *date = [dateFormatter stringFromDate:str];
                           
                           NSLog(@"date1 : %@",date);
                           
                           
-                          _lblExpiry.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"];
-                          /*Bicycle
-                           Car
-                           Motor Cycle
-                           Other*/
+                          _lblExpiry.text = date;
                           
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
@@ -263,7 +262,9 @@ NSInteger intImage;
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         }
         @catch (NSException *exception) {
-            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getVehicleProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+             NSString *url = [NSString stringWithFormat:@"%@getVehicleProfile.php", SERVERNAME];
+            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 NSLog(@"url : %@",manager);
             }
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -312,21 +313,18 @@ NSInteger intImage;
                           photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
                           insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
                           
-                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                          
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
                           
                           NSLog(@"date : %@",str);
+                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                           NSString *date = [dateFormatter stringFromDate:str];
                           
                           NSLog(@"date1 : %@",date);
                           
                           
-                          _lblExpiry.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"];
-                          /*Bicycle
-                           Car
-                           Motor Cycle
-                           Other*/
-                          
+                          _lblExpiry.text = date;
+                                                    
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
@@ -561,9 +559,9 @@ NSInteger intImage;
     [param setValue:@"ios7" forKey:@"os"];
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+     NSString *url = [NSString stringWithFormat:@"%@uploadVehiclePic.php", SERVERNAME];
     
-    
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/uploadVehiclePic.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //do not put image inside parameters dictionary as I did, but append it!
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
     }
@@ -886,7 +884,9 @@ NSInteger intImage;
                 
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                 manager.requestSerializer = [AFJSONRequestSerializer serializer];
-                [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/deleteVehicle.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                 NSString *url = [NSString stringWithFormat:@"%@deleteVehicle.php", SERVERNAME];
+                
+                [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                     NSLog(@"url : %@",manager);
                 }
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {

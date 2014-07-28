@@ -21,6 +21,8 @@
     [super viewDidLoad];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.navigationController.navigationBarHidden = YES;
+    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    
 //    self.title = @"Facebook Profile";
 //    self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
 //    
@@ -48,14 +50,16 @@
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         // handle response
         if (!error) {
+            self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
             // Parse the data received
             NSDictionary *userData = (NSDictionary *)result;
-            
+            NSLog(@"user data : %@",userData);
             NSString *facebookID = userData[@"id"];
             NSLog(@"facebookID :: %@",facebookID);
             
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
+           
             
             NSMutableDictionary *userProfile = [NSMutableDictionary dictionaryWithCapacity:7];
             
@@ -87,6 +91,9 @@
                 userProfile[@"pictureURL"] = [pictureURL absoluteString];
             }
             
+           
+
+            
             [[PFUser currentUser] setObject:userProfile forKey:@"profile"];
             [[PFUser currentUser] saveInBackground];
             
@@ -99,6 +106,8 @@
             NSLog(@"Some other error: %@", error);
         }
     }];
+    
+    
     
 }
 
@@ -179,6 +188,8 @@
 // Set received values if they are not nil and reload the table
 - (void)updateProfile {
     
+    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    
     if ([[PFUser currentUser] objectForKey:@"profile"][@"gender"]) {
         [self.rowDataArray replaceObjectAtIndex:1 withObject:[[PFUser currentUser] objectForKey:@"profile"][@"gender"]];
         appdelegate.strGender = [[PFUser currentUser] objectForKey:@"profile"][@"gender"];
@@ -212,7 +223,7 @@
     if (FBSession.activeSession.isOpen) {
         [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error) {
-              
+               NSLog(@"Email %@",[user objectForKey:@"email"]);
                 appdelegate.strFacebookEmail = [user objectForKey:@"email"];
                 NSLog(@"email : %@",appdelegate.strFacebookEmail);
             }
@@ -260,7 +271,7 @@
         
        // WebApiController *obj=[[WebApiController alloc]init];
         NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-        [param setValue:@"asha@emgeesons.com" forKey:@"email"];
+        [param setValue:appdelegate.strFacebookEmail forKey:@"email"];
         [param setValue:[arr objectAtIndex:0] forKey:@"firstName"];
         [param setValue:[arr objectAtIndex:1] forKey:@"lastName"];
         [param setValue:@"1989-09-14" forKey:@"dob"];
@@ -275,7 +286,9 @@
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/fbLoginRegister.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+         NSString *url = [NSString stringWithFormat:@"%@fbLoginRegister.php", SERVERNAME];
+        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             
         }
               success:^(AFHTTPRequestOperation *operation, id responseObject) {

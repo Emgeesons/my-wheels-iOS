@@ -29,10 +29,12 @@
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic,retain) IBOutlet UIButton *btnDone;
+@property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
 
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnRating_click:(id)sender;
 -(IBAction)btnTip_click:(id)sender;
 -(IBAction)btnDone_click:(id)sender;
+-(IBAction)btnGotit_click:(id)sender;
 
 @end

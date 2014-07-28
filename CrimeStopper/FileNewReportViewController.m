@@ -50,6 +50,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [_viewLocationGuide setHidden:YES];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
     
@@ -60,7 +61,16 @@
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
     
     [_locationManager startUpdatingLocation]; // start updating for current location
+    //get current location
+    NSString *latitude=[NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
+   
+    NSLog(@"current location : %@",latitude);
     
+    if([latitude isEqualToString:@"0.000000"])
+    {
+        [_viewLocationGuide setHidden:NO];
+    }
+
     // set contentSize of scrollview here
     [self.scrollView setContentSize:CGSizeMake(0, 470)];
     
@@ -334,7 +344,10 @@
 }
 
 #pragma mark - UIActionSheet done/cancel buttons
-
+-(IBAction)btnGot_click:(id)sender
+{
+    [_viewLocationGuide setHidden:YES];
+}
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == sightingPicker) {
         if (buttonIndex == 3) {

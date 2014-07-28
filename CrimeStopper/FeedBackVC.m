@@ -87,7 +87,8 @@
     //[obj callAPI_POST:@"feedback.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/feedback.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+   NSString *url = [NSString stringWithFormat:@"%@feedback.php", SERVERNAME];
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

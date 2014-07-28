@@ -103,70 +103,7 @@
     
     if(IsIphone5)
     {
-        self.scrollview.frame = CGRectMake(0, 0, 320, 588);
-
-        [self.scrollview setContentSize:CGSizeMake(320, 568)];
-         imgBackGround.frame = CGRectMake(0, 0, 320, 568);
-        
-       viewButtons.frame = CGRectMake(19, 283, 282, 220);
-       _imgView.frame = CGRectMake(0, 0, 282, 220);
-        _imgView1.frame = CGRectMake(0,0, 282, 220);
-        _imgView2.frame = CGRectMake(0,0, 282, 220);
-        _imgView3.frame = CGRectMake(0,0, 282, 220);
-        btnFacebook.frame = CGRectMake(26, 15, 230, 55);
-        btnLogin.frame = CGRectMake(26, 83, 230, 55);
-        btnRegister.frame = CGRectMake(26, 153, 230, 55);
-       
-        viewForgotPin.frame = CGRectMake(19, 283, 282, 220);
-        viewForgotQuestion.frame = CGRectMake(19, 283, 282, 220);
-        viewLogin.frame = CGRectMake(19, 283, 282, 220);
-         btnSkiptoHome.frame = CGRectMake(19, 535, 282, 30);
-        _btnCancel1.frame = CGRectMake(20, 163, 57, 30);
-        _btnForgotPin.frame = CGRectMake(174, 163, 94, 30);
-       // btnCancel.frame = CGRectMake(112, 168, 58, 30);
-        
-        
-    }
-    else
-    {
-        imgBackGround.frame = CGRectMake(0, 0, 320, 480);
-        self.scrollview.frame = CGRectMake(0, -20, 320, 500);
-        [self.scrollview setContentSize:CGSizeMake(320, 480)];
-        viewButtons.frame = CGRectMake(19, 238, 282, 170);
-        _imgView.frame = CGRectMake(0,0, 282, 200);
-        _imgView1.frame = CGRectMake(0,0, 282, 200);
-        _imgView2.frame = CGRectMake(0,0, 282, 200);
-        _imgView3.frame = CGRectMake(0,0, 282, 200);
-        btnFacebook.frame = CGRectMake(26, 15, 230, 50);
-        btnLogin.frame = CGRectMake(26, 72, 230, 50);
-        btnRegister.frame = CGRectMake(26, 130, 230, 50);
-        
-        viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
-        viewForgotQuestion.frame = CGRectMake(19, 238, 282, 170);
-        viewLogin.frame = CGRectMake(19, 238, 282, 170);
-        btnSkiptoHome.frame = CGRectMake(19, 442, 282, 30);
-
-        //// set in 4.0
-        _btnCancel1.frame = CGRectMake(20, 153, 57, 30);
-        _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
-       // btnCancel.frame = CGRectMake(112, 158, 58, 30);
-    }
-    
-    [txtEmail setInputAccessoryView:self.toolbar];
-    [txtAnswer setInputAccessoryView:self.toolbar];
-    [txtEmailIDForForgot setInputAccessoryView:self.toolbar];
-    [txtPin1 setInputAccessoryView:self.toolbar];
-    [txtpin2 setInputAccessoryView:self.toolbar];
-    [txtpin3 setInputAccessoryView:self.toolbar];
-    [txtPint4 setInputAccessoryView:self.toolbar];
-
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
-    if(IsIphone5)
-    {
-        self.scrollview.frame = CGRectMake(0, 0, 320, 588);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 588);
         
         [self.scrollview setContentSize:CGSizeMake(320, 568)];
         imgBackGround.frame = CGRectMake(0, 0, 320, 568);
@@ -214,8 +151,71 @@
         _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
         btnCancel.frame = CGRectMake(112, 158, 58, 30);
     }
-
     
+    [txtEmail setInputAccessoryView:self.toolbar];
+    [txtAnswer setInputAccessoryView:self.toolbar];
+    [txtEmailIDForForgot setInputAccessoryView:self.toolbar];
+    [txtPin1 setInputAccessoryView:self.toolbar];
+    [txtpin2 setInputAccessoryView:self.toolbar];
+    [txtpin3 setInputAccessoryView:self.toolbar];
+    [txtPint4 setInputAccessoryView:self.toolbar];
+
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    if(IsIphone5)
+    {
+        self.scrollview.frame = CGRectMake(0, 0, 320, 588);
+        
+       [self.scrollview setContentSize:CGSizeMake(320, 568)];
+        imgBackGround.frame = CGRectMake(0, 0, 320, 568);
+       
+        viewButtons.frame = CGRectMake(19, 283, 282, 220);
+        _imgView.frame = CGRectMake(0, 0, 282, 220);
+        _imgView1.frame = CGRectMake(0,0, 282, 220);
+        _imgView2.frame = CGRectMake(0,0, 282, 220);
+        _imgView3.frame = CGRectMake(0,0, 282, 220);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 55);
+      btnLogin.frame = CGRectMake(26, 83, 230, 55);
+       btnRegister.frame = CGRectMake(26, 153, 230, 55);
+        
+        viewForgotPin.frame = CGRectMake(19, 283, 282, 220);
+        viewForgotQuestion.frame = CGRectMake(19, 283, 282, 220);
+        viewLogin.frame = CGRectMake(19, 283, 282, 220);
+        btnSkiptoHome.frame = CGRectMake(19, 515, 282, 30);
+        _btnCancel1.frame = CGRectMake(20, 163, 57, 30);
+        _btnForgotPin.frame = CGRectMake(174, 163, 94, 30);
+        btnCancel.frame = CGRectMake(112, 168, 58, 30);
+        
+        
+    }
+    else
+    {
+        imgBackGround.frame = CGRectMake(0, 0, 320, 480);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 500);
+        [self.scrollview setContentSize:CGSizeMake(320, 480)];
+        viewButtons.frame = CGRectMake(19, 238, 282, 170);
+        _imgView.frame = CGRectMake(0,0, 282, 200);
+        _imgView1.frame = CGRectMake(0,0, 282, 200);
+        _imgView2.frame = CGRectMake(0,0, 282, 200);
+       _imgView3.frame = CGRectMake(0,0, 282, 200);
+        btnFacebook.frame = CGRectMake(26, 15, 230, 50);
+        btnLogin.frame = CGRectMake(26, 72, 230, 50);
+       btnRegister.frame = CGRectMake(26, 130, 230, 50);
+        
+       viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
+        viewForgotQuestion.frame = CGRectMake(19, 238, 282, 170);
+       viewLogin.frame = CGRectMake(19, 238, 282, 170);
+        btnSkiptoHome.frame = CGRectMake(19, 442, 282, 30);
+        
+        //// set in 4.0
+        _btnCancel1.frame = CGRectMake(20, 153, 57, 30);
+       _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
+        btnCancel.frame = CGRectMake(112, 158, 58, 30);
+   }
+
+//
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -332,6 +332,8 @@
     napkinBottomFrame.origin.x = 20;
     [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewLogin.frame = napkinBottomFrame; viewButtons.frame = basketTopFrame1; viewButtons.alpha = 0;
                viewLogin.alpha = 1; } completion:^(BOOL finished){}];
+    
+    [self dissmissKeypad];
 
 }
 -(IBAction)btnbtnRegister_click:(id)sender
@@ -354,6 +356,7 @@
         viewButtons.alpha = 1;
         viewLogin.alpha = 0;
     } completion:^(BOOL finished){/*done*/}];
+        [self dissmissKeypad];
 
 }
 
@@ -368,6 +371,7 @@
     napkinBottomFrame.origin.x = 20;
     [UIView animateWithDuration:0.95 delay:0.0 options: UIViewAnimationOptionCurveEaseOut animations:^{ viewForgotPin.frame = napkinBottomFrame; viewLogin.frame = basketTopFrame1; viewLogin.alpha = 0;
         viewForgotPin.alpha = 1; } completion:^(BOOL finished){}];
+        [self dissmissKeypad];
 }
 -(IBAction)btnForgotSbmit_click:(id)sender
 {
@@ -377,8 +381,24 @@
     }
     else
     {
-     [self NSStringIsValidEmail:txtEmailIDForForgot.text];
+        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        if (networkStatus == NotReachable) {
+            NSLog(@"There IS NO internet connection");
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:@"Please connect to the internet to continue."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+        } else {
+            NSLog(@"There IS internet connection");
+
+                [self NSStringIsValidEmail:txtEmailIDForForgot.text];
+            
+        }
     }
+        [self dissmissKeypad];
 }
 -(IBAction)btnForgotCancel11_click:(id)sender
 {
@@ -393,6 +413,7 @@
         viewLogin.alpha = 1;
         viewForgotPin.alpha = 0;
     } completion:^(BOOL finished){/*done*/}];
+        [self dissmissKeypad];
 
 }
 -(IBAction)btnForgotPinSubmit11_click:(id)sender
@@ -408,10 +429,12 @@
         viewLogin.alpha = 1;
         viewForgotPin.alpha = 0;
     } completion:^(BOOL finished){/*done*/}];
+        [self dissmissKeypad];
 }
 
 -(IBAction)btnForgotPinSubmit_click:(id)sender
 {
+        [self dissmissKeypad];
   if(txtAnswer.text.length == 0)
   {
       
@@ -420,6 +443,19 @@
   }
   else
   {
+      Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+      NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+      if (networkStatus == NotReachable) {
+          NSLog(@"There IS NO internet connection");
+          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                              message:@"Please connect to the internet to continue."
+                                                             delegate:self
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil, nil];
+          [CheckAlert show];
+      } else {
+          NSLog(@"There IS internet connection");
+
    // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:appdelegate.strUserID forKey:@"userId"];
@@ -429,7 +465,8 @@
     [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
       AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
       manager.requestSerializer = [AFJSONRequestSerializer serializer];
-      [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/forgotPinAnswer.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+       NSString *url = [NSString stringWithFormat:@"%@forgotPinAnswer.php", SERVERNAME];
+      [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
           
       } success:^(AFHTTPRequestOperation *operation, id responseObject) {
           
@@ -444,26 +481,28 @@
           NSLog(@"Json dictionary :: %@",jsonDictionary);
           NSString *EntityID = [jsonDictionary valueForKey:@"status"];
           NSLog(@"message %@",EntityID);
-          if ([EntityID isEqualToString:@"failure"])
-          {
-              
-              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warninga"
-                                                                  message:@"Incorrect Answer. Please try again."
-                                                                 delegate:self
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles:nil, nil];
-              CheckAlert.tag =1;
-              [CheckAlert show];
-          }
-          else
+          NSString *message = [jsonDictionary valueForKey:@"message"];
+          if ([EntityID isEqualToString:@"success"])
           {
               UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Email sent"
-                                                                  message:@"Change PIN has been sent to your email ID."
+                                                                  message:message
                                                                  delegate:self
                                                         cancelButtonTitle:@"OK"
                                                         otherButtonTitles:nil, nil];
               CheckAlert.tag =1;
               [CheckAlert show];
+         }
+          else
+          {
+              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                message:message
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+              CheckAlert.tag =2;
+              [CheckAlert show];
+
+             
           }
        [SVProgressHUD dismiss];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -472,10 +511,11 @@
  
       [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
   }
-    
+  }
 }
 -(IBAction)btnForgotPinCancel_click:(id)sender
 {
+        [self dissmissKeypad];
     CGRect napkinBottomFrame = viewForgotPin.frame;
     napkinBottomFrame.origin.x = 20;
     CGRect basketTopFrame = viewForgotQuestion.frame;
@@ -525,16 +565,57 @@
 #pragma mark call api
 
 -(IBAction)btnLogin_click:(id)sender
-{
-    [self NSStringIsValidEmail:txtEmail.text];
+{    [self dissmissKeypad];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
+        NSLog(@"There IS internet connection");
+        [self NSStringIsValidEmail:txtEmail.text];
     
-    
+    }
 }
 
 
 
 
 #pragma mark textfield delegate methods
+-(void)dissmissKeypad
+{
+    [txtEmail resignFirstResponder];
+    [txtPin1 resignFirstResponder];
+    [txtpin2 resignFirstResponder];
+    [txtpin3 resignFirstResponder];
+    [txtPint4 resignFirstResponder];
+    [txtEmailIDForForgot resignFirstResponder];
+    [txtAnswer resignFirstResponder];
+    
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    activeTextField=textField;
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+    return YES;
+}
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     activeTextField=textField;
@@ -612,11 +693,7 @@
     }completion:nil];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
 
-       return NO;
-}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if(textField.tag == 2)
@@ -782,8 +859,8 @@
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
              manager.requestSerializer = [AFJSONRequestSerializer serializer];
              
-            
-             [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/login.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+             NSString *url = [NSString stringWithFormat:@"%@login.php", SERVERNAME];
+             [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
               {
              //do not put image inside parameters dictionary as I did, but append it!
              //[formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
@@ -812,9 +889,9 @@
                     txtpin2.text = @"";
                     txtpin3.text = @"";
                     txtPint4.text = @"";
-                    [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-                    
-                    [self.lblPin setTextColor:[UIColor redColor]];
+//                    [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//                    
+//                    [self.lblPin setTextColor:[UIColor redColor]];
                 }
                 else
                 {
@@ -938,7 +1015,20 @@
         else
         {
             NSLog(@"valid email...");
-          
+            Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+            NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+            if (networkStatus == NotReachable) {
+                NSLog(@"There IS NO internet connection");
+                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                    message:@"Please connect to the internet to continue."
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                [CheckAlert show];
+            } else {
+                NSLog(@"There IS internet connection");
+
+          [txtEmailIDForForgot setTextColor:[UIColor blackColor]];
            // WebApiController *obj=[[WebApiController alloc]init];
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:txtEmailIDForForgot.text forKey:@"email"];
@@ -949,7 +1039,8 @@
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-                       [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/forgotPinEmail.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+             NSString *url = [NSString stringWithFormat:@"%@forgotPinEmail.php", SERVERNAME];
+                       [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
               
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
@@ -963,18 +1054,19 @@
                 //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                 NSLog(@"Json dictionary :: %@",jsonDictionary);
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                NSString *msg = [jsonDictionary valueForKey:@"message"];
                 NSLog(@"message %@",EntityID);
                 if ([EntityID isEqualToString:@"failure"])
                 {
                     UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Incorrect Email"
-                                                                        message:@"EmailID You entered is incorrect. Please try again with the correct emailID."
+                                                                        message:msg
                                                                        delegate:self
                                                               cancelButtonTitle:@"Cancel"
                                                               otherButtonTitles:@"OK", nil];
                     [CheckAlert show];
-                    txtEmailIDForForgot.text = @"";
-                    
-                    [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//                    txtEmailIDForForgot.text = @"";
+//                    
+//                    [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                     
                 }
                 else
@@ -1008,7 +1100,7 @@
           
             return YES;
         }
-
+        }
     }
     return YES;
 }

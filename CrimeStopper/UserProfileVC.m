@@ -246,8 +246,8 @@ NSDictionary *arrVehicle;
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         @try
         {
-            
-            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+               NSString *url = [NSString stringWithFormat:@"%@getProfile.php", SERVERNAME];
+            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
               
             }
              
@@ -379,7 +379,8 @@ NSDictionary *arrVehicle;
         }
         @catch (NSException *exception)
         {
-                [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getProfile.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSString *url = [NSString stringWithFormat:@"%@getProfile.php", SERVERNAME];
+            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                
             }
                  
@@ -700,9 +701,9 @@ NSDictionary *arrVehicle;
         [param setValue:@"ios7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
        [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
-
+ NSString *url = [NSString stringWithFormat:@"%@uploadProfilePic.php", SERVERNAME];
     
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/uploadProfilePic.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //do not put image inside parameters dictionary as I did, but append it!
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
     }

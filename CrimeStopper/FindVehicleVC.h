@@ -31,7 +31,9 @@
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 @property (nonatomic,retain) IBOutlet UISlider *slide;
 @property (nonatomic,retain) IBOutlet UILabel *lblRating;
+@property (nonatomic,retain) IBOutlet UIView *viewLocation;
 
+-(IBAction)GoOt_click:(id)sender;
 -(IBAction)btnLocated_click:(id)sender;
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnPost_click:(id)sender;

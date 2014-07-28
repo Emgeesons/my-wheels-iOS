@@ -522,7 +522,9 @@ int intques;
     NSLog(@"param : %@",param);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/fbCompleteRegistration.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+     NSString *url = [NSString stringWithFormat:@"%@fbCompleteRegistration.php", SERVERNAME];
+    
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {

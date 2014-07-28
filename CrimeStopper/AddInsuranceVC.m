@@ -408,7 +408,10 @@ NSString *strDate;
             // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-            [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/addVehicleInsurance.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+             NSString *url = [NSString stringWithFormat:@"%@addVehicleInsurance.php", SERVERNAME];
+            
+            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
@@ -488,7 +491,24 @@ NSString *strDate;
     
 }
 #pragma mark textfield delegate methods
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    
+    activeTextField=textField;
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+        
+    }
+    return YES;
+}
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     

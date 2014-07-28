@@ -43,11 +43,20 @@ NSInteger flag;
     [super viewDidLoad];
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    
+    [_viewLocation setHidden:YES];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
     [locationManager startUpdatingLocation];
+    NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
+    NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
+    NSLog(@"current location : %@",latitude);
+    
+    if([latitude isEqualToString:@"0.000000"])
+    {
+        [_viewLocation setHidden:NO];
+    }
+
     [ self.map.delegate self];
     
     [_viewLocated setHidden:YES];
@@ -60,8 +69,7 @@ NSInteger flag;
     _btnSkip.layer.borderWidth=0.5f;
     _btnSkip.layer.borderColor=[[UIColor lightGrayColor] CGColor];
     /// zoom map
-    NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
-    NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
+   
     float currlat = [latitude floatValue];
     float currlongt = [longitude floatValue];
     CLLocationCoordinate2D loc ;
@@ -239,6 +247,10 @@ NSInteger flag;
     
 }
 #pragma mark button click event
+-(IBAction)GoOt_click:(id)sender
+{
+    [_viewLocation setHidden:YES];
+}
 -(IBAction)btnBack_click:(id)sender
 {
     HomePageVC *vc = [[HomePageVC alloc]init];
@@ -345,7 +357,9 @@ else
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/parkingFeedback.php" parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+     NSString *url = [NSString stringWithFormat:@"%@parkingFeedback.php", SERVERNAME];
+    
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -493,6 +507,24 @@ else
 	
 }
 #pragma mark textfield delegate methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    
+    activeTextField=textField;
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+        
+    }
+    return YES;
+}
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     
     activeTextField = textView;

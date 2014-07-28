@@ -63,7 +63,8 @@
     int countVehicle = [_arrVehicles count];
     [_btnFindVehicle setEnabled:NO];
     [_imgTick setHidden:YES];
-
+    [_viewLocationGuide setHidden:YES];
+    
    if( appdelegate.intReg == 1)
    {
        timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(callDisclaimer:) userInfo:nil repeats:NO];
@@ -126,8 +127,13 @@
     
     
     NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
+    NSLog(@"latitude : %@",latitude);
     
- 
+    if([latitude isEqualToString:@"0.000000"])
+    {
+        [_viewLocationGuide setHidden:NO];
+    }
+    
     //parkVehicle
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
    
@@ -391,6 +397,10 @@
     
 }
 #pragma mark button click event
+-(IBAction)btnLocation_click:(id)sender
+{
+    [_viewLocationGuide setHidden:YES];
+}
 - (IBAction)openFileNewReport:(id)sender {
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSLog(@"str : %@",UserID);

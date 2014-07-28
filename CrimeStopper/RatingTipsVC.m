@@ -102,7 +102,10 @@
         // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager POST:@"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/getParkingTips.php" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+         NSString *url = [NSString stringWithFormat:@"%@getParkingTips.php", SERVERNAME];
+        
+        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             
             NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);

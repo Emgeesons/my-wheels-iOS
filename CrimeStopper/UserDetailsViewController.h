@@ -4,7 +4,7 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 
-@interface UserDetailsViewController : UITableViewController <NSURLConnectionDelegate>
+@interface UserDetailsViewController : UITableViewController <NSURLConnectionDelegate,FBLoginViewDelegate>
 {
     NSDateFormatter *dateFormatter;
 }
@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSArray *rowTitleArray;
 @property (nonatomic, strong) NSMutableArray *rowDataArray;
 @property (nonatomic, strong) NSMutableData *imageData;
+@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
 
 // UINavigationBar button touch handler
 - (void)logoutButtonTouchHandler:(id)sender;

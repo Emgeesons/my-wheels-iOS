@@ -16,6 +16,8 @@
 #import "ReportSummaryViewController.h"
 #import "LoginVC.h"
 #import "UserProfileVC.h"
+#import "LoginVC.h"
+
 @import QuickLook;
 
 #define MIN_HEIGHT 10.0f
@@ -71,7 +73,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [_viewLocation setHidden:YES];
     // initialize all NSMutableArray here
     type = [[NSMutableArray alloc] init];
     comments = [[NSMutableArray alloc] init];
@@ -196,7 +198,10 @@
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+-(IBAction)btnLocation_click:(id)sender
+{
+    [_viewLocation setHidden:YES];
+}
 - (IBAction)segmentedClicked:(id)sender {
     
     for (int i=0; i<[self.segmentedControl.subviews count]; i++)
@@ -212,11 +217,15 @@
         }
     }
     
-    if (self.segmentedControl.selectedSegmentIndex == 0) {
+    if (self.segmentedControl.selectedSegmentIndex == 0)
+    {
         NSLog(@"Other");
         self.viewOthers.hidden = NO;
         self.viewMyUpdates.hidden = YES;
-    } else {
+       
+    }
+    else
+    {
         NSLog(@"my");
         self.viewOthers.hidden = YES;
         self.viewMyUpdates.hidden = NO;
@@ -226,9 +235,14 @@
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
         if(UserID == nil || UserID == (id)[NSNull null])
         {
-            self.viewTableMyUpdates.hidden = YES;
-            self.viewGuestUser.hidden = NO;
-        } else {
+//            self.viewTableMyUpdates.hidden = YES;
+//            self.viewGuestUser.hidden = NO;
+            
+            LoginVC *vc = [[LoginVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
             
             // Check vehicles are added or not
             // If not added show Let's Go view

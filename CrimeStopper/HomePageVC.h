@@ -38,11 +38,11 @@
 @property (nonatomic,retain) IBOutlet UIView *viewHeading;
 @property (nonatomic) int intblue;
 @property (nonatomic,retain) IBOutlet UIView *viewCoach;
-
+@property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
 
 
 - (IBAction)tapDetected:(UITapGestureRecognizer *)sender;
-
+-(IBAction)btnLocation_click:(id)sender;
 -(IBAction)btnMParking_click:(id)sender;
 -(IBAction)btnFindVehicle_click:(id)sender;
 -(IBAction)btnNav_click:(id)sender;

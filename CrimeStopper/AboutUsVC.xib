@@ -155,9 +155,9 @@ forward with information to help solve crimes. It also educates the community on
         </view>
     </objects>
     <resources>
-        <image name="ic_call.png" width="12" height="12"/>
-        <image name="ic_map.png" width="12" height="12"/>
-        <image name="im_about_us.png" width="320" height="144"/>
-        <image name="seperator.png" width="1" height="20"/>
+        <image name="ic_call.png" width="24" height="24"/>
+        <image name="ic_map.png" width="24" height="24"/>
+        <image name="im_about_us.png" width="640" height="288"/>
+        <image name="seperator.png" width="1" height="40"/>
     </resources>
 </document>

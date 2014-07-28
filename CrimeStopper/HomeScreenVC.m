@@ -10,7 +10,7 @@
 #import "DisclaimerViewController.h"
 #import "LoginVC.h"
 #import "HomePageVC.h"
-
+#import "EvertTimePinVC.h"
 
 @interface HomeScreenVC ()
 {
@@ -80,5 +80,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(IBAction)btn_lik:(id)sender
+{
+    EvertTimePinVC *vc = [[EvertTimePinVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end
