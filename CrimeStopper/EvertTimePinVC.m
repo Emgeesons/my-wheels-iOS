@@ -57,11 +57,9 @@
 #pragma mark button click event
 -(IBAction)btnForgotPin_click:(id)sender
 {
-//    LoginVC *vc = [[LoginVC alloc]init];
-//  
-//   [self.navigationController pushViewController:vc animated:YES];
-    //vc.view.frame = CGRectMake(0, 0, 200, 200);
-   // [self presentViewController:vc animated:YES completion:nil];
+    LoginVC *vc = [[LoginVC alloc]init];
+  
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 -(IBAction)btnSignInUser_click:(id)sender
@@ -122,7 +120,13 @@
               NSLog(@"data : %@",jsonDictionary);
               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
               NSLog(@"message %@",EntityID);
-              if ([EntityID isEqualToString:@"failure"])
+              if ([EntityID isEqualToString:@"success"])
+              {
+                 
+                  
+                  [self dismissViewControllerAnimated:YES completion:nil];
+              }
+              else
               {
                   NSString *strmessage = [jsonDictionary valueForKey:@"message"];
                   UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
@@ -130,15 +134,7 @@
                                                                      delegate:self
                                                             cancelButtonTitle:@"OK"
                                                             otherButtonTitles:nil, nil];
-                  [CheckAlert show];
-              }
-              else
-              {
-//                  HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
-//                  self.homePage = obj;
-//                  [self.navigationController pushViewController:obj animated:YES];
-                  [self dismissViewControllerAnimated:YES completion:nil];
-              }
+                  [CheckAlert show];              }
               [SVProgressHUD dismiss];
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

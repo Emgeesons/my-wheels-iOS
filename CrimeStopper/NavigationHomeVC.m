@@ -42,7 +42,7 @@
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     arrList = [[NSMutableArray alloc] initWithObjects:@"Home",@"Emergency Number",@"Feedback",@"Share App",@"Rate us",@"Logout", nil];
     
-    arrImage=[[NSMutableArray alloc]initWithObjects:@"ic_nav_home.png",@"ic_nav_emergency_numbers.png",@"ic_nav_feedback",@"ic_nav_share_app.png",@"ic_nav_rate_us.png",@"ic_nav_logout.png", nil];
+    arrImage=[[NSMutableArray alloc]initWithObjects:@"ic_nav_home1.png",@"ic_nav_emergency_numbers1.png",@"ic_nav_feedback1.png",@"ic_nav_share_app1.png",@"ic_nav_rate_us1.png",@"ic_nav_logout1.png", nil];
     
         self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view from its nib.

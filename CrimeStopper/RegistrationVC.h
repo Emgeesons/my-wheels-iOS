@@ -32,6 +32,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnBack;
 @property (nonatomic,retain) IBOutlet UIButton *btnSecurityQuestion;
 @property (nonatomic,retain) IBOutlet UIButton *btnSecurityCancel;
+@property (nonatomic,retain) IBOutlet UILabel *lblPin;
 
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 

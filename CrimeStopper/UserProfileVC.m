@@ -29,10 +29,16 @@ NSInteger intImage;
 @property (nonatomic, strong) NSArray *progressViews;
 @end
 
+
 @implementation UserProfileVC
 @synthesize customActionSheetView;
 NSDate *datedob;
 NSString *dob1 ;
+NSString *first_name;
+NSString *last_name;
+NSString *mobile_number;
+NSString *email1;
+
 int years;
 int intSamaritan_points;
 NSDictionary *arrVehicle;
@@ -273,17 +279,17 @@ NSDictionary *arrVehicle;
                           appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
                           
                           dob1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
-                          NSString *email = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
+                          email1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"];
                           NSString *emergencyContact = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact"];
                           NSString *emergency_contact_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"emergency_contact_number"];
                           NSString *fb_id = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"];
                           NSString *fb_token = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"];
-                          NSString *first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
+                          first_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"];
                           NSString *gender = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"];
-                          NSString *last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
+                          last_name = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"];
                           NSString *license_no = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_no"];
                           NSString *license_photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"license_photo_url"];
-                          NSString *mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
+                          mobile_number = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"];
                           NSString *modified_at = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"modified_at"];
                           NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
                           NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
@@ -300,7 +306,7 @@ NSDictionary *arrVehicle;
                           
                           [[NSUserDefaults standardUserDefaults] setValue:appDelegate.strUserID forKey:@"UserID"];
                           [[NSUserDefaults standardUserDefaults] setValue:dob1 forKey:@"dob"];
-                          [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
+                          [[NSUserDefaults standardUserDefaults] setValue:email1 forKey:@"email"];
                           [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
                           [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
                           [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
@@ -323,9 +329,18 @@ NSDictionary *arrVehicle;
                           [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                           
                           intSamaritan_points  = [samaritan_points intValue];
-                          
+                          _lblFname.text = first_name;
+                          _lblLname.text = last_name;
+                          _lblMobileNo.text = mobile_number;
+                          _lblEmail.text =  email1;
                           
                       }
+                     
+                      _lblFname.text = first_name;
+                      _lblLname.text = last_name;
+                      _lblMobileNo.text = mobile_number;
+                      _lblEmail.text =  email1;
+
                       NSLog(@"dob : %@",dob);
                       dateFormatter = [[NSDateFormatter alloc]init];
                       [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -342,10 +357,16 @@ NSDictionary *arrVehicle;
                       years = (allDays-days)/365;
                       
                       NSLog(@"You live since %i years and %i days",years,days);
-                      _lbldob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" yrs"];
-                      NSLog(@"dob1 : %@",dob1 );
+                                          NSLog(@"dob1 : %@",dob1 );
                       
-                      
+                      if([dob isEqualToString:@"0000-00-00 00:00:00"])
+                      {
+                          _lbldob.text = @"";
+                      }
+                      else
+                      {
+                           _lbldob.text = dob;
+                      }
                       
                       
                       

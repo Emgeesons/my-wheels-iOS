@@ -93,7 +93,7 @@
     NSLog(@"strCurretn Vehicle name :%@",strCurrentVehicleName);
     if([_arrVehicles count] > 0)
     {
-      if(strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null])
+      if(strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null] || [strCurrentVehicleID isEqualToString:@"0"])
       {
         NSString *str = [[_arrVehicles valueForKey:@"vehicle_make"] objectAtIndex:0];
         NSString *str1 = [[_arrVehicles valueForKey:@"vehicle_model"] objectAtIndex:0];
@@ -149,6 +149,12 @@
     {
         NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
         NSLog(@"strvid : %@",strvid);
+        if([strCurrentVehicleID isEqualToString:@"0"] || strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null] )
+        {
+        
+        }
+        else
+        {
         if(strvid == strCurrentVehicleID && strvid != nil)
         {
             [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
@@ -164,9 +170,25 @@
             [_imgTick setHidden:YES];
             [_btnFindVehicle setEnabled:NO];
         }
+        }
     }
     }
-   
+   //for m parking color change
+        if(intblue == 1)
+        {
+            [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+            [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_imgTick setHidden:NO];
+            
+            [_btnFindVehicle setEnabled:YES];
+        }
+        else
+        {
+            [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
+            [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [_imgTick setHidden:YES];
+            [_btnFindVehicle setEnabled:NO];
+        }
 
    NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];

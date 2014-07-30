@@ -73,17 +73,17 @@ int intques;
     [self.viewPickerview addSubview:pickerDateOfBirth];
     [viewPickerview setHidden:YES];
     arrSecurityQuestion = [[NSMutableArray alloc]init];
-    [arrSecurityQuestion addObject:@"Security Questions"];
-    [arrSecurityQuestion addObject:@"Passport Number"];
-    [arrSecurityQuestion addObject:@"Licence Number"];
-    [arrSecurityQuestion addObject:@"Mother's maiden name"];
-    [arrSecurityQuestion addObject:@"First pet's name"];
-    [arrSecurityQuestion addObject:@"First childhood friend"];
-    [arrSecurityQuestion addObject:@"First primary school"];
-    [arrSecurityQuestion addObject:@"Colour of your first car"];
-    [arrSecurityQuestion addObject:@"All time favourite movie"];
-    [arrSecurityQuestion addObject:@"First paid job"];
-    [arrSecurityQuestion addObject:@"Other"];
+    [arrSecurityQuestion addObject:@"security questions"];
+    [arrSecurityQuestion addObject:@"passport number"];
+    [arrSecurityQuestion addObject:@"licence number"];
+    [arrSecurityQuestion addObject:@"mothers maiden name"];
+    [arrSecurityQuestion addObject:@"first pets name"];
+    [arrSecurityQuestion addObject:@"first childhood friend"];
+    [arrSecurityQuestion addObject:@"first primary school"];
+    [arrSecurityQuestion addObject:@"colour of your first car"];
+    [arrSecurityQuestion addObject:@"all time favourite movie"];
+    [arrSecurityQuestion addObject:@"first paid job"];
+    [arrSecurityQuestion addObject:@"other"];
     [viewSecurityQuestion setHidden:YES];
     
       [txtAnswer setFrame:CGRectMake(5, 300, 300, 30)];
@@ -99,7 +99,17 @@ int intques;
     [self.txtPin3 setDelegate:self];
     [self.txtPin4 setDelegate:self];
     
-    
+    if(IsIphone5)
+    {
+        
+        scrollview.contentSize = CGSizeMake(320, 800);
+    }
+    else
+    {
+       
+        
+        scrollview.contentSize = CGSizeMake(320, 700);
+    }
     // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
     [toolbar setFrame:CGRectMake(0, -30, 320, 40)];
     // [txtDateOfBirth setInputAccessoryView:self.toolbar];
@@ -151,12 +161,12 @@ int intques;
     [super viewDidAppear:animated];
     if(IsIphone5)
     {
-        scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
+      
          self.scrollview.contentSize = CGSizeMake(320, 800);
     }
     else
     {
-         scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
+       
         
         self.scrollview.contentSize = CGSizeMake(320, 700);
     }
@@ -171,42 +181,62 @@ int intques;
 }
 
 #pragma mark selector method
+
 - (void)DOBChanged:(id)sender
 {
     [viewPickerview setHidden:YES];
-    
+     [dateFormatter setDateFormat:@"dd-MM-yyyy"];
     NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
      NSDate *todayDate = [NSDate date];
-   
+  
     
     int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthDate]];
     int allDays = (((time/60)/60)/24);
     int days = allDays%365;
     int years = (allDays-days)/365;
-    
+   // years = years - 13;
+  
     NSLog(@"You live since %i years and %i days",years,days);
-     txtDateOfBirth.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
-    if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
-    {
-        NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
-        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
-       
-        //[pickerDateOfBirth setHidden:YES];
-        [btnSubmit setHidden:YES];
-        return;
-    }
-    else
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIDatePicker *datePicker = (UIDatePicker *)sender;
-            
-            if ([timePicker.date compare:[NSDate date]] == NSOrderedDescending) {
-                
-                datePicker.date = [NSDate date];
-            }
-            
-        });
-    }
+     txtDateOfBirth.text = birthDate;
+    
+    [dateFormatter setDateFormat:@"yyyy"];
+  //  NSDate *tpdy = [dateFormatter ];
+    
+    
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setYear:-13]; // note that I'm setting it to -1
+    NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+    NSLog(@"%@", maxDate);
+    
+    [offsetComponents setYear:-100]; // note that I'm setting it to -1
+    NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+    NSLog(@"%@", minDate);
+    [timePicker setMaximumDate:maxDate];
+    [timePicker setMinimumDate:minDate];
+    
+//    if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
+//    {
+//        NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
+//        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
+//       
+//        //[pickerDateOfBirth setHidden:YES];
+//        [btnSubmit setHidden:YES];
+//        return;
+//    }
+//    else
+//    {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            UIDatePicker *datePicker = (UIDatePicker *)sender;
+//            
+//            if ([timePicker.date compare:ageLimitDate] == NSOrderedDescending) {
+//                
+//                datePicker.date = ageLimitDate;
+//            }
+//            
+//        });
+//    }
     NSLog(@"birthdate :%@",birthDate);
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
@@ -297,12 +327,36 @@ int intques;
     
     if (txtFname.text.length==0 || txtLname.text.length==0 || txtEmailAddress.text.length==0 || txtMobileNo.text.length==0 || txtDateOfBirth.text.length==0 || txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 || txtAnswer.text.length == 0)
     {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"Something went wrong. Please try again later."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
+        if (txtFname.text.length == 0)
+        {
+            [txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (txtLname.text.length == 0)
+        {
+            [txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (txtMobileNo.text.length == 0)
+        {
+            [txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (txtAnswer.text.length == 0)
+        {
+            [txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(txtEmailAddress.text.length == 0)
+        {
+            [txtEmailAddress setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(txtDateOfBirth.text.length == 0)
+        {
+            [txtDateOfBirth setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 || txtAnswer.text.length == 0)
+        {
+            [_lblPin setTextColor:[UIColor redColor]];
+        }
+
+        
         
     }
    else if (txtFname.text.length>0 && txtFname.text.length <2)
@@ -672,15 +726,15 @@ int intques;
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
     if(textField == txtOtherQuestion)
     {
-        y=50;
+        y=200;
+        [txtOtherQuestion setInputAccessoryView:self.toolbar];
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
     }
-    if(textField == txtAnswer)
+    if(textField.tag == 11)
     {
-        y=80;
+        y=220;
         [btnSubmit setHidden:NO];
-    }
-    NSLog(@"y = %d",y);
+    }    NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
@@ -726,8 +780,21 @@ int intques;
        dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
         [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
+//        timePicker.maximumDate = [NSDate date];
         
+        NSDate *currentDate = [NSDate date];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", maxDate);
+        
+        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", minDate);
+        [timePicker setMaximumDate:maxDate];
+        [timePicker setMinimumDate:minDate];
+
         
         //format datePicker mode. in this example time is used
         timePicker.datePickerMode = UIDatePickerModeDate;
@@ -807,13 +874,13 @@ int intques;
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
     if(textField == txtOtherQuestion)
     {
-        y=210;
+        y=200;
         [txtOtherQuestion setInputAccessoryView:self.toolbar];
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
     }
-    if(textField == txtAnswer)
+    if(textField.tag == 11)
     {
-        y=210;
+        y=220;
         [btnSubmit setHidden:NO];
     }
     NSLog(@"y = %d",y);
@@ -1206,15 +1273,17 @@ int intques;
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];
         [btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
-       txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,305,300,30)];
-        txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(5,400,300,30)];
-        [self.scrollview addSubview:txtAnswer];
+       txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,315,300,30)];
+       [txtAnswer setFrame:CGRectMake(5, 350, 300, 30)];
+       // [self.scrollview addSubview:txtAnswer];
         txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
         txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+        txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+      //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
         txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
         txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
         txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        txtOtherQuestion.placeholder = @"Enter Question";
+        txtOtherQuestion.placeholder = @"enter question *";
         txtOtherQuestion.tag = 10;
         txtOtherQuestion.delegate = self;
         
@@ -1226,13 +1295,15 @@ int intques;
     else
     {
         intques = 2;
+        [txtOtherQuestion setHidden:YES];
         NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
         strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];
         [viewSecurityQuestion setHidden:YES];
         [txtOtherQuestion setHidden:YES];
-         [txtAnswer setFrame:CGRectMake(5, 338, 300, 30)];
+         [btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
+         [txtAnswer setFrame:CGRectMake(5, 315, 300, 30)];
         
         
     }

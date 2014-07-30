@@ -263,6 +263,7 @@ NSInteger flag;
     if(UserID == nil || UserID == (id)[NSNull null])
     {
         HomePageVC *vc = [[HomePageVC alloc]init];
+        vc.intblue = 0;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else

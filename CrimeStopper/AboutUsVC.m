@@ -33,7 +33,7 @@
     if(IsIphone5)
     {
         _scroll.frame = CGRectMake(0  , 200, 320,300 );
-         self.scroll.contentSize = CGSizeMake(320, 440);
+         self.scroll.contentSize = CGSizeMake(320, 500);
       
         
     }
@@ -42,7 +42,7 @@
         
             _scroll.frame = CGRectMake(4 , 235, 320, 247);
         
-            self.scroll.contentSize = CGSizeMake(320, 380);
+            self.scroll.contentSize = CGSizeMake(320, 440);
     }
 
 }

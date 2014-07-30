@@ -13,6 +13,7 @@
 {
     UITextField *txtOtherQuestion;
      UITextField *activeTextField;
+ NSDateFormatter *dateFormatter;
 }
 @property (nonatomic,retain) IBOutlet UIButton *btnBack,*btnSubmit,*btnSecurityQuestion;
 @property (nonatomic,retain) IBOutlet UITextField *txtMobileNo,*txtPin1,*txtPin2,*txtPin3,*txtPin4,*txtSecurityQuestion,*txtAnswer;
@@ -27,6 +28,7 @@
 @property (nonatomic,retain) IBOutlet UITableView *tblSecurityQuestion;
 @property (nonatomic,retain) NSMutableArray *arrSecurityQuestion;
 @property (nonatomic,retain) IBOutlet UIView *mainView;
+@property (nonatomic,retain) IBOutlet UILabel *lblPin;
 
 - (IBAction) toggleOnForSwitch: (id) sender;
 

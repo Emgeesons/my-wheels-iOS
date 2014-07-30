@@ -415,6 +415,7 @@ NSMutableDictionary *dicCounter;
     NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
      [[NSUserDefaults standardUserDefaults] setValue:appDelegate.arrMutvehiclePark forKey:@"parkVehicle"];
     HomePageVC *vc = [[HomePageVC alloc]init];
+    vc.intblue = 1;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

@@ -125,8 +125,8 @@
 #pragma mark button click event
 -(IBAction)btnBack_click:(id)sender
 {
-    UserProfileVC *vc = [[UserProfileVC alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+   
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(IBAction)btnAddVehicle_click:(id)sender
 {

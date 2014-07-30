@@ -5,13 +5,15 @@
 #import "Reachability.h"
 #import "RegistrationVC.h"
 #import "HomePageVC.h"
-#import "UserDetailsViewController.h"
+
 #import "SVProgressHUD.h"
 #import "LoginWithFacebookVC.h"
 #import "AFNetworking.h"
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "UAirship.h"
+#import "LoginWithFacebookVC.h"
+
 
 //#import "PPRevealSideViewController.h"
 
@@ -54,7 +56,7 @@
     self.navigationController.navigationBarHidden = YES;
     // Check if user is cached and linked to Facebook, if so, bypass login
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
+      //  [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
     }
       appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -287,7 +289,7 @@
 - (IBAction)loginButtonTouchHandler:(id)sender
 {
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+    NSArray *permissionsArray = @[ @"public_profile", @"email", @"user_birthday"];
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
@@ -305,13 +307,84 @@
             }
         } else if (user.isNew) {
             NSLog(@"User with facebook signed up and logged in!");
-            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+           // [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
         } else {
             NSLog(@"User with facebook logged in!");
             
 //            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
-            UserDetailsViewController *vc = [[UserDetailsViewController alloc]init];
-            [self presentViewController:vc animated:YES completion:nil];
+//            UserDetailsViewController *vc = [[UserDetailsViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
+            
+             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+            // Send request to Facebook
+            FBRequest *request = [FBRequest requestForMe];
+            [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                // handle response
+                if (!error) {
+                    self.loginView.readPermissions = @[@"public_profile", @"email"];
+                    // Parse the data received
+                    NSDictionary *userData = (NSDictionary *)result;
+                    NSLog(@"user data : %@",userData);
+                    NSString *facebookID = userData[@"id"];
+                    NSLog(@"facebookID :: %@",facebookID);
+                    
+                    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+                    
+                    
+                    
+                    NSMutableDictionary *userProfile = [NSMutableDictionary dictionaryWithCapacity:7];
+                    
+                    if (facebookID) {
+                        userProfile[@"facebookId"] = facebookID;
+                    }
+                    
+                    if (userData[@"name"]) {
+                        userProfile[@"name"] = userData[@"name"];
+                    }
+                    
+                    if (userData[@"location"][@"name"]) {
+                        userProfile[@"location"] = userData[@"location"][@"name"];
+                    }
+                    
+                    if (userData[@"gender"]) {
+                        userProfile[@"gender"] = userData[@"gender"];
+                    }
+                    
+                    if (userData[@"birthday"]) {
+                        userProfile[@"birthday"] = userData[@"birthday"];
+                    }
+                    
+                    if (userData[@"relationship_status"]) {
+                        userProfile[@"relationship"] = userData[@"relationship_status"];
+                    }
+                    
+                    if ([pictureURL absoluteString]) {
+                        userProfile[@"pictureURL"] = [pictureURL absoluteString];
+                    }
+                    
+                    if (userData[@"email"]) {
+                        userProfile[@"email"] = userData[@"email"];
+                    }
+                    
+                    
+                    [[PFUser currentUser] setObject:userProfile forKey:@"profile"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                    [self updateProfile];
+                } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+                            isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+                    NSLog(@"The facebook session was invalidated");
+                    [self logoutButtonTouchHandler:nil];
+                } else {
+                    NSLog(@"Some other error: %@", error);
+                }
+            }];
+            
+            // If the user is already logged in, display any previously cached values before we get the latest from Facebook.
+            if ([PFUser currentUser]) {
+                [self updateProfile];
+            }
+
         }
     }];
     
@@ -320,6 +393,207 @@
 //    LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
 //    [self presentViewController:vc animated:YES completion:nil];
 }
+- (void)logoutButtonTouchHandler:(id)sender {
+    // Logout user, this automatically clears the cache
+    [PFUser logOut];
+    
+    // Return to login view controller
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (void)updateProfile {
+    
+    self.loginView.readPermissions = @[@"public_profile", @"email"];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"gender"]) {
+      
+        appdelegate.strGender = [[PFUser currentUser] objectForKey:@"profile"][@"gender"];
+        NSLog(@"app gender :: %@",appdelegate.strGender);
+    }
+    
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"birthday"]) {
+       
+        appdelegate.strFBdob =[[PFUser currentUser] objectForKey:@"profile"][@"birthday"];
+        NSLog(@"app dob :%@",appdelegate.strFBdob);
+    }
+    
+    //       [self.tableView reloadData];
+    
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"facebookId"]) {
+      
+        appdelegate.strFacebookID =[[PFUser currentUser] objectForKey:@"profile"][@"facebookId"];
+        NSLog(@"app facebook id :%@",appdelegate.strFacebookID);
+    }
+    
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"email"]) {
+      
+        appdelegate.strFacebookEmail =[[PFUser currentUser] objectForKey:@"profile"][@"email"];
+        NSLog(@"app facebook email :%@",appdelegate.strFacebookEmail);
+    }
+    
+    appdelegate.strFacebookToken =[[[FBSession activeSession] accessTokenData] accessToken];
+    NSLog(@"app facebook Token :%@",appdelegate.strFacebookToken);
+    
+    
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+            if (!error) {
+                NSLog(@"Email %@",[user objectForKey:@"email"]);
+                appdelegate.strFacebookEmail = [user objectForKey:@"email"];
+                NSLog(@"email : %@",appdelegate.strFacebookEmail);
+            }
+        }];
+    }
+    // Set the name in the header view label
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"name"]) {
+        
+        appdelegate.strFBUserName = [[PFUser currentUser] objectForKey:@"profile"][@"name"];
+        NSLog(@"app username : %@",appdelegate.strFBUserName);
+        
+        
+    }
+    
+    // Download the user's facebook profile picture
+    // the data will be loaded in here
+    
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"pictureURL"]) {
+        NSURL *pictureURL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:@"profile"][@"pictureURL"]];
+        
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
+                                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                              timeoutInterval:2.0f];
+        // Run network request asynchronously
+        /*email
+         firstName
+         lastName
+         dob
+         gender
+         fbId
+         fbToken
+         os
+         make
+         model
+         */
+        
+        NSArray * arr1 = [appdelegate.strFBdob componentsSeparatedByString:@"/"];
+        NSString *dob;
+        dob = [arr1 objectAtIndex:2];
+        dob = [dob stringByAppendingString:@"-"];
+        dob = [dob stringByAppendingString:[arr1 objectAtIndex:0]];
+        dob = [dob stringByAppendingString:@"-"];
+        dob = [dob stringByAppendingString:[arr1 objectAtIndex:1]];
+        NSLog(@"dob = %@",dob);
+
+        NSArray * arr = [appdelegate.strFBUserName componentsSeparatedByString:@" "];
+        NSLog(@"Array values are : %@",arr);
+        
+        // WebApiController *obj=[[WebApiController alloc]init];
+        NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+        [param setValue:appdelegate.strFacebookEmail forKey:@"email"];
+        [param setValue:[arr objectAtIndex:0] forKey:@"firstName"];
+        [param setValue:[arr objectAtIndex:1] forKey:@"lastName"];
+        [param setValue:dob forKey:@"dob"];
+        [param setValue:appdelegate.strGender forKey:@"gender"];
+        [param setValue:appdelegate.strFacebookID forKey:@"fbId"];
+        [param setValue:appdelegate.strFacebookToken forKey:@"fbToken"];
+        [param setValue:@"iOS7" forKey:@"os"];
+        [param setValue:@"iPhone" forKey:@"make"];
+        [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+        
+        NSLog(@"param : %@",param);
+        
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
+        NSString *url = [NSString stringWithFormat:@"%@fbLoginRegister.php", SERVERNAME];
+        NSLog(@"url :%@",url);
+        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+        }
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  
+                  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                  
+                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                  NSLog(@"data : %@",jsonDictionary);
+                  NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                  NSLog(@"message %@",EntityID);
+                  if ([EntityID isEqualToString:@"success"])
+                  {
+                      if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
+                      {
+                          HomePageVC *vc = [[HomePageVC alloc]init];
+                          [self.navigationController pushViewController:vc animated:YES];
+                      }
+                      else if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"New User"])
+                      {
+                          appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];;
+                          appdelegate.strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];;
+                          [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+                          LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
+                          [self.navigationController pushViewController:vc animated:YES];
+                      }
+                      else if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Complete Profile"])
+                      {
+                          appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];;
+                          appdelegate.strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];;
+                          NSLog(@"user id :%@",appdelegate.strUserID);
+                          NSLog(@"pin :%@",appdelegate.strOldPin);
+                          /*  dob = "1989-09-14";
+                           email = "asha@emgeesons.com";
+                           fbId = 1432652336998546;
+                           fbToken = CAAKZAJ9fPrl4BAJNb9Gn7KyJNBgNdQJ1ZATyGe9KZCZBQzJwmyLuZA33T32A2GiaLeDOupSD4pUZBwbgfG0RCScAKRMEWalK4ZAurvnjZCn5k4xnIRyWWI8TyPrgDgwP0ZAdh4ZBuqHes4e1fNXtjIKMiKepl9sBkSs6NVBBV9hRCwv065ds83xSn479yGE8r5hMy0ImZBMja6bzwZDZD;
+                           firstName = Asha;
+                           gender = female;
+                           lastName = Sharma;
+                           make = iPhone;
+                           model = "iPhone5,iPhone5S";
+                           os = iOS7;*/
+                          
+                          [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"] forKey:@"dob"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"] forKey:@"email"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"firstName"] forKey:@"first_name"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"] forKey:@"gender"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"lastName"] forKey:@"last_name"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"] forKey:@"UserID"];
+                          
+                          
+                          LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
+                          [self.navigationController pushViewController:vc animated:YES];
+                      }
+                      else
+                      {
+                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                              message:[jsonDictionary valueForKey:@"message"]
+                                                                             delegate:self
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil, nil];
+                          [CheckAlert show];
+                      }
+                  }
+                  
+                  [SVProgressHUD dismiss];
+                  
+                  
+                  
+              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              }];
+        
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        
+        
+        
+    }
+    else
+    {
+        
+        
+    }
+}
+
 -(IBAction)btnbtnLogin_click:(id)sender
 {
    
@@ -338,9 +612,8 @@
 }
 -(IBAction)btnbtnRegister_click:(id)sender
 {
-    RegistrationVC *vc = [[RegistrationVC alloc]init];
-    
-    [self.navigationController pushViewController:vc animated:YES];
+   RegistrationVC *vc = [[RegistrationVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
 
 }
 -(IBAction)btnCancel_click:(id)sender

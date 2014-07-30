@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface LoginVC : UIViewController <UITextFieldDelegate,UIScrollViewDelegate, PPRevealSideViewControllerDelegate>
+@interface LoginVC : UIViewController <UITextFieldDelegate,UIScrollViewDelegate, PPRevealSideViewControllerDelegate,NSURLConnectionDelegate,FBLoginViewDelegate>
 {
      UITextField *activeTextField;
+    NSDateFormatter *dateFormatter;
 }
-
+@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
 @property (nonatomic,retain) IBOutlet UIButton *btnHomePage;
 @property (nonatomic,retain) IBOutlet UIButton *btnFacebook;
 @property (nonatomic,retain) IBOutlet UIButton *btnLogin;

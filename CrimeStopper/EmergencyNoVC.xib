@@ -42,7 +42,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.png" id="Lgz-ea-RhG">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone1.png" id="Lgz-ea-RhG">
                             <rect key="frame" x="78" y="59" width="18" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -76,7 +76,7 @@
                                 <action selector="btnRAARoadSideService_click:" destination="-1" eventType="touchUpInside" id="S77-Od-PzS"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_raa.png" id="wss-9Z-tGi">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_raa1.png" id="wss-9Z-tGi">
                             <rect key="frame" x="10" y="16" width="53" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -86,7 +86,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.png" id="DNp-2E-REc">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone1.png" id="DNp-2E-REc">
                             <rect key="frame" x="79" y="73" width="18" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -120,7 +120,7 @@
                                 <action selector="btnTowTruck_click:" destination="-1" eventType="touchUpInside" id="ehe-f2-y7S"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_tow_truck.png" id="pjI-0B-mWf">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_tow_truck1.png" id="pjI-0B-mWf">
                             <rect key="frame" x="6" y="14" width="53" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -130,7 +130,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.png" id="ReX-Vo-IYr">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone1.png" id="ReX-Vo-IYr">
                             <rect key="frame" x="81" y="67" width="18" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -164,7 +164,7 @@
                                 <action selector="btnSuburbanTaxis_click:" destination="-1" eventType="touchUpInside" id="wxc-Ud-dGj"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_suburban_taxi.png" id="WuK-Be-d2k">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_suburban_taxi1.png" id="WuK-Be-d2k">
                             <rect key="frame" x="8" y="15" width="51" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -174,7 +174,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.png" id="AoL-Am-rHv">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone1.png" id="AoL-Am-rHv">
                             <rect key="frame" x="83" y="60" width="18" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -219,10 +219,10 @@
     </objects>
     <resources>
         <image name="ic_drawer.png" width="16" height="16"/>
-        <image name="ic_police_assistance.png" width="35" height="35"/>
-        <image name="ic_raa.png" width="35" height="35"/>
-        <image name="ic_suburban_taxi.png" width="35" height="35"/>
-        <image name="ic_tow_truck.png" width="35" height="35"/>
-        <image name="phone.png" width="15" height="15"/>
+        <image name="ic_police_assistance.png" width="70" height="70"/>
+        <image name="ic_raa1.png" width="70" height="70"/>
+        <image name="ic_suburban_taxi1.png" width="70" height="70"/>
+        <image name="ic_tow_truck1.png" width="70" height="70"/>
+        <image name="phone1.png" width="30" height="30"/>
     </resources>
 </document>

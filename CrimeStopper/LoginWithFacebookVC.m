@@ -13,6 +13,8 @@
 #import "HomePageVC.h"
 #import "LoginVC.h"
 
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @interface LoginWithFacebookVC ()
 {
     AppDelegate *appdelegate;
@@ -46,17 +48,17 @@ int intques;
     self.navigationController.navigationBarHidden = YES;
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     arrSecurityQuestion = [[NSMutableArray alloc]init];
-    [arrSecurityQuestion addObject:@"Security Questions"];
-    [arrSecurityQuestion addObject:@"Passport Number"];
-    [arrSecurityQuestion addObject:@"Licence Number"];
-    [arrSecurityQuestion addObject:@"Mother's maiden name"];
-    [arrSecurityQuestion addObject:@"First pet's name"];
-    [arrSecurityQuestion addObject:@"First childhood friend"];
-    [arrSecurityQuestion addObject:@"First primary school"];
-    [arrSecurityQuestion addObject:@"Colour of your first car"];
-    [arrSecurityQuestion addObject:@"All time favourite movie"];
-    [arrSecurityQuestion addObject:@"First paid job"];
-    [arrSecurityQuestion addObject:@"Other"];
+    [arrSecurityQuestion addObject:@"security questions"];
+    [arrSecurityQuestion addObject:@"passport number"];
+    [arrSecurityQuestion addObject:@"licence number"];
+    [arrSecurityQuestion addObject:@"mothers maiden name"];
+    [arrSecurityQuestion addObject:@"first pets name"];
+    [arrSecurityQuestion addObject:@"first childhood friend"];
+    [arrSecurityQuestion addObject:@"first primary school"];
+    [arrSecurityQuestion addObject:@"colour of your first car"];
+    [arrSecurityQuestion addObject:@"all time favourite movie"];
+    [arrSecurityQuestion addObject:@"first paid job"];
+    [arrSecurityQuestion addObject:@"other"];
     
     [self.txtAnswer setDelegate:self];
     [self.txtMobileNo setDelegate:self];
@@ -64,8 +66,19 @@ int intques;
     [self.txtPin2 setDelegate:self];
     [self.txtPin3 setDelegate:self];
     [self.txtPin4 setDelegate:self];
+    [txtOtherQuestion setDelegate:self];
     
-    
+    if(IsIphone5)
+    {
+        
+        scrollview.contentSize = CGSizeMake(320, 800);
+    }
+    else
+    {
+        
+        
+        scrollview.contentSize = CGSizeMake(320, 700);
+    }
     // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
     [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
     // [txtDateOfBirth setInputAccessoryView:self.toolbar];
@@ -144,21 +157,27 @@ int intques;
         [CheckAlert show];
     } else {
         NSLog(@"There IS internet connection");
-    }
+    
     
     
     if (txtMobileNo.text.length==0 || txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 || txtAnswer.text.length == 0)
     {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"Something went wrong. Please try again later."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
+        if (txtMobileNo.text.length == 0)
+        {
+            [txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (txtAnswer.text.length == 0)
+        {
+            [txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 )
+        {
+            [_lblPin setTextColor:[UIColor redColor]];
+        }
+    }
         
-       
         
-        if (txtMobileNo.text.length>0 && txtMobileNo.text.length <2)
+       else if (txtMobileNo.text.length>0 && txtMobileNo.text.length <2)
         {
             [txtMobileNo setTextColor:[UIColor redColor]];
         }
@@ -166,9 +185,9 @@ int intques;
         {
             [txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
-        else{}
         
-        if (txtAnswer.text.length>0 && txtAnswer.text.length <3)
+        
+       else if (txtAnswer.text.length>0 && txtAnswer.text.length <3)
         {
             [txtAnswer setTextColor:[UIColor redColor]];
         }
@@ -176,13 +195,14 @@ int intques;
         {
             [txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
-        else{}
-        
+        else
+        {
+            [self submit];
         }
-    else
-    {
-        [self submit];
+        
     }
+   
+   
 
 }
 -(IBAction)btnSecurityQuestion_click:(id)sender
@@ -237,28 +257,32 @@ int intques;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.scrollview.userInteractionEnabled = YES;
     self.mainView.userInteractionEnabled = YES;
     [self.mainView setBackgroundColor:[UIColor whiteColor]];
     if(indexPath.row == 10)
     {
         intques = 1;
         [txtOtherQuestion setHidden:NO];
-//        [self.scrollview removeFromSuperview];
+        // [self.scrollview removeFromSuperview];
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];
-        [btnSecurityQuestion setFrame:CGRectMake(5, 200, 300, 30)  ];
-        txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(20,250,300,30)];
-        txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(20,400,300,30)];
-        [self.mainView addSubview:txtAnswer];
+        [btnSecurityQuestion setFrame:CGRectMake(5, 210, 300, 30)  ];
+        txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,250,300,30)];
+        [txtAnswer setFrame:CGRectMake(5, 290, 300, 30)];
+        // [self.scrollview addSubview:txtAnswer];
         txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
         txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+        txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+        //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
         txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
         txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
         txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        txtOtherQuestion.placeholder = @"Enter Question";
+        txtOtherQuestion.placeholder = @"enter question *";
+        txtOtherQuestion.tag = 6;
         txtOtherQuestion.delegate = self;
         
-        [self.mainView addSubview:txtOtherQuestion];
+        [self.scrollview addSubview:txtOtherQuestion];
         [viewSecurityQuestion setHidden:YES];
         
     }
@@ -266,13 +290,15 @@ int intques;
     else
     {
         intques = 2;
+        [txtOtherQuestion setHidden:YES];
         NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
         strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];
         [viewSecurityQuestion setHidden:YES];
         [txtOtherQuestion setHidden:YES];
-        [txtAnswer setFrame:CGRectMake(20, 273, 300, 30)];
+        [btnSecurityQuestion setFrame:CGRectMake(5, 210, 300, 30)  ];
+        [txtAnswer setFrame:CGRectMake(5, 250, 300, 30)];
         
         
     }
@@ -307,8 +333,16 @@ int intques;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
       activeTextField=textField;
+    if(textField == txtPin1 || textField == txtPin2 || textField == txtPin3 || textField == txtPin4)
+    {
+        [_lblPin setTextColor:[UIColor blackColor]];
+    }
     int y=0;
      [textField setTextColor:[UIColor blackColor]];
+    if(textField == txtOtherQuestion)
+    {
+        y=140;
+    }
     if(textField == txtAnswer)
     {
         y=140;
@@ -506,8 +540,10 @@ int intques;
 
      */
    // WebApiController *obj=[[WebApiController alloc]init];
+        
+    
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-    [param setValue:@"asha@emgeesons.com" forKey:@"email"];
+    [param setValue:appdelegate.strFacebookEmail forKey:@"email"];
     [param setValue:strPin forKey:@"pin"];
    
     [param setValue:txtMobileNo.text forKey:@"mobileNumber"];
@@ -536,8 +572,31 @@ int intques;
               NSLog(@"data : %@",jsonDictionary);
               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
               NSLog(@"message %@",EntityID);
-              if ([EntityID isEqualToString:@"invalid"])
+              if ([EntityID isEqualToString:@"success"])
               {
+                
+                  
+                  [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
+                  [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
+                  [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
+                  [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+                  
+                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                      message:@"My Wheel would like to access your current location."
+                                                                     delegate:self
+                                                            cancelButtonTitle:@"Don't Allow"
+                                                            otherButtonTitles:@"Allow", nil];
+                  
+                  
+                  
+                  CheckAlert.tag =2;
+                  [CheckAlert show];
+                  
+                  
+              }
+              else
+              {
+                 
                   NSString *strmessage = [jsonDictionary valueForKey:@"message"];
                   UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                                       message:strmessage
@@ -545,39 +604,6 @@ int intques;
                                                             cancelButtonTitle:@"OK"
                                                             otherButtonTitles:nil, nil];
                   [CheckAlert show];
-              }
-              else
-              {
-                 
-                  NSLog(@"Json dictionary :: %@",jsonDictionary);
-                  NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                  NSLog(@"message %@",EntityID);
-                  if ([EntityID isEqualToString:@"failure"])
-                  {
-                      
-                  }
-                  else
-                  {
-                      NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
-                    
-                      [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
-                      [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
-                      [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
-                      [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
-                      
-                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                          message:@"My Wheel would like to access your current location."
-                                                                         delegate:self
-                                                                cancelButtonTitle:@"Don't Allow"
-                                                                otherButtonTitles:@"Allow", nil];
-                      
-                      
-                      
-                      CheckAlert.tag =2;
-                      [CheckAlert show];
-
-                  }
-                 
 
               }
               [SVProgressHUD dismiss];

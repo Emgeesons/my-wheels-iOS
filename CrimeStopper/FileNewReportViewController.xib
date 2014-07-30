@@ -227,19 +227,19 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="rnr-IS-eTQ">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings1.png" id="rnr-IS-eTQ">
                             <rect key="frame" x="32" y="99" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="cxM-D5-zfC">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="privacy1.png" id="cxM-D5-zfC">
                             <rect key="frame" x="32" y="138" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="SrD-qr-cgw">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location1.png" id="SrD-qr-cgw">
                             <rect key="frame" x="32" y="177" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="y2J-N6-LfF">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="switch1.png" id="y2J-N6-LfF">
                             <rect key="frame" x="32" y="220" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -293,6 +293,10 @@
         <image name="edit.png" width="13" height="13"/>
         <image name="ic_car.png" width="32" height="26"/>
         <image name="im_complete_profile.png" width="294" height="190"/>
+        <image name="location1.png" width="32" height="30"/>
+        <image name="privacy1.png" width="32" height="30"/>
         <image name="red_pin.png" width="30" height="40"/>
+        <image name="settings1.png" width="32" height="30"/>
+        <image name="switch1.png" width="32" height="30"/>
     </resources>
 </document>

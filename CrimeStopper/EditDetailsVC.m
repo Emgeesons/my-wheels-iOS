@@ -52,7 +52,7 @@ NSString *strBirthDate;
     NSString *strPin2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin2"];
     NSString *strPin3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin3"];
     NSString *strPin4 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin4"];
-    NSDate *todayDate = [NSDate date];
+  
    
     
     NSLog(@"dob : %@",dob);
@@ -63,16 +63,15 @@ NSString *strBirthDate;
     
     NSLog(@"dob : %@",datedob);
     
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-   int  years = (allDays-days)/365;
+    dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    NSLog(@"You live since %i years and %i days",years,days);
+    NSString *date = [dateFormatter stringFromDate:datedob];
+    
    
-    NSLog(@"dob1 : %@",dob );
+    NSLog(@"dob1 : %@",date );
 
-    _txtDob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
+    _txtDob.text = date;
     if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
     {
         NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
@@ -411,7 +410,7 @@ NSString *strBirthDate;
     int years = (allDays-days)/365;
     
     NSLog(@"You live since %i years and %i days",years,days);
-    _txtDob.text = [[NSString stringWithFormat:@"%i",years] stringByAppendingString:@" Years"];
+    _txtDob.text = birthDate;
     if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
     {
         NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;

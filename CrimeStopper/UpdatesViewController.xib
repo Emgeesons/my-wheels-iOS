@@ -185,19 +185,19 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wql-VM-4xx">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings1.png" translatesAutoresizingMaskIntoConstraints="NO" id="wql-VM-4xx">
                             <rect key="frame" x="32" y="99" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hp1-Nd-8QX">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="privacy1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hp1-Nd-8QX">
                             <rect key="frame" x="32" y="138" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uPm-jW-rua">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location1.png" translatesAutoresizingMaskIntoConstraints="NO" id="uPm-jW-rua">
                             <rect key="frame" x="32" y="177" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOc-v3-rKG">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="switch1.png" translatesAutoresizingMaskIntoConstraints="NO" id="JOc-v3-rKG">
                             <rect key="frame" x="32" y="220" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -258,6 +258,10 @@
         </view>
     </objects>
     <resources>
-        <image name="im_complete_profile.png" width="294" height="190"/>
+        <image name="im_complete_profile.png" width="35" height="35"/>
+        <image name="location1.png" width="64" height="60"/>
+        <image name="privacy1.png" width="64" height="60"/>
+        <image name="settings1.png" width="64" height="60"/>
+        <image name="switch1.png" width="64" height="60"/>
     </resources>
 </document>

@@ -200,19 +200,19 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Wct-j9-zPk">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings1.png" id="Wct-j9-zPk">
                             <rect key="frame" x="32" y="99" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="OHZ-UX-Z90">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="privacy1.png" id="OHZ-UX-Z90">
                             <rect key="frame" x="32" y="138" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="c33-pL-hvz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location1.png" id="c33-pL-hvz">
                             <rect key="frame" x="32" y="177" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="odS-xU-SSp">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="switch1.png" id="odS-xU-SSp">
                             <rect key="frame" x="32" y="220" width="32" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -263,6 +263,10 @@
     <resources>
         <image name="add_photos.png" width="158" height="158"/>
         <image name="app_icon_120x120.png" width="120" height="120"/>
+        <image name="location1.png" width="32" height="30"/>
+        <image name="privacy1.png" width="32" height="30"/>
         <image name="red_pin.png" width="30" height="40"/>
+        <image name="settings1.png" width="32" height="30"/>
+        <image name="switch1.png" width="32" height="30"/>
     </resources>
 </document>
