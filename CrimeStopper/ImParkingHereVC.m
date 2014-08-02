@@ -30,6 +30,8 @@
 }
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 NSMutableDictionary *dicCounter;
+int counterForCell;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,7 +55,12 @@ NSMutableDictionary *dicCounter;
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSLog(@"appdelegate str vehicle type: %@",appDelegate.strVehicleType);
     _arrrandValue = [[NSMutableArray alloc]init];
-    _arrrandValue = [self getEightRandomLessThan:3];
+    if([appDelegate.strVehicleType isEqualToString:@"Bicycle"])
+        _arrrandValue = [self getEightRandomLessThan:13];
+    else if([appDelegate.strVehicleType isEqualToString:@"Motor Cycle"])
+        _arrrandValue = [self getEightRandomLessThan:7];
+    else
+        _arrrandValue = [self getEightRandomLessThan:10];
     locationManager = [[CLLocationManager alloc] init];
     geocoder = [[CLGeocoder alloc] init];
     locationManager.delegate = self;
@@ -120,6 +127,21 @@ NSMutableDictionary *dicCounter;
     
     
     //for calling api for rating
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    
+    else
+        
+    {
     NSLog(@"in api");
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -182,29 +204,36 @@ NSMutableDictionary *dicCounter;
         
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
         NSLog(@"message %@",EntityID);
-        if ([EntityID isEqualToString:@"failure"])
+        if ([EntityID isEqualToString:@"success"])
         {
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                message:@"Something went wrong. Please Try Again."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-            [CheckAlert show];
-        }
-        else
-        {
-            NSString *strRating = @"rating";
+            NSString *strRating = @" rating";
             NSString *strRate = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"rating"];
+            
+            NSString *strnoTips = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"noTips"];
+            NSString *strTips = [strnoTips stringByAppendingString:@" tips for this location"];
             if(strRate == nil || strRate == (id)[NSNull null])
             {
-                 [_btnRating setTitle:@"" forState:UIControlStateNormal];
+                [_btnRating setTitle:@"" forState:UIControlStateNormal];
+                [_btnTips setTitle:@"" forState:UIControlStateNormal];
             }
             else
             {
                 NSString *str = [strRate stringByAppendingString:strRating];
                 strRating1 = str;
                 [_btnRating setTitle:str forState:UIControlStateNormal];
+                [_btnTips setTitle:strTips forState:UIControlStateNormal];
             }
+
+        }
+        else
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                message:[jsonDictionary valueForKey:@"message"]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+            
             
         }
         [SVProgressHUD dismiss];
@@ -214,7 +243,7 @@ NSMutableDictionary *dicCounter;
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-    
+    }
     
     if(IsIphone5)
     {
@@ -248,7 +277,7 @@ NSMutableDictionary *dicCounter;
     {
         if(buttonIndex == 0)
         {
-            _lblLocation.text = @"Location";
+            _lblLocation.text = @"";
             
         }
         else
@@ -318,7 +347,7 @@ NSMutableDictionary *dicCounter;
     
     NSString *cellIdentifier = [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
     //Get the old counter
-    int counterForCell = [[dicCounter valueForKey:cellIdentifier] intValue];
+   counterForCell = [[dicCounter valueForKey:cellIdentifier] intValue];
     //increment it
     counterForCell++;
     //set it in the dictionary
@@ -326,10 +355,18 @@ NSMutableDictionary *dicCounter;
     NSLog(@"counter for cell : %d",counterForCell);
     NSLog(@"didcounter : %@",dicCounter);
     NSLog(@"section : %d",indexPath.section);
+    
+    NSLog(@"deselect :%@",[self.tblCheckList indexPathForSelectedRow]);
+     [self.tblCheckList deselectRowAtIndexPath:[self.tblCheckList indexPathForSelectedRow] animated:YES];
 
 }
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tblCheckList deselectRowAtIndexPath:[self.tblCheckList indexPathForSelectedRow] animated:YES];
+
+//    mParkingCell *cell = (mParkingCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    [cell.imgCheck setImage: [UIImage imageNamed:@""]];
+    
     
 }
 
@@ -351,9 +388,9 @@ NSMutableDictionary *dicCounter;
     
     
     NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+//    UIAlertView *errorAlert = [[UIAlertView alloc]
+//                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [errorAlert show];
 }
 
 
@@ -415,7 +452,8 @@ NSMutableDictionary *dicCounter;
     NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
      [[NSUserDefaults standardUserDefaults] setValue:appDelegate.arrMutvehiclePark forKey:@"parkVehicle"];
     HomePageVC *vc = [[HomePageVC alloc]init];
-    vc.intblue = 1;
+    //vc.intblue = 1;
+    appDelegate.intMparking = 1;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

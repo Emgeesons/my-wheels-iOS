@@ -17,6 +17,7 @@
                 <outlet property="txtModel" destination="5Xd-xu-qYZ" id="b7h-Q0-ABo"/>
                 <outlet property="txtRegistrationNo" destination="qbx-No-bE1" id="CuP-oy-1A1"/>
                 <outlet property="txtVehicleType" destination="0fe-aP-H5l" id="0Th-QB-0UP"/>
+                <outlet property="txtstate" destination="Sca-e7-HsA" id="e9m-3a-2Hs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -77,7 +78,7 @@
                                 <outlet property="delegate" destination="-1" id="OoJ-nF-eKQ"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="registration / serial No *" minimumFontSize="17" id="qbx-No-bE1">
+                        <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="registration  *" minimumFontSize="17" id="qbx-No-bE1">
                             <rect key="frame" x="9" y="134" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
@@ -85,6 +86,16 @@
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="rWL-4J-4St"/>
+                            </connections>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="state *" minimumFontSize="17" id="Sca-e7-HsA">
+                            <rect key="frame" x="7" y="172" width="301" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="17"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="MHg-ay-WJg"/>
                             </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="body type *" minimumFontSize="17" id="uMF-Il-dFT">
@@ -107,8 +118,8 @@
                                 <outlet property="delegate" destination="-1" id="b5f-Hy-Sfa"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="engine no *" minimumFontSize="17" id="aVU-MC-ZTh">
-                            <rect key="frame" x="9" y="172" width="301" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="engine no *" minimumFontSize="17" id="aVU-MC-ZTh">
+                            <rect key="frame" x="9" y="211" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="17"/>
@@ -117,8 +128,8 @@
                                 <outlet property="delegate" destination="-1" id="q4o-EQ-APK"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VIN / chassis no *" minimumFontSize="17" id="TY1-RJ-NLb">
-                            <rect key="frame" x="10" y="210" width="301" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VIN / chassis no *" minimumFontSize="17" id="TY1-RJ-NLb">
+                            <rect key="frame" x="10" y="251" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="17"/>
@@ -127,8 +138,8 @@
                                 <outlet property="delegate" destination="-1" id="GG8-wd-pLf"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="colour *" minimumFontSize="17" id="C4d-lH-Jmc">
-                            <rect key="frame" x="9" y="249" width="301" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="colour *" minimumFontSize="17" id="C4d-lH-Jmc">
+                            <rect key="frame" x="9" y="290" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="17"/>
@@ -137,8 +148,8 @@
                                 <outlet property="delegate" destination="-1" id="Mix-PW-cwS"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="accessories / unique feature *" minimumFontSize="17" id="kMy-9b-Lei">
-                            <rect key="frame" x="9" y="287" width="301" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="accessories / unique feature " minimumFontSize="17" id="kMy-9b-Lei">
+                            <rect key="frame" x="9" y="328" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="17"/>

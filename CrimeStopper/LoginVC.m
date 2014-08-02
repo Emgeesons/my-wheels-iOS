@@ -1,4 +1,4 @@
-
+    
 #import "LoginVC.h"
 #import "HomeScreenVC.h"
 #import "SVProgressHUD.h"
@@ -54,6 +54,8 @@
     [super viewDidLoad];
     self.title = @"Facebook Profile";
     self.navigationController.navigationBarHidden = YES;
+    
+    
     // Check if user is cached and linked to Facebook, if so, bypass login
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
       //  [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
@@ -523,6 +525,23 @@
                   {
                       if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
                       {
+                          [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"] forKey:@"dob"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"] forKey:@"UserID"];
+                         
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"email"] forKey:@"email"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"first_name"] forKey:@"first_name"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"gender"] forKey:@"gender"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"last_name"] forKey:@"last_name"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"mobile_number"] forKey:@"mobile_number"];
+                          [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"] forKey:@"security_answer"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"] forKey:@"security_question"];
+                          
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"] forKey:@"fb_id"];
+                          [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"] forKey:@"fb_token"];
+                          
+                          
                           HomePageVC *vc = [[HomePageVC alloc]init];
                           [self.navigationController pushViewController:vc animated:YES];
                       }
@@ -530,6 +549,7 @@
                       {
                           appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];;
                           appdelegate.strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];;
+                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"] forKey:@"oldPin"];
                           [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
                           LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
                           [self.navigationController pushViewController:vc animated:YES];
@@ -565,7 +585,7 @@
                       }
                       else
                       {
-                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                               message:[jsonDictionary valueForKey:@"message"]
                                                                              delegate:self
                                                                     cancelButtonTitle:@"OK"
@@ -767,7 +787,7 @@
          }
           else
           {
-              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                 message:message
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
@@ -979,10 +999,10 @@
             [txtPin1 resignFirstResponder];
             [txtpin2 becomeFirstResponder];
         }
-//        else if (newLength == 0)
-//        {
-//            txtPin1.text = @"";
-//        }
+        else if (newLength == 0)
+        {
+           txtPin1.text = @"";
+        }
 //        else
 //        {
 //            NSLog(@"YES");
@@ -1003,12 +1023,13 @@
             [txtpin2 resignFirstResponder];
             [txtpin3 becomeFirstResponder];
         }
-//        if(newLength == 0)
-//        {
-//            [txtpin2 resignFirstResponder];
-//            [txtPin1 becomeFirstResponder];
-//            txtpin2.text = @"";
-//        }
+        if(newLength == 0)
+        {
+            txtpin2.text = @"";
+
+            [txtpin2 resignFirstResponder];
+            [txtPin1 becomeFirstResponder];
+        }
 //        else
 //        {
 //            [txtpin2 resignFirstResponder];
@@ -1026,12 +1047,13 @@
             [txtPint4 becomeFirstResponder];
             //return NO;
         }
-//        if(newLength == 0)
-//        {
-//            [txtpin3 resignFirstResponder];
-//            [txtpin2 becomeFirstResponder];
-//            txtpin3.text = @"";
-//        }
+        if(newLength == 0)
+        {
+            txtpin3.text = @"";
+            [txtpin3 resignFirstResponder];
+            [txtpin2 becomeFirstResponder];
+            
+        }
 //        else
 //        {
 //            [txtpin3 resignFirstResponder];
@@ -1049,13 +1071,14 @@
             [txtPint4 resignFirstResponder];
             //return NO;
         }
-//        else if(newLength == 0)
-//        {
-//            txtPint4.text = @"";
-//            [txtPint4 resignFirstResponder];
-//            [txtpin3 becomeFirstResponder];
-//            
-//        }
+        else if(newLength == 0)
+        {
+            [txtpin3 becomeFirstResponder];
+
+            txtPint4.text = @"";
+            [txtPint4 resignFirstResponder];
+            
+        }
 //        else
 //        {
 //            [txtPint4 resignFirstResponder];
@@ -1149,24 +1172,7 @@
                 NSLog(@"Json dictionary :: %@",jsonDictionary);
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
                 NSLog(@"message %@",EntityID);
-                if ([EntityID isEqualToString:@"failure"])
-                {
-                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
-                                                                        message:@"Username or PIN incorrect."
-                                                                       delegate:self
-                                                              cancelButtonTitle:@"Edit details"
-                                                              otherButtonTitles:nil, nil];
-                    [CheckAlert show];
-                    txtEmail.text = @"";
-                    txtPin1.text = @"";
-                    txtpin2.text = @"";
-                    txtpin3.text = @"";
-                    txtPint4.text = @"";
-//                    [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-//                    
-//                    [self.lblPin setTextColor:[UIColor redColor]];
-                }
-                else
+                if ([EntityID isEqualToString:@"success"])
                 {
                     NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                     NSLog(@"data : %@",jsonDictionary);
@@ -1193,6 +1199,7 @@
                     NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                     NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"street"];
                     NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+                    NSString *strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];
                     NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                     arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                     NSLog(@"user id: %@",appdelegate.strUserID);
@@ -1220,6 +1227,7 @@
                     [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
                     [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                     [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
+                    [[NSUserDefaults standardUserDefaults] setValue:strOldPin forKey:@"oldPin"];
                     //URBAN AIRSHIP SET UP
                     NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
                     NSString *yourAlias = UserId;
@@ -1227,12 +1235,31 @@
                     [[UAPush shared] setPushEnabled:YES];
                     //End of Urban Airship Set up
                     
-                  
+                    
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     HomePageVC *obj=[[HomePageVC alloc]init];
-                  
-                   [self.navigationController pushViewController:obj animated:YES];
-                   // [self presentViewController:obj animated:YES completion:nil];
+                    
+                    [self.navigationController pushViewController:obj animated:YES];
+                    // [self presentViewController:obj animated:YES completion:nil];
+                }
+                else
+                {
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                        message:[jsonDictionary valueForKey:@"message"]
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil, nil];
+                    [CheckAlert show];
+                    txtEmail.text = @"";
+                    txtPin1.text = @"";
+                    txtpin2.text = @"";
+                    txtpin3.text = @"";
+                    txtPint4.text = @"";
+                    //                    [txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                    //
+                    //                    [self.lblPin setTextColor:[UIColor redColor]];
+
+ 
                  }
                 [SVProgressHUD dismiss];
 
@@ -1329,20 +1356,7 @@
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
                 NSString *msg = [jsonDictionary valueForKey:@"message"];
                 NSLog(@"message %@",EntityID);
-                if ([EntityID isEqualToString:@"failure"])
-                {
-                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Incorrect Email"
-                                                                        message:msg
-                                                                       delegate:self
-                                                              cancelButtonTitle:@"Cancel"
-                                                              otherButtonTitles:@"OK", nil];
-                    [CheckAlert show];
-//                    txtEmailIDForForgot.text = @"";
-//                    
-//                    [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-                    
-                }
-                else
+                if ([EntityID isEqualToString:@"success"])
                 {
                     NSString *respinse = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                     appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
@@ -1360,6 +1374,21 @@
                         viewForgotQuestion.alpha = 1; } completion:^(BOOL finished){}];
                     
                     lblQuestion.text = respinse;
+                }
+                else
+                {
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                        message:msg
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"Cancel"
+                                                              otherButtonTitles:@"OK", nil];
+                    [CheckAlert show];
+                    //                    txtEmailIDForForgot.text = @"";
+                    //
+                    //                    [txtEmailIDForForgot setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+
+                    
+                   
                 }
                 [SVProgressHUD dismiss];
 

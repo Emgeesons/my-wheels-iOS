@@ -125,11 +125,7 @@ NSInteger intImage;
                       NSLog(@"message %@",EntityID);
                       
                       
-                      if ([EntityID isEqualToString:@"failure"])
-                      {
-                          
-                      }
-                      else
+                      if ([EntityID isEqualToString:@"success"])
                       {
                           _lblAccessories.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"accessories_unique_features"];
                           _lblNodyType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"body_type"];
@@ -148,6 +144,7 @@ NSInteger intImage;
                           _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
                           _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
                           phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
+                           _lblState.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"state"];
                           NSString *str1 = [make stringByAppendingString:@" "];
                           _lblMake1.text = [str1 stringByAppendingString:model];
                           _lblMake.text = [str1 stringByAppendingString:model];
@@ -171,19 +168,78 @@ NSInteger intImage;
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+                              [_lblRegistrationNo1 setText:@"Serial Number:"];
+                              [_lblState setHidden:YES];
+                              [_lblState1 setHidden:YES];
+                              [_lblBodyType1 setHidden:YES];
+                              [_lblNodyType setHidden: YES];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 95, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 116, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 116, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 138, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 138, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
+                              
+                              
+                              
+                              
+                              
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Car"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
+                              
+                              [_lblRegistrationNo1 setText:@"Registration Number:"];
+                              [_lblState setHidden:NO];
+                              [_lblState1 setHidden:NO];
+                              [_lblBodyType1 setHidden:NO];
+                              [_lblNodyType setHidden: NO];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 138, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 138, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 161, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 161, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 184, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 184, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 207, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 207, 202, 21)];
+
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+                              [_lblRegistrationNo1 setText:@"Registration Number:"];
+                              [_lblState setHidden:NO];
+                              [_lblState1 setHidden:NO];
+                              [_lblBodyType1 setHidden:NO];
+                              [_lblNodyType setHidden: NO];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 138, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 138, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 161, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 161, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 184, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 184, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 207, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 207, 202, 21)];
                               
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Other"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                              [_lblRegistrationNo1 setText:@"Registration Number:"];
+                              [_lblState setHidden:NO];
+                              [_lblState1 setHidden:NO];
+                              [_lblBodyType1 setHidden:YES];
+                              [_lblNodyType setHidden: YES];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 116, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 116, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 138, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 138, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 161, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 161, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 184, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
                           }
                           else
                           {
@@ -226,6 +282,17 @@ NSInteger intImage;
                               [_btnAddInsurance setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                               
                           }
+
+                      }
+                      else
+                      {
+                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
+                                                                              message:[jsonDictionary valueForKey:@"message"]
+                                                                             delegate:self
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil, nil];
+                          [CheckAlert show];
+
                           
                       }
                       [SVProgressHUD dismiss];
@@ -282,11 +349,7 @@ NSInteger intImage;
                       NSLog(@"message %@",EntityID);
                       
                       
-                      if ([EntityID isEqualToString:@"failure"])
-                      {
-                          
-                      }
-                      else
+                      if ([EntityID isEqualToString:@"success"])
                       {
                           _lblAccessories.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"accessories_unique_features"];
                           _lblNodyType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"body_type"];
@@ -304,7 +367,9 @@ NSInteger intImage;
                           _lblVin.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vin_chasis_no"];
                           _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
                           _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
+                           _lblState.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"state"];
                           phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
+                          
                           NSString *str1 = [make stringByAppendingString:@" "];
                           _lblMake1.text = [str1 stringByAppendingString:model];
                           _lblMake.text = [str1 stringByAppendingString:model];
@@ -324,7 +389,7 @@ NSInteger intImage;
                           
                           
                           _lblExpiry.text = date;
-                                                    
+                          
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
@@ -383,6 +448,17 @@ NSInteger intImage;
                               [_btnAddInsurance setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                               
                           }
+
+                      }
+                      else
+                      {
+                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
+                                                                              message:[jsonDictionary valueForKey:@"message"]
+                                                                             delegate:self
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil, nil];
+                          [CheckAlert show];
+                          
                           
                       }
                       [SVProgressHUD dismiss];
@@ -573,19 +649,8 @@ NSInteger intImage;
          
          NSString *EntityID = [jsonDictionary valueForKey:@"status"];
          NSLog(@"message %@",EntityID);
-         if ([EntityID isEqualToString:@"failure"])
+         if ([EntityID isEqualToString:@"success"])
          {
-             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
-                                                                 message:@"Image has not been uploaded."
-                                                                delegate:self
-                                                       cancelButtonTitle:@"OK"
-                                                       otherButtonTitles:nil, nil];
-             [CheckAlert show];
-         }
-         else
-         {
-             
-             //  UIImage *contactImage = [UIImage imageWithData:imageData];
              if(_intPosition == 1)
              {
                  _imgvehicle1.image = [UIImage imageWithData:imageData];
@@ -600,11 +665,23 @@ NSInteger intImage;
              }
              else
              {
-                _imgvehicle3.image = [UIImage imageWithData:imageData];
+                 _imgvehicle3.image = [UIImage imageWithData:imageData];
                  _intNoPhoto = 3;
                  [_btnAddPhoto setHidden:YES];
                  
              }
+
+         }
+         else
+         {
+             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                 message:[jsonDictionary valueForKey:@"message"]
+                                                                delegate:self
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles:nil, nil];
+             [CheckAlert show];
+
+             //  UIImage *contactImage = [UIImage imageWithData:imageData];
              
              
              
@@ -683,6 +760,7 @@ NSInteger intImage;
     vc.strVIN = _lblVin.text;
     vc.strColour = _lblColor.text;
     vc.strAccessories = _lblAccessories.text;
+    vc.strState = _lblState.text;
     
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -904,7 +982,13 @@ NSInteger intImage;
                           NSLog(@"message %@",EntityID);
                           NSString *message = [jsonDictionary valueForKey:@"message"];
                           
-                          if ([EntityID isEqualToString:@"failure"])
+                          if ([EntityID isEqualToString:@"success"])
+                          {
+                              MyVehicleVC *vc = [[MyVehicleVC alloc]init];
+                              
+                              [self.navigationController pushViewController:vc animated:YES];
+                          }
+                          else
                           {
                               UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
                                                                                   message:message
@@ -914,12 +998,7 @@ NSInteger intImage;
                               CheckAlert.tag = 1;
                               
                               [CheckAlert show];
-                          }
-                          else
-                          {
-                              MyVehicleVC *vc = [[MyVehicleVC alloc]init];
-                             
-                              [self.navigationController pushViewController:vc animated:YES];
+                              
                               
                               
                           }

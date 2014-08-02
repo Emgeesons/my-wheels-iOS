@@ -13,7 +13,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface HomePageVC : UIViewController <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface HomePageVC : UIViewController <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,MKAnnotation>
 {
     CLLocationManager *locationManager;
     CLLocation *currentLocation;

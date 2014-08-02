@@ -74,7 +74,7 @@
     cell.lblStatus.text = [[_arrVehicles valueForKey:@"vehicle_status"] objectAtIndex:indexPath.row];
     NSString *vehivleType = [[_arrVehicles valueForKey:@"vehicle_type"] objectAtIndex:indexPath.row];
     NSString *strStatus = [[_arrVehicles valueForKey:@"vehicle_status"] objectAtIndex:indexPath.row];
-    if(strStatus == nil || strStatus == (id)[NSNull null])
+    if(strStatus == nil || strStatus == (id)[NSNull null] || [strStatus isEqualToString:@""])
     {
         [cell.lblStatus setHidden:YES];
         [cell.imgStatus setHidden:YES];
@@ -91,18 +91,22 @@
     }
     if([vehivleType isEqualToString:@"Car"])
     {
+        [cell.lblRegNo setText:@"Registration Number:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
     }
     else if ([vehivleType isEqualToString:@"Bicycle"])
     {
+        [cell.lblRegNo setText:@"Serial Number:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
     }
     else if ([vehivleType isEqualToString:@"Motor Cycle"])
     {
+         [cell.lblRegNo setText:@"Registration Number:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
     }
     else
     {
+         [cell.lblRegNo setText:@"Registration Number:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
     }
     [cell.imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];

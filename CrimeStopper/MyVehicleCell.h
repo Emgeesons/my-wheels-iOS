@@ -14,5 +14,6 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgStatus;
 @property (nonatomic,retain) IBOutlet UILabel *lblRegistrationNumber;
 @property (nonatomic,retain) IBOutlet UILabel *lblStatus;
+@property (nonatomic,retain) IBOutlet UILabel *lblRegNo;
 
 @end

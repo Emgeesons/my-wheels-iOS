@@ -55,6 +55,20 @@ NSDictionary *arrVehicle;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
+    }
     self.library = [[ALAssetsLibrary alloc] init];
     dateFormatter = [[NSDateFormatter alloc] init];
    arrVehicle = [[NSDictionary alloc]init];
@@ -96,6 +110,9 @@ NSDictionary *arrVehicle;
     }
     }
     
+    //set image as round
+    _imgUserProfilepic.layer.cornerRadius = 25;
+    _imgUserProfilepic.clipsToBounds = YES;
     
     _lblFname.text = Fname;
     _lblLname.text = Lname;
@@ -114,12 +131,6 @@ NSDictionary *arrVehicle;
     //NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
    
    
-    CATransition *transDown=[CATransition animation];
-    [transDown setDuration:0.5];
-    [transDown setType:kCATransitionPush];
-    [transDown setSubtype:kCATransitionFromTop];
-    [transDown setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [customActionSheetView.layer addAnimation:transDown forKey:nil];
     
     
    NSString *strPostCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"postcode"];
@@ -136,12 +147,21 @@ NSDictionary *arrVehicle;
         [_btnAddDetails setTitle:@"Edit Details" forState:UIControlStateNormal];
     }
     
+    //for profile complete stateus bar
+    
+    CATransition *transDown=[CATransition animation];
+    [transDown setDuration:0.5];
+    [transDown setType:kCATransitionPush];
+    [transDown setSubtype:kCATransitionFromTop];
+    [transDown setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [customActionSheetView.layer addAnimation:transDown forKey:nil];
+
     
      NSString *profile_completed = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile_completed"];
     NSLog(@"profile complete :: %@",profile_completed);
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(27 / 2.0f,
-                                                                   340,
+                                                                   320,
                                                                   273,
                                                                   21)];
     
@@ -192,7 +212,16 @@ NSDictionary *arrVehicle;
         _lblprofile.text = @"Your Profile is 50% complete.";
         _lblstm.text = @"Add Vehicles to your profile.";
     }
-    else if (int1 >= 51 && int1 <=80)
+    else if (int1 >=51 && int1 <=60){
+        bottomProgressView.progressTintColor = [UIColor orangeColor];
+        [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
+            
+            [progressView setProgress:0.60f animated:YES];
+        }];
+        _lblprofile.text = @"Your Profile is 60% complete.";
+        _lblstm.text = @"Add license details and add photos/indusrance details for your vehicle";
+    }
+    else if (int1 >= 61 && int1 <=80)
     {
         bottomProgressView.progressTintColor = [UIColor yellowColor];
         [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
@@ -200,17 +229,27 @@ NSDictionary *arrVehicle;
             [progressView setProgress:0.80f animated:YES];
         }];
         _lblprofile.text = @"Your Profile is 80% complete.";
-        _lblstm.text = @"Add information about your Vehicle now.";
+        //license_no
+        NSString *licenceNo = [[NSUserDefaults standardUserDefaults]objectForKey:@"license_no"];
+        if(licenceNo == nil || licenceNo == (id)[NSNull null] || [licenceNo isEqualToString:@""])
+        {
+            _lblstm.text = @"Add license details to your profile";
+        }
+        else
+        {
+            _lblstm.text = @"Add photos/indusrance details for your vehicle";
+        }
+        
     }
     else if (int1 >= 81)
     {
         bottomProgressView.progressTintColor = [UIColor greenColor];
         [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
             
-            [progressView setProgress:0.95f animated:YES];
+            [progressView setProgress:0.90f animated:YES];
         }];
         _lblprofile.text = @"Your Profile is 90% complete.";
-        _lblstm.text = @"Add information about your Vehicle now.";
+        _lblstm.text = @"Add photos/indusrance details for your vehicle";
     }
     else if (int1 >=100)
     {
@@ -222,16 +261,16 @@ NSDictionary *arrVehicle;
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    if (networkStatus == NotReachable) {
+    Reachability *networkReachability1 = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus1 = [networkReachability1 currentReachabilityStatus];
+    if (networkStatus1 == NotReachable) {
         NSLog(@"There IS NO internet connection");
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"Please connect to the internet to continue."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
+//        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+//                                                            message:@"Please connect to the internet to continue."
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil, nil];
+//        [CheckAlert show];
     }
     else
     {
@@ -268,11 +307,7 @@ NSDictionary *arrVehicle;
                       NSLog(@"message %@",EntityID);
                       
                       
-                      if ([EntityID isEqualToString:@"failure"])
-                      {
-                          
-                      }
-                      else
+                      if ([EntityID isEqualToString:@"success"])
                       {
                           NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                           NSLog(@"data : %@",jsonDictionary);
@@ -294,7 +329,7 @@ NSDictionary *arrVehicle;
                           NSString *photo_url = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
                           NSString *postcode = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"postcode"];
                           NSString *profile_completed = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
-                        NSString  *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
+                          NSString  *samaritan_points = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"samaritan_points"];
                           NSString *security_answer = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_answer"];
                           NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                           NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
@@ -333,14 +368,30 @@ NSDictionary *arrVehicle;
                           _lblLname.text = last_name;
                           _lblMobileNo.text = mobile_number;
                           _lblEmail.text =  email1;
-                          
+
+                      }
+                      else
+                      {
+                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                              message:[jsonDictionary valueForKey:@"message"]
+                                                                             delegate:self
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil, nil];
+                          [CheckAlert show];
+
                       }
                      
                       _lblFname.text = first_name;
                       _lblLname.text = last_name;
                       _lblMobileNo.text = mobile_number;
                       _lblEmail.text =  email1;
-
+                      
+                      NSString *strName = [first_name stringByAppendingString:@" "];
+                      NSString *strFullName = [strName stringByAppendingString:last_name];
+                      
+                      _lblFname.text = strFullName;
+                      
+                      
                       NSLog(@"dob : %@",dob);
                       dateFormatter = [[NSDateFormatter alloc]init];
                       [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -416,11 +467,7 @@ NSDictionary *arrVehicle;
                           NSLog(@"message %@",EntityID);
                           
                           
-                          if ([EntityID isEqualToString:@"failure"])
-                          {
-                              
-                          }
-                          else
+                          if ([EntityID isEqualToString:@"success"])
                           {
                               NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                               NSLog(@"data : %@",jsonDictionary);
@@ -447,7 +494,7 @@ NSDictionary *arrVehicle;
                               NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                               NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
                               NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
-                             
+                              
                               arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                               
                               
@@ -476,7 +523,16 @@ NSDictionary *arrVehicle;
                               [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                               [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                               
-                              
+
+                          }
+                          else
+                          {
+                              UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                                  message:[jsonDictionary valueForKey:@"message"]
+                                                                                 delegate:self
+                                                                        cancelButtonTitle:@"OK"
+                                                                        otherButtonTitles:nil, nil];
+                              [CheckAlert show];
                               
                           }
                           [SVProgressHUD dismiss];
@@ -503,11 +559,11 @@ NSDictionary *arrVehicle;
    vehicle = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
     if([vehicle count] == 0)
     {
-        [_btnAddVehicle setTitle:@"Add Vehicle" forState:UIControlStateNormal];
+        [_btnAddVehicle setTitle:@"Add Vehicles" forState:UIControlStateNormal];
     }
     else
     {
-        [_btnAddVehicle setTitle:@"My Vehicle" forState:UIControlStateNormal];
+        [_btnAddVehicle setTitle:@"My Vehicles" forState:UIControlStateNormal];
     }
    
     
@@ -655,6 +711,7 @@ NSDictionary *arrVehicle;
 //                });
             }
     
+    
 }
 #pragma mark camera click
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -736,16 +793,7 @@ NSDictionary *arrVehicle;
        
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
         NSLog(@"message %@",EntityID);
-        if ([EntityID isEqualToString:@"failure"])
-        {
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Couldn't finish"
-                                                                message:@"Image has not been uploaded."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-            [CheckAlert show];
-        }
-        else
+        if ([EntityID isEqualToString:@"success"])
         {
             NSString *photo_url = [jsonDictionary valueForKey:@"response"] ;
             [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
@@ -758,12 +806,23 @@ NSDictionary *arrVehicle;
             NSLog(@"strfilename : %@",strFileName);
             // Store the data
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                
+            
             [defaults setObject:imageData forKey:strFileName];
             [defaults synchronize];
-                
-              //  UIImage *contactImage = [UIImage imageWithData:imageData];
-                _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+            
+            //  UIImage *contactImage = [UIImage imageWithData:imageData];
+            _imgUserProfilepic.image = [UIImage imageWithData:imageData];
+        }
+        else
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
+                                                                message:[jsonDictionary valueForKey:@"message"]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+            
+            
                 
          
     

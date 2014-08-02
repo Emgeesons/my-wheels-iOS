@@ -103,7 +103,6 @@
 		5ED385D819612578007DD44F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED385D719612578007DD44F /* FacebookSDK.framework */; };
 		5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED385DA196166E0007DD44F /* AddVehiclesVC.m */; };
 		5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */; };
-		5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F019514BFD009550A1 /* ic_drawer.png */; };
 		5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F319514F36009550A1 /* AboutUsVC.m */; };
 		5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F419514F36009550A1 /* AboutUsVC.xib */; };
 		5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C90319517553009550A1 /* EmergencyNoVC.m */; };
@@ -224,6 +223,7 @@
 		5EFFBC73195C00B0003679C6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC21195C00B0003679C6 /* UIRefreshControl+AFNetworking.m */; };
 		5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */; };
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
+		5EFFFBE8198A515400F1474D /* ic_drawer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFFFBE7198A515400F1474D /* ic_drawer2.png */; };
 		ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */; };
 		ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */; };
 		ECEAE2791966C52A00BBA108 /* green_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2711966C52A00BBA108 /* green_pin.png */; };
@@ -369,7 +369,6 @@
 		5ED385D9196166E0007DD44F /* AddVehiclesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddVehiclesVC.h; sourceTree = "<group>"; };
 		5ED385DA196166E0007DD44F /* AddVehiclesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddVehiclesVC.m; sourceTree = "<group>"; };
 		5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddVehiclesVC.xib; sourceTree = "<group>"; };
-		5EE8C8F019514BFD009550A1 /* ic_drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer.png; sourceTree = "<group>"; };
 		5EE8C8F219514F36009550A1 /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		5EE8C8F319514F36009550A1 /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		5EE8C8F419514F36009550A1 /* AboutUsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
@@ -534,6 +533,7 @@
 		5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		5EFFBC85195C06E3003679C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		5EFFFBE7198A515400F1474D /* ic_drawer2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer2.png; sourceTree = "<group>"; };
 		ECEAE26C1966C1AF00BBA108 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfo.h; sourceTree = "<group>"; };
 		ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
 		ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_photos@2x.png"; sourceTree = "<group>"; };
@@ -605,6 +605,7 @@
 		5E04AEFB194FFA3D003F6CD4 /* home page */ = {
 			isa = PBXGroup;
 			children = (
+				5EFFFBE7198A515400F1474D /* ic_drawer2.png */,
 				5EF124571987B2B30096C4EF /* location1.png */,
 				5EF124581987B2B30096C4EF /* privacy1.png */,
 				5EF124591987B2B30096C4EF /* settings1.png */,
@@ -619,7 +620,6 @@
 				5EF124281987804E0096C4EF /* ic_report_sighting1.png */,
 				5EF124291987804E0096C4EF /* ic_updates1.png */,
 				5EF12413198774110096C4EF /* ic_about_us.png */,
-				5EE8C8F019514BFD009550A1 /* ic_drawer.png */,
 				5E04AF4119505CBD003F6CD4 /* default_profile_1.png */,
 			);
 			name = "home page";
@@ -1267,7 +1267,6 @@
 				5E04AF1119500608003F6CD4 /* TableViewCell.xib in Resources */,
 				5E3C3FB8196A9A11007E6AFA /* ic_like_blue.png in Resources */,
 				5EF1245B1987B2B30096C4EF /* location1.png in Resources */,
-				5EE8C8F119514BFD009550A1 /* ic_drawer.png in Resources */,
 				5E04AF08194FFD7E003F6CD4 /* NavigationHomeVC.xib in Resources */,
 				5EF124111987705F0096C4EF /* login_bg_640x1136.png in Resources */,
 				5EF1245619878C330096C4EF /* phone1.png in Resources */,
@@ -1330,6 +1329,7 @@
 				5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */,
 				5EE8C91E1951AFFA009550A1 /* star_highlighted.png in Resources */,
 				ECEAE27F1966C52A00BBA108 /* red_pin.png in Resources */,
+				5EFFFBE8198A515400F1474D /* ic_drawer2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

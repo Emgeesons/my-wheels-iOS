@@ -11,9 +11,12 @@
 #import "Reachability.h"
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
+#import "AppDelegate.h"
 
 @interface EditDetailsVC ()
-
+{
+    AppDelegate *appDelegate;
+}
 @end
 
 @implementation EditDetailsVC
@@ -22,6 +25,8 @@ NSString *strGender;
 int intques;
 NSString *strQues;
 NSString *strBirthDate;
+UITextField *txtOtherQuestion;
+
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,7 +57,7 @@ NSString *strBirthDate;
     NSString *strPin2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin2"];
     NSString *strPin3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin3"];
     NSString *strPin4 = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin4"];
-  
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
    
     
     NSLog(@"dob : %@",dob);
@@ -64,7 +69,7 @@ NSString *strBirthDate;
     NSLog(@"dob : %@",datedob);
     
     dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
     
     NSString *date = [dateFormatter stringFromDate:datedob];
     
@@ -262,71 +267,85 @@ NSString *strBirthDate;
     
     if (_txtFname.text.length==0 || _txtLname.text.length==0 || _txtEmail.text.length==0 || _txtMobileNo.text.length==0 || _txtDob.text.length==0 || _txtpin1.text.length==0 || _txtpin2.text.length==0 || _txtpin3.text.length==0 || _txtpin4.text.length == 0 || _txtAnswer.text.length == 0 || _txtLicenceNo.text.length == 0 | _txtStreet.text.length == 0 || _txtPostCode.text.length == 0)
     {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"Something went wrong. Please try again later."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
+        if (_txtFname.text.length == 0)
+        {
+            [_txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (_txtLname.text.length == 0)
+        {
+            [_txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (_txtMobileNo.text.length == 0)
+        {
+            [_txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (_txtAnswer.text.length == 0)
+        {
+            [_txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(_txtEmail.text.length == 0)
+        {
+            [_txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (_txtDob.text.length == 0)
+        {
+            [_txtDob setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if (_txtPostCode.text.length == 0)
+        {
+            [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(_txtLicenceNo.text.length == 0)
+        {
+            [_txtLicenceNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(_txtPostCode.text.length == 0)
+        {
+            [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(_txtStreet.text.length == 0)
+        {
+            [_txtStreet setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+
+        }
+        
         
     }
-   else if (_txtFname.text.length>0 && _txtFname.text.length <2)
+   else if (_txtFname.text.length <2)
     {
         [_txtFname setTextColor:[UIColor redColor]];
     }
-    else if (_txtFname.text.length == 0)
-    {
-        [_txtFname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-    }
-    
-    
-     else if (_txtLname.text.length>0 && _txtLname.text.length <2)
+  else if (_txtLname.text.length <2)
     {
         [_txtLname setTextColor:[UIColor redColor]];
     }
-    else if (_txtLname.text.length == 0)
-    {
-        [_txtLname setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-    }
-   
-    
-  else  if (_txtMobileNo.text.length>0 && _txtMobileNo.text.length <2)
+    else  if ( _txtMobileNo.text.length <2)
     {
         [_txtMobileNo setTextColor:[UIColor redColor]];
     }
-    else if (_txtMobileNo.text.length == 0)
-    {
-        [_txtMobileNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-    }
-  
-    
-   else if (_txtAnswer.text.length>0 && _txtAnswer.text.length <3)
+   else if ( _txtAnswer.text.length <3)
     {
         [_txtAnswer setTextColor:[UIColor redColor]];
     }
-    else if (_txtAnswer.text.length == 0)
-    {
-        [_txtAnswer setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-    }
-   
-   else if(_txtEmail.text.length == 0)
+    else if(_txtEmail.text.length == 0)
     {
         [_txtEmail setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
     
-    else if (_txtDob.text.length == 0)
-    {
-        [_txtDob setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-    }
+   
     else if ( _txtPostCode.text.length != 4)
     {
         [_txtPostCode setTextColor:[UIColor redColor]];
     }
-    else if (_txtPostCode.text.length == 0)
+     
+    else if (_txtLicenceNo.text.length <2)
     {
-        [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        [_txtLicenceNo setTextColor:[UIColor redColor]];
     }
-
+    else if (_txtStreet.text.length <2)
+    {
+            [_txtStreet setTextColor:[UIColor redColor]];
+    }
     else
     {
         BOOL isValid = [self NSStringIsValidEmail:_txtEmail.text];
@@ -401,16 +420,30 @@ NSString *strBirthDate;
     
     NSString *birthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
    
-    NSDate *todayDate = [NSDate date];
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setYear:-13]; // note that I'm setting it to -1
+    NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+    NSLog(@"%@", maxDate);
     
+    [offsetComponents setYear:-100]; // note that I'm setting it to -1
+    NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+    NSLog(@"%@", minDate);
+    [timePicker setMaximumDate:maxDate];
+    [timePicker setMinimumDate:minDate];
     
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthDate]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    int years = (allDays-days)/365;
+    NSArray * arr1 = [birthDate componentsSeparatedByString:@"/"];
+    NSString *dob;
+    dob = [arr1 objectAtIndex:1];
+    dob = [dob stringByAppendingString:@"-"];
+    dob = [dob stringByAppendingString:[arr1 objectAtIndex:0]];
+    dob = [dob stringByAppendingString:@"-"];
+    dob = [dob stringByAppendingString:[arr1 objectAtIndex:2]];
+    NSLog(@"dob = %@",dob);
+
     
-    NSLog(@"You live since %i years and %i days",years,days);
-    _txtDob.text = birthDate;
+    _txtDob.text = dob;
     if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
     {
         NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
@@ -504,7 +537,19 @@ NSString *strBirthDate;
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
         [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
+        
+        NSDate *currentDate = [NSDate date];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", maxDate);
+        
+        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", minDate);
+        [timePicker setMaximumDate:maxDate];
+        [timePicker setMinimumDate:minDate];
         
         
         //format datePicker mode. in this example time is used
@@ -924,7 +969,7 @@ NSString *strBirthDate;
 
      */
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
   //  NSString *strQue;
@@ -953,6 +998,7 @@ NSString *strBirthDate;
     [param setValue:_txtFname.text forKey:@"firstName"];
     [param setValue:_txtLname.text forKey:@"lastName"];
     [param setValue:_txtMobileNo.text forKey:@"mobileNumber"];
+    NSLog(@"strbirthdate : %@",strBirthDate);
     // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
     if(strBirthDate == nil || strBirthDate == (id)[NSNull null] || [strBirthDate isEqualToString:@""])
     {
@@ -961,7 +1007,8 @@ NSString *strBirthDate;
     }
     else
     {
-    [param setValue:strBirthDate forKey:@"dob"];
+        NSLog(@"strbirthdate : %@",strBirthDate);
+       [param setValue:strBirthDate forKey:@"dob"];
     }
     [param setValue:strGender forKey:@"gender"];
     [param setValue:strQuestion forKey:@"securityQuestion"];
@@ -997,11 +1044,7 @@ NSString *strBirthDate;
               NSLog(@"Json dictionary :: %@",jsonDictionary);
               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
               NSLog(@"message %@",EntityID);
-              if ([EntityID isEqualToString:@"failure"])
-              {
-                  
-              }
-              else
+              if ([EntityID isEqualToString:@"success"])
               {
                   [[NSUserDefaults standardUserDefaults] setValue:UserID forKey:@"UserID"];
                   if(strBirthDate == nil || strBirthDate == (id)[NSNull null] || [strBirthDate isEqualToString:@""])
@@ -1015,28 +1058,38 @@ NSString *strBirthDate;
                   }
                   
                   [[NSUserDefaults standardUserDefaults] setValue:_txtEmail.text forKey:@"email"];
-                //  [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
-                 // [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
-                //  [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
-                //  [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
+                  //  [[NSUserDefaults standardUserDefaults] setValue:emergencyContact forKey:@"emergencyContact"];
+                  // [[NSUserDefaults standardUserDefaults] setValue:emergency_contact_number forKey:@"emergency_contact_number"];
+                  //  [[NSUserDefaults standardUserDefaults] setValue:fb_id forKey:@"fb_id"];
+                  //  [[NSUserDefaults standardUserDefaults] setValue:fb_token forKey:@"fb_token"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtFname.text forKey:@"first_name"];
                   [[NSUserDefaults standardUserDefaults] setValue:strGender forKey:@"gender"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtLname.text forKey:@"last_name"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtLicenceNo.text forKey:@"license_no"];
-                 // [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
+                  // [[NSUserDefaults standardUserDefaults] setValue:license_photo_url forKey:@"license_photo_url"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtMobileNo.text forKey:@"mobile_number"];
                   //[[NSUserDefaults standardUserDefaults] setValue:modified_at forKey:@"modified_at"];
-                 // [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
+                  // [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtPostCode.text forKey:@"postcode"];
-                 //street
+                  //street
                   [[NSUserDefaults standardUserDefaults] setValue:_txtStreet.text forKey:@"street"];
                   //[[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtAnswer.text forKey:@"security_answer"];
                   [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtStreet.text forKey:@"street"];
-                                  
+                  
                   UserProfileVC *vc = [[UserProfileVC alloc]init];
                   [self.navigationController pushViewController:vc animated:YES];
+              }
+              else
+              {
+                  NSString *strmessage = [jsonDictionary valueForKey:@"message"];
+                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                                      message:strmessage
+                                                                     delegate:self
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil, nil];
+                  [CheckAlert show];
               }
               [SVProgressHUD dismiss];
               
@@ -1097,30 +1150,31 @@ NSString *strBirthDate;
     [self.view setBackgroundColor:[UIColor whiteColor]];
     if(indexPath.row == 10)
     {
-       intques = 1;
-        [_txtquestion setHidden:NO];
+        intques = 1;
+        [txtOtherQuestion setHidden:NO];
+        _txtAnswer.text = @"";
         // [self.scrollview removeFromSuperview];
         [_btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [_btnSecurityQuestion setEnabled:YES];
         [_btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
-        _txtquestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,305,300,30)];
-        [_txtquestion setBackgroundColor:[UIColor lightGrayColor]];
-        _txtAnswer .text = @"";
-        _txtAnswer.frame = CGRectMake(5, 342, 300, 30);
-        _txtLicenceNo.frame = CGRectMake(5, 379, 300, 30);
-        _txtStreet.frame = CGRectMake(5, 416, 300, 30);
-        _txtPostCode.frame = CGRectMake(5, 453, 300, 30);
-        [self.scroll addSubview:_txtAnswer];
-        _txtquestion.borderStyle = UITextBorderStyleRoundedRect;
-        _txtquestion.font = [UIFont systemFontOfSize:15];
-        _txtquestion.keyboardType = UIKeyboardTypeDefault;
-        _txtquestion.returnKeyType = UIReturnKeyDefault;
-        _txtquestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        _txtquestion.placeholder = @"Enter Question";
-        _txtquestion.tag = 10;
-        _txtquestion.delegate = self;
+        txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,315,300,30)];
+        [_txtAnswer setFrame:CGRectMake(5, 350, 300, 30)];
+        [_txtLicenceNo setFrame:CGRectMake(5, 390, 300, 30)];
+        [_txtStreet setFrame:CGRectMake(5, 430, 300, 30)];
+        [_txtPostCode setFrame:CGRectMake(5, 470, 300, 30)];
+        // [self.scrollview addSubview:txtAnswer];
+        txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
+        txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+        txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+        //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
+        txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
+        txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
+        txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        txtOtherQuestion.placeholder = @"enter question *";
+        txtOtherQuestion.tag = 10;
+        txtOtherQuestion.delegate = self;
         
-        [self.scroll addSubview:_txtquestion];
+        [self.scroll addSubview:txtOtherQuestion];
         [_viewSecurityQuestion setHidden:YES];
         
     }
@@ -1128,18 +1182,21 @@ NSString *strBirthDate;
     else
     {
         intques = 2;
+        [_txtAnswer setText:@""];
+        [txtOtherQuestion setHidden:YES];
         NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
-       strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
+        strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [_btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
-    _txtquestion.text = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [_btnSecurityQuestion setEnabled:YES];
         [_viewSecurityQuestion setHidden:YES];
-       // [_txtquestion setHidden:YES];
-       // [_txtAnswer setFrame:CGRectMake(5, 338, 300, 30)];
+        [txtOtherQuestion setHidden:YES];
+        [_btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
+        [_txtAnswer setFrame:CGRectMake(5, 315, 300, 30)];
+        [_txtLicenceNo setFrame:CGRectMake(5, 355, 300, 30)];
+        [_txtStreet setFrame:CGRectMake(5, 395, 300, 30)];
+        [_txtPostCode setFrame:CGRectMake(5, 435, 300, 30)];
         
-        
-   }
-    
+    }
     
 }
 

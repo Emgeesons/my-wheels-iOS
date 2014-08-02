@@ -355,7 +355,6 @@ int intques;
         {
             [_lblPin setTextColor:[UIColor redColor]];
         }
-
         
         
     }
@@ -417,7 +416,7 @@ int intques;
         }
         else
         {
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning."
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                 message:@"Please enter proper Email ID."
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
@@ -493,7 +492,19 @@ int intques;
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
         [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
+        
+        NSDate *currentDate = [NSDate date];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", maxDate);
+        
+        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", minDate);
+        [timePicker setMaximumDate:maxDate];
+        [timePicker setMinimumDate:minDate];
         
         
         //format datePicker mode. in this example time is used
@@ -568,8 +579,19 @@ int intques;
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
         [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
         
+        NSDate *currentDate = [NSDate date];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", maxDate);
+        
+        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", minDate);
+        [timePicker setMaximumDate:maxDate];
+        [timePicker setMinimumDate:minDate];
         
         //format datePicker mode. in this example time is used
         timePicker.datePickerMode = UIDatePickerModeDate;
@@ -937,6 +959,7 @@ int intques;
        
     if(textField.tag == 3)
     {
+        // Open DatePicker when age textfield is clicked
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
         
         timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
@@ -944,20 +967,33 @@ int intques;
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
         [dateFormatter setLocale:[NSLocale currentLocale]];
-        timePicker.maximumDate = [NSDate date];
+        //        timePicker.maximumDate = [NSDate date];
+        
+        NSDate *currentDate = [NSDate date];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", maxDate);
+        
+        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+        NSLog(@"%@", minDate);
+        [timePicker setMaximumDate:maxDate];
+        [timePicker setMinimumDate:minDate];
         
         
         //format datePicker mode. in this example time is used
         timePicker.datePickerMode = UIDatePickerModeDate;
         [dateFormatter setDateFormat:@"MM/dd/yyyy"];
         UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor whiteColor];
+        toolbarPicker.backgroundColor = [UIColor grayColor];
         [toolbarPicker sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 270, 60, 44)];
+        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
         [bbitem setTitle:@"Done" forState:UIControlStateNormal];
         [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        [bbitem setTintColor:[UIColor blueColor]];
+
         [toolbarPicker addSubview:bbitem];
        
         [sheet addSubview:toolbarPicker];
@@ -1173,19 +1209,9 @@ int intques;
         NSLog(@"data : %@",jsonDictionary);
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
         NSLog(@"message %@",EntityID);
-        if ([EntityID isEqualToString:@"failure"])
+        if ([EntityID isEqualToString:@"success"])
         {
-            NSString *strmessage = [jsonDictionary valueForKey:@"message"];
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                message:strmessage
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-            [CheckAlert show];
-        }
-        else
-        {
-           NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+            NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
             [[NSUserDefaults standardUserDefaults] setValue:userID forKey:@"UserID"];
             [[NSUserDefaults standardUserDefaults] setValue:strBirthDate forKey:@"dob"];
             [[NSUserDefaults standardUserDefaults] setValue:txtEmailAddress.text forKey:@"email"];
@@ -1193,20 +1219,37 @@ int intques;
             [[NSUserDefaults standardUserDefaults] setValue:strGender forKey:@"gender"];
             [[NSUserDefaults standardUserDefaults] setValue:txtLname.text forKey:@"last_name"];
             [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
-             [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
+            [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
             [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
             [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
-           
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                message:@"My Wheel would like to access your current location."
+            
+            HomePageVC *vc = [[HomePageVC alloc]init];
+            appDelegate.intReg = 1;
+            [self.navigationController pushViewController:vc animated:YES];
+
+            
+        }
+        else
+        {
+            NSString *strmessage = [jsonDictionary valueForKey:@"message"];
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                message:strmessage
                                                                delegate:self
-                                                      cancelButtonTitle:@"Don't Allow"
-                                                      otherButtonTitles:@"Allow", nil];
-            
-            
-            
-            CheckAlert.tag =2;
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
             [CheckAlert show];
+
+            
+//            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+//                                                                message:@"My Wheel would like to access your current location."
+//                                                               delegate:self
+//                                                      cancelButtonTitle:@"Don't Allow"
+//                                                      otherButtonTitles:@"Allow", nil];
+//            
+//            
+//            
+//            CheckAlert.tag =2;
+//            [CheckAlert show];
         }
         [SVProgressHUD dismiss];
 

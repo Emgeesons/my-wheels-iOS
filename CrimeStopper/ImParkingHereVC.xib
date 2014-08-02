@@ -10,6 +10,7 @@
                 <outlet property="btnDone" destination="cSj-W5-5zq" id="g7B-bF-56E"/>
                 <outlet property="btnHome" destination="Mmc-SG-Eoa" id="OC3-Zi-Y18"/>
                 <outlet property="btnRating" destination="7OI-Gf-lRP" id="ErL-hv-jui"/>
+                <outlet property="btnTips" destination="fc0-mE-r54" id="bAB-9G-h7O"/>
                 <outlet property="lblHeading" destination="C8g-I4-xeI" id="Ijx-3d-F4F"/>
                 <outlet property="lblLocation" destination="4ZM-OI-mb9" id="enZ-84-Nq7"/>
                 <outlet property="scroll" destination="YNy-7T-5F1" id="SSG-Lb-9Xf"/>
@@ -34,7 +35,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="514"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ZM-OI-mb9">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ZM-OI-mb9">
                                     <rect key="frame" x="8" y="17" width="156" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
@@ -57,7 +58,7 @@
                                     <rect key="frame" x="165" y="37" width="142" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="13"/>
-                                    <state key="normal" title="10 tips for location >">
+                                    <state key="normal">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -145,9 +146,10 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mmc-SG-Eoa">
-                            <rect key="frame" x="9" y="22" width="30" height="20"/>
+                            <rect key="frame" x="9" y="22" width="39" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" backgroundImage="ic_drawer.png">
+                            <state key="normal" title="Back">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -258,7 +260,6 @@
         </toolbar>
     </objects>
     <resources>
-        <image name="ic_drawer.png" width="16" height="16"/>
         <image name="location1.png" width="64" height="60"/>
         <image name="privacy1.png" width="64" height="60"/>
         <image name="settings1.png" width="64" height="60"/>

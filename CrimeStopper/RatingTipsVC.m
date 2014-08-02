@@ -115,16 +115,7 @@
             
             NSString *EntityID = [jsonDictionary valueForKey:@"status"];
             NSLog(@"message %@",EntityID);
-            if ([EntityID isEqualToString:@"failure"])
-            {
-                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                    message:@"Something went wrong. Please Try Again."
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil, nil];
-                [CheckAlert show];
-            }
-            else
+            if ([EntityID isEqualToString:@"success"])
             {
                 [_arrTips addObjectsFromArray:[jsonDictionary valueForKey:@"response"]];
                 
@@ -132,6 +123,16 @@
                 self.tblRating.delegate=self;
                 self.tblRating.dataSource=self;
                 [_tblRating reloadData];
+            }
+            else
+            {
+                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                    message:[jsonDictionary valueForKey:@"message"]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                [CheckAlert show];
+
                 
             }
             [SVProgressHUD dismiss];

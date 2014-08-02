@@ -15,6 +15,8 @@
 #import "HomePageVC.h"
 #import "AFNetworking.h"
 
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 /*feedback.php
  Parameters to pass - userId, rating (compulsory), feedback (optional field), os, make, model.*/
 
@@ -38,6 +40,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   activeTextField=_txtComment;
+    //_txtComment.delegate = self;
+    
     self.navigationController.navigationBarHidden = YES;
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -45,6 +50,20 @@
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+    
+    [_txtComment setInputAccessoryView:self.toolbar];
+    
+    if(IsIphone5)
+    {
+        
+        _scroll.contentSize = CGSizeMake(320, 800);
+    }
+    else
+    {
+        
+        
+        _scroll.contentSize = CGSizeMake(320, 700);
+    }
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -100,26 +119,27 @@
         
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
         NSLog(@"message %@",EntityID);
-        if ([EntityID isEqualToString:@"failure"])
+        if ([EntityID isEqualToString:@"success"])
         {
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                message:@"Something went wrong. Please Try Again."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-            [CheckAlert show];
-        }
-        else
-        {
-            
             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
-                                                                message:@"Thank you for your feedback."
+                                                                message:[jsonDictionary valueForKey:@"message"]
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
             CheckAlert.tag = 1;
             
             [CheckAlert show];
+        }
+        else
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                message:[jsonDictionary valueForKey:@"message"]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+            
+            
             
         }
         [SVProgressHUD dismiss];
@@ -131,7 +151,18 @@
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 
 }
-
+- (IBAction)btnMinimize_Click:(id)sender {
+    [activeTextField resignFirstResponder];
+    int y=0;
+    [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlDown animations:^{
+        CGRect rc = [_txtComment bounds];
+        rc = [_txtComment convertRect:rc toView:_scroll];
+        rc.origin.x = 0 ;
+        rc.origin.y = y ;
+        CGPoint pt=rc.origin;
+        [self.scroll setContentOffset:pt animated:YES];
+    }completion:nil];
+}
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(alertView.tag == 1)
@@ -147,4 +178,31 @@
         }
     }
     }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [_txtComment resignFirstResponder];
+    return YES;
+}
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    int y=0;
+    if (textView == _txtComment)
+    {
+        y=160;
+    }
+    [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
+        CGRect rc = [textView bounds];
+        rc = [textView convertRect:rc toView:_scroll];
+        rc.origin.x = 0 ;
+        rc.origin.y = y-20 ;
+        CGPoint pt=rc.origin;
+        [self.scroll setContentOffset:pt animated:YES];
+        
+    }completion:nil];
+
+    
+    NSLog(@"Started editing target!");
+    
+}
 @end

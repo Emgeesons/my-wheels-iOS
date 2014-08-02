@@ -20,6 +20,7 @@
 @property (nonatomic,retain) NSMutableArray *arrVehicleType,*arrBodyType;
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
+@property (nonatomic,retain) IBOutlet UITextField *txtstate;
 
 -(IBAction)btnAdd_click:(id)sender;
 -(IBAction)btnBack_click:(id)sender;

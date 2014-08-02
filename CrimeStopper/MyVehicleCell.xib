@@ -80,6 +80,7 @@
                 <outlet property="imgStatus" destination="rZE-hc-ceP" id="vmG-QF-9cP"/>
                 <outlet property="imgVehicleType" destination="wgc-r6-z4U" id="FjS-2b-ShW"/>
                 <outlet property="lblMakeModel" destination="9kl-x6-4dP" id="OGA-Gn-li6"/>
+                <outlet property="lblRegNo" destination="yRv-oW-Ke7" id="a0C-jL-UXv"/>
                 <outlet property="lblRegistrationNumber" destination="QGz-Rc-B0M" id="WUo-Lj-PBK"/>
                 <outlet property="lblStatus" destination="eTW-jX-ggJ" id="oxq-KA-Yfv"/>
             </connections>

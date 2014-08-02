@@ -7,14 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPRevealSideViewController.h"
 
 @class HomePageVC;
+@class LoginVC;
 
-@interface EvertTimePinVC : UIViewController <UITextFieldDelegate>
+@interface EvertTimePinVC : UIViewController <UITextFieldDelegate,PPRevealSideViewControllerDelegate>
 {
     UITextField *activeTextField;
     UIActionSheet *sheet;
 }
+@property (nonatomic, retain) UINavigationController *nav;
+
+@property (strong, nonatomic) PPRevealSideViewController *revealSideViewController;
+@property (nonatomic,strong) LoginVC *LoginVC;
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,retain) IBOutlet UIView *viewPin;
 @property (nonatomic,retain) IBOutlet UITextField *txtPin1;

@@ -44,6 +44,7 @@
 @property (nonatomic) NSInteger intReg;
 @property (nonatomic,retain) NSString *strPinTimeStamp;
 @property (nonatomic,retain) NSString *strCurrentTime;
+@property (nonatomic) NSInteger intMparking;
 
 
 @end

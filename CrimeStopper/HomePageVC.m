@@ -18,7 +18,7 @@
 #import "SelectVehicleCell.h"
 #import "ImParkingHereVC.h"
 #import "FindVehicleVC.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import "AFNetworking.h"
 #import "FileNewReportViewController.h"
 #import "UpdatesViewController.h"
@@ -49,8 +49,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
     self.library = [[ALAssetsLibrary alloc] init];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.navigationController.navigationBar  setBarTintColor:[UIColor whiteColor]];
+    
     NSLog(@"user id:%@",appdelegate.strUserID);
     [_voewMakeModel setHidden:YES];
     [_viewCoach setHidden:YES];
@@ -64,6 +69,16 @@
     [_btnFindVehicle setEnabled:NO];
     [_imgTick setHidden:YES];
     [_viewLocationGuide setHidden:YES];
+    
+    //set status bar color
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    // set find my vehicle button enavle no
+    [_btnFindVehicle setEnabled:NO];
+    
+    //set image as round
+    _imgProfilepic.layer.cornerRadius = 15;
+    _imgProfilepic.clipsToBounds = YES;
     
    if( appdelegate.intReg == 1)
    {
@@ -112,8 +127,10 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"CurrentVehicleName"];
         [_btnHeading setTitle:@"" forState:UIControlStateNormal];
     }
-    // Do any additional setup after loading the view from its nib.
-   // [self CurrentLocationIdentifier];
+    
+    /// implementing map
+    
+    [ self.map.delegate self];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
@@ -124,7 +141,16 @@
     [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:@"latitude"];
     [[NSUserDefaults standardUserDefaults] setValue:longitude forKey:@"longitude"];
     
+    /// zoom map
     
+    float currlat = [latitude floatValue];
+    float currlongt = [longitude floatValue];
+    CLLocationCoordinate2D loc ;
+    loc.latitude = currlat;
+    loc.longitude = currlongt;
+    
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
+    [self.map setRegion:region animated:YES];
     
     NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
     NSLog(@"latitude : %@",latitude);
@@ -147,6 +173,7 @@
     {
     for(int i=0;i<[arr count];i++)
     {
+        [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
         NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
         NSLog(@"strvid : %@",strvid);
         if([strCurrentVehicleID isEqualToString:@"0"] || strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null] )
@@ -157,38 +184,50 @@
         {
         if(strvid == strCurrentVehicleID && strvid != nil)
         {
+            [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
              [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [_imgTick setHidden:NO];
-            intblue = 1;
+            appdelegate.intMparking = 1;
             [_btnFindVehicle setEnabled:YES];
         }
         else
         {
+            [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
              [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
             [_imgTick setHidden:YES];
             [_btnFindVehicle setEnabled:NO];
+            appdelegate.intMparking = 2;
         }
         }
     }
     }
    //for m parking color change
-        if(intblue == 1)
+    NSLog(@"intbluemmm :%d",intblue);
+        if(appdelegate.intMparking == 2)
         {
-            [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
-            [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [_imgTick setHidden:NO];
-            
-            [_btnFindVehicle setEnabled:YES];
-        }
-        else
-        {
+            [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
             [_imgTick setHidden:YES];
             [_btnFindVehicle setEnabled:NO];
         }
+        else if(appdelegate.intMparking == 1)
+        {
+            [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
+            [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+            [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_imgTick setHidden:NO];
+            
+            [_btnFindVehicle setEnabled:YES];
+            
+           
+        }
+    else
+    {
+    
+    }
 
    NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
@@ -245,6 +284,7 @@
    
     
 }
+
 - (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -281,6 +321,14 @@
     [self.ViewMain setBackgroundColor:[UIColor clearColor]];
     [self.ViewMain setAlpha:0.9];
 }
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return self.navigationController.navigationBar.barStyle = ui;
+//}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -336,7 +384,7 @@
     {
         //scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
        // self.scrollview.contentSize = CGSizeMake(320, 800);
-        _map.frame = CGRectMake(0,20, 320, 270);
+        _map.frame = CGRectMake(0,55, 320, 270);
         _btnParking.frame = CGRectMake(1, 210, 150, 60);
         _btnVehicles.frame = CGRectMake(152, 210, 150, 60);
         viewReport.frame = CGRectMake(0, 230, 320, 60);
@@ -347,7 +395,7 @@
     }
     else
     {
-        _map.frame = CGRectMake(0,70, 320, 270);
+        _map.frame = CGRectMake(0,55, 320, 270);
         _btnParking.frame = CGRectMake(1, 120, 150, 55);
         _btnVehicles.frame = CGRectMake(152, 120, 150, 55);
         viewReport.frame = CGRectMake(0, 230, 320, 55);
@@ -367,6 +415,97 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark get current location
+-(void)CurrentLocationIdentifier
+{
+    //---- For getting current gps location
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    //------
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    currentLocation = [locations objectAtIndex:0];
+    [locationManager stopUpdatingLocation];
+    
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSLog(@"\nCurrent Location Detected\n");
+             NSLog(@"placemark %@",placemark);
+             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+             NSString *Address = [[NSString alloc]initWithString:locatedAt];
+             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
+             NSString *Country = [[NSString alloc]initWithString:placemark.country];
+             NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
+             NSLog(@"%@",CountryArea);
+         }
+         else
+         {
+             NSLog(@"Geocode failed with error %@", error);
+             NSLog(@"\nCurrent Location Not Detected\n");
+             //return;
+             // CountryArea = NULL;
+         }
+         /*---- For more results
+          placemark.region);
+          placemark.country);
+          placemark.locality);
+          placemark.name);
+          placemark.ocean);
+          placemark.postalCode);
+          placemark.subLocality);
+          placemark.location);
+          ------*/
+     }];
+}
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    MKPinAnnotationView *pinAnnotation = nil;
+    NSString *defaultPinID = @"myPin";
+    pinAnnotation = (MKPinAnnotationView *)[_map dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+    if ( pinAnnotation == nil )
+        pinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+    
+    pinAnnotation.image = [UIImage imageNamed:@"marker_postoffice.png"];
+    pinAnnotation.annotation = annotation;
+    pinAnnotation.canShowCallout = YES;
+    if([[annotation title] isEqualToString:@"vehicle"])
+    {
+        
+        pinAnnotation.image = [UIImage imageNamed:@"vehicle_parked.png"];
+        pinAnnotation.annotation = annotation;
+        pinAnnotation.canShowCallout = YES;
+        
+        
+    }
+    else
+    {
+        
+        pinAnnotation.image = [UIImage imageNamed:@"current_location.png"];
+        pinAnnotation.canShowCallout = YES;
+        
+    }
+    return pinAnnotation;
+    
+}
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    NSLog(@"in zoom ");
+    CLLocationCoordinate2D loc = [userLocation coordinate];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
+    [self.map setRegion:region animated:YES];
+    
+    
+}
+
 #pragma mark selectore method
 - (IBAction)tapDetected:(UIGestureRecognizer *)sender {
 //    [_viewCoach setHidden:YES];
@@ -383,13 +522,13 @@
 }
 -(void)swipe:(UISwipeGestureRecognizer *)swipeGes{
     if(swipeGes.direction == UISwipeGestureRecognizerDirectionUp){
-        [UIView animateWithDuration:.5 animations:^{
+        [UIView animateWithDuration:.25 animations:^{
             //set frame of bottom view to top of screen (show 100%)
             _viewCoach.frame =CGRectMake(0, 0, 320, _viewCoach.frame.size.height);
         }];
     }
     else if (swipeGes.direction == UISwipeGestureRecognizerDirectionDown){
-        [UIView animateWithDuration:.5 animations:^{
+        [UIView animateWithDuration:.25 animations:^{
             //set frame of bottom view to bottom of screen (show 60%)
             _viewCoach.frame =CGRectMake(0, 300, 320, _viewCoach.frame.size.height);
         }];
@@ -490,14 +629,14 @@
 
 -(IBAction)btnMParking_click:(id)sender
 {
-   if(intblue == 1)
+   if(appdelegate.intMparking == 1)
     {
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Cancel parking"
                                                                message:@"Please confirm your vehicle is not parked here."
                                                               delegate:self
                                                     cancelButtonTitle:@"Yes"
                                                      otherButtonTitles:@"No", nil];
-        intblue = 0;
+        appdelegate.intMparking = 2;
         CheckAlert.tag =1;
            [CheckAlert show];
    }
@@ -530,54 +669,54 @@
 }
 
 #pragma mark get current location
--(void)CurrentLocationIdentifier
-{
-    //---- For getting current gps location
-    locationManager = [CLLocationManager new];
-    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
-    //------
-}
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    currentLocation = [locations objectAtIndex:0];
-    [locationManager stopUpdatingLocation];
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (!(error))
-         {
-             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             NSLog(@"\nCurrent Location Detected\n");
-             NSLog(@"placemark %@",placemark);
-             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
-            // NSString *Address = [[NSString alloc]initWithString:locatedAt];
-             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
-             NSString *Country = [[NSString alloc]initWithString:placemark.country];
-             NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
-             NSLog(@"%@",CountryArea);
-         }
-         else
-         {
-             NSLog(@"Geocode failed with error %@", error);
-             NSLog(@"\nCurrent Location Not Detected\n");
-             //return;
-            // CountryArea = NULL;
-         }
-         /*---- For more results
-          placemark.region);
-          placemark.country);
-          placemark.locality);
-          placemark.name);
-          placemark.ocean);
-          placemark.postalCode);
-          placemark.subLocality);
-          placemark.location);
-          ------*/
-     }];
-}
+//-(void)CurrentLocationIdentifier
+//{
+//    //---- For getting current gps location
+//    locationManager = [CLLocationManager new];
+//    locationManager.delegate = self;
+//    locationManager.distanceFilter = kCLDistanceFilterNone;
+//    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    [locationManager startUpdatingLocation];
+//    //------
+//}
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+//{
+//    currentLocation = [locations objectAtIndex:0];
+//    [locationManager stopUpdatingLocation];
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+//    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+//     {
+//         if (!(error))
+//         {
+//             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//             NSLog(@"\nCurrent Location Detected\n");
+//             NSLog(@"placemark %@",placemark);
+//             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+//            // NSString *Address = [[NSString alloc]initWithString:locatedAt];
+//             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
+//             NSString *Country = [[NSString alloc]initWithString:placemark.country];
+//             NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
+//             NSLog(@"%@",CountryArea);
+//         }
+//         else
+//         {
+//             NSLog(@"Geocode failed with error %@", error);
+//             NSLog(@"\nCurrent Location Not Detected\n");
+//             //return;
+//            // CountryArea = NULL;
+//         }
+//         /*---- For more results
+//          placemark.region);
+//          placemark.country);
+//          placemark.locality);
+//          placemark.name);
+//          placemark.ocean);
+//          placemark.postalCode);
+//          placemark.subLocality);
+//          placemark.location);
+//          ------*/
+//     }];
+//}
 #pragma mark table view delegate methods
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -654,24 +793,29 @@
     }
     else
     {
+        [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
         for(int i=0;i<[arr count];i++)
         {
             NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
             NSLog(@"strvid : %@",strvid);
             if(strvid == strVehicleId && strvid != nil)
             {
+                [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
                 [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
                 [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [_imgTick setHidden:NO];
                 [_btnFindVehicle setEnabled:YES];
-                intblue =1;
+                appdelegate.intMparking =1;
                 return;
             }
             else
             {
+                [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
+                [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
                 [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
                 [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
                 [_btnFindVehicle setEnabled:NO];
+                appdelegate.intMparking = 2;
                 [_imgTick setHidden:YES];
             }
         }
@@ -688,7 +832,7 @@
             NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
             
             NSMutableArray  *arr = [[NSMutableArray alloc]init];
-            arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
+            arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"]mutableCopy];
             
             NSLog(@"arr : %@",arr);
             NSLog(@"current vehicle id : %@",strCurrentVehicleID);
@@ -696,23 +840,35 @@
             {
                 NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
                 NSLog(@"veh : %@",veh);
-                if(veh == strCurrentVehicleID)
+                if([veh isEqualToString:strCurrentVehicleID])
                 {
-                    [arr removeObjectAtIndex:i];
+                    if([arr count] == 1)
+                    {
+                        [arr removeObjectAtIndex:0];
+                    }
+                    else
+                    {
+                        [arr removeObjectAtIndex:i];
+                    }
+                    
+                    
+                    
                 }
                 
             }
-            
+            [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"parkVehicle"];
             NSLog(@"arr : %@",arr);
-            
+            appdelegate.intMparking = 2;
+            [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
             [_imgTick setHidden:YES];
+            [_btnFindVehicle setEnabled:NO];
             
         }
         else
         {
-            
+            appdelegate.intMparking = 1;
         }
     }
 }

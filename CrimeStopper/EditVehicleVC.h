@@ -22,7 +22,8 @@
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 @property (nonatomic,retain) NSDictionary *arrVehicles;
 @property (nonatomic,retain) NSString *strVehicleID;
-@property (nonatomic,retain) NSString *strVehicleType,*strMake,*strModel,*strBodyType,*strRegistrationNo,*strEngineNo,*strVIN,*strColour,*strAccessories;
+@property (nonatomic,retain) NSString *strVehicleType,*strMake,*strModel,*strBodyType,*strRegistrationNo,*strEngineNo,*strVIN,*strColour,*strAccessories,*strState;
+@property (nonatomic,retain) IBOutlet UITextField *txtState;
 
 -(IBAction)btnAdd_click:(id)sender;
 -(IBAction)btnBack_click:(id)sender;

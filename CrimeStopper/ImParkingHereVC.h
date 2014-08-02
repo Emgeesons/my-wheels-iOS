@@ -30,6 +30,7 @@
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic,retain) IBOutlet UIButton *btnDone;
 @property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
+@property (nonatomic,retain) IBOutlet UIButton *btnTips;
 
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnRating_click:(id)sender;

@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 @interface EvertTimePinVC ()
 
 @end
@@ -47,6 +48,15 @@
     [_txtPin3 setInputAccessoryView:self.toolbar];
     [_txtPin4 setInputAccessoryView:self.toolbar];
     
+    if(IsIphone5)
+    {
+        _btnSign.frame = CGRectMake(_btnSign.frame.origin.x, 500, _btnSign.frame.size.width, _btnSign.frame.size.height);
+    }
+    else
+    {
+        _btnSign.frame = CGRectMake(_btnSign.frame.origin.x, 400, _btnSign.frame.size.width, _btnSign.frame.size.height);
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,17 +67,70 @@
 #pragma mark button click event
 -(IBAction)btnForgotPin_click:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dob"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergencyContact"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergency_contact_number"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_id"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_token"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"first_name"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"gender"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"last_name"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_no"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_photo_url"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mobile_number"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"modified_at"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"photo_url"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"postcode"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile_completed"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"samaritan_points"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"security_question"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"street"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    //parkVehicle
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
     LoginVC *vc = [[LoginVC alloc]init];
-  
     [self.navigationController pushViewController:vc animated:YES];
-    
+
 }
 -(IBAction)btnSignInUser_click:(id)sender
 {
-//    LoginVC *vc = [[LoginVC alloc]init];
-//    
-//     [self presentViewController:vc animated:YES completion:nil];
-    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dob"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergencyContact"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergency_contact_number"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_id"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_token"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"first_name"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"gender"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"last_name"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_no"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_photo_url"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mobile_number"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"modified_at"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"photo_url"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"postcode"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile_completed"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"samaritan_points"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"security_question"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"street"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    //parkVehicle
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
+    LoginVC *vc = [[LoginVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(IBAction)btnContinue_click:(id)sender
 {
@@ -124,12 +187,13 @@
               {
                  
                   
-                  [self dismissViewControllerAnimated:YES completion:nil];
+                  HomePageVC *vc = [[HomePageVC alloc]init];
+                  [self.navigationController pushViewController:vc animated:YES];
               }
               else
               {
                   NSString *strmessage = [jsonDictionary valueForKey:@"message"];
-                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                       message:strmessage
                                                                      delegate:self
                                                             cancelButtonTitle:@"OK"
@@ -225,6 +289,10 @@
             [_txtPin1 resignFirstResponder];
             [_txtPin2 becomeFirstResponder];
         }
+        else if (newLength == 0)
+        {
+            _txtPin1.text = @"";
+        }
     }
     else if (textField.tag == 2)
     {
@@ -234,6 +302,13 @@
             NSLog(@"no");
             [_txtPin2 resignFirstResponder];
             [_txtPin3 becomeFirstResponder];
+        }
+        if(newLength == 0)
+        {
+            _txtPin2.text = @"";
+            
+            [_txtPin2 resignFirstResponder];
+            [_txtPin1 becomeFirstResponder];
         }
     }
     else if(textField.tag == 3)
@@ -246,6 +321,13 @@
             [_txtPin4 becomeFirstResponder];
             //return NO;
         }
+        if(newLength == 0)
+        {
+            _txtPin3.text = @"";
+            [_txtPin3 resignFirstResponder];
+            [_txtPin2 becomeFirstResponder];
+            
+        }
         
     }
     else if (textField.tag == 4)
@@ -256,6 +338,14 @@
             NSLog(@"no");
             [_txtPin4 resignFirstResponder];
             //return NO;
+        }
+        else if(newLength == 0)
+        {
+            [_txtPin3 becomeFirstResponder];
+            
+            _txtPin4.text = @"";
+            [_txtPin4 resignFirstResponder];
+            
         }
        
     }

@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
+    
+    [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view from its nib.
     if(IsIphone5)
     {
@@ -49,7 +51,10 @@
     }
     
 }
-
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

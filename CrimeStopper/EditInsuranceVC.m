@@ -431,21 +431,22 @@ NSString *strDate;
                 
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
                 NSLog(@"message %@",EntityID);
-                if ([EntityID isEqualToString:@"failure"])
+                if ([EntityID isEqualToString:@"success"])
                 {
-                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                        message:@"Something went wrong. Please Try Again."
+                    VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
+                    // vc.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"] ;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                else
+                {
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                        message:[jsonDictionary valueForKey:@"message"]
                                                                        delegate:self
                                                               cancelButtonTitle:@"OK"
                                                               otherButtonTitles:nil, nil];
                     [CheckAlert show];
-                }
-                else
-                {
                     
-                    VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
-                    // vc.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"] ;
-                    [self.navigationController pushViewController:vc animated:YES];
+                    
                     
                     
                 }

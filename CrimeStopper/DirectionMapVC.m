@@ -8,6 +8,7 @@
 
 #import "DirectionMapVC.h"
 #import <MapKit/MapKit.h>
+#import "FindVehicleVC.h"
 
 @interface DirectionMapVC ()
 -(NSArray*) calculateRoutesFrom:(CLLocationCoordinate2D) from to: (CLLocationCoordinate2D) to;
@@ -165,5 +166,10 @@
     polylineView.lineWidth = 5.0;
     return polylineView;
 }
-
+#pragma mark button click event
+-(IBAction)btnBack_click:(id)sender
+{
+    FindVehicleVC *vc = [[FindVehicleVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

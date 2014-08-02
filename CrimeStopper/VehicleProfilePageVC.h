@@ -33,6 +33,8 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgRound1,*imgRound2,*imgRound3;
 @property (nonatomic,retain) NSDictionary *arrVehiclesCount;
 @property (nonatomic) NSInteger intPosition, intNoPhoto;
+@property (nonatomic,retain) IBOutlet UILabel *lblState;
+@property (nonatomic,retain) IBOutlet UILabel *lblBodyType1,*lblRegistrationNo1,*lblVehicleType1,*lblStatu1s,*lblState1,*lblEngineNo1,*lblVin1,*lblColor1,*lblAccessories1;
 
 
 -(IBAction)btnBack_click:(id)sender;

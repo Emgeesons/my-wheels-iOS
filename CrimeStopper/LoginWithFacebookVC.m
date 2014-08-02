@@ -400,7 +400,7 @@ int intques;
         }
         else if (newLength == 0)
         {
-            txtPin1.text = @"";
+           // txtPin1.text = @"";
         }
         else
         {
@@ -424,14 +424,14 @@ int intques;
         }
         if(newLength == 0)
         {
-            [txtPin2 resignFirstResponder];
-            [txtPin1 becomeFirstResponder];
-            txtPin2.text = @"";
-        }
-        else
-        {
-            [txtPin2 resignFirstResponder];
-            [txtPin3 becomeFirstResponder];
+//            [txtPin2 resignFirstResponder];
+//            [txtPin1 becomeFirstResponder];
+//            txtPin2.text = @"";
+//        }
+//        else
+//        {
+//            [txtPin2 resignFirstResponder];
+//            [txtPin3 becomeFirstResponder];
         }
         
     }
@@ -447,14 +447,14 @@ int intques;
         }
         if(newLength == 0)
         {
-            [txtPin3 resignFirstResponder];
-            [txtPin2 becomeFirstResponder];
-            txtPin3.text = @"";
-        }
-        else
-        {
-            [txtPin3 resignFirstResponder];
-            [txtPin4 becomeFirstResponder];
+//            [txtPin3 resignFirstResponder];
+//            [txtPin2 becomeFirstResponder];
+//            txtPin3.text = @"";
+//        }
+//        else
+//        {
+//            [txtPin3 resignFirstResponder];
+//            [txtPin4 becomeFirstResponder];
         }
         
         
@@ -465,18 +465,18 @@ int intques;
         if(newLength >1)
         {
             NSLog(@"no");
-            //return NO;
+           [txtPin4 resignFirstResponder];
         }
         else if(newLength == 0)
         {
-            txtPin4.text = @"";
-            [txtPin4 resignFirstResponder];
-            [txtPin3 becomeFirstResponder];
-            
-        }
-        else
-        {
-            [txtPin4 resignFirstResponder];
+//            txtPin4.text = @"";
+//            [txtPin4 resignFirstResponder];
+//            [txtPin3 becomeFirstResponder];
+//            
+//        }
+//        else
+//        {
+//            [txtPin4 resignFirstResponder];
         }
     }
     //    else if (textField == txtFname)
@@ -581,24 +581,16 @@ int intques;
                   [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
                   [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
                   
-                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                      message:@"My Wheel would like to access your current location."
-                                                                     delegate:self
-                                                            cancelButtonTitle:@"Don't Allow"
-                                                            otherButtonTitles:@"Allow", nil];
+                  HomePageVC *vc = [[HomePageVC alloc]init];
                   
-                  
-                  
-                  CheckAlert.tag =2;
-                  [CheckAlert show];
-                  
+                  [self.navigationController pushViewController:vc animated:YES];
                   
               }
               else
               {
                  
                   NSString *strmessage = [jsonDictionary valueForKey:@"message"];
-                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                       message:strmessage
                                                                      delegate:self
                                                             cancelButtonTitle:@"OK"

@@ -24,6 +24,9 @@
 @synthesize strVehicleId,strVehicleType,years;
 @synthesize strPhotoURL,intReg;
 @synthesize strCurrentTime,strPinTimeStamp;
+@synthesize intMparking;
+
+UINavigationController *nav;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -47,7 +50,7 @@
     
     HomeScreenVC *obj = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
     self.HomeScreenVC = obj;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+    nav = [[UINavigationController alloc] initWithRootViewController:obj];
     self.revealSideViewController = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
     [self.revealSideViewController setDirectionsToShowBounce:PPRevealSideDirectionNone];
     [self.revealSideViewController setPanInteractionsWhenClosed:PPRevealSideInteractionContentView | PPRevealSideInteractionNavigationBar];
@@ -72,6 +75,7 @@
     // This will trigger the proper registration or de-registration code in the library.
     //[[UAPush shared] setPushEnabled:YES];
 
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     return YES;
 }
@@ -81,6 +85,7 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     application.applicationIconBadgeNumber = 0;
+    [FBSession.activeSession handleDidBecomeActive];
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
@@ -136,6 +141,11 @@
 }
 
 // App switching methods to support Facebook Single Sign-On.
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [FBSession.activeSession handleOpenURL:url];
+}
+
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [FBAppCall handleOpenURL:url
@@ -177,7 +187,8 @@
     else
     {
         EvertTimePinVC *vc = [[EvertTimePinVC alloc]init];
-        [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
+        [nav pushViewController:vc animated:YES];
+       // [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
         
         
     }

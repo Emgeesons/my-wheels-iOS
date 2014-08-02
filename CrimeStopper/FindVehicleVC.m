@@ -42,7 +42,8 @@ NSInteger flag;
 {
     [super viewDidLoad];
     
-    appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    appDelegate.intMparking = 0;
     [_viewLocation setHidden:YES];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
@@ -78,6 +79,7 @@ NSInteger flag;
     
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
     [self.map setRegion:region animated:YES];
+    
     //sow current location and parked location on map
      NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
@@ -96,7 +98,8 @@ NSInteger flag;
             NSLog(@"strvid : %@",strvid);
             if(strvid == strCurrentVehicleID && strvid != nil)
             {
-                _lblParking.text = [[arr objectAtIndex:i]valueForKey:@"Comment"];
+                NSString *strComment = [[arr objectAtIndex:i]valueForKey:@"Comment"];
+                _lblParking.text = [@"  " stringByAppendingString:strComment];
                 NSString *parkLatitude = [[arr objectAtIndex:i]valueForKey:@"parkingLatitude"];
                 NSString *parkLongitude = [[arr objectAtIndex:i]valueForKey:@"prkingLongitude"];
               
@@ -147,7 +150,7 @@ NSInteger flag;
             }
         }
     }
-   
+    
     
     }
 
@@ -263,7 +266,7 @@ NSInteger flag;
     if(UserID == nil || UserID == (id)[NSNull null])
     {
         HomePageVC *vc = [[HomePageVC alloc]init];
-        vc.intblue = 0;
+        appDelegate.intMparking = 2;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else
@@ -282,7 +285,7 @@ NSInteger flag;
 {
  if(progressAsInt == 0)
  {
-     UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+     UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                          message:@"Please give feedback rating."
                                                         delegate:self
                                                cancelButtonTitle:@"OK"
@@ -304,9 +307,9 @@ NSInteger flag;
     } else {
         NSLog(@"There IS internet connection");
         
-    if(_lblRating.text == nil || _lblRating.text == (id)[NSNull null])
+    if(_lblRating.text == nil || _lblRating.text == (id)[NSNull null] || [_lblRating.text isEqualToString:@"0"])
    {
-       UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+       UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                            message:@"Please give feedback rating."
                                                           delegate:self
                                                  cancelButtonTitle:@"OK"
@@ -372,19 +375,10 @@ else
         
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
         NSLog(@"message %@",EntityID);
-        if ([EntityID isEqualToString:@"failure"])
-        {
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                message:@"Something went wrong. Please Try Again."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-            [CheckAlert show];
-        }
-        else
+        if ([EntityID isEqualToString:@"success"])
         {
             NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
-           
+            
             
             NSMutableArray  *arr = [[NSMutableArray alloc]init];
             arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"]mutableCopy];
@@ -397,14 +391,9 @@ else
                 NSLog(@"veh : %@",veh);
                 if([veh isEqualToString:strCurrentVehicleID])
                 {
-                    if([arr count] == 1)
-                    {
-                        [arr removeObjectAtIndex:0];
-                    }
-                    else
-                    {
+                    
                         [arr removeObjectAtIndex:i];
-                    }
+                   
                     
                     
                     
@@ -413,11 +402,28 @@ else
             }
             [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"parkVehicle"];
             NSLog(@"arr : %@",arr);
-
-           
+            
+            
             HomePageVC *vc = [[HomePageVC alloc]init];
-            vc.intblue = 0;
+           // vc.intblue = 2;
+            appDelegate.intMparking = 2;
+            [vc.btnMParking setBackgroundColor:[UIColor lightTextColor]];
+            [vc.btnMParking setBackgroundColor:[UIColor lightTextColor]];
+            [vc.btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [vc.imgTick setHidden:YES];
+            [vc.btnFindVehicle setEnabled:NO];
             [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                message:[jsonDictionary valueForKey:@"message"]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+            
+            
         }
         [SVProgressHUD dismiss];
         
@@ -444,14 +450,9 @@ else
         NSLog(@"veh : %@",veh);
         if([veh isEqualToString:strCurrentVehicleID])
         {
-            if([arr count] == 1)
-            {
-                [arr removeObjectAtIndex:0];
-            }
-            else
-            {
+           
                 [arr removeObjectAtIndex:i];
-            }
+           
             
             
             
@@ -461,7 +462,14 @@ else
      [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"parkVehicle"];
     NSLog(@"arr : %@",arr);
     HomePageVC *vc = [[HomePageVC alloc]init];
-    vc.intblue = 0;
+  
+    //vc.intblue = 2;
+    appDelegate.intMparking = 2;
+    [vc.btnMParking setBackgroundColor:[UIColor lightTextColor]];
+    [vc.btnMParking setBackgroundColor:[UIColor lightTextColor]];
+    [vc.btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+    [vc.imgTick setHidden:YES];
+    [vc.btnFindVehicle setEnabled:NO];
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)btnMinimize_Click:(id)sender {

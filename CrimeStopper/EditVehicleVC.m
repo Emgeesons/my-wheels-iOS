@@ -69,6 +69,7 @@ NSString *strBody;
     [self.txtMake setDelegate:self];
     [self.txtModel setDelegate:self];
     [self.txtRegistrationNo setDelegate:self];
+    [self.txtState setDelegate:self];
     
     
     [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
@@ -81,6 +82,7 @@ NSString *strBody;
     [self.txtModel setInputAccessoryView:self.toolbar];
     [self.txtRegistrationNo setInputAccessoryView:self.toolbar];
     [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
+    [self.txtState setInputAccessoryView:self.toolbar];
     
     if(IsIphone5)
     {
@@ -109,6 +111,7 @@ NSString *strBody;
     _txtChassisNo.text = _strVIN;
     _txtColor.text = _strColour;
     _txtAccessories.text = _strAccessories;
+    _txtState.text = _strState;
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -138,327 +141,348 @@ NSString *strBody;
         
     {
         NSLog(@"There IS internet connection");
-        NSLog(@"vehicle : %@",strvehivcle);
-        if([_strVehicleType isEqualToString:@"Car"] || [_strVehicleType isEqualToString:@"Motor Cycle"] )
-        {
-            if (_txtMake.text.length==0 || _txtModel.text.length==0 || _txtRegistrationNo.text.length==0 || _txtEngineNo.text.length==0 || _txtChassisNo.text.length==0 || _txtColor.text.length==0 )
+        if ([strvehivcle isEqualToString:@"" ]|| strvehivcle == nil || strvehivcle == (id)[NSNull null]) {
+            if (_txtMake.text.length==0 || _txtModel.text.length==0 || _txtRegistrationNo.text.length==0 || _txtEngineNo.text.length==0 || _txtChassisNo.text.length==0 || _txtColor.text.length==0 || _txtState.text.length == 0 || _txtVehicleType.text.length == 0 || _txtBodyType.text.length == 0)
             {
-                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                    message:@"Something went wrong. Please try again later."
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil, nil];
-                [CheckAlert show];
-                
-            }
-            else if (_txtMake.text.length>0 && _txtMake.text.length <2)
-            {
-                [_txtMake setTextColor:[UIColor redColor]];
-            }
-            else if (_txtMake.text.length == 0)
-            {
-                [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            
-            
-            else if( _txtEngineNo.text.length>0 && _txtEngineNo.text.length < 13)
-            {
-                [_txtEngineNo setTextColor:[UIColor redColor]];
-            }
-            else if (_txtEngineNo.text.length == 0)
-            {
-                [_txtEngineNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            
-            //
-            
-            else if( _txtChassisNo.text.length>0 && _txtChassisNo.text.length < 17)
-            {
-                [_txtChassisNo setTextColor:[UIColor redColor]];
-            }
-            else if (_txtChassisNo.text.length == 0)
-            {
-                [_txtChassisNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            
-            
-            else if (_txtModel.text.length>0 && _txtModel.text.length <2)
-            {
-                [_txtModel setTextColor:[UIColor redColor]];
-            }
-            else if (_txtModel.text.length == 0)
-            {
-                [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            else if (_txtRegistrationNo.text.length>0 && _txtRegistrationNo.text.length != 10)
-            {
-                [_txtRegistrationNo setTextColor:[UIColor redColor]];
-            }
-            else if (_txtRegistrationNo.text.length == 0)
-            {
-                [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            else if (_txtColor.text.length>0 && _txtColor.text.length <3)
-            {
-                [_txtColor setTextColor:[UIColor redColor]];
-            }
-            else if (_txtColor.text.length == 0)
-            {
-                [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            //
-            
-            
-            
-            else
-            {
-                NSLog(@"in api");
-                NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-                NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
-                NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
-                NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-                
-                /*userId
-                 vehicleId
-                 vehicleType
-                 vehicleMake
-                 vehicleModel
-                 vehicleBodyType
-                 registrationSerialNo
-                 engineNo
-                 vinChassisNo
-                 colour
-                 uniqueFeatures
-                 os
-                 make
-                 model
-                 */
-                
-                NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-                [param setValue:UserID forKey:@"userId"];
-                [param setValue:pin forKey:@"pin"];
-                [param setValue:latitude forKey:@"latitude"];
-                [param setValue:longitude forKey:@"longitude"];
-                if([_strVehicleType isEqualToString:@"Other"])
+                if(_txtVehicleType.text.length == 0)
                 {
-                    [param setValue:_txtOtherVehicle.text forKey:@"vehicleType"];
+                    [_txtVehicleType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                 }
-                else
+                if(_txtBodyType.text.length == 0)
                 {
-                    [param setValue:_txtVehicleType.text forKey:@"vehicleType"];
+                    [_txtBodyType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                 }
-                [param setValue:_strVehicleID forKey:@"vehicleId"];
-                [param setValue:_txtMake.text forKey:@"vehicleMake"];
-                [param setValue:_txtModel.text forKey:@"vehicleModel"];
-                [param setValue:_txtBodyType.text forKey:@"vehicleBodyType"];
-                [param setValue:_txtRegistrationNo.text forKey:@"registrationSerialNo"];
-                [param setValue:_txtEngineNo.text forKey:@"engineNo"];
-                [param setValue:_txtChassisNo.text forKey:@"vinChassisNo"];
-                [param setValue:_txtColor.text forKey:@"colour"];
-                [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
                 
-                [param setValue:@"ios7" forKey:@"os"];
-                [param setValue:@"iPhone" forKey:@"make"];
-                [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
-                
-                NSLog(@"param :%@",param);
-                // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                manager.requestSerializer = [AFJSONRequestSerializer serializer];
-                
-                 NSString *url = [NSString stringWithFormat:@"%@editVehicle.php", SERVERNAME];
-                [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    
-                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    
-                    NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-                    
-                    NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                    NSLog(@"data : %@",jsonDictionary);
-                    
-                    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                    NSLog(@"message %@",EntityID);
-                    if ([EntityID isEqualToString:@"failure"])
-                    {
-                        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                            message:@"Could not update details. Please Try again."
-                                                                           delegate:self
-                                                                  cancelButtonTitle:@"OK"
-                                                                  otherButtonTitles:nil, nil];
-                        [CheckAlert show];
-                    }
-                    else
-                    {
-                        
-                        VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
-                        //                    appdelegate.strVehicleId = @"";
-                        //                    appdelegate.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"];
-                        //                    vc.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"] ;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                        
-                        //                    UserProfileVC *vc = [[UserProfileVC alloc]init];
-                        //                    [self.navigationController pushViewController:vc animated:YES];
-                    }
-                    [SVProgressHUD dismiss];
-                    
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                }];
-                
-                [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-                
-                
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtEngineNo.text.length == 0)
+                {
+                    [_txtEngineNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtChassisNo.text.length == 0)
+                {
+                    [_txtChassisNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtModel.text.length == 0)
+                {
+                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtRegistrationNo.text.length == 0)
+                {
+                    [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtColor.text.length == 0)
+                {
+                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtModel.text.length == 0)
+                {
+                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtState.text.length == 0)
+                {
+                    [_txtState setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if(_txtEngineNo.text.length == 0)
+                {
+                    [_txtEngineNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
             }
         }
-        else
+        NSLog(@"There IS internet connection");
+        
+        // for only bicycle
+        
+        if([strvehivcle isEqualToString:@"Bicycle"] )
         {
-            if (_txtMake.text.length==0 || _txtModel.text.length==0 || _txtRegistrationNo.text.length==0 || _txtColor.text.length==0 )
-            {
-                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                    message:@"Something went wrong. Please try again later."
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil, nil];
-                [CheckAlert show];
-                
-            }
-            else if (_txtMake.text.length>0 && _txtMake.text.length <2)
-            {
-                [_txtMake setTextColor:[UIColor redColor]];
-            }
-            else if (_txtMake.text.length == 0)
-            {
-                [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
             
-            
-            else if (_txtModel.text.length>0 && _txtModel.text.length <2)
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0)
             {
-                [_txtModel setTextColor:[UIColor redColor]];
+                if(_txtVehicleType.text.length == 0)
+                {
+                    [_txtVehicleType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtColor.text.length == 0)
+                {
+                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
             }
-            else if (_txtModel.text.length == 0)
-            {
-                [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            else if (_txtRegistrationNo.text.length>0 && _txtRegistrationNo.text.length != 10)
-            {
-                [_txtRegistrationNo setTextColor:[UIColor redColor]];
-            }
-            else if (_txtRegistrationNo.text.length == 0)
-            {
-                [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            else if (_txtColor.text.length>0 && _txtColor.text.length <3)
-            {
-                [_txtColor setTextColor:[UIColor redColor]];
-            }
-            else if (_txtColor.text.length == 0)
-            {
-                [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
-            //
-            
-            
-            
             else
             {
-                NSLog(@"in api");
-                NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-                NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
-                NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
-                NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-                
-                /*userId
-                 vehicleId
-                 vehicleType
-                 vehicleMake
-                 vehicleModel
-                 vehicleBodyType
-                 registrationSerialNo
-                 engineNo
-                 vinChassisNo
-                 colour
-                 uniqueFeatures
-                 os
-                 make
-                 model
-                 */
-                
-                NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-                [param setValue:UserID forKey:@"userId"];
-                [param setValue:pin forKey:@"pin"];
-                [param setValue:latitude forKey:@"latitude"];
-                [param setValue:longitude forKey:@"longitude"];
-                if([_strVehicleType isEqualToString:@"Other"])
+                if(_txtRegistrationNo.text.length > 13)
                 {
-                    [param setValue:_txtOtherVehicle.text forKey:@"vehicleType"];
+                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtEngineNo.text.length > 13)
+                {
+                    [_txtEngineNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtChassisNo.text.length > 17)
+                {
+                    [_txtChassisNo setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtColor.text.length <3)
+                {
+                    [_txtColor setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtMake.text.length <2)
+                {
+                    [_txtMake setTextColor:[UIColor redColor]];
                 }
                 else
                 {
-                    [param setValue:_txtVehicleType.text forKey:@"vehicleType"];
+                    [self callapi];
                 }
-                [param setValue:_strVehicleID forKey:@"vehicleId"];
-                [param setValue:_txtMake.text forKey:@"vehicleMake"];
-                [param setValue:_txtModel.text forKey:@"vehicleModel"];
-                [param setValue:_txtBodyType.text forKey:@"vehicleBodyType"];
-                [param setValue:_txtRegistrationNo.text forKey:@"registrationSerialNo"];
-                [param setValue:_txtEngineNo.text forKey:@"engineNo"];
-                [param setValue:_txtChassisNo.text forKey:@"vinChassisNo"];
-                [param setValue:_txtColor.text forKey:@"colour"];
-                [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
-                
-                [param setValue:@"ios7" forKey:@"os"];
-                [param setValue:@"iPhone" forKey:@"make"];
-                [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
-                
-                NSLog(@"param :%@",param);
-                // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                manager.requestSerializer = [AFJSONRequestSerializer serializer];
-                 NSString *url = [NSString stringWithFormat:@"%@editVehicle.php", SERVERNAME];
-                [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    
-                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    
-                    NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-                    
-                    NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                    NSLog(@"data : %@",jsonDictionary);
-                    
-                    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                    NSLog(@"message %@",EntityID);
-                    if ([EntityID isEqualToString:@"failure"])
-                    {
-                        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                            message:@"Could not update details. Please Try again."
-                                                                           delegate:self
-                                                                  cancelButtonTitle:@"OK"
-                                                                  otherButtonTitles:nil, nil];
-                        [CheckAlert show];
-                    }
-                    else
-                    {
-                        
-                        VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
-                        //                    appdelegate.strVehicleId = @"";
-                        //                    appdelegate.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"];
-                        //                    vc.strVehicleId = [[[jsonDictionary valueForKey:@"response"]objectAtIndex:0] valueForKey:@"vehicle_id"] ;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                        
-                        //                    UserProfileVC *vc = [[UserProfileVC alloc]init];
-                        //                    [self.navigationController pushViewController:vc animated:YES];
-                    }
-                    [SVProgressHUD dismiss];
-                    
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                }];
-                
-                [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-                
-                
+            }
+        }
+        // if vehicle type is car
+        else if([strvehivcle isEqualToString:@"Car"] )
+        {
+            
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 || _txtBodyType.text.length == 0 || _txtRegistrationNo.text.length == 0 || _txtState.text.length == 0)
+            {
+                if(_txtVehicleType.text.length == 0)
+                {
+                    [_txtVehicleType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtColor.text.length == 0)
+                {
+                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtModel.text.length == 0)
+                {
+                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtBodyType.text.length == 0)
+                {
+                    [_txtBodyType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtRegistrationNo.text.length == 0)
+                {
+                    [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtState.text.length == 0)
+                {
+                    [_txtState setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+            }
+            else
+            {
+                if(_txtRegistrationNo.text.length > 10)
+                {
+                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtEngineNo.text.length > 13)
+                {
+                    [_txtEngineNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtChassisNo.text.length > 17)
+                {
+                    [_txtChassisNo setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtColor.text.length <3)
+                {
+                    [_txtColor setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtMake.text.length <2)
+                {
+                    [_txtMake setTextColor:[UIColor redColor]];
+                }
+                else if (_txtState.text.length > 3)
+                {
+                    [_txtState setTextColor:[UIColor redColor]];
+                }
+                else
+                {
+                    [self callapi];
+                }
+            }
+        }
+        // for moter cycle
+        else if([strvehivcle isEqualToString:@"Motor Cycle"] )
+        {
+            
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 ||  _txtRegistrationNo.text.length == 0 || _txtState.text.length == 0)
+            {
+                if(_txtVehicleType.text.length == 0)
+                {
+                    [_txtVehicleType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtColor.text.length == 0)
+                {
+                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtModel.text.length == 0)
+                {
+                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtRegistrationNo.text.length == 0)
+                {
+                    [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtState.text.length == 0)
+                {
+                    [_txtState setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+            }
+            else
+            {
+                if(_txtRegistrationNo.text.length > 10)
+                {
+                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtEngineNo.text.length > 13)
+                {
+                    [_txtEngineNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtChassisNo.text.length > 17)
+                {
+                    [_txtChassisNo setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtColor.text.length <3)
+                {
+                    [_txtColor setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtMake.text.length <2)
+                {
+                    [_txtMake setTextColor:[UIColor redColor]];
+                }
+                else if (_txtState.text.length >3)
+                {
+                    [_txtState setTextColor:[UIColor redColor]];
+                }
+                else
+                {
+                    [self callapi];
+                }
+            }
+        }
+        
+        // for other vehicle type
+        
+        else if([strvehivcle isEqualToString:@"Motor Cycle"] )
+        {
+            
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 ||  _txtRegistrationNo.text.length == 0 || _txtState.text.length == 0)
+            {
+                if(_txtVehicleType.text.length == 0)
+                {
+                    [_txtVehicleType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtColor.text.length == 0)
+                {
+                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtModel.text.length == 0)
+                {
+                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtRegistrationNo.text.length == 0)
+                {
+                    [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtState.text.length == 0)
+                {
+                    [_txtState setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+            }
+            else
+            {
+                if(_txtRegistrationNo.text.length > 10)
+                {
+                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtEngineNo.text.length > 13)
+                {
+                    [_txtEngineNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtChassisNo.text.length > 17)
+                {
+                    [_txtChassisNo setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtColor.text.length <3)
+                {
+                    [_txtColor setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtMake.text.length <2)
+                {
+                    [_txtMake setTextColor:[UIColor redColor]];
+                }
+                else if (_txtState.text.length >3)
+                {
+                    [_txtState setTextColor:[UIColor redColor]];
+                }
+                else
+                {
+                    [self callapi];
+                }
+            }
+        }
+        
+        // for other vehicle type
+        
+        else if([strvehivcle isEqualToString:@"Other"] )
+        {
+            
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0)
+            {
+                if(_txtVehicleType.text.length == 0)
+                {
+                    [_txtVehicleType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtColor.text.length == 0)
+                {
+                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+            }
+            else
+            {
+                if(_txtRegistrationNo.text.length > 13)
+                {
+                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtEngineNo.text.length > 13)
+                {
+                    [_txtEngineNo setTextColor:[UIColor redColor]];
+                }
+                else if (_txtChassisNo.text.length > 17)
+                {
+                    [_txtChassisNo setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtColor.text.length <3)
+                {
+                    [_txtColor setTextColor:[UIColor redColor]];
+                }
+                else if ( _txtMake.text.length <2)
+                {
+                    [_txtMake setTextColor:[UIColor redColor]];
+                }
+                else
+                {
+                    [self callapi];
+                }
             }
         }
     }
@@ -476,15 +500,17 @@ NSString *strBody;
     [_pkvVehicleType setHidden:YES];
     
     int row = [_pkvVehicleType selectedRowInComponent:0];
-    //  self.strPrintRepeat = [_pkvVehicleType objectAtIndex:row];
     [_txtVehicleType setText:[_arrVehicleType objectAtIndex:row]];
     strvehivcle = [_arrVehicleType objectAtIndex:row];
-    _txtVehicleType.userInteractionEnabled = NO;
+    [_txtVehicleType resignFirstResponder];
     NSLog(@"veicle : %@",strvehivcle);
+    
+    // if vehicle type is other
     if([strvehivcle isEqualToString:@"Other"])
     {
+        [_txtBodyType setHidden:YES];
+        
         _txtOtherVehicle  = [[UITextField alloc] initWithFrame:CGRectMake(9,60,301,30)];
-        //txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(5,400,300,30)];
         [self.view addSubview:_txtOtherVehicle];
         _txtOtherVehicle.borderStyle = UITextBorderStyleRoundedRect;
         _txtOtherVehicle.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
@@ -494,6 +520,7 @@ NSString *strBody;
         
         _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
+        _txtState.placeholder = @"state";
         _txtOtherVehicle.tag = 2;
         _txtOtherVehicle.delegate = self;
         [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
@@ -502,8 +529,9 @@ NSString *strBody;
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 100, 150, 30);
         _txtModel.frame = CGRectMake(161, 100, 150, 30);
-        _txtBodyType.frame = CGRectMake(9, 140, 301, 30);
-        _txtRegistrationNo.frame = CGRectMake(9,180, 301, 30);
+        
+        _txtRegistrationNo.frame = CGRectMake(9,140, 301, 30);
+        _txtState.frame = CGRectMake(9, 180, 301, 30);
         _txtEngineNo.frame = CGRectMake(9,220, 301, 30);
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
@@ -511,8 +539,68 @@ NSString *strBody;
         
         
     }
-    [self cancelClicked];
     
+    // if vehicle type is bicycle
+    if([strvehivcle isEqualToString:@"Bicycle"])
+    {
+        [_txtState setHidden:YES];
+        [_txtBodyType setHidden:YES];
+        _txtRegistrationNo.placeholder = @"serial no";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.placeholder = @"make *";
+        _txtModel.placeholder = @"model";
+        
+        _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
+        _txtMake.frame = CGRectMake(9, 60, 150, 30);
+        _txtModel.frame = CGRectMake(161, 60, 150, 30);
+        
+        _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
+        
+        _txtEngineNo.frame = CGRectMake(9,140, 301, 30);
+        _txtChassisNo.frame = CGRectMake(9, 180, 301, 30);
+        _txtColor.frame = CGRectMake(9, 220, 301, 30);
+        _txtAccessories.frame = CGRectMake(9, 260, 301, 30);
+        
+    }
+    if([strvehivcle isEqualToString:@"Car"])
+    {
+        [_txtState setHidden:NO];
+        [_txtBodyType setHidden:NO];
+        
+        _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
+        _txtMake.frame = CGRectMake(9, 60, 150, 30);
+        _txtModel.frame = CGRectMake(161, 60, 150, 30);
+        _txtBodyType.frame = CGRectMake(9, 100 , 301, 30);
+        _txtRegistrationNo.frame = CGRectMake(9,140, 301, 30);
+        _txtState.frame = CGRectMake(9,180, 301, 30);
+        _txtEngineNo.frame = CGRectMake(9,220, 301, 30);
+        _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
+        _txtColor.frame = CGRectMake(9, 300, 301, 30);
+        _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
+        
+        
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
+        
+    }
+    if([strvehivcle isEqualToString:@"Motor Cycle"])
+    {
+        [_txtBodyType setHidden:YES];
+        [_txtState setHidden:NO];
+        _txtRegistrationNo.placeholder = @"registration no *";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
+        _txtState.frame = CGRectMake(9, 140, 301, 30);
+        _txtEngineNo.frame = CGRectMake(9,180, 301, 30);
+        _txtChassisNo.frame = CGRectMake(9, 220, 301, 30);
+        _txtColor.frame = CGRectMake(9, 260, 301, 30);
+        _txtAccessories.frame = CGRectMake(9, 300, 301, 30);
+        
+    }
+    
+    [self cancelClicked];
     
     
 }
@@ -707,6 +795,34 @@ NSString *strBody;
 }
 - (IBAction)btnNext_Click:(id)sender
 {
+    if([strvehivcle isEqualToString:@"Bicycle"])
+    {
+        _txtRegistrationNo.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
+    }
+    else if ([strvehivcle isEqualToString:@"Motor Cycle"] || [strvehivcle isEqualToString:@"Other"])
+    {
+        _txtRegistrationNo.tag = 4;
+        _txtState.tag = 5;
+        _txtEngineNo.tag = 6;
+        _txtChassisNo.tag = 7;
+        _txtColor.tag = 8;
+        _txtAccessories.tag = 9;
+    }
+    else
+    {
+        _txtBodyType.tag = 4;
+        _txtRegistrationNo.tag = 5;
+        _txtState.tag = 6;
+        _txtEngineNo.tag = 7;
+        _txtChassisNo.tag = 8;
+        _txtColor.tag = 9;
+        _txtAccessories.tag = 10;
+    }
+    
     NSInteger nextTag = activeTextField.tag + 1;
     // Try to find next responder
     UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
@@ -717,6 +833,7 @@ NSString *strBody;
         // Not found, so remove keyboard.
         [activeTextField resignFirstResponder];
     }
+
 }
 - (IBAction)btnPreviuse_Click:(id)sender
 {
@@ -734,6 +851,96 @@ NSString *strBody;
     
     
 }
-
+#pragma mark call api
+-(void)callapi
+{
+    NSLog(@"in api");
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    
+    /*userId
+     vehicleId
+     vehicleType
+     vehicleMake
+     vehicleModel
+     vehicleBodyType
+     registrationSerialNo
+     engineNo
+     vinChassisNo
+     colour
+     uniqueFeatures
+     os
+     make
+     model
+     */
+    
+    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+    [param setValue:UserID forKey:@"userId"];
+    [param setValue:pin forKey:@"pin"];
+    [param setValue:latitude forKey:@"latitude"];
+    [param setValue:longitude forKey:@"longitude"];
+    if([_strVehicleType isEqualToString:@"Other"])
+    {
+        [param setValue:_txtOtherVehicle.text forKey:@"vehicleType"];
+    }
+    else
+    {
+        [param setValue:_txtVehicleType.text forKey:@"vehicleType"];
+    }
+    [param setValue:_strVehicleID forKey:@"vehicleId"];
+    [param setValue:_txtMake.text forKey:@"vehicleMake"];
+    [param setValue:_txtModel.text forKey:@"vehicleModel"];
+    [param setValue:_txtBodyType.text forKey:@"vehicleBodyType"];
+    [param setValue:_txtRegistrationNo.text forKey:@"registrationSerialNo"];
+    [param setValue:_txtEngineNo.text forKey:@"engineNo"];
+    [param setValue:_txtChassisNo.text forKey:@"vinChassisNo"];
+    [param setValue:_txtColor.text forKey:@"colour"];
+    [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
+    [param setValue:_txtState.text forKey:@"state"];
+    [param setValue:@"ios7" forKey:@"os"];
+    [param setValue:@"iPhone" forKey:@"make"];
+    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    
+    NSLog(@"param :%@",param);
+    // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSString *url = [NSString stringWithFormat:@"%@editVehicle.php", SERVERNAME];
+    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        
+        NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+        NSLog(@"data : %@",jsonDictionary);
+        
+        NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+        NSLog(@"message %@",EntityID);
+        if ([EntityID isEqualToString:@"success"])
+        {
+            VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                message:[jsonDictionary valueForKey:@"message"]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+            
+        }
+        [SVProgressHUD dismiss];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+    }];
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+}
 
 @end

@@ -73,47 +73,36 @@
         NSLog(@"There IS internet connection");
        
     
-    if (_txtlicenceno.text.length==0 || _txtPostCode.text.length==0 || _txtStreet.text.length==0 )
-    {
-        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                            message:@"Something went wrong. Please try again later."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-        [CheckAlert show];
-        
-       
-        
-    }
-   else if (_txtlicenceno.text.length>0 && _txtlicenceno.text.length <2)
+    
+   if (_txtlicenceno.text.length <2)
     {
         [_txtlicenceno setTextColor:[UIColor redColor]];
     }
-    else if (_txtlicenceno.text.length == 0)
+    if (_txtlicenceno.text.length == 0)
     {
         [_txtlicenceno setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
     
     
-    else if (_txtPostCode.text.length>0 && _txtPostCode.text.length <4)
+    if (_txtPostCode.text.length !=4)
     {
         [_txtPostCode setTextColor:[UIColor redColor]];
     }
-    else if (_txtPostCode.text.length == 0)
+    if (_txtPostCode.text.length == 0)
     {
         [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
     
     
-    else if (_txtStreet.text.length>0 && _txtStreet.text.length <2)
+    if (_txtStreet.text.length <2)
     {
         [_txtStreet setTextColor:[UIColor redColor]];
     }
-    else if (_txtStreet.text.length == 0)
+    if (_txtStreet.text.length == 0)
     {
         [_txtStreet setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
-    else
+    if(_txtlicenceno.text.length >= 2 && _txtPostCode.text.length == 4 && _txtStreet.text.length  >= 2)
     {
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
         NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -150,19 +139,8 @@
             
             NSString *EntityID = [jsonDictionary valueForKey:@"status"];
             NSLog(@"message %@",EntityID);
-            if ([EntityID isEqualToString:@"failure"])
+            if ([EntityID isEqualToString:@"success"])
             {
-                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                    message:@"Something went wrong. Please Try Again."
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil, nil];
-                [CheckAlert show];
-            }
-            else
-            {
-                
-                              
                 NSString *strProfileCompleted = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
                 [[NSUserDefaults standardUserDefaults] setValue:strProfileCompleted forKey:@"profile_completed"];
                 [[NSUserDefaults standardUserDefaults] setValue:_txtlicenceno.text forKey:@"license_no"];
@@ -171,6 +149,19 @@
                 
                 UserProfileVC *vc = [[UserProfileVC alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
+                
+               
+            }
+            else
+            {
+                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                    message:[jsonDictionary valueForKey:@"message"]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                [CheckAlert show];
+                              
+               
             }
             [SVProgressHUD dismiss];
             

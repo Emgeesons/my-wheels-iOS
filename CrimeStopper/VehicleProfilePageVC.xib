@@ -23,20 +23,29 @@
                 <outlet property="imgvehicle2" destination="jhw-7M-CSH" id="WU7-9u-QSa"/>
                 <outlet property="imgvehicle3" destination="lln-PB-SQa" id="Zyh-tM-0c8"/>
                 <outlet property="lblAccessories" destination="lrk-1m-Vrh" id="6o6-G8-uFu"/>
+                <outlet property="lblAccessories1" destination="PzK-Vn-oad" id="9dP-1e-T57"/>
+                <outlet property="lblBodyType1" destination="Ive-mx-MbT" id="TUB-Wa-LOp"/>
                 <outlet property="lblColor" destination="c6D-YL-xxI" id="CHh-P3-viy"/>
+                <outlet property="lblColor1" destination="cPz-eV-orZ" id="pcu-Ap-iIb"/>
                 <outlet property="lblCompanyName" destination="vRc-P8-npk" id="4gv-bG-e6C"/>
                 <outlet property="lblEngineNo" destination="Uym-bO-Es1" id="PRo-tU-G30"/>
+                <outlet property="lblEngineNo1" destination="E7w-So-mIe" id="JsE-XY-Doj"/>
                 <outlet property="lblExpiry" destination="hPQ-p3-sPU" id="RT6-bF-2Wj"/>
                 <outlet property="lblMake" destination="qEc-da-N16" id="hRZ-oX-wRj"/>
                 <outlet property="lblMake1" destination="QMx-uF-i2h" id="F6Z-rz-YgG"/>
                 <outlet property="lblMake2" destination="plH-Zr-fAK" id="JoV-T1-eZM"/>
+                <outlet property="lblModel1" destination="Jrg-Aa-zCu" id="nUq-yi-JO3"/>
                 <outlet property="lblModel2" destination="IqU-f5-t2l" id="ZL9-AL-Ob6"/>
                 <outlet property="lblNodyType" destination="5bo-rb-TLe" id="CYJ-n0-xfj"/>
                 <outlet property="lblPolicyNo" destination="maU-bo-aH9" id="KSj-9Y-5gm"/>
                 <outlet property="lblRegistrationNo" destination="4ja-xg-K1n" id="Z6a-Ri-Peg"/>
+                <outlet property="lblRegistrationNo1" destination="rxx-GR-T4Z" id="ecQ-hK-123"/>
+                <outlet property="lblState" destination="P9a-S7-oLr" id="Vj3-tE-DVM"/>
                 <outlet property="lblStatus" destination="Iea-8V-hdi" id="f0U-Em-Qij"/>
                 <outlet property="lblVehicleType" destination="fbM-O2-1lN" id="7bt-Tu-6eJ"/>
+                <outlet property="lblVehicleType1" destination="zpk-kA-1Yd" id="s3F-ub-nyE"/>
                 <outlet property="lblVin" destination="GID-v2-LUU" id="cDy-PH-ESA"/>
+                <outlet property="lblVin1" destination="c8A-r8-8MF" id="mFW-sS-LqZ"/>
                 <outlet property="scroll" destination="nyh-33-Qdo" id="XfJ-UD-GB4"/>
                 <outlet property="vew2" destination="ESl-aY-oiy" id="6in-9B-gGZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -191,19 +200,19 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicle Type : " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zpk-kA-1Yd">
-                                    <rect key="frame" x="20" y="20" width="112" height="21"/>
+                                    <rect key="frame" x="20" y="4" width="112" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make : " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TNO-pN-0IP">
-                                    <rect key="frame" x="21" y="44" width="54" height="21"/>
+                                    <rect key="frame" x="21" y="28" width="54" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Model :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jrg-Aa-zCu">
-                                    <rect key="frame" x="20" y="71" width="60" height="21"/>
+                                    <rect key="frame" x="20" y="52" width="60" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                     <nil key="highlightedColor"/>
@@ -239,25 +248,37 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fbM-O2-1lN">
-                                    <rect key="frame" x="111" y="20" width="203" height="21"/>
+                                    <rect key="frame" x="111" y="4" width="203" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="plH-Zr-fAK">
-                                    <rect key="frame" x="70" y="44" width="244" height="21"/>
+                                    <rect key="frame" x="70" y="28" width="244" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IqU-f5-t2l">
-                                    <rect key="frame" x="70" y="71" width="237" height="21"/>
+                                    <rect key="frame" x="70" y="52" width="237" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bZv-tf-vBD">
+                                    <rect key="frame" x="22" y="74" width="60" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P9a-S7-oLr">
+                                    <rect key="frame" x="72" y="74" width="237" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5bo-rb-TLe">
-                                    <rect key="frame" x="103" y="95" width="211" height="21"/>
+                                    <rect key="frame" x="104" y="95" width="211" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <nil key="highlightedColor"/>
