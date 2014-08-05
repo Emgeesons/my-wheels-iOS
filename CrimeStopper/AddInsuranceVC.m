@@ -236,7 +236,7 @@ NSString *strDate;
 - (void)DOBChanged:(id)sender
 {
    // NSString *str = nss
-      [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+      [dateFormatter setDateFormat:@"dd-MM-yyyy"];
     [_txtExpiry setText:[dateFormatter stringFromDate:timePicker.date]];
     _txtExpiry.userInteractionEnabled = NO;
     if([_txtExpiry.text isEqualToString:@""])
@@ -399,7 +399,9 @@ NSString *strDate;
             [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
             [param setValue:_txtPolicyNo.text forKey:@"insurancePolicyNumber"];
             [param setValue:_txtPhoneNo.text forKey:@"insuranceCompanyNumber"];
-            [param setValue:strDate forKey:@"insuranceExpiryDate"];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSString *strda = [dateFormatter stringFromDate:timePicker.date];
+            [param setValue:strda forKey:@"insuranceExpiryDate"];
             [param setValue:appdelegate.strVehicleId forKey:@"vehicleId"];
             [param setValue:@"ios7" forKey:@"os"];
             [param setValue:@"iPhone" forKey:@"make"];

@@ -180,7 +180,7 @@ NSString *strBody;
         if([strvehivcle isEqualToString:@"Bicycle"] )
         {
             
-            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0)
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtModel.text.length == 0 || _txtMake.text.length == 0)
             {
                 if(_txtVehicleType.text.length == 0)
                 {
@@ -189,6 +189,10 @@ NSString *strBody;
                 if (_txtColor.text.length == 0)
                 {
                     [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                if (_txtModel.text.length == 0)
+                {
+                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                 }
                 if (_txtMake.text.length == 0)
                 {
@@ -213,9 +217,9 @@ NSString *strBody;
                 {
                     [_txtColor setTextColor:[UIColor redColor]];
                 }
-                else if ( _txtMake.text.length <2)
+                else if ( _txtModel.text.length <2)
                 {
-                    [_txtMake setTextColor:[UIColor redColor]];
+                    [_txtModel setTextColor:[UIColor redColor]];
                 }
                 else
                 {
@@ -520,6 +524,14 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtstate.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
         
 
     }
@@ -533,7 +545,7 @@ NSString *strBody;
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
         _txtMake.placeholder = @"make *";
-        _txtModel.placeholder = @"model";
+        _txtModel.placeholder = @"model *";
         
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
@@ -545,6 +557,14 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 180, 301, 30);
         _txtColor.frame = CGRectMake(9, 220, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 260, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtEngineNo.tag = 4;
+        _txtChassisNo.tag = 5;
+        _txtColor.tag = 6;
+        _txtAccessories.tag = 7;
+        
         
     }
     if([strvehivcle isEqualToString:@"Car"])
@@ -562,10 +582,21 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-
-        
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtBodyType.tag = 3;
+        _txtRegistrationNo.tag = 4;
+        _txtstate.tag = 5;
+        _txtEngineNo.tag = 6;
+        _txtChassisNo.tag = 7;
+        _txtColor.tag = 8;
+        _txtAccessories.tag = 9;
+        
+
+        
+        
         
     }
     if([strvehivcle isEqualToString:@"Motor Cycle"])
@@ -581,6 +612,14 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 220, 301, 30);
         _txtColor.frame = CGRectMake(9, 260, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 300, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtstate.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
         
     }
 

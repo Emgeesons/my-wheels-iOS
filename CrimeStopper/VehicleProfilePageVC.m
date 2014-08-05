@@ -157,20 +157,61 @@ NSInteger intImage;
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
                           
                           NSLog(@"date : %@",str);
-                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                          [dateFormatter setDateFormat:@"dd-MM-yyyy"];
                           NSString *date = [dateFormatter stringFromDate:str];
                           
                           NSLog(@"date1 : %@",date);
                           
                           
                           _lblExpiry.text = date;
-                          
+                          NSLog(@"bicycle : %@",_lblVehicleType.text);
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle3.png"]];
                               [_lblRegistrationNo1 setText:@"Serial Number:"];
                               [_lblState setHidden:YES];
                               [_lblState1 setHidden:YES];
+                              [_lblBodyType1 setHidden:YES];
+                              [_lblNodyType setHidden: YES];
+                              [_lblEngineNo1 setFrame:CGRectMake(21, 72, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 72, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 95, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 95, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 116, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 116, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 138, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 138, 202, 21)];
+                              
+                              
+                              
+                              
+                              
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Car"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car3.png"]];
+                              
+                              [_lblRegistrationNo1 setText:@"Registration No:"];
+                              [_lblState setHidden:NO];
+                              [_lblState1 setHidden:NO];
+                              [_lblBodyType1 setHidden:NO];
+                              [_lblNodyType setHidden: NO];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 115, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 115, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 138, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 138, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 161, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 161, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 184, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
+
+                          }
+                          else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
+                          {
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike3.png"]];
+                              [_lblRegistrationNo1 setText:@"Registration No:"];
+                              [_lblState setHidden:NO];
+                              [_lblState1 setHidden:NO];
                               [_lblBodyType1 setHidden:YES];
                               [_lblNodyType setHidden: YES];
                               [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
@@ -182,52 +223,11 @@ NSInteger intImage;
                               [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
                               [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
                               
-                              
-                              
-                              
-                              
-                          }
-                          else if ([_lblVehicleType.text isEqualToString:@"Car"])
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
-                              
-                              [_lblRegistrationNo1 setText:@"Registration Number:"];
-                              [_lblState setHidden:NO];
-                              [_lblState1 setHidden:NO];
-                              [_lblBodyType1 setHidden:NO];
-                              [_lblNodyType setHidden: NO];
-                              [_lblEngineNo1 setFrame:CGRectMake(22, 138, 90, 21)];
-                              [_lblEngineNo setFrame:CGRectMake(103, 138, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 161, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 161, 250, 21)];
-                              [_lblColor1 setFrame:CGRectMake(22, 184, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 184, 217, 21)];
-                              [_lblAccessories1 setFrame:CGRectMake(22, 207, 107, 21)];
-                              [_lblAccessories setFrame:CGRectMake(112, 207, 202, 21)];
-
-                          }
-                          else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
-                              [_lblRegistrationNo1 setText:@"Registration Number:"];
-                              [_lblState setHidden:NO];
-                              [_lblState1 setHidden:NO];
-                              [_lblBodyType1 setHidden:NO];
-                              [_lblNodyType setHidden: NO];
-                              [_lblEngineNo1 setFrame:CGRectMake(22, 138, 90, 21)];
-                              [_lblEngineNo setFrame:CGRectMake(103, 138, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 161, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 161, 250, 21)];
-                              [_lblColor1 setFrame:CGRectMake(22, 184, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 184, 217, 21)];
-                              [_lblAccessories1 setFrame:CGRectMake(22, 207, 107, 21)];
-                              [_lblAccessories setFrame:CGRectMake(112, 207, 202, 21)];
-                              
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Other"])
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
-                              [_lblRegistrationNo1 setText:@"Registration Number:"];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
+                              [_lblRegistrationNo1 setText:@"Registration No:"];
                               [_lblState setHidden:NO];
                               [_lblState1 setHidden:NO];
                               [_lblBodyType1 setHidden:YES];
@@ -243,7 +243,7 @@ NSInteger intImage;
                           }
                           else
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
                           }
                           
                           if([_lblStatus.text isEqualToString:@""])
@@ -382,7 +382,7 @@ NSInteger intImage;
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
                           
                           NSLog(@"date : %@",str);
-                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                          [dateFormatter setDateFormat:@"dd-MM-yyyy"];
                           NSString *date = [dateFormatter stringFromDate:str];
                           
                           NSLog(@"date1 : %@",date);
@@ -392,24 +392,24 @@ NSInteger intImage;
                           
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle3.png"]];
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Car"])
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car3.png"]];
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike3.png"]];
                               
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Other"])
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
                           }
                           else
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
                           }
                           
                           if([_lblStatus.text isEqualToString:@""])
@@ -504,6 +504,7 @@ NSInteger intImage;
     }
     else
     {
+        _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo1]];
         UIImage *image = [UIImage imageWithData:imageData];
@@ -521,6 +522,7 @@ NSInteger intImage;
     }
     else
     {
+        _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo2]];
             UIImage *image = [UIImage imageWithData:imageData];
@@ -538,6 +540,7 @@ NSInteger intImage;
     }
     else
     {
+        _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo3]];
             UIImage *image = [UIImage imageWithData:imageData];

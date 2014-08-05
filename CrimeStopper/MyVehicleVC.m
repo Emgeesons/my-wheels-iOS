@@ -91,22 +91,22 @@
     }
     if([vehivleType isEqualToString:@"Car"])
     {
-        [cell.lblRegNo setText:@"Registration Number:"];
+        [cell.lblRegNo setText:@"Registration No:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
     }
     else if ([vehivleType isEqualToString:@"Bicycle"])
     {
         [cell.lblRegNo setText:@"Serial Number:"];
-        [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+        [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle2.png"]];
     }
     else if ([vehivleType isEqualToString:@"Motor Cycle"])
     {
-         [cell.lblRegNo setText:@"Registration Number:"];
+         [cell.lblRegNo setText:@"Registration No:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
     }
     else
     {
-         [cell.lblRegNo setText:@"Registration Number:"];
+         [cell.lblRegNo setText:@"Registration No:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
     }
     [cell.imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];

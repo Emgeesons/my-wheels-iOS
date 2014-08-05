@@ -82,7 +82,7 @@
     
    if( appdelegate.intReg == 1)
    {
-       timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(callDisclaimer:) userInfo:nil repeats:NO];
+       timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(callDisclaimer:) userInfo:nil repeats:NO];
        appdelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
        self.navigationController.navigationBarHidden = YES;
 
@@ -188,7 +188,7 @@
             [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
              [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [_imgTick setHidden:NO];
-            appdelegate.intMparking = 1;
+           // appdelegate.intMparking = 1;
             [_btnFindVehicle setEnabled:YES];
         }
         else
@@ -198,14 +198,14 @@
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
             [_imgTick setHidden:YES];
             [_btnFindVehicle setEnabled:NO];
-            appdelegate.intMparking = 2;
+           // appdelegate.intMparking = 2;
         }
         }
     }
     }
    //for m parking color change
-    NSLog(@"intbluemmm :%d",intblue);
-        if(appdelegate.intMparking == 2)
+    NSLog(@"mparking  :%d",appdelegate.intMparking);
+           if(appdelegate.intMparking == 2)
         {
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];

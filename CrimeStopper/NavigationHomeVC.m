@@ -142,14 +142,43 @@
     }
     else if (indexPath.row == 3)
     {
+        //share app
+        NSString *text = @"Check out My Wheels by Crime Stoppers. Get it from -  ";
+        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
+        UIImage *image = [UIImage imageNamed:@"app_icon_120x120.png"];
         
+        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
+        
+        controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                             UIActivityTypePrint,
+                                             UIActivityTypeAssignToContact,
+                                             UIActivityTypeSaveToCameraRoll,
+                                             UIActivityTypeAddToReadingList,
+                                             UIActivityTypePostToFlickr,
+                                             UIActivityTypePostToVimeo,
+                                             UIActivityTypePostToTencentWeibo,
+                                             UIActivityTypeAirDrop];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+        [controller setCompletionHandler:^(NSString *activityType, BOOL completed)
+         {
+             if (completed)
+             {
+                 UIAlertView *objalert = [[UIAlertView alloc]initWithTitle:nil message:@"Successfully Shared" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                 [objalert show];
+                 objalert = nil;
+             }
+         }];
     }
     else if (indexPath.row == 4)
     {
-    
+        //Rate us
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"]];
     }
     else if (indexPath.row == 5)
-    {        
+    {
+        //log out
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserID"];
          [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dob"];
          [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];

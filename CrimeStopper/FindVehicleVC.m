@@ -464,7 +464,9 @@ else
     HomePageVC *vc = [[HomePageVC alloc]init];
   
     //vc.intblue = 2;
+    NSLog(@"mParking : %d",appDelegate.intMparking);
     appDelegate.intMparking = 2;
+    NSLog(@"mParking : %d",appDelegate.intMparking);
     [vc.btnMParking setBackgroundColor:[UIColor lightTextColor]];
     [vc.btnMParking setBackgroundColor:[UIColor lightTextColor]];
     [vc.btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
