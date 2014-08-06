@@ -13,6 +13,7 @@
 #import "UIButton+AFNetworking.h"
 #import "CustomImageView.h"
 @import QuickLook;
+#import "HomePageVC.h"
 
 #define MIN_HEIGHT 10.0f
 
@@ -345,6 +346,8 @@
     } else {
         // navigate to home VC
         [self.navigationController popToViewController:VCS[1] animated:YES];
+        //HomePageVC *vc = [[HomePageVC alloc] init];
+        //[self.navigationController popToViewController:vc animated:YES];
     }
     
 }

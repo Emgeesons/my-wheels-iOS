@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdatesViewController">
             <connections>
+                <outlet property="btnLetsGo" destination="eH3-xB-d8w" id="HR4-i2-oVd"/>
                 <outlet property="btnLogin" destination="eH3-xB-d8w" id="Ayw-Hs-nFQ"/>
                 <outlet property="btnVehicleRecovered" destination="CHc-DR-q2E" id="l4F-ff-o03"/>
                 <outlet property="segmentedControl" destination="sJK-EB-Wv6" id="jMC-7V-Etd"/>

@@ -73,6 +73,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // set background color of btnLetsGo
+    self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+    
     [_viewLocation setHidden:YES];
     // initialize all NSMutableArray here
     type = [[NSMutableArray alloc] init];
@@ -433,7 +437,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-        [DeviceInfo errorInConnection];
+        //[DeviceInfo errorInConnection];
         [activityIndicator stopAnimating];
     }];
 }
@@ -537,8 +541,9 @@
             strName = [NSString stringWithFormat:@"%@ spotted a Suspicious Activity", first_name[indexPath]];
         }
     }
-    //NSLog(@"%@", strName);
-    // Attribute string for User anme and activity
+    NSLog(@"%@", strName);
+    // Attribute string for User name and activity
+    
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
     [attrStringName addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f] range:NSMakeRange(0, strName.length)];
     [attrStringName addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#0067AD"] range:NSMakeRange(0, [first_name[indexPath] length])];

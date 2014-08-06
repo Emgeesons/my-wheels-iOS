@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -14,6 +14,7 @@
                 <outlet property="mapView" destination="kNQ-fL-xpB" id="d9g-ar-5jf"/>
                 <outlet property="navBar" destination="O8G-9n-mcb" id="W83-a9-aje"/>
                 <outlet property="scrollView" destination="iLg-Le-EF5" id="tFH-Ua-2lR"/>
+                <outlet property="toolBar" destination="44A-3r-z2k" id="YNf-8e-IKg"/>
                 <outlet property="txtColor" destination="ORy-bh-pvw" id="fSo-Ii-BEK"/>
                 <outlet property="txtComments" destination="g4D-qp-8Gx" id="TzH-Ia-85y"/>
                 <outlet property="txtDateTime" destination="Zmq-D7-ZSU" id="Hgx-XB-iJN"/>
@@ -61,7 +62,7 @@
                                 <outlet property="delegate" destination="-1" id="FAc-XU-Pvv"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="registration / serial no" minimumFontSize="17" id="ZHW-NA-RrA">
+                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="registration / serial no" minimumFontSize="17" id="ZHW-NA-RrA">
                             <rect key="frame" x="10" y="224" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -71,7 +72,7 @@
                                 <outlet property="delegate" destination="-1" id="NUc-e1-XSN"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="make" minimumFontSize="17" id="TWZ-Ih-Ndj">
+                        <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="make" minimumFontSize="17" id="TWZ-Ih-Ndj">
                             <rect key="frame" x="10" y="262" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -81,7 +82,7 @@
                                 <outlet property="delegate" destination="-1" id="hFh-WR-qNm"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comments" minimumFontSize="17" id="g4D-qp-8Gx">
+                        <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comments" minimumFontSize="17" id="g4D-qp-8Gx">
                             <rect key="frame" x="10" y="338" width="300" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -91,7 +92,7 @@
                                 <outlet property="delegate" destination="-1" id="u9P-Q2-a7F"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="model" minimumFontSize="17" id="5Xz-Kw-Wsz">
+                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="model" minimumFontSize="17" id="5Xz-Kw-Wsz">
                             <rect key="frame" x="10" y="300" width="149" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -101,7 +102,7 @@
                                 <outlet property="delegate" destination="-1" id="2Kx-t4-aBS"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="color" minimumFontSize="17" id="ORy-bh-pvw">
+                        <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="color" minimumFontSize="17" id="ORy-bh-pvw">
                             <rect key="frame" x="161" y="300" width="149" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -259,14 +260,36 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="44A-3r-z2k">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem title="Previous /" id="CSn-DK-714">
+                    <connections>
+                        <action selector="previousClicked:" destination="-1" id="ATM-U7-FBt"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Next" id="v10-NZ-ahD">
+                    <connections>
+                        <action selector="nextClicked:" destination="-1" id="7n2-yS-udp"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="gMq-yq-2PY"/>
+                <barButtonItem title="Done" width="96" id="IaC-eY-Vrh">
+                    <connections>
+                        <action selector="doneClicked:" destination="-1" id="p4K-8P-xPM"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+        </toolbar>
     </objects>
     <resources>
         <image name="add_photos.png" width="158" height="158"/>
         <image name="app_icon_120x120.png" width="120" height="120"/>
-        <image name="location1.png" width="32" height="30"/>
-        <image name="privacy1.png" width="32" height="30"/>
+        <image name="location1.png" width="64" height="60"/>
+        <image name="privacy1.png" width="64" height="60"/>
         <image name="red_pin.png" width="30" height="40"/>
-        <image name="settings1.png" width="32" height="30"/>
-        <image name="switch1.png" width="32" height="30"/>
+        <image name="settings1.png" width="64" height="60"/>
+        <image name="switch1.png" width="64" height="60"/>
     </resources>
 </document>

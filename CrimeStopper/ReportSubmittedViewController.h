@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ReportSubmittedViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *btnReportSummary;
 @property (nonatomic, strong) NSString *vehicleID;
 @end

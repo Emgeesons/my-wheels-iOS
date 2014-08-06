@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UAirship.h"
+
 #import <Parse/Parse.h>
 #import "PPRevealSideViewController.h"
 

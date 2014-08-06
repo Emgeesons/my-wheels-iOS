@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "HomePageVC.h"
 #import "LoginVC.h"
+#import "UAirship.h"
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "EvertTimePinVC.h"

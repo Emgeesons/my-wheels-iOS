@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FileNewReportViewController">
             <connections>
                 <outlet property="btnAddImage" destination="Bt0-u8-N50" id="StZ-MX-aZl"/>
+                <outlet property="btnLetsGo" destination="PCS-Dr-k58" id="aWf-lv-lxc"/>
+                <outlet property="btnSend" destination="BtD-Tk-B83" id="BJs-le-VyT"/>
                 <outlet property="image1" destination="oZZ-rT-kdx" id="Ro8-Nl-J5g"/>
                 <outlet property="image2" destination="VEH-fz-ARz" id="kfm-2J-q1X"/>
                 <outlet property="image3" destination="5mF-1Q-eiK" id="grE-ca-qNQ"/>
@@ -15,6 +17,7 @@
                 <outlet property="lblRegistrationNumber" destination="UAE-VI-EiI" id="z9c-6L-ZQu"/>
                 <outlet property="lblVehicleName" destination="AA6-0i-LkS" id="gqe-YM-5t5"/>
                 <outlet property="mapView" destination="hCN-5p-ETl" id="kd7-Lv-eiW"/>
+                <outlet property="navItem" destination="4r3-cf-O5B" id="Jan-U4-GCT"/>
                 <outlet property="scrollView" destination="Vcd-T0-8vn" id="FTT-YD-vEv"/>
                 <outlet property="txtComments" destination="Jhw-Rk-g0a" id="gky-W3-Hz8"/>
                 <outlet property="txtDateTime" destination="sOT-vw-Usm" id="mZC-nu-Fut"/>
@@ -44,6 +47,11 @@
                             <barButtonItem key="leftBarButtonItem" title="Back" id="hmN-dd-cMt">
                                 <connections>
                                     <action selector="backButtonClicked:" destination="-1" id="lyI-Yp-IYT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" title="Send" id="BtD-Tk-B83">
+                                <connections>
+                                    <action selector="sendClicked:" destination="-1" id="V0f-UM-4xO"/>
                                 </connections>
                             </barButtonItem>
                         </navigationItem>
@@ -104,7 +112,7 @@
                                     <rect key="frame" x="10" y="15" width="20" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audi A6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AA6-0i-LkS">
+                                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audi A6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AA6-0i-LkS">
                                     <rect key="frame" x="38" y="9" width="238" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -199,18 +207,6 @@
                                         <outlet property="delegate" destination="-1" id="9f0-7Z-5xO"/>
                                     </connections>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B3p-eh-YuY">
-                                    <rect key="frame" x="118" y="280" width="84" height="39"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <state key="normal" title="Send">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="sendClicked:" destination="-1" eventType="touchUpInside" id="sRS-1G-7zO"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -293,10 +289,10 @@
         <image name="edit.png" width="13" height="13"/>
         <image name="ic_car.png" width="32" height="26"/>
         <image name="im_complete_profile.png" width="294" height="190"/>
-        <image name="location1.png" width="32" height="30"/>
-        <image name="privacy1.png" width="32" height="30"/>
+        <image name="location1.png" width="64" height="60"/>
+        <image name="privacy1.png" width="64" height="60"/>
         <image name="red_pin.png" width="30" height="40"/>
-        <image name="settings1.png" width="32" height="30"/>
-        <image name="switch1.png" width="32" height="30"/>
+        <image name="settings1.png" width="64" height="60"/>
+        <image name="switch1.png" width="64" height="60"/>
     </resources>
 </document>

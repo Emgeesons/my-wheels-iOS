@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "ReportSummaryViewController.h"
 #import "HomePageVC.h"
+#import "UIColor+Extra.h"
 
 @interface ReportSubmittedViewController ()
 - (IBAction)reportSummaryClicked:(id)sender;
@@ -31,6 +32,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // set background color or btnReportSummary
+    self.btnReportSummary.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
 }
 
 - (void)didReceiveMemoryWarning

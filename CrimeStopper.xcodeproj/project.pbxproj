@@ -23,7 +23,6 @@
 		5E04AF1119500608003F6CD4 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF0F19500608003F6CD4 /* TableViewCell.xib */; };
 		5E04AF4D19505CBD003F6CD4 /* default_profile_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4119505CBD003F6CD4 /* default_profile_1.png */; };
 		5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
-		5E05577B196121C9003A84AD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E05577A196121C9003A84AD /* Parse.framework */; };
 		5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */; };
 		5E05DCCA195EBDE90081256F /* default_profile_homeround.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC6195EBDE90081256F /* default_profile_homeround.png */; };
 		5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC7195EBDE90081256F /* default_profile_home1.png */; };
@@ -51,7 +50,6 @@
 		5E3C3FBA196A9A11007E6AFA /* ic_unlike_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB5196A9A11007E6AFA /* ic_unlike_blue.png */; };
 		5E3C3FBB196A9A11007E6AFA /* ic_unlike_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB6196A9A11007E6AFA /* ic_unlike_grey.png */; };
 		5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB7196A9A11007E6AFA /* im_points.png */; };
-		5E3E6F7E197A3E8200F2FBC3 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */; };
 		5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */; };
 		5E815EA51940832700CEAFAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA41940832700CEAFAB /* Foundation.framework */; };
 		5E815EA71940832700CEAFAB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA61940832700CEAFAB /* CoreGraphics.framework */; };
@@ -230,6 +228,17 @@
 		5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC23195C00B0003679C6 /* UIWebView+AFNetworking.m */; };
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
 		5EFFFBE8198A515400F1474D /* ic_drawer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFFFBE7198A515400F1474D /* ic_drawer2.png */; };
+		EC1B19241990FCF100EB9FDC /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1B19231990FCF100EB9FDC /* Parse.framework */; };
+		EC50BE081990F6D800F57151 /* libUAirship-4.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */; };
+		EC5678581991ED0A004B4066 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5678571991ED0A004B4066 /* Social.framework */; };
+		EC56785A199249F7004B4066 /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC567859199249F7004B4066 /* edit@2x.png */; };
+		EC56787D19924A16004B4066 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56787C19924A16004B4066 /* edit.png */; };
+		EC56787F19924A21004B4066 /* headphone.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56787E19924A21004B4066 /* headphone.png */; };
+		EC56788119924A2B004B4066 /* headphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56788019924A2B004B4066 /* headphone@2x.png */; };
+		EC56788419924A49004B4066 /* im_complete_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56788219924A49004B4066 /* im_complete_profile@2x.png */; };
+		EC56788519924A49004B4066 /* report_submitted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56788319924A49004B4066 /* report_submitted@2x.png */; };
+		EC56788819924A54004B4066 /* im_complete_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56788619924A54004B4066 /* im_complete_profile.png */; };
+		EC56788919924A54004B4066 /* report_submitted.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56788719924A54004B4066 /* report_submitted.png */; };
 		ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */; };
 		ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */; };
 		ECEAE2791966C52A00BBA108 /* green_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ECEAE2711966C52A00BBA108 /* green_pin.png */; };
@@ -275,7 +284,6 @@
 		5E04AF0F19500608003F6CD4 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		5E04AF4119505CBD003F6CD4 /* default_profile_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_1.png; sourceTree = "<group>"; };
 		5E04AF59195066AF003F6CD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E05577A196121C9003A84AD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
 		5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile_home@1x.png"; sourceTree = "<group>"; };
 		5E05DCC6195EBDE90081256F /* default_profile_homeround.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_homeround.png; sourceTree = "<group>"; };
 		5E05DCC7195EBDE90081256F /* default_profile_home1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_home1.png; sourceTree = "<group>"; };
@@ -308,7 +316,6 @@
 		5E3C3FB5196A9A11007E6AFA /* ic_unlike_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_unlike_blue.png; sourceTree = "<group>"; };
 		5E3C3FB6196A9A11007E6AFA /* ic_unlike_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_unlike_grey.png; sourceTree = "<group>"; };
 		5E3C3FB7196A9A11007E6AFA /* im_points.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_points.png; sourceTree = "<group>"; };
-		5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.0.a"; path = "../../../Documents/Airship/libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		5E815EA11940832700CEAFAB /* CrimeStopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrimeStopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E815EA41940832700CEAFAB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -546,6 +553,17 @@
 		5EFFBC85195C06E3003679C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5EFFFBE7198A515400F1474D /* ic_drawer2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer2.png; sourceTree = "<group>"; };
+		EC1B19231990FCF100EB9FDC /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
+		EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.1.a"; path = "CrimeStopper/Airship/libUAirship-4.0.1.a"; sourceTree = "<group>"; };
+		EC5678571991ED0A004B4066 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		EC567859199249F7004B4066 /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
+		EC56787C19924A16004B4066 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		EC56787E19924A21004B4066 /* headphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headphone.png; sourceTree = "<group>"; };
+		EC56788019924A2B004B4066 /* headphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headphone@2x.png"; sourceTree = "<group>"; };
+		EC56788219924A49004B4066 /* im_complete_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im_complete_profile@2x.png"; sourceTree = "<group>"; };
+		EC56788319924A49004B4066 /* report_submitted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report_submitted@2x.png"; sourceTree = "<group>"; };
+		EC56788619924A54004B4066 /* im_complete_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_complete_profile.png; sourceTree = "<group>"; };
+		EC56788719924A54004B4066 /* report_submitted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report_submitted.png; sourceTree = "<group>"; };
 		ECEAE26C1966C1AF00BBA108 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfo.h; sourceTree = "<group>"; };
 		ECEAE26D1966C1AF00BBA108 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
 		ECEAE26F1966C4FB00BBA108 /* add_photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_photos@2x.png"; sourceTree = "<group>"; };
@@ -564,13 +582,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E3E6F7E197A3E8200F2FBC3 /* libUAirship-4.0.0.a in Frameworks */,
+				EC5678581991ED0A004B4066 /* Social.framework in Frameworks */,
+				EC1B19241990FCF100EB9FDC /* Parse.framework in Frameworks */,
+				EC50BE081990F6D800F57151 /* libUAirship-4.0.1.a in Frameworks */,
 				5EF7E75C197A252000262573 /* MessageUI.framework in Frameworks */,
 				5EF7E75A197A250C00262573 /* CoreTelephony.framework in Frameworks */,
 				5EF7E758197A24FA00262573 /* libsqlite3.dylib in Frameworks */,
 				5E9CCB9C1949AF44006B43AE /* CFNetwork.framework in Frameworks */,
 				5ED385D819612578007DD44F /* FacebookSDK.framework in Frameworks */,
-				5E05577B196121C9003A84AD /* Parse.framework in Frameworks */,
 				5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */,
 				5EFB8D15195A959B003B6042 /* AssetsLibrary.framework in Frameworks */,
 				5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */,
@@ -757,12 +776,13 @@
 		5E815EA31940832700CEAFAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */,
+				EC5678571991ED0A004B4066 /* Social.framework */,
+				EC1B19231990FCF100EB9FDC /* Parse.framework */,
+				EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */,
 				5EF7E75B197A252000262573 /* MessageUI.framework */,
 				5EF7E759197A250C00262573 /* CoreTelephony.framework */,
 				5EF7E757197A24FA00262573 /* libsqlite3.dylib */,
 				5ED385D719612578007DD44F /* FacebookSDK.framework */,
-				5E05577A196121C9003A84AD /* Parse.framework */,
 				5EFB8D14195A959B003B6042 /* AssetsLibrary.framework */,
 				5E04AF59195066AF003F6CD4 /* MapKit.framework */,
 				5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */,
@@ -947,6 +967,14 @@
 				ECEAE2731966C52A00BBA108 /* points_bg_ios.png */,
 				ECEAE2741966C52A00BBA108 /* points_bg_ios@2x.png */,
 				ECEAE2751966C52A00BBA108 /* points_bg.png */,
+				EC56788219924A49004B4066 /* im_complete_profile@2x.png */,
+				EC56788619924A54004B4066 /* im_complete_profile.png */,
+				EC56788719924A54004B4066 /* report_submitted.png */,
+				EC56788319924A49004B4066 /* report_submitted@2x.png */,
+				EC56787E19924A21004B4066 /* headphone.png */,
+				EC56788019924A2B004B4066 /* headphone@2x.png */,
+				EC56787C19924A16004B4066 /* edit.png */,
+				EC567859199249F7004B4066 /* edit@2x.png */,
 				ECEAE2761966C52A00BBA108 /* points_bg@2x.png */,
 				ECEAE2771966C52A00BBA108 /* red_pin.png */,
 				ECEAE2781966C52A00BBA108 /* red_pin@2x.png */,
@@ -1184,6 +1212,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Emgeesons;
 				TargetAttributes = {
+					5E815EA01940832700CEAFAB = {
+						DevelopmentTeam = 44C2WNQ95S;
+					};
 					5E815EBB1940832700CEAFAB = {
 						TestTargetID = 5E815EA01940832700CEAFAB;
 					};
@@ -1217,14 +1248,17 @@
 				5EE8C9171951AAEB009550A1 /* FeedBackVC.xib in Resources */,
 				5E9D1B3E1966C0FB00F668EE /* SelectVehicleCell.xib in Resources */,
 				5EF8D01C1967CFEE007424B2 /* ImParkingHereVC.xib in Resources */,
+				EC56788519924A49004B4066 /* report_submitted@2x.png in Resources */,
 				5EEF21761955A3FB00A0BA3F /* app_icon_80x80.png in Resources */,
 				5EFABB45196D7060007C0781 /* current_location@2x.png in Resources */,
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
 				5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */,
 				5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */,
+				EC56788119924A2B004B4066 /* headphone@2x.png in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
 				5EF9F23F197CD42C003A3775 /* ReportSubmittedViewController.xib in Resources */,
+				EC56787F19924A21004B4066 /* headphone.png in Resources */,
 				ECEAE27D1966C52A00BBA108 /* points_bg.png in Resources */,
 				5EEF217E1955AC1900A0BA3F /* CrimeStopper-Info.plist in Resources */,
 				5EF9F25B197CD537003A3775 /* DetailsViewController.xib in Resources */,
@@ -1241,6 +1275,7 @@
 				5E815EAF1940832700CEAFAB /* InfoPlist.strings in Resources */,
 				5EF1241A198777B10096C4EF /* ic_map.png in Resources */,
 				5EEF21931955B44300A0BA3F /* male_inactive.png in Resources */,
+				EC56785A199249F7004B4066 /* edit@2x.png in Resources */,
 				5EFE9196195948D80014669E /* incomplete.png in Resources */,
 				ECEAE2791966C52A00BBA108 /* green_pin.png in Resources */,
 				5EA1CEBE1990B53000BD81C7 /* add_photos_grey.png in Resources */,
@@ -1293,6 +1328,7 @@
 				5EF124111987705F0096C4EF /* login_bg_640x1136.png in Resources */,
 				5EF1245619878C330096C4EF /* phone1.png in Resources */,
 				5EE8C9201951AFFA009550A1 /* star.png in Resources */,
+				EC56787D19924A16004B4066 /* edit.png in Resources */,
 				5E3C3FB2196A9A07007E6AFA /* tick_mark.png in Resources */,
 				5EEF21951955B44300A0BA3F /* female_inactive.png in Resources */,
 				5EF1245519878C330096C4EF /* ic_tow_truck1.png in Resources */,
@@ -1321,15 +1357,18 @@
 				5E0324701942FBB7006EEA24 /* ic_app.png in Resources */,
 				5EE8C90619517553009550A1 /* EmergencyNoVC.xib in Resources */,
 				5EEF21941955B44300A0BA3F /* male_active.png in Resources */,
+				EC56788919924A54004B4066 /* report_submitted.png in Resources */,
 				5EF12418198776770096C4EF /* im_about_us.png in Resources */,
 				5E0B0A501979035E00672A2E /* ic_coachmark.png in Resources */,
 				5EF1245C1987B2B30096C4EF /* privacy1.png in Resources */,
+				EC56788819924A54004B4066 /* im_complete_profile.png in Resources */,
 				5E815EE419408CE900CEAFAB /* DisclaimerViewController.xib in Resources */,
 				5EFD685119627D48009F9399 /* VehicleProfilePageVC.xib in Resources */,
 				5EF1242B1987804E0096C4EF /* ic_report_sighting1.png in Resources */,
 				5E2371CC19862DEE000DF8E0 /* login_bg (5).png in Resources */,
 				5E182B3F19653D6E003C1793 /* MyVehicleVC.xib in Resources */,
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
+				EC56788419924A49004B4066 /* im_complete_profile@2x.png in Resources */,
 				5EF1245319878C330096C4EF /* ic_raa1.png in Resources */,
 				5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
@@ -1561,22 +1600,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
-					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK/FBAudienceNetwork",
-					/Users/asha/Downloads,
-					/Users/asha/Documents/FacebookSDK,
-					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSampleAppSpecs/SampleAppSpecs/Frameworks",
-					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSDKSpecs/Frameworks",
-					"/Users/asha/Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS",
 					"$(PROJECT_DIR)/CrimeStopper",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Users/asha/Documents/Airship/**";
+				HEADER_SEARCH_PATHS = "/Users/yogesh/Documents/Airship/**";
 				INFOPLIST_FILE = "CrimeStopper/CrimeStopper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1588,9 +1621,11 @@
 					/Users/asha/Downloads,
 					/Users/asha/Documents/Airship,
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1601,21 +1636,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
-					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK/FBAudienceNetwork",
-					/Users/asha/Downloads,
-					/Users/asha/Documents/FacebookSDK,
-					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSampleAppSpecs/SampleAppSpecs/Frameworks",
-					"$(PROJECT_DIR)/CrimeStopper/mopub-ios-sdk-master/Specs/MoPubSDKSpecs/Frameworks",
-					"/Users/asha/Downloads/ParsePlatform-IntegratingFacebookTutorial-9c0212e/IntegratingFacebookTutorial-iOS",
 					"$(PROJECT_DIR)/CrimeStopper",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Users/asha/Documents/Airship/**";
+				HEADER_SEARCH_PATHS = "/Users/yogesh/Documents/Airship/**";
 				INFOPLIST_FILE = "CrimeStopper/CrimeStopper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1627,9 +1656,11 @@
 					/Users/asha/Downloads,
 					/Users/asha/Documents/Airship,
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

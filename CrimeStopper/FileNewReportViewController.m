@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "ShareNewReportViewController.h"
 #import "Reachability.h"
+#import "UIColor+Extra.h"
 
 
 @interface FileNewReportViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
@@ -49,6 +50,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // set background color or btnLetsGo
+    self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     
     [_viewLocationGuide setHidden:YES];
     //Initialize CLLocationManager
@@ -95,10 +99,17 @@
     activityIndicator.center = self.view.center;
     [bgToolBar addSubview:activityIndicator];
     
+    //add tap gesture for lblVehicleName
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectVehicles:)];
+    [self.lblVehicleName addGestureRecognizer:tapGesture];
+    
     NSArray *vehicles = [[NSUserDefaults standardUserDefaults] arrayForKey:@"vehicles"];
     if (vehicles.count == 0) {
         self.vwNoVehicle.hidden = NO;
         self.vwFileReport.hidden = YES;
+        
+        self.navItem.rightBarButtonItem = nil;
+        
     } else {
         self.vwNoVehicle.hidden = YES;
         self.vwFileReport.hidden = NO;
@@ -151,6 +162,8 @@
     
     // setLocationEnabled as NO
     isLocationEnabled = NO;
+    
+    [self deleteAllimageFiles];
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,11 +187,11 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     
-    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+    /*if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Error" message:@"Location service is not enabled.\nGo to \"Settings->Privacy->LocationServices\"\nto enable location services." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
-    }
+    }*/
     
     isLocationEnabled = NO;
     
@@ -261,6 +274,11 @@
     selectedLatitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.latitude];
     selectedLongitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.longitude];
     
+    if (originalLatitude == nil || originalLatitude == NULL) {
+        originalLatitude = selectedLatitude;
+        originalLongitude = selectedLongitude;
+    }
+    
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -316,7 +334,6 @@
 }
 
 - (IBAction)selectVehicles:(id)sender {
-    
     // Open DatePicker when age textfield is clicked
     sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
@@ -420,7 +437,7 @@
     
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of Sighting" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of report" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
@@ -665,7 +682,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Stolen /Abandoned Vehicle?", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism"/*, @"Stolen /Abandoned Vehicle?"*/, nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
@@ -724,6 +741,22 @@
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
+}
+
+-(void)deleteAllimageFiles {
+    // Delete all user's body picks from gallery folder
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *directory = [documentsDirectoryPath stringByAppendingPathComponent:@"fileNewReport/"];
+    NSError *error = nil;
+    for (NSString *file in [fm contentsOfDirectoryAtPath:directory error:&error]) {
+        BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", directory, file] error:&error];
+        if (!success || error) {
+            // it failed.
+            [activityIndicator stopAnimating];
+        }
+    }
 }
 
 @end
