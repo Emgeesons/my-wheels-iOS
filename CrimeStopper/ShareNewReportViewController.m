@@ -169,7 +169,7 @@
     
     if (![self.photo1 isEqualToString:@""]) {
         params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                      message, @"message", image, @"picture", nil];
+                      message, @"message", image, @"picture", link , @"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8", nil];
     } else {
         params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                       message, @"message", nil];
