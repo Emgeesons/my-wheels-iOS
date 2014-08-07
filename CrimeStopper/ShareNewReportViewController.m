@@ -160,7 +160,7 @@
 }
 
 -(void)postOnFacebook {
-    [self makeRequestToUpdateStatus:self.tvFacebook.text title:nil description:nil image:self.photo1 link:nil];
+    [self makeRequestToUpdateStatus:self.tvFacebook.text title:nil description:nil image:self.photo1 link:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
 }
 
 - (void)makeRequestToUpdateStatus:(NSString *)message title:(NSString *)title description:(NSString *)description image:(NSString *)image link:(NSString *)link {
@@ -169,7 +169,7 @@
     
     if (![self.photo1 isEqualToString:@""]) {
         params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                      message, @"message", image, @"picture", link , @"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8", nil];
+                      message, @"message", image, @"picture", link , @"link", nil];
     } else {
         params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                       message, @"message", nil];
