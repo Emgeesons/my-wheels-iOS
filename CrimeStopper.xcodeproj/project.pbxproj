@@ -229,6 +229,8 @@
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
 		5EFFFBE8198A515400F1474D /* ic_drawer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFFFBE7198A515400F1474D /* ic_drawer2.png */; };
 		EC1B19241990FCF100EB9FDC /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1B19231990FCF100EB9FDC /* Parse.framework */; };
+		EC2A5D5A19933CDC005858FA /* target_symbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC2A5D5919933CDC005858FA /* target_symbol@2x.png */; };
+		EC2A5D5C19933CE8005858FA /* target_symbol.png in Resources */ = {isa = PBXBuildFile; fileRef = EC2A5D5B19933CE8005858FA /* target_symbol.png */; };
 		EC50BE081990F6D800F57151 /* libUAirship-4.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */; };
 		EC5678581991ED0A004B4066 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5678571991ED0A004B4066 /* Social.framework */; };
 		EC56785A199249F7004B4066 /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC567859199249F7004B4066 /* edit@2x.png */; };
@@ -554,6 +556,8 @@
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5EFFFBE7198A515400F1474D /* ic_drawer2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer2.png; sourceTree = "<group>"; };
 		EC1B19231990FCF100EB9FDC /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
+		EC2A5D5919933CDC005858FA /* target_symbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target_symbol@2x.png"; sourceTree = "<group>"; };
+		EC2A5D5B19933CE8005858FA /* target_symbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target_symbol.png; sourceTree = "<group>"; };
 		EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.1.a"; path = "CrimeStopper/Airship/libUAirship-4.0.1.a"; sourceTree = "<group>"; };
 		EC5678571991ED0A004B4066 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		EC567859199249F7004B4066 /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
@@ -971,6 +975,8 @@
 				EC56788619924A54004B4066 /* im_complete_profile.png */,
 				EC56788719924A54004B4066 /* report_submitted.png */,
 				EC56788319924A49004B4066 /* report_submitted@2x.png */,
+				EC2A5D5B19933CE8005858FA /* target_symbol.png */,
+				EC2A5D5919933CDC005858FA /* target_symbol@2x.png */,
 				EC56787E19924A21004B4066 /* headphone.png */,
 				EC56788019924A2B004B4066 /* headphone@2x.png */,
 				EC56787C19924A16004B4066 /* edit.png */,
@@ -1301,6 +1307,7 @@
 				5EEEB9151963DA800083CC56 /* ic_bike.png in Resources */,
 				ECEAE27C1966C52A00BBA108 /* points_bg_ios@2x.png in Resources */,
 				5EFE9187195945440014669E /* UserProfileVC.xib in Resources */,
+				EC2A5D5C19933CE8005858FA /* target_symbol.png in Resources */,
 				5E2371E219866727000DF8E0 /* seperator.png in Resources */,
 				5E02BD74196C136B00897687 /* FindVehicleVC.xib in Resources */,
 				5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */,
@@ -1331,6 +1338,7 @@
 				EC56787D19924A16004B4066 /* edit.png in Resources */,
 				5E3C3FB2196A9A07007E6AFA /* tick_mark.png in Resources */,
 				5EEF21951955B44300A0BA3F /* female_inactive.png in Resources */,
+				EC2A5D5A19933CDC005858FA /* target_symbol@2x.png in Resources */,
 				5EF1245519878C330096C4EF /* ic_tow_truck1.png in Resources */,
 				5EF1245219878C330096C4EF /* ic_police_assistance.png in Resources */,
 				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,

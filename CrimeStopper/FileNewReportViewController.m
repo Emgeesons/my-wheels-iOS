@@ -246,7 +246,7 @@
                 [address appendFormat:@"%@", placemark.country];
             }
             
-            if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
+            //if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
                 
                 CLLocationCoordinate2D coord = {.latitude =  currentLocation.coordinate.latitude, .longitude =  currentLocation.coordinate.longitude};
                 MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
@@ -258,7 +258,7 @@
                 originalLongitude = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
                 selectedLatitude = originalLatitude;
                 selectedLongitude = originalLongitude;
-            }
+            //}
             
             _lblAddress.text = address;
             
@@ -277,6 +277,7 @@
     if (originalLatitude == nil || originalLatitude == NULL) {
         originalLatitude = selectedLatitude;
         originalLongitude = selectedLongitude;
+        address = [[NSMutableString alloc] initWithString:@""];
     }
     
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];

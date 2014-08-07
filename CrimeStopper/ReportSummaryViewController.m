@@ -20,11 +20,15 @@
 @interface ReportSummaryViewController () <QLPreviewControllerDataSource, QLPreviewControllerDelegate> {
     NSInteger top;
     NSMutableArray *selectedImage;
+    NSString *insurerNumber;
 }
 - (IBAction)backButtonClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)btnCallPoliceClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnCallPolice;
+@property (weak, nonatomic) IBOutlet UIButton *btnCallInsurer;
+- (IBAction)btnCallInsurerClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnCallPoliceXPositionConstraint;
 
 @end
 
@@ -45,6 +49,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.btnCallPolice.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+    self.btnCallInsurer.backgroundColor = self.btnCallPolice.backgroundColor;
     
     //NSLog(@"%d", self.detailsArray.count);
     [self displayDetails];
@@ -280,6 +285,18 @@
     //Add Insurance Policy No here
     [viewContainer addSubview:[self addLabelWithText1:@"Insurance Policy No: " andText2:self.detailsArray[0][@"insurance_policy_no"]]];
     
+    // set insurance company number
+    insurerNumber = self.detailsArray[0][@"insurance_company_number"];
+    
+    if (insurerNumber == nil || [insurerNumber isEqualToString:@""]) {
+        // hide btnCallInsurer button
+        self.btnCallInsurer.hidden = YES;
+        
+        // rearrange btnCallPolice button in middle
+        self.btnCallPoliceXPositionConstraint.constant = 95;
+        [self.btnCallPolice setNeedsUpdateConstraints];
+    }
+    
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     NSDate *date = [format dateFromString:self.detailsArray[0][@"insurance_expiry_date"]];
@@ -345,9 +362,13 @@
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         // navigate to home VC
-        [self.navigationController popToViewController:VCS[1] animated:YES];
-        //HomePageVC *vc = [[HomePageVC alloc] init];
-        //[self.navigationController popToViewController:vc animated:YES];
+        //[self.navigationController popToViewController:VCS[1] animated:YES];
+        for (int i = 0 ; i < VCS.count; i++) {
+            if ([VCS[i] isKindOfClass:[HomePageVC class]]) {
+                [self.navigationController popToViewController:VCS[i] animated:YES];
+                return;
+            }
+        }
     }
     
 }
@@ -422,4 +443,8 @@
     }
 }
 
+- (IBAction)btnCallInsurerClicked:(id)sender {
+    NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", insurerNumber]];
+    [[UIApplication sharedApplication] openURL:telURL];
+}
 @end

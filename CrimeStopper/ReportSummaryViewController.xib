@@ -6,7 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportSummaryViewController">
             <connections>
+                <outlet property="btnCallInsurer" destination="AWO-aV-hDY" id="qFJ-J2-dby"/>
                 <outlet property="btnCallPolice" destination="OMy-lZ-iuy" id="Xkc-Q9-fKS"/>
+                <outlet property="btnCallPoliceXPositionConstraint" destination="Qcs-AD-jbX" id="pcb-Rh-voo"/>
                 <outlet property="scrollView" destination="vHp-p7-44n" id="BM6-mf-fBp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -40,7 +42,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMy-lZ-iuy">
-                            <rect key="frame" x="96" y="448" width="129" height="40"/>
+                            <rect key="frame" x="20" y="448" width="129" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.28678304040000002" blue="0.59260360050000005" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -62,15 +64,34 @@
                                 <constraint firstAttribute="width" constant="320" id="Hth-t0-ZQv"/>
                             </constraints>
                         </scrollView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWO-aV-hDY">
+                            <rect key="frame" x="171" y="448" width="129" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.28678304040000002" blue="0.59260360050000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="129" id="CUc-Dr-PXj"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Tz2-8m-8Yv"/>
+                                <constraint firstAttribute="width" constant="129" id="fsZ-Xd-vCU"/>
+                                <constraint firstAttribute="height" constant="40" id="lvY-fb-F5e"/>
+                            </constraints>
+                            <state key="normal" title="Call Insurer">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnCallInsurerClicked:" destination="-1" eventType="touchUpInside" id="hUy-my-Her"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="vHp-p7-44n" firstAttribute="leading" secondItem="ZqL-my-nYQ" secondAttribute="leading" id="3Ab-UT-KCP"/>
+                        <constraint firstAttribute="bottom" secondItem="AWO-aV-hDY" secondAttribute="bottom" constant="20" id="4lW-mi-6et"/>
                         <constraint firstItem="vHp-p7-44n" firstAttribute="top" secondItem="ZqL-my-nYQ" secondAttribute="top" id="5BL-Qo-Vvp"/>
-                        <constraint firstAttribute="trailing" secondItem="OMy-lZ-iuy" secondAttribute="trailing" constant="95" id="Q1J-gX-W6K"/>
-                        <constraint firstItem="OMy-lZ-iuy" firstAttribute="leading" secondItem="ZqL-my-nYQ" secondAttribute="leading" constant="96" id="Qcs-AD-jbX"/>
+                        <constraint firstItem="OMy-lZ-iuy" firstAttribute="leading" secondItem="ZqL-my-nYQ" secondAttribute="leading" constant="20" id="Qcs-AD-jbX"/>
                         <constraint firstAttribute="bottom" secondItem="OMy-lZ-iuy" secondAttribute="bottom" constant="20" id="UxE-6e-eZt"/>
                         <constraint firstAttribute="bottom" secondItem="vHp-p7-44n" secondAttribute="bottom" constant="68" id="lFA-Gb-pnt"/>
+                        <constraint firstAttribute="trailing" secondItem="AWO-aV-hDY" secondAttribute="trailing" constant="20" id="trF-0M-vAZ"/>
                         <constraint firstAttribute="trailing" secondItem="vHp-p7-44n" secondAttribute="trailing" id="v7v-SP-AzW"/>
                     </constraints>
                 </view>

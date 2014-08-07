@@ -142,6 +142,14 @@
 
 - (IBAction)btnSendClicked:(id)sender {
     
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        return;
+    }
+    
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of Sighting" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -313,7 +321,9 @@
                 [address appendFormat:@"%@", placemark.country];
             }
 
-            if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
+            NSLog(@"%@", originalLatitude);
+            
+            //if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
                 
                 CLLocationCoordinate2D coord = {.latitude =  currentLocation.coordinate.latitude, .longitude =  currentLocation.coordinate.longitude};
                 MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
@@ -325,7 +335,7 @@
                 originalLongitude = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
                 selectedLatitude = originalLatitude;
                 selectedLongitude = originalLongitude;
-            }
+            //}
             
             _lblAddress.text = address;
             
@@ -344,6 +354,7 @@
     if (originalLatitude == nil || originalLatitude == NULL) {
         originalLatitude = selectedLatitude;
         originalLongitude = selectedLongitude;
+        address = [[NSMutableString alloc] initWithString:@""];
     }
     
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];

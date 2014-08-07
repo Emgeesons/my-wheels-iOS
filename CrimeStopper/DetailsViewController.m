@@ -13,7 +13,9 @@
 #import "UIColor+Extra.h"
 #import "CustomImageView.h"
 #import "ReportSightingViewController.h"
+#import "Reachability.h"
 @import QuickLook;
+@import CoreLocation;
 
 #define MIN_HEIGHT 10.0f
 
@@ -21,10 +23,14 @@
     NSMutableArray *comments, *first_name, *location, *photo1, *photo2, *photo3, *sighting_id, *report_type, *selected_date, *selected_time;
     NSMutableArray *selectedImage;
     NSInteger initialValue;
+    
+    CLLocationManager *locationManager;
+    float latitude,longitude;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReportSoghting;
 - (IBAction)btnReportSightingClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *viewBG;
 
 @end
 
@@ -44,6 +50,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    
+    latitude = locationManager.location.coordinate.latitude;
+    longitude = locationManager.location.coordinate.longitude;
+    
     comments = [[NSMutableArray alloc] init];
     first_name = [[NSMutableArray alloc] init];
     location = [[NSMutableArray alloc] init];
@@ -62,8 +76,8 @@
     
     self.navItem.title = [NSString stringWithFormat:@"%@ %@", self.makeHeader, self.modelHeader];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
-    self.tableView.backgroundColor = self.view.backgroundColor;
+    self.viewBG.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
+    self.tableView.backgroundColor = self.viewBG.backgroundColor;
     
     //[self.btnReportSoghting setTintColor:[UIColor colorWithHexString:@"#00B268"]];
     [self.btnReportSoghting setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
@@ -114,6 +128,15 @@
 }
 
 -(void)loadDetailsUpdates {
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        return;
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -125,7 +148,9 @@
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString],
-                                 @"vehicleId" : self.vehicleID};
+                                 @"vehicleId" : self.vehicleID,
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     NSLog(@"%@", parameters);
     

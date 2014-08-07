@@ -17,8 +17,10 @@
 #import "LoginVC.h"
 #import "UserProfileVC.h"
 #import "LoginVC.h"
+#import "Reachability.h"
 
 @import QuickLook;
+@import CoreLocation;
 
 #define MIN_HEIGHT 10.0f
 
@@ -32,20 +34,28 @@
     
     NSMutableArray *vehicleHeader, *makeHeader, *modelHeader, *typeSightingHeader, *regNoHeader, *dateHeader, *timeHeader, *locationHeader, *commentHeader, *photo1Header, *photo2Header, *photo3Header, *vehicleID, *reportIDHeader, *insurance_company_numberHeader;
     
-    NSMutableArray *commentsMy, *first_nameMy, *locationMy, *makeMy, *modelMy, *photo1My, *photo2My, *photo3My, *registration_serial_noMy, *report_idMy, *report_typeMy, *selected_dateMy, *selected_timeMy, *vehicle_idMy, *vehicle_typeMy;
+    NSMutableArray *commentsMy, *first_nameMy, *locationMy, *makeMy, *modelMy, *photo1My, *photo2My, *photo3My, *registration_serial_noMy, *report_idMy, *report_typeMy, *selected_dateMy, *selected_timeMy, *vehicle_idMy, *vehicle_typeMy, *recovered_dateMy, *recovered_locationMy, *recovered_timeMy;
     
     UIToolbar *bgToolBar;
     
     UIActionSheet *sheet;
     
+    NSString *status;
+    
     //NSArray for sending details to ReportSummary Screen
     NSArray *detailsArray;
     
+    CLLocationManager *locationManager;
+    CLPlacemark *placemark;
+    float latitude,longitude;
+    NSMutableString *address;
 }
 @property (weak, nonatomic) IBOutlet UIView *viewOthers;
 @property (weak, nonatomic) IBOutlet UIView *viewMyUpdates;
 @property (weak, nonatomic) IBOutlet UIView *viewGuestUser;
 @property (weak, nonatomic) IBOutlet UIView *viewTableMyUpdates;
+@property (weak, nonatomic) IBOutlet UIView *viewVehicleReported;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewVehicleReported;
 
 - (IBAction)segmentedClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -73,6 +83,50 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    
+    latitude = locationManager.location.coordinate.latitude;
+    longitude = locationManager.location.coordinate.longitude;
+    
+    NSLog(@"latitude==> %f", latitude);
+    address = [[NSMutableString alloc] initWithString:@""];
+    CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    
+    // get location
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            
+            if (placemark.subThoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.subThoroughfare];
+            }
+            
+            if (placemark.thoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.thoroughfare];
+            }
+            
+            if (placemark.postalCode != NULL) {
+                [address appendFormat:@"%@ ", placemark.postalCode];
+            }
+            
+            if (placemark.locality != NULL) {
+                [address appendFormat:@"%@ ", placemark.locality];
+            }
+            
+            if (placemark.administrativeArea != NULL) {
+                [address appendFormat:@"%@ ", placemark.administrativeArea];
+            }
+            
+            if (placemark.country != NULL) {
+                [address appendFormat:@"%@", placemark.country];
+            }
+        }
+    }];
     
     // set background color of btnLetsGo
     self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
@@ -129,6 +183,9 @@
     selected_timeMy = [[NSMutableArray alloc] init];
     vehicle_idMy = [[NSMutableArray alloc] init];
     vehicle_typeMy = [[NSMutableArray alloc] init];
+    recovered_dateMy = [[NSMutableArray alloc] init];
+    recovered_locationMy = [[NSMutableArray alloc] init];
+    recovered_timeMy = [[NSMutableArray alloc] init];
     
     [self.btnVehicleRecovered setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
     
@@ -173,9 +230,16 @@
     //set loadMore as Yes at start
     loadMore = YES;
     
-    [self loadOtherUpdates];
-    
-    [self loadMyUpdates];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        [activityIndicator stopAnimating];
+    } else {
+        [self loadOtherUpdates];
+        [self loadMyUpdates];
+    }
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
     self.tableViewOthers.backgroundColor = self.view.backgroundColor;
@@ -231,6 +295,15 @@
     else
     {
         NSLog(@"my");
+        
+        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        if (networkStatus == NotReachable)
+        {
+            self.viewTableMyUpdates.hidden = YES;
+            return;
+        }
+        
         self.viewOthers.hidden = YES;
         self.viewMyUpdates.hidden = NO;
         
@@ -254,9 +327,23 @@
             if (vehicles.count == 0) {
                 self.viewTableMyUpdates.hidden = YES;
                 self.viewGuestUser.hidden = NO;
+                self.viewVehicleReported.hidden = YES;
             } else {
-                self.viewGuestUser.hidden = YES;
-                self.viewTableMyUpdates.hidden = NO;
+                // check vehicle is recovered or not
+                // if yes show vehicle reported view
+                // else show tableview
+                if ([status isEqualToString:@"recovered"]) {
+                    self.viewGuestUser.hidden = YES;
+                    self.viewTableMyUpdates.hidden = YES;
+                    self.viewVehicleReported.hidden = NO;
+                    
+                    [self addSubviewsToScrollView];
+                    
+                } else {
+                    self.viewGuestUser.hidden = YES;
+                    self.viewTableMyUpdates.hidden = NO;
+                    self.viewVehicleReported.hidden = YES;
+                }
             }
         }
     }
@@ -280,13 +367,15 @@
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString],
                                  @"countReports" : [NSString stringWithFormat:@"%ld",(long)report],
-                                 @"countSightings" : [NSString stringWithFormat:@"%ld",(long)sighting]};
+                                 @"countSightings" : [NSString stringWithFormat:@"%ld",(long)sighting],
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -368,13 +457,15 @@
                                  @"pin" : pin,
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
-                                 @"model" : [DeviceInfo platformNiceString]};
+                                 @"model" : [DeviceInfo platformNiceString],
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -404,6 +495,19 @@
                 [photo2Header addObject:reportData[i][@"photo2"]];
                 [photo3Header addObject:reportData[i][@"photo3"]];
                 [insurance_company_numberHeader addObject:reportData[i][@"insurance_company_number"]];
+                [recovered_dateMy addObject:reportData[i][@"recovered_date"]];
+                [recovered_locationMy addObject:reportData[i][@"recovered_location"]];
+                [recovered_timeMy addObject:reportData[i][@"recovered_time"]];
+                
+                status = reportData[i][@"status"];
+                
+                if ([status isEqualToString:@"reported"]) {
+                    self.viewTableMyUpdates.hidden = NO;
+                    self.viewVehicleReported.hidden = YES;
+                } else {
+                    self.viewTableMyUpdates.hidden = YES;
+                    self.viewVehicleReported.hidden = NO;
+                }
             }
             
             NSArray *sightingData = (NSArray *)[json objectForKey:@"sightings"];
@@ -541,7 +645,7 @@
             strName = [NSString stringWithFormat:@"%@ spotted a Suspicious Activity", first_name[indexPath]];
         }
     }
-    NSLog(@"%@", strName);
+    //NSLog(@"%@", strName);
     // Attribute string for User name and activity
     
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
@@ -1407,7 +1511,7 @@
     NSDateFormatter *dtFormat = [NSDateFormatter new];
     [dtFormat setDateFormat:@"yyyy-MM-dd"];
     NSString *dtString = [dtFormat stringFromDate:date];
-    [dtFormat setDateFormat:@"hh:mm:ss"];
+    [dtFormat setDateFormat:@"HH:mm"];
     NSString *tmString = [dtFormat stringFromDate:date];
     
     /*NSLog(@"%@", dtString);
@@ -1418,7 +1522,10 @@
                                  @"reportId" : reportIDHeader[0],
                                  @"vehicleId" : vehicleID[0],
                                  @"date" : dtString,
-                                 @"time" : tmString};
+                                 @"time" : tmString,
+                                 @"location" : address,
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     //NSLog(@"%@", parameters);
     
@@ -1433,13 +1540,19 @@
         NSDictionary *json = (NSDictionary *)responseObject;
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
-            // Show ActionSheet Here
-            sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            
+            [self.scrollViewVehicleReported addSubview:[self plotHeaderViewWithType:@"view" withIndex:0]];
+            
+            UIView *lLastSC = [self.scrollViewVehicleReported.subviews lastObject];
+            NSInteger wdSC = lLastSC.frame.origin.y;
+            NSInteger htSC = lLastSC.frame.size.height;
             
             // Create BackgroundView as Container
-            UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 450)];
-            viewBG.backgroundColor = [UIColor whiteColor];
+            UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, wdSC + htSC + 20, 320, 280)];
+            viewBG.backgroundColor = [UIColor colorWithHexString:@"#f7f7f7"];
             [viewBG sizeToFit];
+            
+            //UILabel *lblTest = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 2000000000000000, 2000000000000000000)];
             
             // Add Done button here
             UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 300, 40)];
@@ -1457,13 +1570,26 @@
             
             // Add Date Time label here
             UILabel *lblDtTm = [[UILabel alloc] initWithFrame:CGRectMake(0, ivSuccess.frame.origin.y + ivSuccess.frame.size.height + 5, 320, 30)];
-            [dtFormat setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
+            [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
             lblDtTm.textAlignment = NSTextAlignmentCenter;
             lblDtTm.text = [dtFormat stringFromDate:date];
             [viewBG addSubview:lblDtTm];
             
+            // Add Time here
+            UILabel *lblTm = [[UILabel alloc] initWithFrame:CGRectMake(0, lblDtTm.frame.origin.y + lblDtTm.frame.size.height, 320, 20)];
+            [dtFormat setDateFormat:@"HH:mm"];
+            lblTm.textAlignment = NSTextAlignmentCenter;
+            lblTm.text = tmString;
+            [viewBG addSubview:lblTm];
+            
+            // Add Location here
+            UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(0, lblTm.frame.origin.y + lblTm.frame.size.height, 320, 20)];
+            lblLocation.textAlignment = NSTextAlignmentCenter;
+            //lblLocation.text = [dtFormat stringFromDate:recovered_locationMy[0]];
+            [viewBG addSubview:lblLocation];
+            
             // Add Police Button here
-            UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblDtTm.frame.origin.y + lblDtTm.frame.size.height + 15, 135, 40)];
+            UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblLocation.frame.origin.y + lblLocation.frame.size.height + 15, 135, 40)];
             [btnPolice setTitle:@"Call Police" forState:UIControlStateNormal];
             btnPolice.titleLabel.textColor = btnDone.titleLabel.textColor;
             btnPolice.backgroundColor = btnDone.backgroundColor;
@@ -1480,10 +1606,27 @@
             [btnInsurer addTarget:self action:@selector(btnCallInsurerClicked:) forControlEvents:UIControlEventTouchUpInside];
             [viewBG addSubview:btnInsurer];
             
-            [sheet addSubview:viewBG];
+            [self.scrollViewVehicleReported addSubview:viewBG];
             
-            [sheet showInView:self.view];
-            [sheet setBounds:CGRectMake( 0, 0, 320, 450)];
+            float sizeOfContent = 0;
+            UIView *lLast1 = [self.scrollViewVehicleReported.subviews lastObject];
+            NSInteger wd1 = lLast1.frame.origin.y;
+            NSInteger ht1 = lLast1.frame.size.height;
+            
+            sizeOfContent = wd1+ht1;
+            
+            self.scrollViewVehicleReported.contentSize = CGSizeMake(self.scrollViewVehicleReported.frame.size.width, sizeOfContent);
+            
+            // hide
+            
+            [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.viewVehicleReported.alpha = 1;
+                self.viewTableMyUpdates.alpha = 0;
+                
+                self.viewTableMyUpdates.hidden = YES;
+                self.viewVehicleReported.hidden = NO;
+            } completion:nil];
+            
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
@@ -1498,6 +1641,89 @@
         [bgToolBar removeFromSuperview];
 
     }];
+}
+
+-(void)addSubviewsToScrollView {
+    [self.scrollViewVehicleReported addSubview:[self plotHeaderViewWithType:@"view" withIndex:0]];
+    
+    UIView *lLastSC = [self.scrollViewVehicleReported.subviews lastObject];
+    NSInteger wdSC = lLastSC.frame.origin.y;
+    NSInteger htSC = lLastSC.frame.size.height;
+    
+    // Create BackgroundView as Container
+    UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, wdSC + htSC + 20, 320, 280)];
+    viewBG.backgroundColor = [UIColor colorWithHexString:@"#f7f7f7"];
+    [viewBG sizeToFit];
+    
+    // Add Done button here
+    UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 300, 40)];
+    [btnDone setTitle:@"Done" forState:UIControlStateNormal];
+    btnDone.titleLabel.textColor = [UIColor whiteColor];
+    btnDone.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+    btnDone.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+    [btnDone addTarget:self action:@selector(btnDoneClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnDone];
+    
+    // Add Image of success here
+    UIImageView *ivSuccess = [[UIImageView alloc] initWithFrame:CGRectMake(125, btnDone.frame.origin.y + btnDone.frame.size.height + 5, 90, 90)];
+    [ivSuccess setImage:[UIImage imageNamed:@"target_symbol.png"]];
+    [viewBG addSubview:ivSuccess];
+    
+    NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
+    [dtFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dtStr = [dtFormat dateFromString:recovered_dateMy[0]];
+    
+    // Add Date Time label here
+    UILabel *lblDtTm = [[UILabel alloc] initWithFrame:CGRectMake(0, ivSuccess.frame.origin.y + ivSuccess.frame.size.height + 5, 320, 20)];
+    [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
+    lblDtTm.textAlignment = NSTextAlignmentCenter;
+    lblDtTm.text = [dtFormat stringFromDate:dtStr];
+    [viewBG addSubview:lblDtTm];
+    
+    [dtFormat setDateFormat:@"HH:mm:ss"];
+    NSDate *tmStr = [dtFormat dateFromString:recovered_timeMy[0]];
+    
+    // Add Time here
+    UILabel *lblTm = [[UILabel alloc] initWithFrame:CGRectMake(0, lblDtTm.frame.origin.y + lblDtTm.frame.size.height, 320, 20)];
+    [dtFormat setDateFormat:@"HH:mm"];
+    lblTm.textAlignment = NSTextAlignmentCenter;
+    lblTm.text = [dtFormat stringFromDate:tmStr];
+    [viewBG addSubview:lblTm];
+    
+    // Add Location here
+    UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(0, lblTm.frame.origin.y + lblTm.frame.size.height, 320, 20)];
+    lblLocation.textAlignment = NSTextAlignmentCenter;
+    lblLocation.text = [dtFormat stringFromDate:recovered_locationMy[0]];
+    [viewBG addSubview:lblLocation];
+    
+    // Add Police Button here
+    UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblLocation.frame.origin.y + lblLocation.frame.size.height + 15, 135, 40)];
+    [btnPolice setTitle:@"Call Police" forState:UIControlStateNormal];
+    btnPolice.titleLabel.textColor = btnDone.titleLabel.textColor;
+    btnPolice.backgroundColor = btnDone.backgroundColor;
+    btnPolice.titleLabel.font = btnDone.titleLabel.font;
+    [btnPolice addTarget:self action:@selector(btnCallPoliceClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnPolice];
+    
+    // Add Insurer Button here
+    UIButton *btnInsurer = [[UIButton alloc] initWithFrame:CGRectMake(btnPolice.frame.origin.x + btnPolice.frame.size.width + 10, btnPolice.frame.origin.y, btnPolice.frame.size.width, btnPolice.frame.size.height)];
+    [btnInsurer setTitle:@"Call Insurer" forState:UIControlStateNormal];
+    btnInsurer.titleLabel.textColor = btnDone.titleLabel.textColor;
+    btnInsurer.backgroundColor = btnDone.backgroundColor;
+    btnInsurer.titleLabel.font = btnDone.titleLabel.font;
+    [btnInsurer addTarget:self action:@selector(btnCallInsurerClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnInsurer];
+    
+    [self.scrollViewVehicleReported addSubview:viewBG];
+    
+    float sizeOfContent = 0;
+    UIView *lLast1 = [self.scrollViewVehicleReported.subviews lastObject];
+    NSInteger wd1 = lLast1.frame.origin.y;
+    NSInteger ht1 = lLast1.frame.size.height;
+    
+    sizeOfContent = wd1+ht1;
+    
+    self.scrollViewVehicleReported.contentSize = CGSizeMake(self.scrollViewVehicleReported.frame.size.width, sizeOfContent);
 }
 
 -(void)btnDoneClicked:(UIButton *)sender {

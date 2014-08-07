@@ -11,6 +11,7 @@
 #import "ReportSubmittedViewController.h"
 #import "Parse/Parse.h"
 #import "FHSTwitterEngine.h"
+#import "UIColor+Extra.h"
 
 @interface ShareNewReportViewController () <FHSTwitterEngineAccessTokenDelegate, UITextViewDelegate> {
     BOOL check;
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) NSArray *photoArray;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)switchClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnShare;
 
 @end
 
@@ -43,6 +45,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.btnShare.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     
     self.photoArray = @[self.photo1];
     
@@ -97,14 +101,20 @@
     
     // code for sharing on FB and Twitter
     
-    // For Facebook
-    if (self.switchFacebook.on) {
-        [self postOnFacebook];
-    }
+    if (!self.switchFacebook.on && !self.switchTwitter.on) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please select facebook or twitter to share" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    } else {
     
-    // For Twitter
-    if (self.switchTwitter.on) {
-        [self postOnTwitter];
+        // For Facebook
+        if (self.switchFacebook.on) {
+            [self postOnFacebook];
+        }
+        
+        // For Twitter
+        if (self.switchTwitter.on) {
+            [self postOnTwitter];
+        }
     }
     
     //[self skipClicked:nil];

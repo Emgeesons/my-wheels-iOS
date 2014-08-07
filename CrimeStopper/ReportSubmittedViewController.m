@@ -11,8 +11,13 @@
 #import "ReportSummaryViewController.h"
 #import "HomePageVC.h"
 #import "UIColor+Extra.h"
+@import CoreLocation;
+#import "Reachability.h"
 
-@interface ReportSubmittedViewController ()
+@interface ReportSubmittedViewController () {
+    CLLocationManager *locationManager;
+    float latitude,longitude;
+}
 - (IBAction)reportSummaryClicked:(id)sender;
 
 @end
@@ -33,6 +38,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    
+    latitude = locationManager.location.coordinate.latitude;
+    longitude = locationManager.location.coordinate.longitude;
+    
     // set background color or btnReportSummary
     self.btnReportSummary.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
 }
@@ -44,6 +57,14 @@
 }
 
 - (IBAction)reportSummaryClicked:(id)sender {
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        return;
+    }
     
     // open report summary
     
@@ -58,7 +79,9 @@
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString],
-                                 @"vehicleId" : self.vehicleID};
+                                 @"vehicleId" : self.vehicleID,
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     NSLog(@"%@", parameters);
     
