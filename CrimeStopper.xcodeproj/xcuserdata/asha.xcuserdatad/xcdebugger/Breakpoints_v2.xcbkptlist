@@ -94,9 +94,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1262"
-            endingLineNumber = "1262"
-            landmarkName = "-NSStringIsValidEmail:"
-            landmarkType = "5">
+            endingLineNumber = "1262">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,9 +108,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1166"
-            endingLineNumber = "1166"
-            landmarkName = "-NSStringIsValidEmail:"
-            landmarkType = "5">
+            endingLineNumber = "1166">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -190,9 +186,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "505"
-            endingLineNumber = "505"
-            landmarkName = "-submit"
-            landmarkType = "5">
+            endingLineNumber = "505">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -206,9 +200,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "568"
-            endingLineNumber = "568"
-            landmarkName = "-submit"
-            landmarkType = "5">
+            endingLineNumber = "568">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -222,9 +214,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1095"
-            endingLineNumber = "1095"
-            landmarkName = "-NSStringIsValidEmail:"
-            landmarkType = "5">
+            endingLineNumber = "1095">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -238,9 +228,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1109"
-            endingLineNumber = "1109"
-            landmarkName = "-NSStringIsValidEmail:"
-            landmarkType = "5">
+            endingLineNumber = "1109">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -254,9 +242,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "862"
-            endingLineNumber = "862"
-            landmarkName = "-btnLogin_click:"
-            landmarkType = "5">
+            endingLineNumber = "862">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -270,9 +256,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "-updateProfile"
-            landmarkType = "5">
+            endingLineNumber = "415">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,9 +270,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "542"
-            endingLineNumber = "542"
-            landmarkName = "-submit"
-            landmarkType = "5">
+            endingLineNumber = "542">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,9 +284,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "479"
-            endingLineNumber = "479"
-            landmarkName = "-updateProfile"
-            landmarkType = "5">
+            endingLineNumber = "479">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -318,9 +298,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "516"
-            endingLineNumber = "516"
-            landmarkName = "-updateProfile"
-            landmarkType = "5">
+            endingLineNumber = "516">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -334,9 +312,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
-            endingLineNumber = "504"
-            landmarkName = "-updateProfile"
-            landmarkType = "5">
+            endingLineNumber = "504">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -350,9 +326,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "-DOBChanged:"
-            landmarkType = "5">
+            endingLineNumber = "205">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -430,9 +404,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "994"
-            endingLineNumber = "994"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            endingLineNumber = "994">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -446,9 +418,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1002"
-            endingLineNumber = "1002"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            endingLineNumber = "1002">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -462,9 +432,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1020"
-            endingLineNumber = "1020"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            endingLineNumber = "1020">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -478,9 +446,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1043"
-            endingLineNumber = "1043"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            endingLineNumber = "1043">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -494,9 +460,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1067"
-            endingLineNumber = "1067"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            endingLineNumber = "1067">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -510,9 +474,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "462"
-            endingLineNumber = "462"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
-            landmarkType = "5">
+            endingLineNumber = "462">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -526,9 +488,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "-btnAdd_click:"
-            landmarkType = "5">
+            endingLineNumber = "267">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -542,9 +502,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "-btnAdd_click:"
-            landmarkType = "5">
+            endingLineNumber = "334">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -558,9 +516,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "456"
-            endingLineNumber = "456"
-            landmarkName = "-btnAdd_click:"
-            landmarkType = "5">
+            endingLineNumber = "456">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -574,9 +530,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "-btnAdd_click:"
-            landmarkType = "5">
+            endingLineNumber = "244">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
