@@ -53,8 +53,6 @@
 		5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB7196A9A11007E6AFA /* im_points.png */; };
 		5E3E6F7E197A3E8200F2FBC3 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */; };
 		5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */; };
-		5E45F27E1994D3A600E72AC2 /* im_complete_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E45F27D1994D3A600E72AC2 /* im_complete_profile.png */; };
-		5E45F2801994D3D100E72AC2 /* report_submitted.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E45F27F1994D3D100E72AC2 /* report_submitted.png */; };
 		5E815EA51940832700CEAFAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA41940832700CEAFAB /* Foundation.framework */; };
 		5E815EA71940832700CEAFAB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA61940832700CEAFAB /* CoreGraphics.framework */; };
 		5E815EA91940832700CEAFAB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA81940832700CEAFAB /* UIKit.framework */; };
@@ -313,8 +311,6 @@
 		5E3C3FB7196A9A11007E6AFA /* im_points.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_points.png; sourceTree = "<group>"; };
 		5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.0.a"; path = "../../../Documents/Airship/libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
-		5E45F27D1994D3A600E72AC2 /* im_complete_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_complete_profile.png; sourceTree = "<group>"; };
-		5E45F27F1994D3D100E72AC2 /* report_submitted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report_submitted.png; sourceTree = "<group>"; };
 		5E815EA11940832700CEAFAB /* CrimeStopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrimeStopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E815EA41940832700CEAFAB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5E815EA61940832700CEAFAB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -938,7 +934,6 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5E45F27D1994D3A600E72AC2 /* im_complete_profile.png */,
 				5EA1CEBF1990EFF800BD81C7 /* File new report */,
 				5E3C3FB0196A9932007E6AFA /* mparking */,
 				5EEEB90E1963DA150083CC56 /* Vehicles */,
@@ -978,7 +973,6 @@
 		5EA1CEBF1990EFF800BD81C7 /* File new report */ = {
 			isa = PBXGroup;
 			children = (
-				5E45F27F1994D3D100E72AC2 /* report_submitted.png */,
 			);
 			name = "File new report";
 			sourceTree = "<group>";
@@ -1265,7 +1259,6 @@
 				5EFE9191195948D80014669E /* default_profile_bg.png in Resources */,
 				5EFE9193195948D80014669E /* edit_white.png in Resources */,
 				5EF124441987827D0096C4EF /* ic_nav_share_app1.png in Resources */,
-				5E45F2801994D3D100E72AC2 /* report_submitted.png in Resources */,
 				5E0369E21973F55F00E5009F /* images1111.jpeg in Resources */,
 				5EEEB9141963DA800083CC56 /* add_photos.png in Resources */,
 				5EFABB41196D621D007C0781 /* vehicle_parked@2x.png in Resources */,
@@ -1318,7 +1311,6 @@
 				5EF1245219878C330096C4EF /* ic_police_assistance.png in Resources */,
 				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,
 				5EEF21771955A3FB00A0BA3F /* app_icon_120x120.png in Resources */,
-				5E45F27E1994D3A600E72AC2 /* im_complete_profile.png in Resources */,
 				5EFE9192195948D80014669E /* default_profile_2.png in Resources */,
 				ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */,
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
