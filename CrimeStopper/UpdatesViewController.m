@@ -17,6 +17,7 @@
 #import "LoginVC.h"
 #import "UserProfileVC.h"
 #import "LoginVC.h"
+#import "HomePageVC.h"
 
 @import QuickLook;
 
@@ -196,7 +197,9 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)backButtonClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    HomePageVC *vc = [[HomePageVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 -(IBAction)btnLocation_click:(id)sender
 {

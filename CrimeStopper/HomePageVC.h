@@ -28,7 +28,7 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgProfilepic;
 @property (strong, atomic) ALAssetsLibrary* library;
 @property (nonatomic,retain) IBOutlet UIButton *btnHeading;
-@property (nonatomic,retain) IBOutlet UIView *voewMakeModel;
+@property (nonatomic,retain) IBOutlet UIView *voewMakeModel,*viewTrasparent;
 @property (nonatomic,retain) IBOutlet UITableView *tblMakeModel;
 @property (nonatomic,retain) NSDictionary *arrVehicles;
 @property (nonatomic,retain) IBOutlet UIView *ViewMain;
@@ -39,6 +39,7 @@
 @property (nonatomic) int intblue;
 @property (nonatomic,retain) IBOutlet UIView *viewCoach;
 @property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
+@property (nonatomic,retain) IBOutlet UILabel *lblPush;
 
 
 - (IBAction)tapDetected:(UITapGestureRecognizer *)sender;

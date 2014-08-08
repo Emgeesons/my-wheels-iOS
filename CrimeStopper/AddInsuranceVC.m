@@ -395,8 +395,15 @@ NSString *strDate;
             [param setValue:pin forKey:@"pin"];
             [param setValue:latitude forKey:@"latitude"];
             [param setValue:longitude forKey:@"longitude"];
+            if([_txtCompanyName.text isEqualToString:@"Other"])
+            {
+                [param setValue:_txtOtherInsurance.text forKey:@"insuranceCompanyName"];
+            }
+            else
+            {
+                [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
+            }
             
-            [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
             [param setValue:_txtPolicyNo.text forKey:@"insurancePolicyNumber"];
             [param setValue:_txtPhoneNo.text forKey:@"insuranceCompanyNumber"];
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -575,7 +582,7 @@ NSString *strDate;
         NSString *str = [@"Insurance for " stringByAppendingString:_strmake];
         NSString *str1 = [str stringByAppendingString:@" "];
         NSString *str2= [str1 stringByAppendingString:_strModel];
-        NSString *str3 = [str2 stringByAppendingString:@" is expire for service in a week"];
+        NSString *str3 = [str2 stringByAppendingString:@" expires in a week"];
         
         localNotification.alertBody = str3;
         localNotification.alertAction = @"Reminder";

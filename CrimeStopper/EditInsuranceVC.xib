@@ -114,10 +114,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <items>
-                <barButtonItem title="Previous /" id="SwU-Oz-Fpr"/>
-                <barButtonItem title="Next" id="dsu-gM-UF0"/>
+                <barButtonItem title="Previous /" id="SwU-Oz-Fpr">
+                    <connections>
+                        <action selector="btnPreviuse_Click:" destination="-1" id="mod-I9-Cml"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Next" id="dsu-gM-UF0">
+                    <connections>
+                        <action selector="btnNext_Click:" destination="-1" id="VdP-U2-kcz"/>
+                    </connections>
+                </barButtonItem>
                 <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="bvw-8n-ae8"/>
-                <barButtonItem title="Done" width="96" id="Nb5-QK-Nx5"/>
+                <barButtonItem title="Done" width="96" id="Nb5-QK-Nx5">
+                    <connections>
+                        <action selector="btnMinimize_Click:" destination="-1" id="Xnx-ei-GFV"/>
+                    </connections>
+                </barButtonItem>
             </items>
         </toolbar>
     </objects>

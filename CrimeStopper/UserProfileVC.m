@@ -85,7 +85,7 @@ NSDictionary *arrVehicle;
         NSString *photoURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
     if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
     {
-    
+        _imgUserProfilepic.image = [UIImage imageNamed:@"add_photo_profile.png"];
     }
     else
     {
@@ -258,7 +258,7 @@ NSDictionary *arrVehicle;
     }
     
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
     Reachability *networkReachability1 = [Reachability reachabilityForInternetConnection];
@@ -286,7 +286,7 @@ NSDictionary *arrVehicle;
         [param setValue:@"ios7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
         [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
-       
+        NSLog(@"param : %@",param);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         @try
@@ -445,6 +445,14 @@ NSDictionary *arrVehicle;
                       [SVProgressHUD dismiss];
                       
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [SVProgressHUD dismiss];
+                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                          message:@"Something went wrong. Please try again."
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"OK"
+                                                                otherButtonTitles:nil, nil];
+                      CheckAlert.tag = 5;
+                      [CheckAlert show];
                       NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                   }];
             
@@ -538,6 +546,15 @@ NSDictionary *arrVehicle;
                           [SVProgressHUD dismiss];
                           
                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            [SVProgressHUD dismiss];
+                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                              message:@"Something went wrong. Please try again."
+                                                                             delegate:self
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil, nil];
+                          CheckAlert.tag = 5;
+                          [CheckAlert show];
+
                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                       }];
         }
@@ -613,6 +630,7 @@ NSDictionary *arrVehicle;
 }
 - (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
 {
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
@@ -621,7 +639,7 @@ NSDictionary *arrVehicle;
                                {
                                    UIImage *image = [[UIImage alloc] initWithData:data];
                                    
-                                   
+                                   _imgUserProfilepic.image = [UIImage imageNamed:@"default_profile_2.png"];
                                    NSString *photoURL1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
                                    NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
                                    NSString *filename = [parts objectAtIndex:[parts count]-1];
@@ -667,7 +685,7 @@ NSDictionary *arrVehicle;
     
             if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
             {
-                _imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
+                _imgUserProfilepic .image = [UIImage imageNamed:@"add_photo_profile.png"];
             }
             else
             {
@@ -769,16 +787,14 @@ NSDictionary *arrVehicle;
 
     NSData *imageData = UIImagePNGRepresentation(image);
      NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
   NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     
     [param setValue:UserID forKey:@"userId"];
-    //   // [param setValue:@"1111" forKey:@"pin"];
-    
-    
-        [param setValue:@"ios7" forKey:@"os"];
-        [param setValue:@"iPhone" forKey:@"make"];
-       [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:pin forKey:@"pin"];
+    [param setValue:@"ios7" forKey:@"os"];
+    [param setValue:@"iPhone" forKey:@"make"];
+    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
  NSString *url = [NSString stringWithFormat:@"%@uploadProfilePic.php", SERVERNAME];
     
     [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -924,4 +940,21 @@ NSDictionary *arrVehicle;
     
     
 }
+#pragma mark alert view delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 5)
+    {
+        if(buttonIndex == 0)
+        {
+            HomePageVC *vc = [[HomePageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+            
+        }
+    }
+}
+
 @end

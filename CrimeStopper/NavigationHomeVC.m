@@ -178,57 +178,18 @@
     }
     else if (indexPath.row == 5)
     {
-        //log out
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserID"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dob"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergencyContact"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergency_contact_number"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_id"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_token"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"first_name"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"gender"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"last_name"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_no"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_photo_url"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mobile_number"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"modified_at"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"photo_url"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"postcode"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile_completed"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"samaritan_points"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"security_question"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"street"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
-         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
-        //parkVehicle
-                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
-        
-        //remove profile pic
-//       NSString *photoURL = appdelegate.strPhotoURL;
-//        NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
-//        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
-//        NSString *filename = [parts objectAtIndex:[parts count]-1];
-//        NSLog(@"file name : %@",filename);
-//        
-//        NSString *str = @"My_Wheels_";
-//        NSString *strFileName = [str stringByAppendingString:filename];
-//        NSLog(@"strfilename : %@",strFileName);
-//        
-//         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
-        
-        [[UAPush shared] setPushEnabled:NO];
-        
-        [[NSUserDefaults standardUserDefaults]synchronize ];
-        appdelegate.strUserID = @"";
-        LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
-        [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
-        [self.revealSideViewController popViewControllerAnimated:YES];
+        NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+        if(UserID == nil || UserID == (id)[NSNull null] || [UserID isEqualToString:@""])
+        {
+            LoginVC *vc = [[LoginVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+         UIAlertView *objalert = [[UIAlertView alloc]initWithTitle:nil message:@"Are you sure you want to logout ?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+         objalert.tag = 1;
+        [objalert show];
+        }
         
     }
     else
@@ -237,6 +198,73 @@
     }
     
     
+}
+#pragma mark alert view delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == 1)
+    {
+        if(buttonIndex == 0)
+        {
+            
+        }
+        else
+        {
+            
+            //log out
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserID"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dob"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergencyContact"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"emergency_contact_number"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_id"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fb_token"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"first_name"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"gender"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"last_name"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_no"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"license_photo_url"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mobile_number"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"modified_at"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"photo_url"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"postcode"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile_completed"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"samaritan_points"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"security_question"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"street"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+            //parkVehicle
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
+            appdelegate.intCountPushNotification = 0;
+            
+            //remove profile pic
+            //       NSString *photoURL = appdelegate.strPhotoURL;
+            //        NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
+            //        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
+            //        NSString *filename = [parts objectAtIndex:[parts count]-1];
+            //        NSLog(@"file name : %@",filename);
+            //
+            //        NSString *str = @"My_Wheels_";
+            //        NSString *strFileName = [str stringByAppendingString:filename];
+            //        NSLog(@"strfilename : %@",strFileName);
+            //
+            //         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
+            
+            [[UAPush shared] setPushEnabled:NO];
+            
+            [[NSUserDefaults standardUserDefaults]synchronize ];
+            appdelegate.strUserID = @"";
+            LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+            [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+            [self.revealSideViewController popViewControllerAnimated:YES];
+
+        }
+    }
 }
 
 @end

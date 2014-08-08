@@ -86,7 +86,7 @@ int counterForCell;
     
     [self.txtComment setInputAccessoryView:self.toolbar];
     _arrCar = [[NSMutableArray alloc]init];
-    [_arrCar addObject:@"what’s the My Wheels User Rating here?"];
+    [_arrCar addObject:@"does this parking spot have a good My Wheels user rating ?"];
     [_arrCar addObject:@"well lit spot?"];
     [_arrCar addObject:@"spot in full view of people?"];
     [_arrCar addObject:@"windows closed and doors locked?"];
@@ -99,7 +99,7 @@ int counterForCell;
     [_arrCar addObject:@"if home – in a locked garage?"];
     
     _arrBike = [[NSMutableArray alloc]init];
-    [_arrBike addObject:@"what’s the My Wheels User Rating here?"];
+    [_arrBike addObject:@"does this parking spot have a good My Wheels user rating ?"];
     [_arrBike addObject:@"well lit spot?"];
     [_arrBike addObject:@"spot in full view of people?"];
     [_arrBike addObject:@"steering and ignition locked and taking the key?"];
@@ -115,7 +115,7 @@ int counterForCell;
     [_arrBike addObject:@"if home – chained to U-bolt in garage floor?"];
     
     _arrcycle = [[NSMutableArray alloc]init];
-    [_arrcycle addObject:@"what’s the My Wheels User Rating here?"];
+    [_arrcycle addObject:@"does this parking spot have a good My Wheels user rating ?"];
     [_arrcycle addObject:@"well lit spot?"];
     [_arrcycle addObject:@"spot in full view of people?"];
     [_arrcycle addObject:@"got a good quality lock – cable or D-lock, padlock and chain?"];
@@ -145,17 +145,6 @@ int counterForCell;
     NSLog(@"in api");
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
-  
-    /*vehicleId (0 if default)
-     userId (0 if default)
-     pin
-     latitude
-     longitude
-     os
-     make
-     model
-
-     */
     NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
      NSLog(@"current location : %@",latitude);
@@ -218,9 +207,37 @@ int counterForCell;
             }
             else
             {
+            
                 NSString *str = [strRate stringByAppendingString:strRating];
-                strRating1 = str;
-                [_btnRating setTitle:str forState:UIControlStateNormal];
+               if(str == nil || str == (id)[NSNull null] || [str isEqualToString:@""])
+               {
+                    strRating1 = @"";
+                    [_btnRating setTitle:@"" forState:UIControlStateNormal];
+               }
+                else
+                {
+                    NSString *subString = [str substringWithRange:NSMakeRange(0,4)];
+                    NSLog(@"substring : %@",subString);
+                    NSString *rate = [subString stringByAppendingString:@" "];
+                    NSString *rat = [rate stringByAppendingString:strRating];
+                    strRating1 = rat;
+                    [_btnRating setTitle:rat forState:UIControlStateNormal];
+                }
+                if(strTips == nil || strTips == (id)[NSNull null] || [strTips isEqualToString:@""])
+                {
+                    
+                    [_btnTips setTitle:@"" forState:UIControlStateNormal];
+                }
+                else
+                {
+                    NSString *subString = [str substringWithRange:NSMakeRange(0,4)];
+                    NSLog(@"substring : %@",subString);
+                    NSString *rate = [subString stringByAppendingString:@" "];
+                    NSString *rat = [rate stringByAppendingString:strRating];
+                    strRating1 = rat;
+                    [_btnRating setTitle:rat forState:UIControlStateNormal];
+                }
+                
                 [_btnTips setTitle:strTips forState:UIControlStateNormal];
             }
 

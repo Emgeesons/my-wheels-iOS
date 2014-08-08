@@ -263,10 +263,10 @@
     <resources>
         <image name="add_photos.png" width="158" height="158"/>
         <image name="app_icon_120x120.png" width="120" height="120"/>
-        <image name="location1.png" width="32" height="30"/>
-        <image name="privacy1.png" width="32" height="30"/>
+        <image name="location1.png" width="64" height="60"/>
+        <image name="privacy1.png" width="64" height="60"/>
         <image name="red_pin.png" width="30" height="40"/>
-        <image name="settings1.png" width="32" height="30"/>
-        <image name="switch1.png" width="32" height="30"/>
+        <image name="settings1.png" width="64" height="60"/>
+        <image name="switch1.png" width="64" height="60"/>
     </resources>
 </document>

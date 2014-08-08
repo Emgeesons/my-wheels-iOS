@@ -291,7 +291,23 @@
 - (IBAction)loginButtonTouchHandler:(id)sender
 {
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[ @"public_profile", @"email", @"user_birthday"];
+   // NSArray *permissionsArray = @[ @"public_profile", @"email", @"user_birthday"];
+    NSArray *permissionsArray;
+    
+  
+     // permissionsArray = [[NSArray alloc] initWithObjects:@"basic_info",@"public_profile", @"email", @"user_birthday", nil];
+     permissionsArray = [NSArray arrayWithObjects:@"user_photos",@"user_videos",@"publish_stream",@"offline_access",@"user_checkins",@"friends_checkins",@"email",@"user_location",@"user_birthday" ,nil];
+    
+   // NSArray *permissionsArray = [[NSArray alloc] initWithObjects:@"basic_info", @"email", @"user_birthday", nil];
+    ////
+  
+//    [FBSession openActiveSessionWithReadPermissions:permissionsArray
+//                                       allowLoginUI:YES
+//                                  completionHandler:
+//     ^(FBSession *session,
+//       FBSessionState state, NSError *error) {
+//       //  [self fbSessionStateChanged:session state:state error:error];
+//     }];
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
@@ -323,7 +339,7 @@
             [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 // handle response
                 if (!error) {
-                    self.loginView.readPermissions = @[@"public_profile", @"email"];
+                    self.loginView.readPermissions = @[@"basic_info", @"email",@"user_birthday"];
                     // Parse the data received
                     NSDictionary *userData = (NSDictionary *)result;
                     NSLog(@"user data : %@",userData);
@@ -371,7 +387,7 @@
                     
                     [[PFUser currentUser] setObject:userProfile forKey:@"profile"];
                     [[PFUser currentUser] saveInBackground];
-                    
+                    [SVProgressHUD dismiss];
                     [self updateProfile];
                 } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
                             isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
@@ -384,7 +400,7 @@
             
             // If the user is already logged in, display any previously cached values before we get the latest from Facebook.
             if ([PFUser currentUser]) {
-                [self updateProfile];
+               // [self updateProfile];
             }
 
         }
@@ -404,7 +420,7 @@
 }
 - (void)updateProfile {
     
-    self.loginView.readPermissions = @[@"public_profile", @"email"];
+    self.loginView.readPermissions = @[@"basic_info", @"email",@"user_birthday"];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     if ([[PFUser currentUser] objectForKey:@"profile"][@"gender"]) {
       
@@ -412,9 +428,9 @@
         NSLog(@"app gender :: %@",appdelegate.strGender);
     }
     
-    if ([[PFUser currentUser] objectForKey:@"profile"][@"birthday"]) {
+    if ([[PFUser currentUser] objectForKey:@"profile"][@"user_birthday"]) {
        
-        appdelegate.strFBdob =[[PFUser currentUser] objectForKey:@"profile"][@"birthday"];
+        appdelegate.strFBdob =[[PFUser currentUser] objectForKey:@"profile"][@"user_birthday"];
         NSLog(@"app dob :%@",appdelegate.strFBdob);
     }
     
@@ -523,6 +539,7 @@
                   NSLog(@"message %@",EntityID);
                   if ([EntityID isEqualToString:@"success"])
                   {
+                      appdelegate.intCountPushNotification = 0;
                       if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
                       {
                           [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
@@ -1228,6 +1245,8 @@
                     [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                     [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                     [[NSUserDefaults standardUserDefaults] setValue:strOldPin forKey:@"oldPin"];
+                    [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
+                    appdelegate.intCountPushNotification = 0;
                     //URBAN AIRSHIP SET UP
                     NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
                     NSString *yourAlias = UserId;

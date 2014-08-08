@@ -36,6 +36,8 @@
     _lblLocation.text = _strLocation;
     _lblRating.text = _strrating;
     
+    
+    
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     

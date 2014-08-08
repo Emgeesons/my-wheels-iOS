@@ -31,8 +31,11 @@ UINavigationController *nav;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    //change color for status bar in app
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
    
+    
+    
     // Fill in with your Parse credentials:
 
    [Parse setApplicationId:@"XEJRREg9kvUAeqzbjuvqfrDofehrvDb5B6KGKTP1" clientKey:@"qRlZDFVX2IBS2g6Jincpez9duwfqawT5y9mubesr"];    
@@ -71,14 +74,40 @@ UINavigationController *nav;
     [UAPush shared].notificationTypes = (UIRemoteNotificationTypeBadge |
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert);
+    [[UAPush shared] registerForRemoteNotifications];
     [UAPush setDefaultPushEnabledValue:NO];
     // This will trigger the proper registration or de-registration code in the library.
     //[[UAPush shared] setPushEnabled:YES];
 
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     return YES;
 }
+#pragma mark urban airship
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    UA_LINFO(@"APNS device token: %@", deviceToken);
+    
+    // Updates the device token and registers the token with UA. This won't occur until
+    // push is enabled if the outlined process is followed. This call is required.
+    [[UAPush shared] registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    UA_LINFO(@"Received remote notification: %@", userInfo);
+    _intCountPushNotification = 0;
+  //  [[NSUserDefaults standardUserDefaults]setObject:_intCountPushNotification forKey:@"CountPushNoti"];
+    _intCountPushNotification ++;
+    NSLog(@"I camhe here ");
+  //  NSString *str = [NSString stringWithFormat:@"%d",_intCountPushNotification];
+  
+    
+    // Fire the handlers for both regular and rich push
+    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
+   // [UAInboxPushHandler handleNotification:userInfo];
+}
+
+
+
 #pragma mark background methods
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     /*

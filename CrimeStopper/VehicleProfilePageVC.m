@@ -153,7 +153,33 @@ NSInteger intImage;
                           photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
                           insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
                           
+                          if(photo1 == nil || photo1 == (id)[NSNull null] || [photo1 isEqualToString:@""])
+                          {
+                              _imgvehicle1 .image = [UIImage imageNamed:@"add_photos.png.png"];
+                          }
+                          else
+                          {
+                              _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                          }
                           
+                          if(photo2 == nil || photo2 == (id)[NSNull null] || [photo2 isEqualToString:@""])
+                          {
+                              _imgvehicle2 .image = [UIImage imageNamed:@"add_photos.png.png"];
+                          }
+                          else
+                          {
+                              _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                          }
+                          
+                          if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
+                          {
+                              _imgvehicle3 .image = [UIImage imageNamed:@"add_photos.png.png"];
+                          }
+                          else
+                          {
+                              _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                          }
+
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
                           
                           NSLog(@"date : %@",str);
@@ -181,11 +207,6 @@ NSInteger intImage;
                               [_lblColor setFrame:CGRectMake(70, 116, 217, 21)];
                               [_lblAccessories1 setFrame:CGRectMake(22, 138, 107, 21)];
                               [_lblAccessories setFrame:CGRectMake(112, 138, 202, 21)];
-                              
-                              
-                              
-                              
-                              
                           }
                           else if ([_lblVehicleType.text isEqualToString:@"Car"])
                           {
@@ -322,6 +343,15 @@ NSInteger intImage;
                       }
                       
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [SVProgressHUD dismiss];
+                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                          message:@"Something went wrong. Please try again."
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"OK"
+                                                                otherButtonTitles:nil, nil];
+                      CheckAlert.tag = 5;
+                      [CheckAlert show];
+
                       NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                   }];
             
@@ -464,6 +494,15 @@ NSInteger intImage;
                       [SVProgressHUD dismiss];
                       
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [SVProgressHUD dismiss];
+                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                          message:@"Something went wrong. Please try again."
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"OK"
+                                                                otherButtonTitles:nil, nil];
+                      CheckAlert.tag = 5;
+                      [CheckAlert show];
+
                       NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                   }];
             
@@ -474,6 +513,32 @@ NSInteger intImage;
             
         }
         
+    }
+    if(photo1 == nil || photo1 == (id)[NSNull null] || [photo1 isEqualToString:@""])
+    {
+        _imgvehicle1 .image = [UIImage imageNamed:@"add_photos.png.png"];
+    }
+    else
+    {
+        _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
+    }
+    
+    if(photo2 == nil || photo2 == (id)[NSNull null] || [photo2 isEqualToString:@""])
+    {
+        _imgvehicle2 .image = [UIImage imageNamed:@"add_photos.png.png"];
+    }
+    else
+    {
+        _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
+    }
+    
+    if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
+    {
+        _imgvehicle3 .image = [UIImage imageNamed:@"add_photos.png.png"];
+    }
+    else
+    {
+        _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
     }
     if(IsIphone5)
     {
@@ -625,6 +690,7 @@ NSInteger intImage;
     
     NSData *imageData = UIImagePNGRepresentation(image);
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
     NSString *strcount = [NSString stringWithFormat:@"%d", [_arrVehiclesCount count]];
     NSString *strPostion = [NSString stringWithFormat:@"%d", _intPosition];
     NSString *strNoPhoto = [NSString stringWithFormat:@"%d", _intNoPhoto];
@@ -635,6 +701,7 @@ NSInteger intImage;
     [param setValue:strcount forKey:@"noVehicles"];
     [param setValue:strPostion forKey:@"position"];
     [param setValue:strNoPhoto forKey:@"noPhotos"];
+    [param setValue:pin forKey:@"pin"];
     [param setValue:@"ios7" forKey:@"os"];
     [param setValue:@"iPhone" forKey:@"make"];
     [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
@@ -1018,6 +1085,15 @@ NSInteger intImage;
         }
         else
         {
+            
+        }
+    }
+    if(alertView.tag == 5)
+    {
+        if(buttonIndex == 0)
+        {
+            MyVehicleVC *vc = [[MyVehicleVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
             
         }
     }

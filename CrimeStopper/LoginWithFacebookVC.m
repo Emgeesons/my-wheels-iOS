@@ -580,6 +580,8 @@ int intques;
                   [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
                   [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
                   [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+                   [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"oldPin"];
+                  appdelegate.intCountPushNotification = 0;
                   
                   HomePageVC *vc = [[HomePageVC alloc]init];
                   

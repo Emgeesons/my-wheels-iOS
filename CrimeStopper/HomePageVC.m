@@ -23,6 +23,7 @@
 #import "FileNewReportViewController.h"
 #import "UpdatesViewController.h"
 #import "ReportSightingViewController.h"
+#import "UAPush.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -49,6 +50,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //get pushnotification counter
+    NSLog(@"push :%d",appdelegate.intCountPushNotification);
+    // change status bar color
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [self.viewTrasparent setHidden:YES];
     [self setNeedsStatusBarAppearanceUpdate];
     self.library = [[ALAssetsLibrary alloc] init];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -76,9 +84,26 @@
     // set find my vehicle button enavle no
     [_btnFindVehicle setEnabled:NO];
     
+    
+    
+    
     //set image as round
     _imgProfilepic.layer.cornerRadius = 15;
     _imgProfilepic.clipsToBounds = YES;
+    _lblPush.layer.cornerRadius = 11.5;
+    _lblPush.clipsToBounds = YES;
+    
+    //intcountpushnotification set here
+    if(appdelegate.intCountPushNotification > 0)
+    {
+        [_lblPush setHidden:NO];
+        NSString *str = [NSString stringWithFormat:@"%d",appdelegate.intCountPushNotification];
+        [_lblPush setText:str];
+    }
+    else
+    {
+        [_lblPush setHidden:YES];
+    }
     
    if( appdelegate.intReg == 1)
    {
@@ -284,6 +309,18 @@
    
     
 }
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//    
+//    UA_LINFO(@"Received remote notification: %@", userInfo);
+//    appdelegate.intCountPushNotification ++ ;
+//    NSLog(@"int : %d",appdelegate.intCountPushNotification);
+//    //  [[NSUserDefaults standardUserDefaults]setObject:_intCountPushNotification forKey:@"CountPushNoti"];
+//    
+//    NSLog(@"I camhe here ");
+//    // Fire the handlers for both regular and rich push
+//    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
+//    // [UAInboxPushHandler handleNotification:userInfo];
+//}
 
 - (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
 {
@@ -318,6 +355,7 @@
 {
     // add self
     [self.voewMakeModel setHidden:YES];
+    [_viewTrasparent setHidden:YES];
     [self.ViewMain setBackgroundColor:[UIColor clearColor]];
     [self.ViewMain setAlpha:0.9];
 }
@@ -579,6 +617,7 @@
 -(IBAction)btnCancel_clck:(id)sender
 {
     [self.voewMakeModel setHidden:YES];
+    [_viewTrasparent setHidden:YES];
     [self.ViewMain setBackgroundColor:[UIColor clearColor]];
     [self.ViewMain setAlpha:0.9];
 }
@@ -613,20 +652,14 @@
 {
     if([_arrVehicles count] > 1)
     {
-//        self.ViewMain.backgroundColor = [UIColor blackColor];
-//        self.ViewMain.alpha = 0.5;
-        
         self.ViewMain.userInteractionEnabled = NO ;
-        [self.ViewMain setBackgroundColor:[UIColor grayColor]];
-           self.ViewMain.alpha = 0.5;
+       
+        [self.viewTrasparent setHidden:NO];
+        
         [self.voewMakeModel setHidden:NO];
-
-
     }
     
 }
-//dfbdjshf
-
 -(IBAction)btnMParking_click:(id)sender
 {
    if(appdelegate.intMparking == 1)
@@ -659,6 +692,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)openUpdates:(id)sender {
+    appdelegate.intCountPushNotification = 0;
     UpdatesViewController *updatesVC = [[UpdatesViewController alloc] init];
     [self.navigationController pushViewController:updatesVC animated:YES];
 }
@@ -780,6 +814,7 @@
      [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
     [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
     [_voewMakeModel setHidden:YES];
+    [_viewTrasparent setHidden:YES];
     [self.voewMakeModel setHidden:YES];
     [self.ViewMain setBackgroundColor:[UIColor clearColor]];
     [self.ViewMain setAlpha:0.9];

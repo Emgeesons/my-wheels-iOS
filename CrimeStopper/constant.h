@@ -9,7 +9,7 @@
 #ifndef ShoppingCart_Header_h
 #define ShoppingCart_Header_h
 
-#define SERVERNAME   @"http://emgeesonsdevelopment.in/crimestoppers/mobile1.0/"
+#define SERVERNAME   @"http://emgeesonsdevelopment.in/crimestoppers/mobile2.0/"
 
 #define OS_VERSION [[UIDevice currentDevice] systemVersion]
 

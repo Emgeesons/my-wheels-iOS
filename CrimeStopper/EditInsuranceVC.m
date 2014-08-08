@@ -216,14 +216,43 @@ NSString *strDate;
         _scroll.contentSize = CGSizeMake(320, 700);
     }
     
-    _txtCompanyName.text = _strCompanyName;
+    if([_strCompanyName isEqualToString:@"1Cover"] || [_strCompanyName isEqualToString:@"AAMI"] || [_strCompanyName isEqualToString:@"Allianz"] || [_strCompanyName isEqualToString:@"APIA"] || [_strCompanyName isEqualToString:@"Budget Direct"] || [_strCompanyName isEqualToString:@"Bupa/HBA"] || [_strCompanyName isEqualToString:@"CGU"] || [_strCompanyName isEqualToString:@"Coles"] || [_strCompanyName isEqualToString:@"CommInsure"] || [_strCompanyName isEqualToString:@"COTA"] || [_strCompanyName isEqualToString:@"Elders"] || [_strCompanyName isEqualToString:@"GIO"]|| [_strCompanyName isEqualToString:@"NAB"] || [_strCompanyName isEqualToString:@"NRMA"] || [_strCompanyName isEqualToString:@"People’s Choice"] || [_strCompanyName isEqualToString:@"QBE"] || [_strCompanyName isEqualToString:@"RAA"] || [_strCompanyName isEqualToString:@"RACT"] || [_strCompanyName isEqualToString:@"RACQ"] || [_strCompanyName isEqualToString:@"RACV"] || [_strCompanyName isEqualToString:@"SGIC"] || [_strCompanyName  isEqualToString:@"Shannons"] || [_strCompanyName isEqualToString:@"St George"] || [_strCompanyName isEqualToString:@"Suncorp"] || [_strCompanyName isEqualToString:@"TIO"] || [_strCompanyName isEqualToString:@"Westpac"] || [_strCompanyName isEqualToString:@"Woolworths"] || [_strCompanyName isEqualToString:@"Youi"] || [_strCompanyName isEqualToString:@"BikeSure"] ||  [_strCompanyName isEqualToString:@"CycleCover"] || [_strCompanyName isEqualToString:@"RealBike"] || [_strCompanyName isEqualToString:@"Velosure"])
+    {
+        [_txtOtherInsurance setHidden:YES];
+        _txtCompanyName.text = _strCompanyName;
+    }
+    else
+    {
+        _txtOtherInsurance  = [[UITextField alloc] initWithFrame:CGRectMake(9,48,301,30)];
+        //txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(5,400,300,30)];
+        [self.view addSubview:_txtOtherInsurance];
+        _txtOtherInsurance.borderStyle = UITextBorderStyleRoundedRect;
+        _txtOtherInsurance.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+        _txtOtherInsurance.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
+        _txtOtherInsurance.keyboardType = UIKeyboardTypeDefault;
+        _txtOtherInsurance.returnKeyType = UIReturnKeyDefault;
+        
+        _txtOtherInsurance.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _txtOtherInsurance.placeholder = @"specify vehicle insurance company";
+        _txtOtherInsurance.tag = 2;
+        _txtOtherInsurance.delegate = self;
+        [_txtOtherInsurance setInputAccessoryView:self.toolbar];
+        
+        [self.scroll addSubview:_txtOtherInsurance];
+        _txtCompanyName.frame = CGRectMake(9, 8, 301, 30);
+        _txtPhoneNo.frame = CGRectMake(9, 88, 301, 30);
+        _txtPolicyNo.frame =  CGRectMake(9, 128, 301, 30);
+        _txtExpiry .frame = CGRectMake(9, 168, 301, 30);
+        
+        _txtCompanyName.text = @"Other";
+        _txtOtherInsurance.text = _strCompanyName;
+    }
     _txtPolicyNo.text = _strPolicyNo;
     _txtPhoneNo.text = _strPhoneNo;
     NSLog(@"strexpiry : %@",_strExpiry);
     if([_strExpiry isEqualToString:@""])
     {
-        [_txtExpiry setText:@"expiry"];
-        _txtExpiry.textColor = [UIColor lightGrayColor];
+        _txtExpiry.placeholder = @"expiry";
     }
     else
     {
@@ -272,11 +301,23 @@ NSString *strDate;
     //  self.strPrintRepeat = [_pkvVehicleType objectAtIndex:row];
     [_txtCompanyName setText:[_arrinsurance objectAtIndex:row]];
     [_txtPhoneNo setText:[_arrTelephone objectAtIndex:row]];
-    _txtCompanyName.userInteractionEnabled = NO;
+  
     NSString *strInsurance = [_arrinsurance objectAtIndex:row];
     NSLog(@"strInsurance : %@",strInsurance);
-    if([strInsurance isEqualToString:@"Other"])
+    if([strInsurance isEqualToString:@"1Cover"] || [strInsurance isEqualToString:@"AAMI"] || [strInsurance isEqualToString:@"Allianz"] || [strInsurance isEqualToString:@"APIA"] || [strInsurance isEqualToString:@"Budget Direct"] || [strInsurance isEqualToString:@"Bupa/HBA"] || [strInsurance isEqualToString:@"CGU"] || [strInsurance isEqualToString:@"Coles"] || [strInsurance isEqualToString:@"CommInsure"] || [strInsurance isEqualToString:@"COTA"] || [strInsurance isEqualToString:@"Elders"] || [strInsurance isEqualToString:@"GIO"]|| [strInsurance isEqualToString:@"NAB"] || [strInsurance isEqualToString:@"NRMA"] || [strInsurance isEqualToString:@"People’s Choice"] || [strInsurance isEqualToString:@"QBE"] || [strInsurance isEqualToString:@"RAA"] || [strInsurance isEqualToString:@"RACT"] || [strInsurance isEqualToString:@"RACQ"] || [strInsurance isEqualToString:@"RACV"] || [strInsurance isEqualToString:@"SGIC"] || [strInsurance  isEqualToString:@"Shannons"] || [strInsurance isEqualToString:@"St George"] || [strInsurance isEqualToString:@"Suncorp"] || [strInsurance isEqualToString:@"TIO"] || [strInsurance isEqualToString:@"Westpac"] || [strInsurance isEqualToString:@"Woolworths"] || [strInsurance isEqualToString:@"Youi"] || [strInsurance isEqualToString:@"BikeSure"] ||  [strInsurance isEqualToString:@"CycleCover"] || [strInsurance isEqualToString:@"RealBike"] || [strInsurance isEqualToString:@"Velosure"])
     {
+        _txtOtherInsurance.text = @"";
+        [_txtOtherInsurance setHidden:YES];
+        
+        _txtCompanyName.text = strInsurance;
+        _txtCompanyName.frame = CGRectMake(9, 8, 301, 30);
+        _txtPhoneNo.frame = CGRectMake(9, 48, 301, 30);
+        _txtPolicyNo.frame =  CGRectMake(9, 88, 301, 30);
+        _txtExpiry .frame = CGRectMake(9, 128, 301, 30);
+    }
+    else
+    {
+        
         _txtOtherInsurance  = [[UITextField alloc] initWithFrame:CGRectMake(9,48,301,30)];
         //txtAnswer  = [[UITextField alloc] initWithFrame:CGRectMake(5,400,300,30)];
         [self.view addSubview:_txtOtherInsurance];
@@ -298,7 +339,10 @@ NSString *strDate;
         _txtPolicyNo.frame =  CGRectMake(9, 128, 301, 30);
         _txtExpiry .frame = CGRectMake(9, 168, 301, 30);
         
+        _txtCompanyName.text = @"Other";
+        _txtOtherInsurance.text = @"";
     }
+
     
     if([strInsurance isEqualToString:@"Budget Direct"] && [ _strVehicleType isEqualToString:@"Bicycle"])
     {
@@ -351,28 +395,39 @@ NSString *strDate;
     {
         NSLog(@"There IS internet connection");
         
-        
+        if([_txtCompanyName.text isEqualToString:@"Other"])
+        {
+            if(_txtOtherInsurance.text.length == 0)
+            {
+                [_txtOtherInsurance setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            }
+        }
         
         if (_txtCompanyName.text.length==0 || _txtPhoneNo.text.length==0 || _txtPolicyNo.text.length==0 )
         {
-            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
-                                                                message:@"Something went wrong. Please try again later."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-            [CheckAlert show];
             
+            
+            if (_txtPolicyNo.text.length == 0)
+            {
+                [_txtPolicyNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            }
+            if (_txtCompanyName.text.length == 0)
+            {
+                [_txtCompanyName setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            }
+            if (_txtPhoneNo.text.length == 0)
+            {
+                [_txtPhoneNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+            }
             
             
         }
+      
         else if (_txtPolicyNo.text.length>0 && _txtPolicyNo.text.length <3)
         {
             [_txtPolicyNo setTextColor:[UIColor redColor]];
         }
-        else if (_txtPolicyNo.text.length == 0)
-        {
-            [_txtPolicyNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
+      
         else if (_txtCompanyName.text.length == 0)
         {
             [_txtCompanyName setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -389,26 +444,27 @@ NSString *strDate;
             NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
             NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
             NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-            /*userId
-             vehicleId
-             insuranceCompanyName
-             insurancePolicyNumber
-             insuranceExpiryDate (yyyy-mm-dd) - optional field (if not filled, pass 000-00-00)
-             os
-             make
-             model
-
-             */
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:UserID forKey:@"userId"];
             [param setValue:pin forKey:@"pin"];
             [param setValue:latitude forKey:@"latitude"];
             [param setValue:longitude forKey:@"longitude"];
              [param setValue:_txtPhoneNo.text forKey:@"insuranceCompanyNumber"];
-            [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
+            if([_txtCompanyName.text isEqualToString:@"Other"])
+            {
+                [param setValue:_txtOtherInsurance.text forKey:@"insuranceCompanyName"];
+            }
+            else
+            {
+                [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
+            }
             [param setValue:_txtPolicyNo.text forKey:@"insurancePolicyNumber"];
+            
+            [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+            NSDate *date = [dateFormatter dateFromString:_txtExpiry.text];
+            NSLog(@"expiry date : %@",date);
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-            NSString *strdat = [dateFormatter stringFromDate:timePicker.date];
+            NSString *strdat = [dateFormatter stringFromDate:date];
             [param setValue:strdat forKey:@"insuranceExpiryDate"];
             [param setValue:appdelegate.strVehicleId forKey:@"vehicleId"];
             [param setValue:@"ios7" forKey:@"os"];
@@ -528,6 +584,7 @@ NSString *strDate;
     [textField setTextColor:[UIColor blackColor]];
     if(textField == _txtCompanyName)
     {
+        [_txtCompanyName resignFirstResponder];
         [_pkvInsurance setHidden:NO];
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
         

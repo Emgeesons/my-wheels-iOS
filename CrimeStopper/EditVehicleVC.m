@@ -102,6 +102,15 @@ NSString *strBody;
 
     NSLog(@"vehicle id:: %@",_strVehicleID);
     
+    [_pkvVehicleType setHidden:YES];
+    
+    int row = [_pkvVehicleType selectedRowInComponent:0];
+    [_txtVehicleType setText:[_arrVehicleType objectAtIndex:row]];
+    strvehivcle = [_arrVehicleType objectAtIndex:row];
+    [_txtVehicleType resignFirstResponder];
+    NSLog(@"veicle : %@",_strVehicleType);
+    
+    // if vehicle type is other
     if([_strVehicleType isEqualToString:@"Other"])
     {
         [_txtBodyType setHidden:YES];
@@ -117,8 +126,9 @@ NSString *strBody;
         _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
         _txtState.placeholder = @"state";
-        _txtOtherVehicle.tag = 2;
+        _txtOtherVehicle.tag = 0;
         _txtOtherVehicle.delegate = self;
+        [_txtState setHidden:NO];
         [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
         
         [self.scroll addSubview:_txtOtherVehicle];
@@ -132,19 +142,30 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
         
+        _txtRegistrationNo.placeholder = @"registration * (max 13 chars)";
         
+        _txtVehicleType.text = @"Other";
+        _txtOtherVehicle.text = _strVehicleType;
     }
     
     // if vehicle type is bicycle
-  if([_strVehicleType isEqualToString:@"Bicycle"])
+   else if([_strVehicleType isEqualToString:@"Bicycle"])
     {
         [_txtState setHidden:YES];
         [_txtBodyType setHidden:YES];
-        _txtRegistrationNo.placeholder = @"serial no";
+        _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
-        _txtMake.placeholder = @"make ";
+        _txtMake.placeholder = @"make *";
         _txtModel.placeholder = @"model *";
         
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
@@ -157,6 +178,15 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 180, 301, 30);
         _txtColor.frame = CGRectMake(9, 220, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 260, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtEngineNo.tag = 4;
+        _txtChassisNo.tag = 5;
+        _txtColor.tag = 6;
+        _txtAccessories.tag = 7;
+        _txtVehicleType.text = _strVehicleType;
+       
         
     }
    else if([_strVehicleType isEqualToString:@"Car"])
@@ -174,17 +204,29 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        
-        
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtBodyType.tag = 3;
+        _txtRegistrationNo.tag = 4;
+        _txtState.tag = 5;
+        _txtEngineNo.tag = 6;
+        _txtChassisNo.tag = 7;
+        _txtColor.tag = 8;
+        _txtAccessories.tag = 9;
+        
+        
+        _txtVehicleType.text = _strVehicleType;
+        
+        
         
     }
-    else if([_strVehicleType isEqualToString:@"Motor Cycle"])
+   else if([_strVehicleType isEqualToString:@"Motor Cycle"])
     {
         [_txtBodyType setHidden:YES];
         [_txtState setHidden:NO];
-        _txtRegistrationNo.placeholder = @"registration no *";
+        _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
         _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
@@ -193,32 +235,67 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 220, 301, 30);
         _txtColor.frame = CGRectMake(9, 260, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 300, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
+          _txtVehicleType.text = _strVehicleType;
         
     }
     else
     {
-        _txtRegistrationNo.placeholder = @"serial no";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
-        _txtMake.placeholder = @"make ";
-        _txtModel.placeholder = @"model ";
-        _txtBodyType.placeholder = @"body type";
-        _txtColor.placeholder = @"colour *";
-        _txtState.placeholder = @"state";
+        [_txtBodyType setHidden:YES];
         
+        _txtOtherVehicle  = [[UITextField alloc] initWithFrame:CGRectMake(9,60,301,30)];
+        [self.view addSubview:_txtOtherVehicle];
+        _txtOtherVehicle.borderStyle = UITextBorderStyleRoundedRect;
+        _txtOtherVehicle.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
+        _txtOtherVehicle.keyboardType = UIKeyboardTypeDefault;
+        _txtOtherVehicle.returnKeyType = UIReturnKeyDefault;
+        
+        _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
+        _txtState.placeholder = @"state";
+        _txtOtherVehicle.tag = 0;
+        _txtOtherVehicle.delegate = self;
+        [_txtState setHidden:NO];
+        [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
+        
+        [self.scroll addSubview:_txtOtherVehicle];
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
-        _txtMake.frame = CGRectMake(9, 60, 150, 30);
-        _txtModel.frame = CGRectMake(161, 60, 150, 30);
+        _txtMake.frame = CGRectMake(9, 100, 150, 30);
+        _txtModel.frame = CGRectMake(161, 100, 150, 30);
+        
         _txtRegistrationNo.frame = CGRectMake(9,140, 301, 30);
         _txtState.frame = CGRectMake(9, 180, 301, 30);
         _txtEngineNo.frame = CGRectMake(9,220, 301, 30);
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
+        
+        _txtRegistrationNo.placeholder = @"registration * (max 13 chars)";
+        
+        _txtVehicleType.text = @"Other";
+        _txtOtherVehicle.text = _strVehicleType;
     }
-
     
-    _txtVehicleType.text = _strVehicleType;
+   
+    
+    
+  
     _txtMake.text = _strMake;
     _txtModel.text = _strModel;
     _txtBodyType.text = _strBodyType;
@@ -311,10 +388,10 @@ NSString *strBody;
         
         // for only bicycle
         
-        if([_strVehicleType isEqualToString:@"Bicycle"] )
+        if([strvehivcle isEqualToString:@"Bicycle"] )
         {
             
-            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtModel.text.length == 0)
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 ||  (_txtMake.text.length == 0 && _txtModel.text.length == 0))
             {
                 if(_txtVehicleType.text.length == 0)
                 {
@@ -323,6 +400,11 @@ NSString *strBody;
                 if (_txtColor.text.length == 0)
                 {
                     [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+                }
+                
+                if (_txtMake.text.length == 0)
+                {
+                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                 }
                 if (_txtModel.text.length == 0)
                 {
@@ -347,7 +429,12 @@ NSString *strBody;
                 {
                     [_txtColor setTextColor:[UIColor redColor]];
                 }
-                
+                else if ( _txtModel.text.length < 1 && _txtMake.text.length < 1)
+                {
+                    [_txtModel setTextColor:[UIColor redColor]];
+                    [_txtMake setTextColor:[UIColor redColor]];
+                }
+
                 else
                 {
                     [self callapi];
@@ -554,10 +641,11 @@ NSString *strBody;
     [_txtVehicleType setText:[_arrVehicleType objectAtIndex:row]];
     strvehivcle = [_arrVehicleType objectAtIndex:row];
     [_txtVehicleType resignFirstResponder];
-    NSLog(@"veicle : %@",strvehivcle);
+    NSLog(@"veicle : %@",strvehivcle
+          );
     
     // if vehicle type is other
-    if([strvehivcle isEqualToString:@"Other"])
+    if([_txtVehicleType.text isEqualToString:@"Other"])
     {
         [_txtBodyType setHidden:YES];
         
@@ -572,8 +660,15 @@ NSString *strBody;
         _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
         _txtState.placeholder = @"state";
-        _txtOtherVehicle.tag = 2;
+        _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.placeholder = @"make ";
+        _txtModel.placeholder = @"model ";
+        _txtColor.placeholder = @"colour *";
+        _txtOtherVehicle.tag = 0;
         _txtOtherVehicle.delegate = self;
+        [_txtState setHidden:NO];
         [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
         
         [self.scroll addSubview:_txtOtherVehicle];
@@ -587,20 +682,26 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        
-        
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
     }
-    
     // if vehicle type is bicycle
-    if([strvehivcle isEqualToString:@"Bicycle"])
+   else if([_txtVehicleType.text isEqualToString:@"Bicycle"])
     {
+        [_txtOtherVehicle setHidden:YES];
         [_txtState setHidden:YES];
         [_txtBodyType setHidden:YES];
-        _txtRegistrationNo.placeholder = @"serial no";
+        _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
         _txtMake.placeholder = @"make *";
-        _txtModel.placeholder = @"model";
+        _txtModel.placeholder = @"model *";
         
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
@@ -612,13 +713,21 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 180, 301, 30);
         _txtColor.frame = CGRectMake(9, 220, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 260, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtEngineNo.tag = 4;
+        _txtChassisNo.tag = 5;
+        _txtColor.tag = 6;
+        _txtAccessories.tag = 7;
+        
         
     }
-    if([strvehivcle isEqualToString:@"Car"])
+    else if([_txtVehicleType.text isEqualToString:@"Car"])
     {
         [_txtState setHidden:NO];
         [_txtBodyType setHidden:NO];
-        
+        [_txtOtherVehicle setHidden:YES];
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
         _txtModel.frame = CGRectMake(161, 60, 150, 30);
@@ -629,30 +738,92 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        
-        
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
-        
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtBodyType.tag = 3;
+        _txtRegistrationNo.tag = 4;
+        _txtState.tag = 5;
+        _txtEngineNo.tag = 6;
+        _txtChassisNo.tag = 7;
+        _txtColor.tag = 8;
+        _txtAccessories.tag = 9;
     }
-    if([strvehivcle isEqualToString:@"Motor Cycle"])
+   else if([_txtVehicleType.text isEqualToString:@"Motor Cycle"])
     {
+        [_txtOtherVehicle setHidden:YES];
         [_txtBodyType setHidden:YES];
         [_txtState setHidden:NO];
-        _txtRegistrationNo.placeholder = @"registration no *";
+        _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
         _txtEngineNo.placeholder = @"engine no";
         _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.frame = CGRectMake(9,60, 150, 30);
+        _txtModel.frame = CGRectMake(161,60, 150, 30);
         _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
         _txtState.frame = CGRectMake(9, 140, 301, 30);
         _txtEngineNo.frame = CGRectMake(9,180, 301, 30);
         _txtChassisNo.frame = CGRectMake(9, 220, 301, 30);
         _txtColor.frame = CGRectMake(9, 260, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 300, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
         
     }
-    
+    else
+    {
+        [_txtBodyType setHidden:YES];
+        
+        _txtOtherVehicle  = [[UITextField alloc] initWithFrame:CGRectMake(9,60,301,30)];
+        [self.view addSubview:_txtOtherVehicle];
+        _txtOtherVehicle.borderStyle = UITextBorderStyleRoundedRect;
+        _txtOtherVehicle.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
+        _txtOtherVehicle.keyboardType = UIKeyboardTypeDefault;
+        _txtOtherVehicle.returnKeyType = UIReturnKeyDefault;
+        
+        _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
+        _txtState.placeholder = @"state";
+        _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.placeholder = @"make ";
+        _txtModel.placeholder = @"model ";
+        _txtColor.placeholder = @"colour *";
+        _txtOtherVehicle.tag = 0;
+        _txtOtherVehicle.delegate = self;
+        [_txtState setHidden:NO];
+        [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
+        
+        [self.scroll addSubview:_txtOtherVehicle];
+        _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
+        _txtMake.frame = CGRectMake(9, 100, 150, 30);
+        _txtModel.frame = CGRectMake(161, 100, 150, 30);
+        
+        _txtRegistrationNo.frame = CGRectMake(9,140, 301, 30);
+        _txtState.frame = CGRectMake(9, 180, 301, 30);
+        _txtEngineNo.frame = CGRectMake(9,220, 301, 30);
+        _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
+        _txtColor.frame = CGRectMake(9, 300, 301, 30);
+        _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
+        _txtEngineNo.tag = 5;
+        _txtChassisNo.tag = 6;
+        _txtColor.tag = 7;
+        _txtAccessories.tag = 8;
+
+    }
     [self cancelClicked];
-    
     
 }
 -(void)doneBody_click:(id)sender
@@ -792,27 +963,26 @@ NSString *strBody;
     }
     int y=0;
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
+    if(textField == _txtState)
+    {
+        y=150;
+    }
     if(textField == _txtEngineNo)
     {
-        y=110;
-        // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
+        y=150;
     }
     if(textField == _txtChassisNo)
     {
-        y=110;
-        //[btnSubmit setHidden:NO];
+        y=170;
     }
     if(textField == _txtColor)
     {
-        y=110;
-        //[btnSubmit setHidden:NO];
+        y=200;
     }
     if(textField == _txtAccessories)
     {
-        y=110;
-        //[btnSubmit setHidden:NO];
+        y=200;
     }
-    
     NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
@@ -846,32 +1016,38 @@ NSString *strBody;
 }
 - (IBAction)btnNext_Click:(id)sender
 {
-    if([strvehivcle isEqualToString:@"Bicycle"])
+    if([_strVehicleType isEqualToString:@"Bicycle"])
     {
-        _txtRegistrationNo.tag = 4;
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtEngineNo.tag = 4;
+        _txtChassisNo.tag = 5;
+        _txtColor.tag = 6;
+        _txtAccessories.tag = 7;
+    }
+    else if ([_strVehicleType isEqualToString:@"Motor Cycle"] || [_strVehicleType isEqualToString:@"Other"])
+    {
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtRegistrationNo.tag = 3;
+        _txtState.tag = 4;
         _txtEngineNo.tag = 5;
         _txtChassisNo.tag = 6;
         _txtColor.tag = 7;
         _txtAccessories.tag = 8;
     }
-    else if ([strvehivcle isEqualToString:@"Motor Cycle"] || [strvehivcle isEqualToString:@"Other"])
+    else
     {
+        _txtMake.tag = 1;
+        _txtModel.tag = 2;
+        _txtBodyType.tag = 3;
         _txtRegistrationNo.tag = 4;
         _txtState.tag = 5;
         _txtEngineNo.tag = 6;
         _txtChassisNo.tag = 7;
         _txtColor.tag = 8;
         _txtAccessories.tag = 9;
-    }
-    else
-    {
-        _txtBodyType.tag = 4;
-        _txtRegistrationNo.tag = 5;
-        _txtState.tag = 6;
-        _txtEngineNo.tag = 7;
-        _txtChassisNo.tag = 8;
-        _txtColor.tag = 9;
-        _txtAccessories.tag = 10;
     }
     
     NSInteger nextTag = activeTextField.tag + 1;
@@ -884,7 +1060,6 @@ NSString *strBody;
         // Not found, so remove keyboard.
         [activeTextField resignFirstResponder];
     }
-
 }
 - (IBAction)btnPreviuse_Click:(id)sender
 {
@@ -932,13 +1107,13 @@ NSString *strBody;
     [param setValue:pin forKey:@"pin"];
     [param setValue:latitude forKey:@"latitude"];
     [param setValue:longitude forKey:@"longitude"];
-    if([_strVehicleType isEqualToString:@"Other"])
+    if([_txtVehicleType.text isEqualToString:@"Other"])
     {
         [param setValue:_txtOtherVehicle.text forKey:@"vehicleType"];
     }
     else
     {
-        [param setValue:_txtVehicleType.text forKey:@"vehicleType"];
+        [param setValue:strvehivcle forKey:@"vehicleType"];
     }
     [param setValue:_strVehicleID forKey:@"vehicleId"];
     [param setValue:_txtMake.text forKey:@"vehicleMake"];
