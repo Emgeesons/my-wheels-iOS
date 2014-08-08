@@ -67,6 +67,72 @@
         [_viewLocationGuide setHidden:NO];
     }
     
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+        MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+        MKCoordinateRegion region = {coord, span};
+        [_mapView setRegion:region];
+        
+        _lblAddress.text = @"5601 SA Australia";
+        
+        originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+        originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
+        selectedLatitude = originalLatitude;
+        selectedLongitude = originalLongitude;
+    } else {
+        address = [[NSMutableString alloc] initWithString:@""];
+        CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:_locationManager.location.coordinate.latitude longitude:_locationManager.location.coordinate.longitude];
+        
+        // get location
+        CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+        [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error == nil && [placemarks count] > 0) {
+                placemark = [placemarks lastObject];
+                
+                if (placemark.subThoroughfare != NULL) {
+                    [address appendFormat:@"%@ ", placemark.subThoroughfare];
+                }
+                
+                if (placemark.thoroughfare != NULL) {
+                    [address appendFormat:@"%@ ", placemark.thoroughfare];
+                }
+                
+                if (placemark.postalCode != NULL) {
+                    [address appendFormat:@"%@ ", placemark.postalCode];
+                }
+                
+                if (placemark.locality != NULL) {
+                    [address appendFormat:@"%@ ", placemark.locality];
+                }
+                
+                if (placemark.administrativeArea != NULL) {
+                    [address appendFormat:@"%@ ", placemark.administrativeArea];
+                }
+                
+                if (placemark.country != NULL) {
+                    [address appendFormat:@"%@", placemark.country];
+                }
+                
+                _lblAddress.text = address;
+                
+                CLLocationCoordinate2D coord = {.latitude =  _locationManager.location.coordinate.latitude, .longitude =  _locationManager.location.coordinate.longitude};
+                MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
+                MKCoordinateRegion region = {coord, span};
+                
+                [self.mapView setRegion:region animated:YES];
+                
+                originalLatitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
+                originalLongitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.longitude];
+                selectedLatitude = originalLatitude;
+                selectedLongitude = originalLongitude;
+            }
+        }];
+    }
+
+    
     // set contentSize of scrollview here
     [self.scrollView setContentSize:CGSizeMake(0, 450)];
     
@@ -197,11 +263,11 @@
                                  @"pin" : pin,
                                  @"originalLatitude": originalLatitude,
                                  @"originalLongitude" : originalLongitude,
-                                 @"selectedLatitutde" : selectedLatitude,
+                                 @"selectedLatitude" : selectedLatitude,
                                  @"selectedLongitude" : selectedLongitude,
                                  @"location" : address,
                                  @"originalDate" : originalDate,
-                                 @"orginalTime" : originalTime,
+                                 @"originalTime" : originalTime,
                                  @"selectedDate" : selectedDate,
                                  @"selectedTime" : selectedTime,
                                  @"sightingType" : self.txtSighting.text,
@@ -209,7 +275,7 @@
                                  @"vehicleModel" : self.txtModel.text,
                                  @"vehicleColour" : self.txtColor.text,
                                  @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
-                                 @"registerationNumber" : self.txtRegistrationNo.text,
+                                 @"registrationNumber" : self.txtRegistrationNo.text,
                                  @"comments" : self.txtComments.text,
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
@@ -286,7 +352,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    CLLocation *currentLocation = newLocation;
+    /*CLLocation *currentLocation = newLocation;
     
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -342,7 +408,7 @@
         } else {
             NSLog(@"%@", error.debugDescription);
         }
-    } ];
+    } ];*/
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -391,6 +457,8 @@
             if (isLocationEnabled == YES) {
                 _lblAddress.text = address;
             }
+            
+            _lblAddress.text = address;
             
         } else {
             NSLog(@"%@", error.debugDescription);

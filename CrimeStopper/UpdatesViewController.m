@@ -518,9 +518,9 @@
                 [report_idMy addObject:sightingData[i][@"sightings_id"]];
                 [vehicle_typeMy addObject:@""];
                 [vehicle_idMy addObject:@""];
-                [makeMy addObject:sightingData[i][@"vehicle_make"]];
-                [modelMy addObject:sightingData[i][@"vehicle_model"]];
-                [registration_serial_noMy addObject:sightingData[i][@"registration_number"]];
+                //[makeMy addObject:sightingData[i][@"vehicle_make"]];
+                //[modelMy addObject:sightingData[i][@"vehicle_model"]];
+                //[registration_serial_noMy addObject:sightingData[i][@"registration_number"]];
                 [locationMy addObject:sightingData[i][@"location"]];
                 [selected_dateMy addObject:sightingData[i][@"selected_date"]];
                 [selected_timeMy addObject:sightingData[i][@"selected_time"]];
@@ -663,11 +663,15 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
+    // string to check vehicle is cycle or something else
+    NSString *vehicleType = @"Registration number:";
+    
     // ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
     if ([vehicle_type[indexPath] isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        vehicleType = @"Serial number:";
     } else if ([vehicle_type[indexPath] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([vehicle_type[indexPath] isEqualToString:@"Motor Cycle"]) {
@@ -707,7 +711,7 @@
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", registration_serial_no[indexPath]];
+    lblRegistration.text = [NSString stringWithFormat:@"%@ %@",vehicleType, registration_serial_no[indexPath]];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
@@ -806,7 +810,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -818,7 +822,7 @@
                 
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = photo2[indexPath];
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 
                 [viewBottom addSubview:ivImage2];
             }
@@ -831,7 +835,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = photo3[indexPath];
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 
                 [viewBottom addSubview:ivImage3];
             }
@@ -1054,11 +1058,15 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
+    // string to check vehicle is cycle or something else
+    NSString *vehicleType = @"Registration number:";
+    
     // ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
     if ([vehicleHeader[indexPath] isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        vehicleType = @"Serial number:";
     } else if ([vehicleHeader[indexPath] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([vehicleHeader[indexPath] isEqualToString:@"Motor Cycle"]) {
@@ -1098,7 +1106,7 @@
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", regNoHeader[indexPath]];
+    lblRegistration.text = [NSString stringWithFormat:@"%@ %@",vehicleType, regNoHeader[indexPath]];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
@@ -1198,7 +1206,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -1208,7 +1216,7 @@
                 [ivImage2 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = photo2Header[indexPath];
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2Header[indexPath]]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2Header[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage2];
             }
             
@@ -1219,7 +1227,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = photo3Header[indexPath];
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3Header[indexPath]]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3Header[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage3];
             }
         }
@@ -1269,8 +1277,8 @@
     viewTop.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
     
     // add UILabel for Name of user
-    UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 30)];
-    NSString *strName = [NSString stringWithFormat:@"%@ spotted your %@", first_nameMy[indexPath], vehicle_typeMy[indexPath]];
+    UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 190, 30)];
+    NSString *strName = [NSString stringWithFormat:@"%@ spotted your %@", first_nameMy[indexPath], vehicleHeader[0]];
     
     // Attribute string for User anme and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
@@ -1278,6 +1286,16 @@
     [attrStringName addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#0067AD"] range:NSMakeRange(0, [first_nameMy[indexPath] length])];
     lblName.attributedText = attrStringName;
     [viewTop addSubview:lblName];
+    
+    // Add Type of report here.
+    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblName.frame.origin.x + lblName.frame.size.width + 5, lblName.frame.origin.y, 75, 30)];
+    lblTypeReport.numberOfLines = 0;
+    lblTypeReport.textAlignment = NSTextAlignmentRight;
+    lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+    lblTypeReport.text = [NSString stringWithFormat:@"%@", report_typeMy[indexPath]];
+    lblTypeReport.textColor = [UIColor colorWithHexString:@"#FF444C"];
+    [viewTop addSubview:lblTypeReport];
+    
     [viewBG addSubview:viewTop];
     
     /************************************* Top view Ends ***********************************/
@@ -1288,14 +1306,14 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
-    // ImageView for vehicle_type
+    /*// ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
-    if ([vehicle_typeMy[indexPath] isEqualToString:@"Bicycle"]) {
+    if ([vehicleHeader[0] isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
-    } else if ([vehicle_typeMy[indexPath] isEqualToString:@"Car"]) {
+    } else if ([vehicleHeader[0] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicle_typeMy[indexPath] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicleHeader[0] isEqualToString:@"Motor Cycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         ivVehicle.image = [UIImage imageNamed:@"ic_other.png"];
@@ -1306,7 +1324,7 @@
     UILabel *lblMakeModel = [[UILabel alloc] initWithFrame:CGRectMake(ivVehicle.frame.origin.x + ivVehicle.frame.size.width + 5, ivVehicle.frame.origin.x, 180, MIN_HEIGHT)];
     lblMakeModel.numberOfLines = 0;
     lblMakeModel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
-    lblMakeModel.text = [NSString stringWithFormat:@"%@ %@", makeMy[indexPath], modelMy[indexPath]];
+    //lblMakeModel.text = [NSString stringWithFormat:@"%@ %@", makeMy[indexPath], modelMy[indexPath]];
     lblMakeModel.textColor = [UIColor colorWithHexString:@"#0067AD"];
     CGSize constraint = CGSizeMake(lblMakeModel.frame.size.width, 20000.0f);
     
@@ -1320,28 +1338,19 @@
     [lblMakeModel setFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y, lblMakeModel.frame.size.width, MAX(textRect.size.height, MIN_HEIGHT))];
     [viewBottom addSubview:lblMakeModel];
     
-    // Add Type of report here.
-    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 20)];
-    lblTypeReport.numberOfLines = 0;
-    lblTypeReport.textAlignment = NSTextAlignmentRight;
-    lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblTypeReport.text = [NSString stringWithFormat:@"%@", report_typeMy[indexPath]];
-    lblTypeReport.textColor = [UIColor colorWithHexString:@"#FF444C"];
-    [viewBottom addSubview:lblTypeReport];
-    
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", registration_serial_noMy[indexPath]];
+    //lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", registration_serial_noMy[indexPath]];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
     UIImageView *ivHR = [[UIImageView alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblRegistration.frame.origin.y + lblRegistration.frame.size.height + 5, lblRegistration.frame.size.width, 1)];
     ivHR.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-    [viewBottom addSubview:ivHR];
+    [viewBottom addSubview:ivHR];*/
     
     // Add Date here
-    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, ivHR.frame.origin.y + ivHR.frame.size.height + 10, 160, 20)];
+    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 160, 20)];
     lblDate.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     
     NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
@@ -1353,7 +1362,7 @@
     [viewBottom addSubview:lblDate];
     
     // Add Time here
-    UILabel *lblTime = [[UILabel alloc] initWithFrame:CGRectMake(lblDate.frame.origin.x + lblDate.frame.size.width, lblDate.frame.origin.y, 100, lblDate.frame.size.height)];
+    UILabel *lblTime = [[UILabel alloc] initWithFrame:CGRectMake(lblDate.frame.origin.x + lblDate.frame.size.width + 15, lblDate.frame.origin.y, 100, lblDate.frame.size.height)];
     lblTime.textAlignment = NSTextAlignmentRight;
     lblTime.font = lblDate.font;
     
@@ -1365,7 +1374,7 @@
     [viewBottom addSubview:lblTime];
     
     // Add Location icon here
-    UIImageView *ivLocationIcon = [[UIImageView alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblDate.frame.origin.y + lblDate.frame.size.height + 5, 7, 10)];
+    UIImageView *ivLocationIcon = [[UIImageView alloc] initWithFrame:CGRectMake(lblDate.frame.origin.x, lblDate.frame.origin.y + lblDate.frame.size.height + 5, 7, 10)];
     ivLocationIcon.image = [UIImage imageNamed:@"ic_location.png"];
     [viewBottom addSubview:ivLocationIcon];
     

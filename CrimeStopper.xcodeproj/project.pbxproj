@@ -229,6 +229,8 @@
 		5EFFBC87195C06E3003679C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFBC86195C06E3003679C6 /* Reachability.m */; };
 		5EFFFBE8198A515400F1474D /* ic_drawer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFFFBE7198A515400F1474D /* ic_drawer2.png */; };
 		EC1B19241990FCF100EB9FDC /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1B19231990FCF100EB9FDC /* Parse.framework */; };
+		EC24EF3F1994C5BC00894FBD /* ic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = EC24EF3E1994C5BC00894FBD /* ic_location.png */; };
+		EC24EF411994C5C700894FBD /* ic_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC24EF401994C5C700894FBD /* ic_location@2x.png */; };
 		EC2A5D5A19933CDC005858FA /* target_symbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC2A5D5919933CDC005858FA /* target_symbol@2x.png */; };
 		EC2A5D5C19933CE8005858FA /* target_symbol.png in Resources */ = {isa = PBXBuildFile; fileRef = EC2A5D5B19933CE8005858FA /* target_symbol.png */; };
 		EC50BE081990F6D800F57151 /* libUAirship-4.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */; };
@@ -556,6 +558,8 @@
 		5EFFBC86195C06E3003679C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5EFFFBE7198A515400F1474D /* ic_drawer2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_drawer2.png; sourceTree = "<group>"; };
 		EC1B19231990FCF100EB9FDC /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
+		EC24EF3E1994C5BC00894FBD /* ic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_location.png; sourceTree = "<group>"; };
+		EC24EF401994C5C700894FBD /* ic_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_location@2x.png"; sourceTree = "<group>"; };
 		EC2A5D5919933CDC005858FA /* target_symbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target_symbol@2x.png"; sourceTree = "<group>"; };
 		EC2A5D5B19933CE8005858FA /* target_symbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target_symbol.png; sourceTree = "<group>"; };
 		EC50BE071990F6D800F57151 /* libUAirship-4.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.1.a"; path = "CrimeStopper/Airship/libUAirship-4.0.1.a"; sourceTree = "<group>"; };
@@ -968,6 +972,8 @@
 				5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */,
 				ECEAE2711966C52A00BBA108 /* green_pin.png */,
 				ECEAE2721966C52A00BBA108 /* green_pin@2x.png */,
+				EC24EF401994C5C700894FBD /* ic_location@2x.png */,
+				EC24EF3E1994C5BC00894FBD /* ic_location.png */,
 				ECEAE2731966C52A00BBA108 /* points_bg_ios.png */,
 				ECEAE2741966C52A00BBA108 /* points_bg_ios@2x.png */,
 				ECEAE2751966C52A00BBA108 /* points_bg.png */,
@@ -1342,6 +1348,7 @@
 				5EF1245519878C330096C4EF /* ic_tow_truck1.png in Resources */,
 				5EF1245219878C330096C4EF /* ic_police_assistance.png in Resources */,
 				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,
+				EC24EF411994C5C700894FBD /* ic_location@2x.png in Resources */,
 				5EEF21771955A3FB00A0BA3F /* app_icon_120x120.png in Resources */,
 				5EFE9192195948D80014669E /* default_profile_2.png in Resources */,
 				ECEAE2701966C4FB00BBA108 /* add_photos@2x.png in Resources */,
@@ -1352,6 +1359,7 @@
 				5EEEB9171963DA800083CC56 /* ic_cycle.png in Resources */,
 				5E2371DE19866727000DF8E0 /* bullet.png in Resources */,
 				5E815EB71940832700CEAFAB /* Images.xcassets in Resources */,
+				EC24EF3F1994C5BC00894FBD /* ic_location.png in Resources */,
 				5EFD68561962AC80009F9399 /* AddInsuranceVC.xib in Resources */,
 				5EEF21751955A3FB00A0BA3F /* app_icon_58x58.png in Resources */,
 				5EB5B209196FC7CD00DE2ABE /* DirectionMapVC.xib in Resources */,

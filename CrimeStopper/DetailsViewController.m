@@ -313,11 +313,15 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
+    // string to check vehicle is cycle or something else
+    NSString *vehicleType = @"Registration number:";
+    
     // ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
     if ([self.vehicleHeader isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        vehicleType = @"Serial number:";
     } else if ([self.vehicleHeader isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([self.vehicleHeader isEqualToString:@"Motor Cycle"]) {
@@ -357,7 +361,7 @@
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", self.regNoHeader];
+    lblRegistration.text = [NSString stringWithFormat:@"%@ %@",vehicleType, self.regNoHeader];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
@@ -457,7 +461,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -467,7 +471,7 @@
                 [ivImage2 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = self.photo2Header;
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo2Header]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo2Header] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage2];
             }
             
@@ -478,7 +482,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = self.photo3Header;
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo3Header]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo3Header] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage3];
             }
             
