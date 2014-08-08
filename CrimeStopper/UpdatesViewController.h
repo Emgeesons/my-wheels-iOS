@@ -12,5 +12,6 @@
 @property (nonatomic,retain) IBOutlet UIView *viewLocation;
 
 -(IBAction)btnLocation_click:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnLetsGo;
 
 @end

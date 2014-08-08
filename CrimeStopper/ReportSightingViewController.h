@@ -34,5 +34,8 @@
 - (IBAction)addImage:(id)sender;
 
 @property (strong, nonatomic) NSString *sighting, *regNo, *make, *model;
+- (IBAction)previousClicked:(id)sender;
+- (IBAction)nextClicked:(id)sender;
+- (IBAction)doneClicked:(id)sender;
 
 @end

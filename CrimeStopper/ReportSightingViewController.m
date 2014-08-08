@@ -24,8 +24,10 @@
     UIActivityIndicatorView *activityIndicator;
     UIToolbar *bgToolBar;
     BOOL isLocationEnabled;
+    UITextField *activeTextField;
 }
 @property (nonatomic , strong) CLLocationManager *locationManager;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 @end
 
 @implementation ReportSightingViewController
@@ -64,6 +66,72 @@
     {
         [_viewLocationGuide setHidden:NO];
     }
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+        MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+        MKCoordinateRegion region = {coord, span};
+        [_mapView setRegion:region];
+        
+        _lblAddress.text = @"5601 SA Australia";
+        
+        originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+        originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
+        selectedLatitude = originalLatitude;
+        selectedLongitude = originalLongitude;
+    } else {
+        address = [[NSMutableString alloc] initWithString:@""];
+        CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:_locationManager.location.coordinate.latitude longitude:_locationManager.location.coordinate.longitude];
+        
+        // get location
+        CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+        [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error == nil && [placemarks count] > 0) {
+                placemark = [placemarks lastObject];
+                
+                if (placemark.subThoroughfare != NULL) {
+                    [address appendFormat:@"%@ ", placemark.subThoroughfare];
+                }
+                
+                if (placemark.thoroughfare != NULL) {
+                    [address appendFormat:@"%@ ", placemark.thoroughfare];
+                }
+                
+                if (placemark.postalCode != NULL) {
+                    [address appendFormat:@"%@ ", placemark.postalCode];
+                }
+                
+                if (placemark.locality != NULL) {
+                    [address appendFormat:@"%@ ", placemark.locality];
+                }
+                
+                if (placemark.administrativeArea != NULL) {
+                    [address appendFormat:@"%@ ", placemark.administrativeArea];
+                }
+                
+                if (placemark.country != NULL) {
+                    [address appendFormat:@"%@", placemark.country];
+                }
+                
+                _lblAddress.text = address;
+                
+                CLLocationCoordinate2D coord = {.latitude =  _locationManager.location.coordinate.latitude, .longitude =  _locationManager.location.coordinate.longitude};
+                MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
+                MKCoordinateRegion region = {coord, span};
+                
+                [self.mapView setRegion:region animated:YES];
+                
+                originalLatitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
+                originalLongitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.longitude];
+                selectedLatitude = originalLatitude;
+                selectedLongitude = originalLongitude;
+            }
+        }];
+    }
+
     
     // set contentSize of scrollview here
     [self.scrollView setContentSize:CGSizeMake(0, 450)];
@@ -114,6 +182,14 @@
     
     // setLocationEnabled as NO
     isLocationEnabled = NO;
+    
+    [self.txtRegistrationNo setInputAccessoryView:self.toolBar];
+    [self.txtMake setInputAccessoryView:self.toolBar];
+    [self.txtModel setInputAccessoryView:self.toolBar];
+    [self.txtColor setInputAccessoryView:self.toolBar];
+    [self.txtComments setInputAccessoryView:self.toolBar];
+    
+    [self deleteAllimageFiles];
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,6 +207,14 @@
 }
 
 - (IBAction)btnSendClicked:(id)sender {
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        return;
+    }
     
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
@@ -179,11 +263,11 @@
                                  @"pin" : pin,
                                  @"originalLatitude": originalLatitude,
                                  @"originalLongitude" : originalLongitude,
-                                 @"selectedLatitutde" : selectedLatitude,
+                                 @"selectedLatitude" : selectedLatitude,
                                  @"selectedLongitude" : selectedLongitude,
                                  @"location" : address,
                                  @"originalDate" : originalDate,
-                                 @"orginalTime" : originalTime,
+                                 @"originalTime" : originalTime,
                                  @"selectedDate" : selectedDate,
                                  @"selectedTime" : selectedTime,
                                  @"sightingType" : self.txtSighting.text,
@@ -191,7 +275,7 @@
                                  @"vehicleModel" : self.txtModel.text,
                                  @"vehicleColour" : self.txtColor.text,
                                  @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
-                                 @"registerationNumber" : self.txtRegistrationNo.text,
+                                 @"registrationNumber" : self.txtRegistrationNo.text,
                                  @"comments" : self.txtComments.text,
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
@@ -244,11 +328,11 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     
-    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+    /*if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Error" message:@"Location service is not enabled.\nGo to \"Settings->Privacy->LocationServices\"\nto enable location services." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
-    }
+    }*/
     
     isLocationEnabled = NO;
     
@@ -268,7 +352,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    CLLocation *currentLocation = newLocation;
+    /*CLLocation *currentLocation = newLocation;
     
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -303,7 +387,9 @@
                 [address appendFormat:@"%@", placemark.country];
             }
 
-            if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
+            NSLog(@"%@", originalLatitude);
+            
+            //if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
                 
                 CLLocationCoordinate2D coord = {.latitude =  currentLocation.coordinate.latitude, .longitude =  currentLocation.coordinate.longitude};
                 MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
@@ -315,14 +401,14 @@
                 originalLongitude = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
                 selectedLatitude = originalLatitude;
                 selectedLongitude = originalLongitude;
-            }
+            //}
             
             _lblAddress.text = address;
             
         } else {
             NSLog(@"%@", error.debugDescription);
         }
-    } ];
+    } ];*/
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -330,6 +416,12 @@
     // set selected coordinates
     selectedLatitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.latitude];
     selectedLongitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.longitude];
+    
+    if (originalLatitude == nil || originalLatitude == NULL) {
+        originalLatitude = selectedLatitude;
+        originalLongitude = selectedLongitude;
+        address = [[NSMutableString alloc] initWithString:@""];
+    }
     
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
     // Reverse Geocoding
@@ -366,6 +458,8 @@
                 _lblAddress.text = address;
             }
             
+            _lblAddress.text = address;
+            
         } else {
             NSLog(@"%@", error.debugDescription);
         }
@@ -376,6 +470,8 @@
 #pragma mark - UITextField delegate Methods
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    activeTextField=textField;
+    
     if (textField == self.txtSighting) {
         sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious Activity", @"Other", nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -424,27 +520,27 @@
         return NO;
     } else if(textField == self.txtRegistrationNo) {
         if ([DeviceInfo isIphone5]) {
-            //[self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 10) animated:YES];
         } else {
-            [self.scrollView setContentOffset:CGPointMake(0, 55) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 100) animated:YES];
         }
     } else if(textField == self.txtMake) {
         if ([DeviceInfo isIphone5]) {
-            [self.scrollView setContentOffset:CGPointMake(0, 10) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 48) animated:YES];
         } else {
-            [self.scrollView setContentOffset:CGPointMake(0, 95) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 140) animated:YES];
         }
     } else if(textField == self.txtModel || textField == self.txtColor) {
         if ([DeviceInfo isIphone5]) {
-            [self.scrollView setContentOffset:CGPointMake(0, 45) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 86) animated:YES];
         } else {
-            [self.scrollView setContentOffset:CGPointMake(0, 130) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 178) animated:YES];
         }
     } else if (textField == self.txtComments) {
         if ([DeviceInfo isIphone5]) {
-            [self.scrollView setContentOffset:CGPointMake(0, 85) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 124) animated:YES];
         } else {
-            [self.scrollView setContentOffset:CGPointMake(0, 170) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 218) animated:YES];
         }
     }
     return YES;
@@ -730,4 +826,34 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (IBAction)previousClicked:(id)sender {
+    NSInteger nextTag = activeTextField.tag-1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+}
+
+- (IBAction)nextClicked:(id)sender {
+    NSInteger nextTag = activeTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [activeTextField resignFirstResponder];
+    }
+}
+
+- (IBAction)doneClicked:(id)sender {
+    [activeTextField resignFirstResponder];
+    [self.scrollView setContentOffset:CGPointMake(0, -20) animated:YES];
+}
 @end

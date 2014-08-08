@@ -13,7 +13,9 @@
 #import "UIColor+Extra.h"
 #import "CustomImageView.h"
 #import "ReportSightingViewController.h"
+#import "Reachability.h"
 @import QuickLook;
+@import CoreLocation;
 
 #define MIN_HEIGHT 10.0f
 
@@ -21,10 +23,14 @@
     NSMutableArray *comments, *first_name, *location, *photo1, *photo2, *photo3, *sighting_id, *report_type, *selected_date, *selected_time;
     NSMutableArray *selectedImage;
     NSInteger initialValue;
+    
+    CLLocationManager *locationManager;
+    float latitude,longitude;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReportSoghting;
 - (IBAction)btnReportSightingClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *viewBG;
 
 @end
 
@@ -44,6 +50,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    
+    latitude = locationManager.location.coordinate.latitude;
+    longitude = locationManager.location.coordinate.longitude;
+    
     comments = [[NSMutableArray alloc] init];
     first_name = [[NSMutableArray alloc] init];
     location = [[NSMutableArray alloc] init];
@@ -62,8 +76,8 @@
     
     self.navItem.title = [NSString stringWithFormat:@"%@ %@", self.makeHeader, self.modelHeader];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
-    self.tableView.backgroundColor = self.view.backgroundColor;
+    self.viewBG.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
+    self.tableView.backgroundColor = self.viewBG.backgroundColor;
     
     //[self.btnReportSoghting setTintColor:[UIColor colorWithHexString:@"#00B268"]];
     [self.btnReportSoghting setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
@@ -114,6 +128,15 @@
 }
 
 -(void)loadDetailsUpdates {
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        return;
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -125,7 +148,9 @@
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString],
-                                 @"vehicleId" : self.vehicleID};
+                                 @"vehicleId" : self.vehicleID,
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     NSLog(@"%@", parameters);
     
@@ -288,11 +313,15 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
+    // string to check vehicle is cycle or something else
+    NSString *vehicleType = @"Registration number:";
+    
     // ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
     if ([self.vehicleHeader isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        vehicleType = @"Serial number:";
     } else if ([self.vehicleHeader isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([self.vehicleHeader isEqualToString:@"Motor Cycle"]) {
@@ -332,7 +361,7 @@
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", self.regNoHeader];
+    lblRegistration.text = [NSString stringWithFormat:@"%@ %@",vehicleType, self.regNoHeader];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
@@ -432,7 +461,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -442,7 +471,7 @@
                 [ivImage2 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = self.photo2Header;
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo2Header]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo2Header] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage2];
             }
             
@@ -453,7 +482,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = self.photo3Header;
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo3Header]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.photo3Header] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage3];
             }
             

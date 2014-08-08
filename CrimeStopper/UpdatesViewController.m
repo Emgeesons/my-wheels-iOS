@@ -17,9 +17,10 @@
 #import "LoginVC.h"
 #import "UserProfileVC.h"
 #import "LoginVC.h"
-#import "HomePageVC.h"
+#import "Reachability.h"
 
 @import QuickLook;
+@import CoreLocation;
 
 #define MIN_HEIGHT 10.0f
 
@@ -33,20 +34,28 @@
     
     NSMutableArray *vehicleHeader, *makeHeader, *modelHeader, *typeSightingHeader, *regNoHeader, *dateHeader, *timeHeader, *locationHeader, *commentHeader, *photo1Header, *photo2Header, *photo3Header, *vehicleID, *reportIDHeader, *insurance_company_numberHeader;
     
-    NSMutableArray *commentsMy, *first_nameMy, *locationMy, *makeMy, *modelMy, *photo1My, *photo2My, *photo3My, *registration_serial_noMy, *report_idMy, *report_typeMy, *selected_dateMy, *selected_timeMy, *vehicle_idMy, *vehicle_typeMy;
+    NSMutableArray *commentsMy, *first_nameMy, *locationMy, *makeMy, *modelMy, *photo1My, *photo2My, *photo3My, *registration_serial_noMy, *report_idMy, *report_typeMy, *selected_dateMy, *selected_timeMy, *vehicle_idMy, *vehicle_typeMy, *recovered_dateMy, *recovered_locationMy, *recovered_timeMy;
     
     UIToolbar *bgToolBar;
     
     UIActionSheet *sheet;
     
+    NSString *status;
+    
     //NSArray for sending details to ReportSummary Screen
     NSArray *detailsArray;
     
+    CLLocationManager *locationManager;
+    CLPlacemark *placemark;
+    float latitude,longitude;
+    NSMutableString *address;
 }
 @property (weak, nonatomic) IBOutlet UIView *viewOthers;
 @property (weak, nonatomic) IBOutlet UIView *viewMyUpdates;
 @property (weak, nonatomic) IBOutlet UIView *viewGuestUser;
 @property (weak, nonatomic) IBOutlet UIView *viewTableMyUpdates;
+@property (weak, nonatomic) IBOutlet UIView *viewVehicleReported;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewVehicleReported;
 
 - (IBAction)segmentedClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -74,6 +83,54 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    
+    latitude = locationManager.location.coordinate.latitude;
+    longitude = locationManager.location.coordinate.longitude;
+    
+    NSLog(@"latitude==> %f", latitude);
+    address = [[NSMutableString alloc] initWithString:@""];
+    CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    
+    // get location
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            
+            if (placemark.subThoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.subThoroughfare];
+            }
+            
+            if (placemark.thoroughfare != NULL) {
+                [address appendFormat:@"%@ ", placemark.thoroughfare];
+            }
+            
+            if (placemark.postalCode != NULL) {
+                [address appendFormat:@"%@ ", placemark.postalCode];
+            }
+            
+            if (placemark.locality != NULL) {
+                [address appendFormat:@"%@ ", placemark.locality];
+            }
+            
+            if (placemark.administrativeArea != NULL) {
+                [address appendFormat:@"%@ ", placemark.administrativeArea];
+            }
+            
+            if (placemark.country != NULL) {
+                [address appendFormat:@"%@", placemark.country];
+            }
+        }
+    }];
+    
+    // set background color of btnLetsGo
+    self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+    
     [_viewLocation setHidden:YES];
     // initialize all NSMutableArray here
     type = [[NSMutableArray alloc] init];
@@ -126,6 +183,9 @@
     selected_timeMy = [[NSMutableArray alloc] init];
     vehicle_idMy = [[NSMutableArray alloc] init];
     vehicle_typeMy = [[NSMutableArray alloc] init];
+    recovered_dateMy = [[NSMutableArray alloc] init];
+    recovered_locationMy = [[NSMutableArray alloc] init];
+    recovered_timeMy = [[NSMutableArray alloc] init];
     
     [self.btnVehicleRecovered setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
     
@@ -170,9 +230,16 @@
     //set loadMore as Yes at start
     loadMore = YES;
     
-    [self loadOtherUpdates];
-    
-    [self loadMyUpdates];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        [DeviceInfo errorInConnection];
+        [activityIndicator stopAnimating];
+    } else {
+        [self loadOtherUpdates];
+        [self loadMyUpdates];
+    }
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
     self.tableViewOthers.backgroundColor = self.view.backgroundColor;
@@ -197,9 +264,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)backButtonClicked:(id)sender {
-    HomePageVC *vc = [[HomePageVC alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(IBAction)btnLocation_click:(id)sender
 {
@@ -230,6 +295,15 @@
     else
     {
         NSLog(@"my");
+        
+        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        if (networkStatus == NotReachable)
+        {
+            self.viewTableMyUpdates.hidden = YES;
+            return;
+        }
+        
         self.viewOthers.hidden = YES;
         self.viewMyUpdates.hidden = NO;
         
@@ -253,9 +327,23 @@
             if (vehicles.count == 0) {
                 self.viewTableMyUpdates.hidden = YES;
                 self.viewGuestUser.hidden = NO;
+                self.viewVehicleReported.hidden = YES;
             } else {
-                self.viewGuestUser.hidden = YES;
-                self.viewTableMyUpdates.hidden = NO;
+                // check vehicle is recovered or not
+                // if yes show vehicle reported view
+                // else show tableview
+                if ([status isEqualToString:@"recovered"]) {
+                    self.viewGuestUser.hidden = YES;
+                    self.viewTableMyUpdates.hidden = YES;
+                    self.viewVehicleReported.hidden = NO;
+                    
+                    [self addSubviewsToScrollView];
+                    
+                } else {
+                    self.viewGuestUser.hidden = YES;
+                    self.viewTableMyUpdates.hidden = NO;
+                    self.viewVehicleReported.hidden = YES;
+                }
             }
         }
     }
@@ -279,13 +367,15 @@
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString],
                                  @"countReports" : [NSString stringWithFormat:@"%ld",(long)report],
-                                 @"countSightings" : [NSString stringWithFormat:@"%ld",(long)sighting]};
+                                 @"countSightings" : [NSString stringWithFormat:@"%ld",(long)sighting],
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -367,13 +457,15 @@
                                  @"pin" : pin,
                                  @"os" : OS_VERSION,
                                  @"make" : MAKE,
-                                 @"model" : [DeviceInfo platformNiceString]};
+                                 @"model" : [DeviceInfo platformNiceString],
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -403,6 +495,19 @@
                 [photo2Header addObject:reportData[i][@"photo2"]];
                 [photo3Header addObject:reportData[i][@"photo3"]];
                 [insurance_company_numberHeader addObject:reportData[i][@"insurance_company_number"]];
+                [recovered_dateMy addObject:reportData[i][@"recovered_date"]];
+                [recovered_locationMy addObject:reportData[i][@"recovered_location"]];
+                [recovered_timeMy addObject:reportData[i][@"recovered_time"]];
+                
+                status = reportData[i][@"status"];
+                
+                if ([status isEqualToString:@"reported"]) {
+                    self.viewTableMyUpdates.hidden = NO;
+                    self.viewVehicleReported.hidden = YES;
+                } else {
+                    self.viewTableMyUpdates.hidden = YES;
+                    self.viewVehicleReported.hidden = NO;
+                }
             }
             
             NSArray *sightingData = (NSArray *)[json objectForKey:@"sightings"];
@@ -413,9 +518,9 @@
                 [report_idMy addObject:sightingData[i][@"sightings_id"]];
                 [vehicle_typeMy addObject:@""];
                 [vehicle_idMy addObject:@""];
-                [makeMy addObject:sightingData[i][@"vehicle_make"]];
-                [modelMy addObject:sightingData[i][@"vehicle_model"]];
-                [registration_serial_noMy addObject:sightingData[i][@"registration_number"]];
+                //[makeMy addObject:sightingData[i][@"vehicle_make"]];
+                //[modelMy addObject:sightingData[i][@"vehicle_model"]];
+                //[registration_serial_noMy addObject:sightingData[i][@"registration_number"]];
                 [locationMy addObject:sightingData[i][@"location"]];
                 [selected_dateMy addObject:sightingData[i][@"selected_date"]];
                 [selected_timeMy addObject:sightingData[i][@"selected_time"]];
@@ -436,7 +541,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-        [DeviceInfo errorInConnection];
+        //[DeviceInfo errorInConnection];
         [activityIndicator stopAnimating];
     }];
 }
@@ -541,7 +646,8 @@
         }
     }
     //NSLog(@"%@", strName);
-    // Attribute string for User anme and activity
+    // Attribute string for User name and activity
+    
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
     [attrStringName addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f] range:NSMakeRange(0, strName.length)];
     [attrStringName addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#0067AD"] range:NSMakeRange(0, [first_name[indexPath] length])];
@@ -557,11 +663,15 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
+    // string to check vehicle is cycle or something else
+    NSString *vehicleType = @"Registration number:";
+    
     // ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
     if ([vehicle_type[indexPath] isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        vehicleType = @"Serial number:";
     } else if ([vehicle_type[indexPath] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([vehicle_type[indexPath] isEqualToString:@"Motor Cycle"]) {
@@ -601,7 +711,7 @@
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", registration_serial_no[indexPath]];
+    lblRegistration.text = [NSString stringWithFormat:@"%@ %@",vehicleType, registration_serial_no[indexPath]];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
@@ -700,7 +810,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -712,7 +822,7 @@
                 
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = photo2[indexPath];
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 
                 [viewBottom addSubview:ivImage2];
             }
@@ -725,7 +835,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = photo3[indexPath];
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 
                 [viewBottom addSubview:ivImage3];
             }
@@ -948,11 +1058,15 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
+    // string to check vehicle is cycle or something else
+    NSString *vehicleType = @"Registration number:";
+    
     // ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
     if ([vehicleHeader[indexPath] isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        vehicleType = @"Serial number:";
     } else if ([vehicleHeader[indexPath] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([vehicleHeader[indexPath] isEqualToString:@"Motor Cycle"]) {
@@ -992,7 +1106,7 @@
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", regNoHeader[indexPath]];
+    lblRegistration.text = [NSString stringWithFormat:@"%@ %@",vehicleType, regNoHeader[indexPath]];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
@@ -1092,7 +1206,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -1102,7 +1216,7 @@
                 [ivImage2 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = photo2Header[indexPath];
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2Header[indexPath]]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2Header[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage2];
             }
             
@@ -1113,7 +1227,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = photo3Header[indexPath];
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3Header[indexPath]]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3Header[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 [viewBottom addSubview:ivImage3];
             }
         }
@@ -1163,8 +1277,8 @@
     viewTop.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
     
     // add UILabel for Name of user
-    UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 30)];
-    NSString *strName = [NSString stringWithFormat:@"%@ spotted your %@", first_nameMy[indexPath], vehicle_typeMy[indexPath]];
+    UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 190, 30)];
+    NSString *strName = [NSString stringWithFormat:@"%@ spotted your %@", first_nameMy[indexPath], vehicleHeader[0]];
     
     // Attribute string for User anme and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
@@ -1172,6 +1286,16 @@
     [attrStringName addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#0067AD"] range:NSMakeRange(0, [first_nameMy[indexPath] length])];
     lblName.attributedText = attrStringName;
     [viewTop addSubview:lblName];
+    
+    // Add Type of report here.
+    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblName.frame.origin.x + lblName.frame.size.width + 5, lblName.frame.origin.y, 75, 30)];
+    lblTypeReport.numberOfLines = 0;
+    lblTypeReport.textAlignment = NSTextAlignmentRight;
+    lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+    lblTypeReport.text = [NSString stringWithFormat:@"%@", report_typeMy[indexPath]];
+    lblTypeReport.textColor = [UIColor colorWithHexString:@"#FF444C"];
+    [viewTop addSubview:lblTypeReport];
+    
     [viewBG addSubview:viewTop];
     
     /************************************* Top view Ends ***********************************/
@@ -1182,14 +1306,14 @@
     UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, viewTop.frame.origin.y + viewTop.frame.size.height, 300, 50)];
     viewBottom.backgroundColor = [UIColor whiteColor];
     
-    // ImageView for vehicle_type
+    /*// ImageView for vehicle_type
     UIImageView *ivVehicle = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 20, 15)];
     // set Image here
-    if ([vehicle_typeMy[indexPath] isEqualToString:@"Bicycle"]) {
+    if ([vehicleHeader[0] isEqualToString:@"Bicycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
-    } else if ([vehicle_typeMy[indexPath] isEqualToString:@"Car"]) {
+    } else if ([vehicleHeader[0] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicle_typeMy[indexPath] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicleHeader[0] isEqualToString:@"Motor Cycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         ivVehicle.image = [UIImage imageNamed:@"ic_other.png"];
@@ -1200,7 +1324,7 @@
     UILabel *lblMakeModel = [[UILabel alloc] initWithFrame:CGRectMake(ivVehicle.frame.origin.x + ivVehicle.frame.size.width + 5, ivVehicle.frame.origin.x, 180, MIN_HEIGHT)];
     lblMakeModel.numberOfLines = 0;
     lblMakeModel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
-    lblMakeModel.text = [NSString stringWithFormat:@"%@ %@", makeMy[indexPath], modelMy[indexPath]];
+    //lblMakeModel.text = [NSString stringWithFormat:@"%@ %@", makeMy[indexPath], modelMy[indexPath]];
     lblMakeModel.textColor = [UIColor colorWithHexString:@"#0067AD"];
     CGSize constraint = CGSizeMake(lblMakeModel.frame.size.width, 20000.0f);
     
@@ -1214,28 +1338,19 @@
     [lblMakeModel setFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y, lblMakeModel.frame.size.width, MAX(textRect.size.height, MIN_HEIGHT))];
     [viewBottom addSubview:lblMakeModel];
     
-    // Add Type of report here.
-    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 20)];
-    lblTypeReport.numberOfLines = 0;
-    lblTypeReport.textAlignment = NSTextAlignmentRight;
-    lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblTypeReport.text = [NSString stringWithFormat:@"%@", report_typeMy[indexPath]];
-    lblTypeReport.textColor = [UIColor colorWithHexString:@"#FF444C"];
-    [viewBottom addSubview:lblTypeReport];
-    
     // Add Registration number here
     UILabel *lblRegistration = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblMakeModel.frame.origin.y + lblMakeModel.frame.size.height, 268, 20)];
     lblRegistration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", registration_serial_noMy[indexPath]];
+    //lblRegistration.text = [NSString stringWithFormat:@"Registration number: %@", registration_serial_noMy[indexPath]];
     [viewBottom addSubview:lblRegistration];
     
     // Add horizontal line here
     UIImageView *ivHR = [[UIImageView alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblRegistration.frame.origin.y + lblRegistration.frame.size.height + 5, lblRegistration.frame.size.width, 1)];
     ivHR.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-    [viewBottom addSubview:ivHR];
+    [viewBottom addSubview:ivHR];*/
     
     // Add Date here
-    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, ivHR.frame.origin.y + ivHR.frame.size.height + 10, 160, 20)];
+    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 160, 20)];
     lblDate.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     
     NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
@@ -1247,7 +1362,7 @@
     [viewBottom addSubview:lblDate];
     
     // Add Time here
-    UILabel *lblTime = [[UILabel alloc] initWithFrame:CGRectMake(lblDate.frame.origin.x + lblDate.frame.size.width, lblDate.frame.origin.y, 100, lblDate.frame.size.height)];
+    UILabel *lblTime = [[UILabel alloc] initWithFrame:CGRectMake(lblDate.frame.origin.x + lblDate.frame.size.width + 15, lblDate.frame.origin.y, 100, lblDate.frame.size.height)];
     lblTime.textAlignment = NSTextAlignmentRight;
     lblTime.font = lblDate.font;
     
@@ -1259,7 +1374,7 @@
     [viewBottom addSubview:lblTime];
     
     // Add Location icon here
-    UIImageView *ivLocationIcon = [[UIImageView alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, lblDate.frame.origin.y + lblDate.frame.size.height + 5, 7, 10)];
+    UIImageView *ivLocationIcon = [[UIImageView alloc] initWithFrame:CGRectMake(lblDate.frame.origin.x, lblDate.frame.origin.y + lblDate.frame.size.height + 5, 7, 10)];
     ivLocationIcon.image = [UIImage imageNamed:@"ic_location.png"];
     [viewBottom addSubview:ivLocationIcon];
     
@@ -1405,7 +1520,7 @@
     NSDateFormatter *dtFormat = [NSDateFormatter new];
     [dtFormat setDateFormat:@"yyyy-MM-dd"];
     NSString *dtString = [dtFormat stringFromDate:date];
-    [dtFormat setDateFormat:@"hh:mm:ss"];
+    [dtFormat setDateFormat:@"HH:mm"];
     NSString *tmString = [dtFormat stringFromDate:date];
     
     /*NSLog(@"%@", dtString);
@@ -1416,7 +1531,10 @@
                                  @"reportId" : reportIDHeader[0],
                                  @"vehicleId" : vehicleID[0],
                                  @"date" : dtString,
-                                 @"time" : tmString};
+                                 @"time" : tmString,
+                                 @"location" : address,
+                                 @"latitude" : [NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
     //NSLog(@"%@", parameters);
     
@@ -1431,13 +1549,19 @@
         NSDictionary *json = (NSDictionary *)responseObject;
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
-            // Show ActionSheet Here
-            sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            
+            [self.scrollViewVehicleReported addSubview:[self plotHeaderViewWithType:@"view" withIndex:0]];
+            
+            UIView *lLastSC = [self.scrollViewVehicleReported.subviews lastObject];
+            NSInteger wdSC = lLastSC.frame.origin.y;
+            NSInteger htSC = lLastSC.frame.size.height;
             
             // Create BackgroundView as Container
-            UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 450)];
-            viewBG.backgroundColor = [UIColor whiteColor];
+            UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, wdSC + htSC + 20, 320, 280)];
+            viewBG.backgroundColor = [UIColor colorWithHexString:@"#f7f7f7"];
             [viewBG sizeToFit];
+            
+            //UILabel *lblTest = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 2000000000000000, 2000000000000000000)];
             
             // Add Done button here
             UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 300, 40)];
@@ -1455,13 +1579,26 @@
             
             // Add Date Time label here
             UILabel *lblDtTm = [[UILabel alloc] initWithFrame:CGRectMake(0, ivSuccess.frame.origin.y + ivSuccess.frame.size.height + 5, 320, 30)];
-            [dtFormat setDateFormat:@"E,MMMM dd,yyyy, HH:mm aaa"];
+            [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
             lblDtTm.textAlignment = NSTextAlignmentCenter;
             lblDtTm.text = [dtFormat stringFromDate:date];
             [viewBG addSubview:lblDtTm];
             
+            // Add Time here
+            UILabel *lblTm = [[UILabel alloc] initWithFrame:CGRectMake(0, lblDtTm.frame.origin.y + lblDtTm.frame.size.height, 320, 20)];
+            [dtFormat setDateFormat:@"HH:mm"];
+            lblTm.textAlignment = NSTextAlignmentCenter;
+            lblTm.text = tmString;
+            [viewBG addSubview:lblTm];
+            
+            // Add Location here
+            UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(0, lblTm.frame.origin.y + lblTm.frame.size.height, 320, 20)];
+            lblLocation.textAlignment = NSTextAlignmentCenter;
+            //lblLocation.text = [dtFormat stringFromDate:recovered_locationMy[0]];
+            [viewBG addSubview:lblLocation];
+            
             // Add Police Button here
-            UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblDtTm.frame.origin.y + lblDtTm.frame.size.height + 15, 135, 40)];
+            UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblLocation.frame.origin.y + lblLocation.frame.size.height + 15, 135, 40)];
             [btnPolice setTitle:@"Call Police" forState:UIControlStateNormal];
             btnPolice.titleLabel.textColor = btnDone.titleLabel.textColor;
             btnPolice.backgroundColor = btnDone.backgroundColor;
@@ -1478,10 +1615,27 @@
             [btnInsurer addTarget:self action:@selector(btnCallInsurerClicked:) forControlEvents:UIControlEventTouchUpInside];
             [viewBG addSubview:btnInsurer];
             
-            [sheet addSubview:viewBG];
+            [self.scrollViewVehicleReported addSubview:viewBG];
             
-            [sheet showInView:self.view];
-            [sheet setBounds:CGRectMake( 0, 0, 320, 450)];
+            float sizeOfContent = 0;
+            UIView *lLast1 = [self.scrollViewVehicleReported.subviews lastObject];
+            NSInteger wd1 = lLast1.frame.origin.y;
+            NSInteger ht1 = lLast1.frame.size.height;
+            
+            sizeOfContent = wd1+ht1;
+            
+            self.scrollViewVehicleReported.contentSize = CGSizeMake(self.scrollViewVehicleReported.frame.size.width, sizeOfContent);
+            
+            // hide
+            
+            [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.viewVehicleReported.alpha = 1;
+                self.viewTableMyUpdates.alpha = 0;
+                
+                self.viewTableMyUpdates.hidden = YES;
+                self.viewVehicleReported.hidden = NO;
+            } completion:nil];
+            
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
@@ -1496,6 +1650,89 @@
         [bgToolBar removeFromSuperview];
 
     }];
+}
+
+-(void)addSubviewsToScrollView {
+    [self.scrollViewVehicleReported addSubview:[self plotHeaderViewWithType:@"view" withIndex:0]];
+    
+    UIView *lLastSC = [self.scrollViewVehicleReported.subviews lastObject];
+    NSInteger wdSC = lLastSC.frame.origin.y;
+    NSInteger htSC = lLastSC.frame.size.height;
+    
+    // Create BackgroundView as Container
+    UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, wdSC + htSC + 20, 320, 280)];
+    viewBG.backgroundColor = [UIColor colorWithHexString:@"#f7f7f7"];
+    [viewBG sizeToFit];
+    
+    // Add Done button here
+    UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 300, 40)];
+    [btnDone setTitle:@"Done" forState:UIControlStateNormal];
+    btnDone.titleLabel.textColor = [UIColor whiteColor];
+    btnDone.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+    btnDone.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+    [btnDone addTarget:self action:@selector(btnDoneClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnDone];
+    
+    // Add Image of success here
+    UIImageView *ivSuccess = [[UIImageView alloc] initWithFrame:CGRectMake(125, btnDone.frame.origin.y + btnDone.frame.size.height + 5, 90, 90)];
+    [ivSuccess setImage:[UIImage imageNamed:@"target_symbol.png"]];
+    [viewBG addSubview:ivSuccess];
+    
+    NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
+    [dtFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dtStr = [dtFormat dateFromString:recovered_dateMy[0]];
+    
+    // Add Date Time label here
+    UILabel *lblDtTm = [[UILabel alloc] initWithFrame:CGRectMake(0, ivSuccess.frame.origin.y + ivSuccess.frame.size.height + 5, 320, 20)];
+    [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
+    lblDtTm.textAlignment = NSTextAlignmentCenter;
+    lblDtTm.text = [dtFormat stringFromDate:dtStr];
+    [viewBG addSubview:lblDtTm];
+    
+    [dtFormat setDateFormat:@"HH:mm:ss"];
+    NSDate *tmStr = [dtFormat dateFromString:recovered_timeMy[0]];
+    
+    // Add Time here
+    UILabel *lblTm = [[UILabel alloc] initWithFrame:CGRectMake(0, lblDtTm.frame.origin.y + lblDtTm.frame.size.height, 320, 20)];
+    [dtFormat setDateFormat:@"HH:mm"];
+    lblTm.textAlignment = NSTextAlignmentCenter;
+    lblTm.text = [dtFormat stringFromDate:tmStr];
+    [viewBG addSubview:lblTm];
+    
+    // Add Location here
+    UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(0, lblTm.frame.origin.y + lblTm.frame.size.height, 320, 20)];
+    lblLocation.textAlignment = NSTextAlignmentCenter;
+    lblLocation.text = [dtFormat stringFromDate:recovered_locationMy[0]];
+    [viewBG addSubview:lblLocation];
+    
+    // Add Police Button here
+    UIButton *btnPolice = [[UIButton alloc] initWithFrame:CGRectMake(20, lblLocation.frame.origin.y + lblLocation.frame.size.height + 15, 135, 40)];
+    [btnPolice setTitle:@"Call Police" forState:UIControlStateNormal];
+    btnPolice.titleLabel.textColor = btnDone.titleLabel.textColor;
+    btnPolice.backgroundColor = btnDone.backgroundColor;
+    btnPolice.titleLabel.font = btnDone.titleLabel.font;
+    [btnPolice addTarget:self action:@selector(btnCallPoliceClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnPolice];
+    
+    // Add Insurer Button here
+    UIButton *btnInsurer = [[UIButton alloc] initWithFrame:CGRectMake(btnPolice.frame.origin.x + btnPolice.frame.size.width + 10, btnPolice.frame.origin.y, btnPolice.frame.size.width, btnPolice.frame.size.height)];
+    [btnInsurer setTitle:@"Call Insurer" forState:UIControlStateNormal];
+    btnInsurer.titleLabel.textColor = btnDone.titleLabel.textColor;
+    btnInsurer.backgroundColor = btnDone.backgroundColor;
+    btnInsurer.titleLabel.font = btnDone.titleLabel.font;
+    [btnInsurer addTarget:self action:@selector(btnCallInsurerClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnInsurer];
+    
+    [self.scrollViewVehicleReported addSubview:viewBG];
+    
+    float sizeOfContent = 0;
+    UIView *lLast1 = [self.scrollViewVehicleReported.subviews lastObject];
+    NSInteger wd1 = lLast1.frame.origin.y;
+    NSInteger ht1 = lLast1.frame.size.height;
+    
+    sizeOfContent = wd1+ht1;
+    
+    self.scrollViewVehicleReported.contentSize = CGSizeMake(self.scrollViewVehicleReported.frame.size.width, sizeOfContent);
 }
 
 -(void)btnDoneClicked:(UIButton *)sender {

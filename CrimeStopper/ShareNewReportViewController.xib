@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareNewReportViewController">
             <connections>
+                <outlet property="btnShare" destination="rEU-Le-Wns" id="sEY-bX-7VM"/>
                 <outlet property="scrollView" destination="Cn8-Cf-Xhv" id="hz9-wi-BO6"/>
                 <outlet property="switchFacebook" destination="8jE-cz-uyZ" id="5ry-qy-LeE"/>
                 <outlet property="switchTwitter" destination="1rL-8e-QzK" id="wtl-aG-m2n"/>

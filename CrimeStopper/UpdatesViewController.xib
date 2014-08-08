@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdatesViewController">
             <connections>
+                <outlet property="btnLetsGo" destination="eH3-xB-d8w" id="HR4-i2-oVd"/>
                 <outlet property="btnLogin" destination="eH3-xB-d8w" id="Ayw-Hs-nFQ"/>
                 <outlet property="btnVehicleRecovered" destination="CHc-DR-q2E" id="l4F-ff-o03"/>
+                <outlet property="scrollViewVehicleReported" destination="heX-tH-8JF" id="Msk-1v-dWt"/>
                 <outlet property="segmentedControl" destination="sJK-EB-Wv6" id="jMC-7V-Etd"/>
                 <outlet property="tableViewMyUpdates" destination="wrg-XS-wnP" id="MYL-aQ-Rta"/>
                 <outlet property="tableViewOthers" destination="pIY-wg-MZ8" id="g5e-sg-RaL"/>
@@ -17,6 +19,7 @@
                 <outlet property="viewMyUpdates" destination="eyh-7m-2PE" id="Jgk-un-Hg0"/>
                 <outlet property="viewOthers" destination="vRM-Os-9Uj" id="ch6-eJ-FL1"/>
                 <outlet property="viewTableMyUpdates" destination="a2D-wO-aFb" id="g7R-P8-1NZ"/>
+                <outlet property="viewVehicleReported" destination="nY6-MS-cJK" id="p7d-gq-7Xk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -161,6 +164,26 @@
                                 <constraint firstItem="oTk-bb-rlt" firstAttribute="top" secondItem="scM-R5-nxm" secondAttribute="top" id="R51-jA-NHD"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-MS-cJK">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heX-tH-8JF">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="320" id="zlq-RQ-xye"/>
+                                    </constraints>
+                                </scrollView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="heX-tH-8JF" firstAttribute="top" secondItem="nY6-MS-cJK" secondAttribute="top" id="2dC-Pi-J77"/>
+                                <constraint firstAttribute="trailing" secondItem="heX-tH-8JF" secondAttribute="trailing" id="B0L-g1-VzA"/>
+                                <constraint firstAttribute="bottom" secondItem="heX-tH-8JF" secondAttribute="bottom" id="vMn-4h-duD"/>
+                                <constraint firstItem="heX-tH-8JF" firstAttribute="leading" secondItem="nY6-MS-cJK" secondAttribute="leading" id="yd3-Zw-CXW"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
@@ -170,8 +193,12 @@
                         <constraint firstItem="scM-R5-nxm" firstAttribute="leading" secondItem="eyh-7m-2PE" secondAttribute="leading" id="4cm-hP-XAA"/>
                         <constraint firstItem="a2D-wO-aFb" firstAttribute="top" secondItem="eyh-7m-2PE" secondAttribute="top" id="Nlh-Qj-mIr"/>
                         <constraint firstAttribute="trailing" secondItem="scM-R5-nxm" secondAttribute="trailing" id="Rew-Ut-HCu"/>
+                        <constraint firstItem="nY6-MS-cJK" firstAttribute="top" secondItem="eyh-7m-2PE" secondAttribute="top" id="TuD-J5-f9G"/>
+                        <constraint firstItem="nY6-MS-cJK" firstAttribute="leading" secondItem="eyh-7m-2PE" secondAttribute="leading" id="Y0k-jB-jCN"/>
                         <constraint firstItem="a2D-wO-aFb" firstAttribute="leading" secondItem="eyh-7m-2PE" secondAttribute="leading" id="Zkb-0V-SZL"/>
                         <constraint firstAttribute="bottom" secondItem="scM-R5-nxm" secondAttribute="bottom" id="kPb-Td-Ykf"/>
+                        <constraint firstAttribute="trailing" secondItem="nY6-MS-cJK" secondAttribute="trailing" id="kjB-YW-Q5d"/>
+                        <constraint firstAttribute="bottom" secondItem="nY6-MS-cJK" secondAttribute="bottom" id="uVm-lK-9sj"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hOd-wc-yLk">
@@ -258,7 +285,7 @@
         </view>
     </objects>
     <resources>
-        <image name="im_complete_profile.png" width="588" height="380"/>
+        <image name="im_complete_profile.png" width="294" height="190"/>
         <image name="location1.png" width="64" height="60"/>
         <image name="privacy1.png" width="64" height="60"/>
         <image name="settings1.png" width="64" height="60"/>

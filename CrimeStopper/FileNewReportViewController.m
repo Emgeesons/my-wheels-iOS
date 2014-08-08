@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "ShareNewReportViewController.h"
 #import "Reachability.h"
+#import "UIColor+Extra.h"
 
 
 @interface FileNewReportViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
@@ -50,6 +51,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    // set background color or btnLetsGo
+    self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
+    
     [_viewLocationGuide setHidden:YES];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
@@ -69,6 +73,71 @@
     if([latitude isEqualToString:@"0.000000"])
     {
         [_viewLocationGuide setHidden:NO];
+    }
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+        MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+        MKCoordinateRegion region = {coord, span};
+        [_mapView setRegion:region];
+        
+        _lblAddress.text = @"5601 SA Australia";
+        
+        originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+        originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
+        selectedLatitude = originalLatitude;
+        selectedLongitude = originalLongitude;
+    } else {
+        address = [[NSMutableString alloc] initWithString:@""];
+        CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:_locationManager.location.coordinate.latitude longitude:_locationManager.location.coordinate.longitude];
+        
+        // get location
+        CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+        [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error == nil && [placemarks count] > 0) {
+                placemark = [placemarks lastObject];
+                
+                if (placemark.subThoroughfare != NULL) {
+                    [address appendFormat:@"%@ ", placemark.subThoroughfare];
+                }
+                
+                if (placemark.thoroughfare != NULL) {
+                    [address appendFormat:@"%@ ", placemark.thoroughfare];
+                }
+                
+                if (placemark.postalCode != NULL) {
+                    [address appendFormat:@"%@ ", placemark.postalCode];
+                }
+                
+                if (placemark.locality != NULL) {
+                    [address appendFormat:@"%@ ", placemark.locality];
+                }
+                
+                if (placemark.administrativeArea != NULL) {
+                    [address appendFormat:@"%@ ", placemark.administrativeArea];
+                }
+                
+                if (placemark.country != NULL) {
+                    [address appendFormat:@"%@", placemark.country];
+                }
+                
+                _lblAddress.text = address;
+                
+                CLLocationCoordinate2D coord = {.latitude =  _locationManager.location.coordinate.latitude, .longitude =  _locationManager.location.coordinate.longitude};
+                MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
+                MKCoordinateRegion region = {coord, span};
+                
+                [self.mapView setRegion:region animated:YES];
+                
+                originalLatitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
+                originalLongitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.longitude];
+                selectedLatitude = originalLatitude;
+                selectedLongitude = originalLongitude;
+            }
+        }];
     }
 
     // set contentSize of scrollview here
@@ -95,10 +164,17 @@
     activityIndicator.center = self.view.center;
     [bgToolBar addSubview:activityIndicator];
     
+    //add tap gesture for lblVehicleName
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectVehicles:)];
+    [self.lblVehicleName addGestureRecognizer:tapGesture];
+    
     NSArray *vehicles = [[NSUserDefaults standardUserDefaults] arrayForKey:@"vehicles"];
     if (vehicles.count == 0) {
         self.vwNoVehicle.hidden = NO;
         self.vwFileReport.hidden = YES;
+        
+        self.navItem.rightBarButtonItem = nil;
+        
     } else {
         self.vwNoVehicle.hidden = YES;
         self.vwFileReport.hidden = NO;
@@ -151,6 +227,8 @@
     
     // setLocationEnabled as NO
     isLocationEnabled = NO;
+    
+    [self deleteAllimageFiles];
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,11 +252,11 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     
-    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+    /*if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Error" message:@"Location service is not enabled.\nGo to \"Settings->Privacy->LocationServices\"\nto enable location services." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
-    }
+    }*/
     
     isLocationEnabled = NO;
     
@@ -198,7 +276,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    CLLocation *currentLocation = newLocation;
+    /*CLLocation *currentLocation = newLocation;
     
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -233,7 +311,7 @@
                 [address appendFormat:@"%@", placemark.country];
             }
             
-            if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
+            //if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
                 
                 CLLocationCoordinate2D coord = {.latitude =  currentLocation.coordinate.latitude, .longitude =  currentLocation.coordinate.longitude};
                 MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
@@ -245,14 +323,14 @@
                 originalLongitude = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
                 selectedLatitude = originalLatitude;
                 selectedLongitude = originalLongitude;
-            }
+            //}
             
             _lblAddress.text = address;
             
         } else {
             NSLog(@"%@", error.debugDescription);
         }
-    } ];
+    } ];*/
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -260,6 +338,12 @@
     // set selected coordinates
     selectedLatitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.latitude];
     selectedLongitude = [NSString stringWithFormat:@"%f", self.mapView.centerCoordinate.longitude];
+    
+    if (originalLatitude == nil || originalLatitude == NULL) {
+        originalLatitude = selectedLatitude;
+        originalLongitude = selectedLongitude;
+        address = [[NSMutableString alloc] initWithString:@""];
+    }
     
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
     // Reverse Geocoding
@@ -296,6 +380,8 @@
                 _lblAddress.text = address;
             }
             
+            _lblAddress.text = address;
+            
             
         } else {
             NSLog(@"%@", error.debugDescription);
@@ -316,7 +402,6 @@
 }
 
 - (IBAction)selectVehicles:(id)sender {
-    
     // Open DatePicker when age textfield is clicked
     sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
@@ -420,7 +505,7 @@
     
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of Sighting" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of report" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
@@ -451,11 +536,11 @@
                                  @"pin" : pin,
                                  @"originalLatitude": originalLatitude,
                                  @"originalLongitude" : originalLongitude,
-                                 @"selectedLatitutde" : selectedLatitude,
+                                 @"selectedLatitude" : selectedLatitude,
                                  @"selectedLongitude" : selectedLongitude,
                                  @"location" : address,
                                  @"originalDate" : originalDate,
-                                 @"orginalTime" : originalTime,
+                                 @"originalTime" : originalTime,
                                  @"selectedDate" : selectedDate,
                                  @"selectedTime" : selectedTime,
                                  @"reportType" : self.txtSighting.text,
@@ -665,7 +750,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Stolen /Abandoned Vehicle?", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism"/*, @"Stolen /Abandoned Vehicle?"*/, nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
@@ -724,6 +809,22 @@
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
+}
+
+-(void)deleteAllimageFiles {
+    // Delete all user's body picks from gallery folder
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *directory = [documentsDirectoryPath stringByAppendingPathComponent:@"fileNewReport/"];
+    NSError *error = nil;
+    for (NSString *file in [fm contentsOfDirectoryAtPath:directory error:&error]) {
+        BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", directory, file] error:&error];
+        if (!success || error) {
+            // it failed.
+            [activityIndicator stopAnimating];
+        }
+    }
 }
 
 @end

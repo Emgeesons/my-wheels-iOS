@@ -74,6 +74,20 @@
 		5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E815EE81940949500CEAFAB /* LoginVC.m */; };
 		5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EE91940949500CEAFAB /* LoginVC.xib */; };
 		5E815EED194095D400CEAFAB /* i_agree.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EEC194095D400CEAFAB /* i_agree.png */; };
+		5E8E20131994DE5F00EA7959 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E1FFF1994DE5F00EA7959 /* DetailsViewController.m */; };
+		5E8E20141994DE5F00EA7959 /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E20001994DE5F00EA7959 /* DetailsViewController.xib */; };
+		5E8E20151994DE5F00EA7959 /* FileNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E20021994DE5F00EA7959 /* FileNewReportViewController.m */; };
+		5E8E20161994DE5F00EA7959 /* FileNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E20031994DE5F00EA7959 /* FileNewReportViewController.xib */; };
+		5E8E20171994DE5F00EA7959 /* ReportSightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E20051994DE5F00EA7959 /* ReportSightingViewController.m */; };
+		5E8E20181994DE5F00EA7959 /* ReportSightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E20061994DE5F00EA7959 /* ReportSightingViewController.xib */; };
+		5E8E20191994DE5F00EA7959 /* ReportSubmittedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E20081994DE5F00EA7959 /* ReportSubmittedViewController.m */; };
+		5E8E201A1994DE5F00EA7959 /* ReportSubmittedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E20091994DE5F00EA7959 /* ReportSubmittedViewController.xib */; };
+		5E8E201B1994DE5F00EA7959 /* ReportSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E200B1994DE5F00EA7959 /* ReportSummaryViewController.m */; };
+		5E8E201C1994DE5F00EA7959 /* ReportSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E200C1994DE5F00EA7959 /* ReportSummaryViewController.xib */; };
+		5E8E201D1994DE5F00EA7959 /* ShareNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E200E1994DE5F00EA7959 /* ShareNewReportViewController.m */; };
+		5E8E201E1994DE5F00EA7959 /* ShareNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E200F1994DE5F00EA7959 /* ShareNewReportViewController.xib */; };
+		5E8E201F1994DE5F00EA7959 /* UpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E20111994DE5F00EA7959 /* UpdatesViewController.m */; };
+		5E8E20201994DE5F00EA7959 /* UpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8E20121994DE5F00EA7959 /* UpdatesViewController.xib */; };
 		5E9CCB9A1949AF2A006B43AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB991949AF2A006B43AE /* AudioToolbox.framework */; };
 		5E9CCB9C1949AF44006B43AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB9B1949AF44006B43AE /* CFNetwork.framework */; };
 		5E9CCB9E1949AF56006B43AE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB9D1949AF56006B43AE /* CoreLocation.framework */; };
@@ -168,23 +182,9 @@
 		5EF96138198FB47500ED6565 /* ic_car3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EF96134198FB47500ED6565 /* ic_car3.png */; };
 		5EF96139198FB47500ED6565 /* ic_cycle3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EF96135198FB47500ED6565 /* ic_cycle3.png */; };
 		5EF9613A198FB47500ED6565 /* ic_other3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EF96136198FB47500ED6565 /* ic_other3.png */; };
-		5EF9F239197CD40A003A3775 /* ShareNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F237197CD40A003A3775 /* ShareNewReportViewController.m */; };
-		5EF9F23A197CD40A003A3775 /* ShareNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F238197CD40A003A3775 /* ShareNewReportViewController.xib */; };
-		5EF9F23E197CD42C003A3775 /* ReportSubmittedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F23C197CD42C003A3775 /* ReportSubmittedViewController.m */; };
-		5EF9F23F197CD42C003A3775 /* ReportSubmittedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F23D197CD42C003A3775 /* ReportSubmittedViewController.xib */; };
-		5EF9F243197CD43E003A3775 /* ReportSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F241197CD43E003A3775 /* ReportSummaryViewController.m */; };
-		5EF9F244197CD43E003A3775 /* ReportSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F242197CD43E003A3775 /* ReportSummaryViewController.xib */; };
 		5EF9F24A197CD46C003A3775 /* FHSStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F247197CD46C003A3775 /* FHSStream.m */; };
 		5EF9F24B197CD46C003A3775 /* FHSTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F249197CD46C003A3775 /* FHSTwitterEngine.m */; };
-		5EF9F24F197CD489003A3775 /* UpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F24D197CD489003A3775 /* UpdatesViewController.m */; };
-		5EF9F250197CD489003A3775 /* UpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F24E197CD489003A3775 /* UpdatesViewController.xib */; };
 		5EF9F253197CD4F0003A3775 /* UIColor+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F252197CD4F0003A3775 /* UIColor+Extra.m */; };
-		5EF9F25A197CD537003A3775 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F258197CD537003A3775 /* DetailsViewController.m */; };
-		5EF9F25B197CD537003A3775 /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F259197CD537003A3775 /* DetailsViewController.xib */; };
-		5EF9F25F197CD57B003A3775 /* ReportSightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F25D197CD57B003A3775 /* ReportSightingViewController.m */; };
-		5EF9F260197CD57B003A3775 /* ReportSightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F25E197CD57B003A3775 /* ReportSightingViewController.xib */; };
-		5EF9F264197CD696003A3775 /* FileNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F262197CD696003A3775 /* FileNewReportViewController.m */; };
-		5EF9F265197CD696003A3775 /* FileNewReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF9F263197CD696003A3775 /* FileNewReportViewController.xib */; };
 		5EF9F268197CD6F6003A3775 /* CustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9F267197CD6F6003A3775 /* CustomImageView.m */; };
 		5EFABB36196D4A8F007C0781 /* MyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFABB35196D4A8F007C0781 /* MyLocation.m */; };
 		5EFABB39196D4D20007C0781 /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFABB38196D4D20007C0781 /* MyAnnotation.m */; };
@@ -338,6 +338,27 @@
 		5E815EE81940949500CEAFAB /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		5E815EE91940949500CEAFAB /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		5E815EEC194095D400CEAFAB /* i_agree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_agree.png; sourceTree = "<group>"; };
+		5E8E1FFE1994DE5F00EA7959 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		5E8E1FFF1994DE5F00EA7959 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		5E8E20001994DE5F00EA7959 /* DetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsViewController.xib; sourceTree = "<group>"; };
+		5E8E20011994DE5F00EA7959 /* FileNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNewReportViewController.h; sourceTree = "<group>"; };
+		5E8E20021994DE5F00EA7959 /* FileNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNewReportViewController.m; sourceTree = "<group>"; };
+		5E8E20031994DE5F00EA7959 /* FileNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileNewReportViewController.xib; sourceTree = "<group>"; };
+		5E8E20041994DE5F00EA7959 /* ReportSightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSightingViewController.h; sourceTree = "<group>"; };
+		5E8E20051994DE5F00EA7959 /* ReportSightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSightingViewController.m; sourceTree = "<group>"; };
+		5E8E20061994DE5F00EA7959 /* ReportSightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSightingViewController.xib; sourceTree = "<group>"; };
+		5E8E20071994DE5F00EA7959 /* ReportSubmittedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSubmittedViewController.h; sourceTree = "<group>"; };
+		5E8E20081994DE5F00EA7959 /* ReportSubmittedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSubmittedViewController.m; sourceTree = "<group>"; };
+		5E8E20091994DE5F00EA7959 /* ReportSubmittedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSubmittedViewController.xib; sourceTree = "<group>"; };
+		5E8E200A1994DE5F00EA7959 /* ReportSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSummaryViewController.h; sourceTree = "<group>"; };
+		5E8E200B1994DE5F00EA7959 /* ReportSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSummaryViewController.m; sourceTree = "<group>"; };
+		5E8E200C1994DE5F00EA7959 /* ReportSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSummaryViewController.xib; sourceTree = "<group>"; };
+		5E8E200D1994DE5F00EA7959 /* ShareNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareNewReportViewController.h; sourceTree = "<group>"; };
+		5E8E200E1994DE5F00EA7959 /* ShareNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareNewReportViewController.m; sourceTree = "<group>"; };
+		5E8E200F1994DE5F00EA7959 /* ShareNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareNewReportViewController.xib; sourceTree = "<group>"; };
+		5E8E20101994DE5F00EA7959 /* UpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatesViewController.h; sourceTree = "<group>"; };
+		5E8E20111994DE5F00EA7959 /* UpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatesViewController.m; sourceTree = "<group>"; };
+		5E8E20121994DE5F00EA7959 /* UpdatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdatesViewController.xib; sourceTree = "<group>"; };
 		5E9CC95C1949ABE3006B43AE /* facebook-ios-sdk-3.14.1.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; name = "facebook-ios-sdk-3.14.1.pkg"; path = "../../../Downloads/facebook-ios-sdk-3.14.1.pkg"; sourceTree = "<group>"; };
 		5E9CCB991949AF2A006B43AE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5E9CCB9B1949AF44006B43AE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -447,33 +468,12 @@
 		5EF96134198FB47500ED6565 /* ic_car3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_car3.png; sourceTree = "<group>"; };
 		5EF96135198FB47500ED6565 /* ic_cycle3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_cycle3.png; sourceTree = "<group>"; };
 		5EF96136198FB47500ED6565 /* ic_other3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_other3.png; sourceTree = "<group>"; };
-		5EF9F236197CD40A003A3775 /* ShareNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareNewReportViewController.h; sourceTree = "<group>"; };
-		5EF9F237197CD40A003A3775 /* ShareNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareNewReportViewController.m; sourceTree = "<group>"; };
-		5EF9F238197CD40A003A3775 /* ShareNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareNewReportViewController.xib; sourceTree = "<group>"; };
-		5EF9F23B197CD42C003A3775 /* ReportSubmittedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSubmittedViewController.h; sourceTree = "<group>"; };
-		5EF9F23C197CD42C003A3775 /* ReportSubmittedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSubmittedViewController.m; sourceTree = "<group>"; };
-		5EF9F23D197CD42C003A3775 /* ReportSubmittedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSubmittedViewController.xib; sourceTree = "<group>"; };
-		5EF9F240197CD43E003A3775 /* ReportSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSummaryViewController.h; sourceTree = "<group>"; };
-		5EF9F241197CD43E003A3775 /* ReportSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSummaryViewController.m; sourceTree = "<group>"; };
-		5EF9F242197CD43E003A3775 /* ReportSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSummaryViewController.xib; sourceTree = "<group>"; };
 		5EF9F246197CD46C003A3775 /* FHSStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSStream.h; sourceTree = "<group>"; };
 		5EF9F247197CD46C003A3775 /* FHSStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSStream.m; sourceTree = "<group>"; };
 		5EF9F248197CD46C003A3775 /* FHSTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSTwitterEngine.h; sourceTree = "<group>"; };
 		5EF9F249197CD46C003A3775 /* FHSTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSTwitterEngine.m; sourceTree = "<group>"; };
-		5EF9F24C197CD489003A3775 /* UpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatesViewController.h; sourceTree = "<group>"; };
-		5EF9F24D197CD489003A3775 /* UpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatesViewController.m; sourceTree = "<group>"; };
-		5EF9F24E197CD489003A3775 /* UpdatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdatesViewController.xib; sourceTree = "<group>"; };
 		5EF9F251197CD4F0003A3775 /* UIColor+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extra.h"; sourceTree = "<group>"; };
 		5EF9F252197CD4F0003A3775 /* UIColor+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extra.m"; sourceTree = "<group>"; };
-		5EF9F257197CD537003A3775 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
-		5EF9F258197CD537003A3775 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		5EF9F259197CD537003A3775 /* DetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsViewController.xib; sourceTree = "<group>"; };
-		5EF9F25C197CD57B003A3775 /* ReportSightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSightingViewController.h; sourceTree = "<group>"; };
-		5EF9F25D197CD57B003A3775 /* ReportSightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSightingViewController.m; sourceTree = "<group>"; };
-		5EF9F25E197CD57B003A3775 /* ReportSightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportSightingViewController.xib; sourceTree = "<group>"; };
-		5EF9F261197CD696003A3775 /* FileNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNewReportViewController.h; sourceTree = "<group>"; };
-		5EF9F262197CD696003A3775 /* FileNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNewReportViewController.m; sourceTree = "<group>"; };
-		5EF9F263197CD696003A3775 /* FileNewReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileNewReportViewController.xib; sourceTree = "<group>"; };
 		5EF9F266197CD6F6003A3775 /* CustomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImageView.h; sourceTree = "<group>"; };
 		5EF9F267197CD6F6003A3775 /* CustomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageView.m; sourceTree = "<group>"; };
 		5EFABB34196D4A8F007C0781 /* MyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocation.h; sourceTree = "<group>"; };
@@ -835,29 +835,29 @@
 		5E815ED3194084A000CEAFAB /* view controller */ = {
 			isa = PBXGroup;
 			children = (
-				5EF9F261197CD696003A3775 /* FileNewReportViewController.h */,
-				5EF9F262197CD696003A3775 /* FileNewReportViewController.m */,
-				5EF9F263197CD696003A3775 /* FileNewReportViewController.xib */,
-				5EF9F25C197CD57B003A3775 /* ReportSightingViewController.h */,
-				5EF9F25D197CD57B003A3775 /* ReportSightingViewController.m */,
-				5EF9F25E197CD57B003A3775 /* ReportSightingViewController.xib */,
-				5EF9F257197CD537003A3775 /* DetailsViewController.h */,
-				5EF9F258197CD537003A3775 /* DetailsViewController.m */,
-				5EF9F259197CD537003A3775 /* DetailsViewController.xib */,
-				5EF9F24C197CD489003A3775 /* UpdatesViewController.h */,
-				5EF9F24D197CD489003A3775 /* UpdatesViewController.m */,
-				5EF9F24E197CD489003A3775 /* UpdatesViewController.xib */,
-				5EF9F240197CD43E003A3775 /* ReportSummaryViewController.h */,
-				5EF9F241197CD43E003A3775 /* ReportSummaryViewController.m */,
-				5EF9F242197CD43E003A3775 /* ReportSummaryViewController.xib */,
-				5EF9F23B197CD42C003A3775 /* ReportSubmittedViewController.h */,
-				5EF9F23C197CD42C003A3775 /* ReportSubmittedViewController.m */,
-				5EF9F23D197CD42C003A3775 /* ReportSubmittedViewController.xib */,
-				5EF9F236197CD40A003A3775 /* ShareNewReportViewController.h */,
-				5EF9F237197CD40A003A3775 /* ShareNewReportViewController.m */,
-				5EF9F238197CD40A003A3775 /* ShareNewReportViewController.xib */,
 				5E815ED91940859F00CEAFAB /* HomeScreenVC.h */,
 				5E815EDA1940859F00CEAFAB /* HomeScreenVC.m */,
+				5E8E1FFE1994DE5F00EA7959 /* DetailsViewController.h */,
+				5E8E1FFF1994DE5F00EA7959 /* DetailsViewController.m */,
+				5E8E20001994DE5F00EA7959 /* DetailsViewController.xib */,
+				5E8E20011994DE5F00EA7959 /* FileNewReportViewController.h */,
+				5E8E20021994DE5F00EA7959 /* FileNewReportViewController.m */,
+				5E8E20031994DE5F00EA7959 /* FileNewReportViewController.xib */,
+				5E8E20041994DE5F00EA7959 /* ReportSightingViewController.h */,
+				5E8E20051994DE5F00EA7959 /* ReportSightingViewController.m */,
+				5E8E20061994DE5F00EA7959 /* ReportSightingViewController.xib */,
+				5E8E20071994DE5F00EA7959 /* ReportSubmittedViewController.h */,
+				5E8E20081994DE5F00EA7959 /* ReportSubmittedViewController.m */,
+				5E8E20091994DE5F00EA7959 /* ReportSubmittedViewController.xib */,
+				5E8E200A1994DE5F00EA7959 /* ReportSummaryViewController.h */,
+				5E8E200B1994DE5F00EA7959 /* ReportSummaryViewController.m */,
+				5E8E200C1994DE5F00EA7959 /* ReportSummaryViewController.xib */,
+				5E8E200D1994DE5F00EA7959 /* ShareNewReportViewController.h */,
+				5E8E200E1994DE5F00EA7959 /* ShareNewReportViewController.m */,
+				5E8E200F1994DE5F00EA7959 /* ShareNewReportViewController.xib */,
+				5E8E20101994DE5F00EA7959 /* UpdatesViewController.h */,
+				5E8E20111994DE5F00EA7959 /* UpdatesViewController.m */,
+				5E8E20121994DE5F00EA7959 /* UpdatesViewController.xib */,
 				5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */,
 				5E815EE019408CE900CEAFAB /* DisclaimerViewController.h */,
 				5E815EE119408CE900CEAFAB /* DisclaimerViewController.m */,
@@ -1236,20 +1236,23 @@
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5EEEDFB71992372D00016E2F /* add_photo_profile.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
-				5EF9F23F197CD42C003A3775 /* ReportSubmittedViewController.xib in Resources */,
 				ECEAE27D1966C52A00BBA108 /* points_bg.png in Resources */,
+				5E8E201C1994DE5F00EA7959 /* ReportSummaryViewController.xib in Resources */,
+				5E8E201A1994DE5F00EA7959 /* ReportSubmittedViewController.xib in Resources */,
 				5EEF217E1955AC1900A0BA3F /* CrimeStopper-Info.plist in Resources */,
-				5EF9F25B197CD537003A3775 /* DetailsViewController.xib in Resources */,
+				5E8E20181994DE5F00EA7959 /* ReportSightingViewController.xib in Resources */,
 				5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */,
 				5EF124431987827D0096C4EF /* ic_nav_rate_us1.png in Resources */,
 				5E05DCCC195EBDE90081256F /* default_profile_home2.png in Resources */,
-				5EF9F260197CD57B003A3775 /* ReportSightingViewController.xib in Resources */,
 				5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */,
 				5EF9613A198FB47500ED6565 /* ic_other3.png in Resources */,
 				5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */,
+				5E8E20201994DE5F00EA7959 /* UpdatesViewController.xib in Resources */,
 				5EE8C91F1951AFFA009550A1 /* star@2x.png in Resources */,
 				5EEF21961955B44300A0BA3F /* female_active.png in Resources */,
 				ECEAE27E1966C52A00BBA108 /* points_bg@2x.png in Resources */,
+				5E8E20161994DE5F00EA7959 /* FileNewReportViewController.xib in Resources */,
+				5E8E20141994DE5F00EA7959 /* DetailsViewController.xib in Resources */,
 				5E815EAF1940832700CEAFAB /* InfoPlist.strings in Resources */,
 				5EF1241A198777B10096C4EF /* ic_map.png in Resources */,
 				5EEF21931955B44300A0BA3F /* male_inactive.png in Resources */,
@@ -1269,9 +1272,7 @@
 				5EFD88EF1980E19A003628FA /* EvertTimePinVC.xib in Resources */,
 				5EEF21791955A3FB00A0BA3F /* app_icon_1024x1024.png in Resources */,
 				5EFABB44196D7060007C0781 /* current_location.png in Resources */,
-				5EF9F265197CD696003A3775 /* FileNewReportViewController.xib in Resources */,
 				5E9E35D319544CE500485733 /* im_next@1x.png in Resources */,
-				5EF9F23A197CD40A003A3775 /* ShareNewReportViewController.xib in Resources */,
 				5EF1245419878C330096C4EF /* ic_suburban_taxi1.png in Resources */,
 				5EF124411987827D0096C4EF /* ic_nav_home1.png in Resources */,
 				5EFE9195195948D80014669E /* ic_male.png in Resources */,
@@ -1284,17 +1285,16 @@
 				5E9E35D419544CE500485733 /* im_previous@1x.png in Resources */,
 				5E815EED194095D400CEAFAB /* i_agree.png in Resources */,
 				5EEEB9181963DA800083CC56 /* ic_other.png in Resources */,
-				5EF9F244197CD43E003A3775 /* ReportSummaryViewController.xib in Resources */,
 				5EF4DF3F194AF66C00061EF3 /* LoginWithFacebookVC.xib in Resources */,
 				5E815EDD1940859F00CEAFAB /* HomeScreenVC.xib in Resources */,
 				5E9D1B341966678600F668EE /* EditVehicleVC.xib in Resources */,
 				5EF96132198FB2B100ED6565 /* ic_cycle2.png in Resources */,
 				5EF1242A1987804E0096C4EF /* ic_file_new_report1.png in Resources */,
 				5EF124121987705F0096C4EF /* login_bg@2x.png in Resources */,
-				5EF9F250197CD489003A3775 /* UpdatesViewController.xib in Resources */,
 				5E9D1B391966738200F668EE /* EditInsuranceVC.xib in Resources */,
 				5EF96138198FB47500ED6565 /* ic_car3.png in Resources */,
 				5E09517B19417C9B00DC97E2 /* login_btn_bg.png in Resources */,
+				5E8E201E1994DE5F00EA7959 /* ShareNewReportViewController.xib in Resources */,
 				5E3C3FBB196A9A11007E6AFA /* ic_unlike_grey.png in Resources */,
 				5E04AF4D19505CBD003F6CD4 /* default_profile_1.png in Resources */,
 				5EFE9194195948D80014669E /* ic_female.png in Resources */,
@@ -1390,8 +1390,8 @@
 				5EFFBC71195C00B0003679C6 /* UIImageView+AFNetworking.m in Sources */,
 				5EF9F268197CD6F6003A3775 /* CustomImageView.m in Sources */,
 				5EFFBC6E195C00B0003679C6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				5E8E20151994DE5F00EA7959 /* FileNewReportViewController.m in Sources */,
 				5E182B3E19653D6E003C1793 /* MyVehicleVC.m in Sources */,
-				5EF9F23E197CD42C003A3775 /* ReportSubmittedViewController.m in Sources */,
 				5EFE919C195964700014669E /* THProgressView.m in Sources */,
 				5EFFBC27195C00B0003679C6 /* AFHTTPRequestOperationManager.m in Sources */,
 				5E815EB51940832700CEAFAB /* AppDelegate.m in Sources */,
@@ -1403,9 +1403,9 @@
 				5E815EE319408CE900CEAFAB /* DisclaimerViewController.m in Sources */,
 				5EFABB36196D4A8F007C0781 /* MyLocation.m in Sources */,
 				5E815EEA1940949500CEAFAB /* LoginVC.m in Sources */,
-				5EF9F243197CD43E003A3775 /* ReportSummaryViewController.m in Sources */,
 				5EFD68551962AC80009F9399 /* AddInsuranceVC.m in Sources */,
 				5EFFBC28195C00B0003679C6 /* AFHTTPSessionManager.m in Sources */,
+				5E8E20171994DE5F00EA7959 /* ReportSightingViewController.m in Sources */,
 				5EFFBC6F195C00B0003679C6 /* UIAlertView+AFNetworking.m in Sources */,
 				5EFFBC29195C00B0003679C6 /* AFNetworkReachabilityManager.m in Sources */,
 				5E04AF07194FFD7E003F6CD4 /* NavigationHomeVC.m in Sources */,
@@ -1417,8 +1417,8 @@
 				ECEAE26E1966C1AF00BBA108 /* DeviceInfo.m in Sources */,
 				5E0369DE197393F000E5009F /* VehicleTipsCell.m in Sources */,
 				5EFD88EE1980E19A003628FA /* EvertTimePinVC.m in Sources */,
+				5E8E201B1994DE5F00EA7959 /* ReportSummaryViewController.m in Sources */,
 				5EFFBC74195C00B0003679C6 /* UIWebView+AFNetworking.m in Sources */,
-				5EF9F264197CD696003A3775 /* FileNewReportViewController.m in Sources */,
 				5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */,
 				5E815EB11940832700CEAFAB /* main.m in Sources */,
 				5EFFBC26195C00B0003679C6 /* AFHTTPRequestOperation.m in Sources */,
@@ -1429,19 +1429,19 @@
 				5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */,
 				5EFFBC2A195C00B0003679C6 /* AFSecurityPolicy.m in Sources */,
 				5EB5B208196FC7CD00DE2ABE /* DirectionMapVC.m in Sources */,
-				5EF9F25F197CD57B003A3775 /* ReportSightingViewController.m in Sources */,
+				5E8E201F1994DE5F00EA7959 /* UpdatesViewController.m in Sources */,
 				5EF9F24B197CD46C003A3775 /* FHSTwitterEngine.m in Sources */,
 				5EA4BC75195D7BF1006B4B5A /* EditDetailsVC.m in Sources */,
-				5EF9F239197CD40A003A3775 /* ShareNewReportViewController.m in Sources */,
 				5E04AF1019500608003F6CD4 /* TableViewCell.m in Sources */,
 				5EFFBC2D195C00B0003679C6 /* AFURLResponseSerialization.m in Sources */,
 				5EFFBC2C195C00B0003679C6 /* AFURLRequestSerialization.m in Sources */,
 				5EFABB39196D4D20007C0781 /* MyAnnotation.m in Sources */,
 				5E182B4619654252003C1793 /* MyVehicleCell.m in Sources */,
+				5E8E20191994DE5F00EA7959 /* ReportSubmittedViewController.m in Sources */,
+				5E8E201D1994DE5F00EA7959 /* ShareNewReportViewController.m in Sources */,
 				5E02BD73196C136B00897687 /* FindVehicleVC.m in Sources */,
 				5EF9F253197CD4F0003A3775 /* UIColor+Extra.m in Sources */,
-				5EF9F24F197CD489003A3775 /* UpdatesViewController.m in Sources */,
-				5EF9F25A197CD537003A3775 /* DetailsViewController.m in Sources */,
+				5E8E20131994DE5F00EA7959 /* DetailsViewController.m in Sources */,
 				5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */,
 				5EB5B2121970033D00DE2ABE /* RatingTipsVC.m in Sources */,
 				5E3C3FAE196A6975007E6AFA /* mParkingCell.m in Sources */,
