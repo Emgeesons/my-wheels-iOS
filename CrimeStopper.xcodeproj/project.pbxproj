@@ -841,6 +841,7 @@
 			children = (
 				5E815ED91940859F00CEAFAB /* HomeScreenVC.h */,
 				5E815EDA1940859F00CEAFAB /* HomeScreenVC.m */,
+				5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */,
 				5E8E1FFE1994DE5F00EA7959 /* DetailsViewController.h */,
 				5E8E1FFF1994DE5F00EA7959 /* DetailsViewController.m */,
 				5E8E20001994DE5F00EA7959 /* DetailsViewController.xib */,
@@ -862,9 +863,9 @@
 				5E8E20101994DE5F00EA7959 /* UpdatesViewController.h */,
 				5E8E20111994DE5F00EA7959 /* UpdatesViewController.m */,
 				5E8E20121994DE5F00EA7959 /* UpdatesViewController.xib */,
-				5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */,
 				5E815EE019408CE900CEAFAB /* DisclaimerViewController.h */,
 				5E815EE119408CE900CEAFAB /* DisclaimerViewController.m */,
+				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
 				5E815EE71940949500CEAFAB /* LoginVC.h */,
 				5E815EE81940949500CEAFAB /* LoginVC.m */,
 				5E815EE91940949500CEAFAB /* LoginVC.xib */,
@@ -957,7 +958,6 @@
 				ECEAE2761966C52A00BBA108 /* points_bg@2x.png */,
 				ECEAE2771966C52A00BBA108 /* red_pin.png */,
 				ECEAE2781966C52A00BBA108 /* red_pin@2x.png */,
-				5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */,
 				5E815EE519408DFD00CEAFAB /* disclaimer_bg.png */,
 				5E815EEC194095D400CEAFAB /* i_agree.png */,
 				5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */,
@@ -1534,7 +1534,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "My Wheels";
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1568,7 +1568,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "My Wheels";
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

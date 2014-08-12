@@ -1100,12 +1100,13 @@ int intques;
 
         
     }
-    else if (textField.tag == 8)
+    else if (textField.tag == 9)
     {
         NSUInteger newLength = [txtPin4.text length] + [string length] - range.length;
         if(newLength >1)
         {
             NSLog(@"no");
+            [txtPin4 resignFirstResponder];
             //return NO;
         }
        else if(newLength == 0)
