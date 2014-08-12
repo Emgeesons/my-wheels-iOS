@@ -90,7 +90,7 @@ UINavigationController *nav;
     // push is enabled if the outlined process is followed. This call is required.
     [[UAPush shared] registerDeviceToken:deviceToken];
 }
-
+////
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     UA_LINFO(@"Received remote notification: %@", userInfo);

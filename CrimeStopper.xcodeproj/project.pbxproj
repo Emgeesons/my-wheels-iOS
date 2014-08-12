@@ -1596,7 +1596,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Users/yogesh/Documents/Airship/**";
+				HEADER_SEARCH_PATHS = "/Users/asha/Documents/Airship/**";
 				INFOPLIST_FILE = "CrimeStopper/CrimeStopper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1636,7 +1636,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Users/yogesh/Documents/Airship/**";
+				HEADER_SEARCH_PATHS = "/Users/asha/Documents/Airship/**";
 				INFOPLIST_FILE = "CrimeStopper/CrimeStopper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
