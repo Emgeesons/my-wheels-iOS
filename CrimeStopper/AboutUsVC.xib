@@ -99,7 +99,7 @@ forward with information to help solve crimes. It also educates the community on
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="S2t-RK-8tw">
-                            <rect key="frame" x="13" y="84" width="293" height="86"/>
+                            <rect key="frame" x="13" y="84" width="293" height="97"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <string key="text">As a community organisation and not-for-profit, we depend on corporate partnerships, government funding and donations. Indeed, development of this My Wheels app would not have been possible without the support of the Federal Attorney-General’s Department.
 </string>
@@ -107,7 +107,7 @@ forward with information to help solve crimes. It also educates the community on
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kqr-wh-SQA">
-                            <rect key="frame" x="14" y="164" width="293" height="94"/>
+                            <rect key="frame" x="14" y="178" width="293" height="94"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <string key="text">Crime Stoppers works with Police, businesses and the public to solve, reduce and prevent crime by providing secure ways for information about illegal activity and unsolved crimes to be reported to Police.</string>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
