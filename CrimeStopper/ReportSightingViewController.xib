@@ -12,7 +12,7 @@
                 <outlet property="imageview3" destination="yJT-tI-oPi" id="bOx-2r-o4l"/>
                 <outlet property="lblAddress" destination="PGj-dM-DbA" id="ydZ-nD-cag"/>
                 <outlet property="mapView" destination="kNQ-fL-xpB" id="d9g-ar-5jf"/>
-                <outlet property="navBar" destination="O8G-9n-mcb" id="W83-a9-aje"/>
+                <outlet property="navBar" destination="O8G-9n-mcb" id="H8i-bI-kgY"/>
                 <outlet property="scrollView" destination="iLg-Le-EF5" id="tFH-Ua-2lR"/>
                 <outlet property="toolBar" destination="44A-3r-z2k" id="YNf-8e-IKg"/>
                 <outlet property="txtColor" destination="ORy-bh-pvw" id="fSo-Ii-BEK"/>

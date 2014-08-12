@@ -9,6 +9,8 @@
                 <outlet property="btnCallInsurer" destination="AWO-aV-hDY" id="qFJ-J2-dby"/>
                 <outlet property="btnCallPolice" destination="OMy-lZ-iuy" id="Xkc-Q9-fKS"/>
                 <outlet property="btnCallPoliceXPositionConstraint" destination="Qcs-AD-jbX" id="pcb-Rh-voo"/>
+                <outlet property="navBar" destination="lTe-tO-EiY" id="AgR-AD-ePV"/>
+                <outlet property="navBarHeightConstraint" destination="4FI-h2-r1o" id="J6Q-Gx-AcA"/>
                 <outlet property="scrollView" destination="vHp-p7-44n" id="BM6-mf-fBp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -18,10 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lTe-tO-EiY">
-                    <rect key="frame" x="0.0" y="16" width="320" height="44"/>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTe-tO-EiY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="4FI-h2-r1o"/>
+                        <constraint firstAttribute="width" constant="320" id="zSr-oO-J6H"/>
+                    </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <textAttributes key="titleTextAttributes">
@@ -99,6 +105,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="ZqL-my-nYQ" secondAttribute="bottom" id="4CV-GM-8Lo"/>
+                <constraint firstItem="lTe-tO-EiY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Lku-v7-Yz0"/>
+                <constraint firstItem="lTe-tO-EiY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZMs-QW-ciU"/>
                 <constraint firstItem="ZqL-my-nYQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="abr-Jx-PJL"/>
                 <constraint firstItem="ZqL-my-nYQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cxm-Az-9d7"/>
                 <constraint firstAttribute="trailing" secondItem="ZqL-my-nYQ" secondAttribute="trailing" id="uJY-hq-Er3"/>

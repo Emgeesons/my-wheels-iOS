@@ -50,6 +50,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    // set navigationBar height to 55
+    self.navBarHeightConstraint.constant = 55;
+    [self.navBar setNeedsUpdateConstraints];
+    
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;

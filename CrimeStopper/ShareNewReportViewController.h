@@ -11,5 +11,6 @@
 @interface ShareNewReportViewController : UIViewController
 
 @property (nonatomic, strong) NSString *photo1, *vehicleId;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 
 @end

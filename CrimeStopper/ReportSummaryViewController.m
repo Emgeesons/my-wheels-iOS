@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCallInsurer;
 - (IBAction)btnCallInsurerClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnCallPoliceXPositionConstraint;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navBarHeightConstraint;
 
 @end
 
@@ -47,6 +49,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // set navigationBar height to 55
+    self.navBarHeightConstraint.constant = 55;
+    [self.navBar setNeedsUpdateConstraints];
     
     self.btnCallPolice.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     self.btnCallInsurer.backgroundColor = self.btnCallPolice.backgroundColor;

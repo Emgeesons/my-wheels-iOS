@@ -84,6 +84,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self createDownloadFolder];
+    
+    self.navBarHeightConstraint.constant = 55;
+    [self.navBar setNeedsUpdateConstraints];
+    
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
@@ -962,6 +967,18 @@
     }
 }
 
+-(void)createDownloadFolder {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/download"];
+    
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+}
+
+
 -(void)openImage:(CustomImageView *)imageView {
     
     [self deleteAllimageFiles];
@@ -1536,7 +1553,7 @@
                                  @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                  @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
-    //NSLog(@"%@", parameters);
+    NSLog(@"Vehicle Recovered:%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@vehicleRecovered.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1594,7 +1611,7 @@
             // Add Location here
             UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(0, lblTm.frame.origin.y + lblTm.frame.size.height, 320, 20)];
             lblLocation.textAlignment = NSTextAlignmentCenter;
-            //lblLocation.text = [dtFormat stringFromDate:recovered_locationMy[0]];
+            lblLocation.text = address;
             [viewBG addSubview:lblLocation];
             
             // Add Police Button here

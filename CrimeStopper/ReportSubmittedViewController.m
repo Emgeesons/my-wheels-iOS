@@ -19,6 +19,7 @@
     float latitude,longitude;
 }
 - (IBAction)reportSummaryClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @end
 
@@ -37,6 +38,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // set navigationBar height to 55
+    CGRect frame = self.navBar.frame;
+    frame.size.height = 55;
+    frame.origin.y = 0;
+    self.navBar.frame = frame;
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone;

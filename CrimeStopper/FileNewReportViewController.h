@@ -39,5 +39,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnSend;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) IBOutlet UIView *viewselectVehicle;
+@property (weak, nonatomic) IBOutlet UITableView *tvSelectVehicle;
+- (IBAction)btnCancelClicked:(id)sender;
 
 @end

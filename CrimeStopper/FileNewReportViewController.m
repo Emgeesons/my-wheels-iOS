@@ -25,7 +25,7 @@
     NSInteger selectedNumber;
     NSDate *datePickerSelectedDate;
     NSDateFormatter *dateFormat, *timeFormat;
-    UIToolbar *bgToolBar;
+    UIToolbar *bgToolBar, *bgToolBar1;
     UIActivityIndicatorView *activityIndicator;
     
     BOOL isLocationEnabled;
@@ -50,6 +50,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // set navigationBar height to 55
+    CGRect frame = self.navBar.frame;
+    frame.size.height = 55;
+    frame.origin.y = 0;
+    self.navBar.frame = frame;
     
     // set background color or btnLetsGo
     self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
@@ -157,6 +163,12 @@
     bgToolBar.barStyle = UIBarStyleBlack;
     bgToolBar.alpha = 0.7;
     bgToolBar.translucent = YES;
+    
+    // Add UIToolBar to view with alpha 0.7 for transparency
+    bgToolBar1 = [[UIToolbar alloc] initWithFrame:self.view.frame];
+    bgToolBar1.barStyle = UIBarStyleBlack;
+    bgToolBar1.alpha = 0.7;
+    bgToolBar1.translucent = YES;
     
     // initialize activityIndicator and add it to UIToolBar.
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -276,7 +288,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    /*CLLocation *currentLocation = newLocation;
+    CLLocation *currentLocation = newLocation;
     
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -330,7 +342,7 @@
         } else {
             NSLog(@"%@", error.debugDescription);
         }
-    } ];*/
+    } ];
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -402,7 +414,21 @@
 }
 
 - (IBAction)selectVehicles:(id)sender {
-    // Open DatePicker when age textfield is clicked
+    
+    if (vehicleModel.count == 1) {
+        return;
+    }
+    
+    // add bgToolbar to view
+    [self.view.superview insertSubview:bgToolBar1 aboveSubview:self.view];
+    
+    CGRect frame1 = self.viewselectVehicle.frame;
+    frame1.origin.x = 30;
+    frame1.origin.y = 95;
+    self.viewselectVehicle.frame = frame1;
+    [bgToolBar1 addSubview:self.viewselectVehicle];
+    
+    /*// Open DatePicker when age textfield is clicked
     sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, 320, 200) style:UITableViewStylePlain];
@@ -425,7 +451,7 @@
     
     [sheet addSubview:_tableView];
     [sheet showInView:self.view];
-    [sheet setBounds:CGRectMake( 0, 0, 320, 450)];
+    [sheet setBounds:CGRectMake( 0, 0, 320, 450)];*/
 }
 
 #pragma mark - UIActionSheet done/cancel buttons
@@ -435,7 +461,7 @@
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == sightingPicker) {
-        if (buttonIndex == 3) {
+        if (buttonIndex == 2) {
             // return when cancel is clicked
             return;
         }
@@ -505,7 +531,7 @@
     
     // Check Type of Sighting
     if ([DeviceInfo trimString:self.txtSighting.text].length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of report" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Select type of Report" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
@@ -610,6 +636,12 @@
     return 1;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 59;
+}
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:cellIdentifier];
@@ -658,6 +690,7 @@
     selectedNumber = indexPath.row;
     
     [self cancelClicked];
+    [self btnCancelClicked:nil];
 }
 
 #pragma mark - UIImagePicker Delegate methods
@@ -760,6 +793,7 @@
         
         datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
         datePicker.backgroundColor = [UIColor whiteColor];
+        datePicker.maximumDate = [NSDate date];
         
         // Open selected date when date is previously selected
         if (datePickerSelectedDate) {
@@ -827,4 +861,7 @@
     }
 }
 
+- (IBAction)btnCancelClicked:(id)sender {
+    [bgToolBar1 removeFromSuperview];
+}
 @end

@@ -13,5 +13,7 @@
 
 -(IBAction)btnLocation_click:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnLetsGo;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navBarHeightConstraint;
 
 @end

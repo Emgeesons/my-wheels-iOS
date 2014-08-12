@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailsViewController">
             <connections>
                 <outlet property="btnReportSoghting" destination="R91-eL-0sF" id="2x5-no-qrp"/>
+                <outlet property="navBar" destination="KvM-kK-58X" id="pho-Fq-Dv3"/>
+                <outlet property="navBarHeightConstraint" destination="zIK-O1-CJQ" id="5xb-TZ-nU9"/>
                 <outlet property="navItem" destination="jTX-XE-WN4" id="tUI-Kf-0pv"/>
                 <outlet property="tableView" destination="l60-xt-v7C" id="vJ0-ub-np4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -18,10 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KvM-kK-58X">
-                    <rect key="frame" x="0.0" y="16" width="320" height="44"/>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvM-kK-58X">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="8k6-fJ-fBn"/>
+                        <constraint firstAttribute="height" constant="44" id="zIK-O1-CJQ"/>
+                    </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <textAttributes key="titleTextAttributes">
@@ -80,8 +86,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="KvM-kK-58X" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6F2-m8-ehP"/>
                 <constraint firstItem="fcu-bs-BVS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="9qf-kQ-L0Z"/>
                 <constraint firstAttribute="bottom" secondItem="fcu-bs-BVS" secondAttribute="bottom" id="Jcz-wx-gxf"/>
+                <constraint firstItem="KvM-kK-58X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="T5a-QI-Ba6"/>
                 <constraint firstItem="fcu-bs-BVS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="f3T-oa-irh"/>
                 <constraint firstAttribute="trailing" secondItem="fcu-bs-BVS" secondAttribute="trailing" id="oaw-o3-468"/>
             </constraints>

@@ -16,6 +16,7 @@
 @interface ShareNewReportViewController () <FHSTwitterEngineAccessTokenDelegate, UITextViewDelegate> {
     BOOL check;
     UIActivityIndicatorView *activityIndicator;
+    UIToolbar *bgToolBar;
 }
 @property (weak, nonatomic) IBOutlet UITextView *tvFacebook;
 @property (weak, nonatomic) IBOutlet UITextView *tvtwitter;
@@ -27,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)switchClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnShare;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+- (IBAction)doneClicked:(id)sender;
 
 @end
 
@@ -46,6 +49,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    // set navigationBar height to 55
+    CGRect frame = self.navBar.frame;
+    frame.size.height = 55;
+    frame.origin.y = 0;
+    self.navBar.frame = frame;
+    
     self.btnShare.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     
     self.photoArray = @[self.photo1];
@@ -64,14 +73,23 @@
     
     check = YES;
     
+    // Add UIToolBar to view with alpha 0.7 for transparency
+    bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];
+    bgToolBar.barStyle = UIBarStyleBlack;
+    bgToolBar.alpha = 0.7;
+    bgToolBar.translucent = YES;
+    
     // initialize activityIndicator and add it to UIToolBar.
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityIndicator.frame = CGRectMake(0, 0, 40, 40);
     activityIndicator.center = self.view.center;
-    [self.view addSubview:activityIndicator];
+    [bgToolBar addSubview:activityIndicator];
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignTextBox)];
     [self.scrollView addGestureRecognizer:singleTap];
+    
+    [self.tvFacebook setInputAccessoryView:self.toolBar];
+    [self.tvtwitter setInputAccessoryView:self.toolBar];
     
     //NSLog(@"access token==> %@", [[FHSTwitterEngine sharedEngine] accessToken].description);
 }
@@ -84,6 +102,8 @@
 
 - (IBAction)skipClicked:(id)sender {
     [activityIndicator stopAnimating];
+    [bgToolBar removeFromSuperview];
+    
     if (check) {
         check = NO;
         // delete all local images
@@ -105,6 +125,12 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please select facebook or twitter to share" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     } else {
+        
+        // Start Animating activityIndicator
+        [activityIndicator startAnimating];
+        
+        // add bgToolbar to view
+        [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
     
         // For Facebook
         if (self.switchFacebook.on) {
@@ -285,5 +311,8 @@
             }
         }
     }
+}
+- (IBAction)doneClicked:(id)sender {
+    [self resignTextBox];
 }
 @end

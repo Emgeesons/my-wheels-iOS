@@ -7,9 +7,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareNewReportViewController">
             <connections>
                 <outlet property="btnShare" destination="rEU-Le-Wns" id="sEY-bX-7VM"/>
+                <outlet property="navBar" destination="lUC-aU-G5C" id="o3L-o0-U2a"/>
                 <outlet property="scrollView" destination="Cn8-Cf-Xhv" id="hz9-wi-BO6"/>
                 <outlet property="switchFacebook" destination="8jE-cz-uyZ" id="5ry-qy-LeE"/>
                 <outlet property="switchTwitter" destination="1rL-8e-QzK" id="wtl-aG-m2n"/>
+                <outlet property="toolBar" destination="6oB-Iw-2py" id="Pa7-Fk-oce"/>
                 <outlet property="tvFacebook" destination="quo-eD-AFL" id="fev-tV-KxJ"/>
                 <outlet property="tvtwitter" destination="STH-ua-9U6" id="sus-E7-ufW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -17,7 +19,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <navigationBar contentMode="scaleToFill" id="lUC-aU-G5C">
@@ -40,7 +42,7 @@
                     </items>
                 </navigationBar>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Cn8-Cf-Xhv">
-                    <rect key="frame" x="0.0" y="60" width="320" height="421"/>
+                    <rect key="frame" x="0.0" y="60" width="320" height="509"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share on Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mTQ-sq-Ojc">
@@ -108,7 +110,19 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6oB-Iw-2py">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem width="236" style="plain" systemItem="fixedSpace" id="Mo4-Ko-F5c"/>
+                <barButtonItem title="Done" width="62" id="ven-cR-bbw">
+                    <connections>
+                        <action selector="doneClicked:" destination="-1" id="g9c-NJ-7YN"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+        </toolbar>
     </objects>
 </document>

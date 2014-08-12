@@ -46,6 +46,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    // set navigationBar height to 55
+    CGRect frame = self.navBar.frame;
+    frame.size.height = 55;
+    frame.origin.y = 0;
+    self.navBar.frame = frame;
+    
     [_viewLocationGuide setHidden:YES];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
@@ -352,7 +358,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    /*CLLocation *currentLocation = newLocation;
+    CLLocation *currentLocation = newLocation;
     
     // Reverse Geocoding
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -408,7 +414,7 @@
         } else {
             NSLog(@"%@", error.debugDescription);
         }
-    } ];*/
+    } ];
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -473,7 +479,7 @@
     activeTextField=textField;
     
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious Activity", @"Other", nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious Activity", /*@"Other",*/ nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
@@ -483,6 +489,7 @@
         
         datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
         datePicker.backgroundColor = [UIColor whiteColor];
+        datePicker.maximumDate = [NSDate date];
         
         // Open selected date when date is previously selected
         if (datePickerSelectedDate) {
@@ -618,7 +625,7 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == sightingPicker) {
-        if (buttonIndex == 4) {
+        if (buttonIndex == 3) {
             // return when cancel is clicked
             return;
         }
