@@ -380,7 +380,7 @@
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"%@", responseObject);
+        NSLog(@"other : %@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -470,7 +470,7 @@
     
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        NSLog(@"my updates : %@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -557,7 +557,7 @@
     if (tableView == self.tableViewOthers) {
         return type.count;
     } else if(tableView == self.tableViewMyUpdates) {
-        NSLog(@"vehicle_idMy ==> %lu", (unsigned long)vehicle_idMy.count);
+        //NSLog(@"vehicle_idMy ==> %lu", (unsigned long)vehicle_idMy.count);
         if (vehicle_idMy.count == 0) {
             return 1;
         }
@@ -642,6 +642,8 @@
             strName = [NSString stringWithFormat:@"%@ reported a %@", first_name[indexPath], report_type[indexPath]];
         } else if ([report_type[indexPath] isEqualToString:@"Stolen /Abandoned Vehicle?"]) {
             strName = [NSString stringWithFormat:@"%@ reported a Stolen /Abandoned Vehicle", first_name[indexPath]];
+        } else {
+            strName = [NSString stringWithFormat:@"%@ reported a %@", first_name[indexPath], report_type[indexPath]];
         }
     } else {
         if ([report_type[indexPath] isEqualToString:@"Theft"] || [report_type[indexPath] isEqualToString:@"Vandalism"] || [report_type[indexPath] isEqualToString:@"Suspicious Activity"]) {
@@ -652,7 +654,7 @@
     }
     //NSLog(@"%@", strName);
     // Attribute string for User name and activity
-    
+    //NSLog(@"%@ : %@", type[indexPath], first_name[indexPath]);
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
     [attrStringName addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f] range:NSMakeRange(0, strName.length)];
     [attrStringName addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#0067AD"] range:NSMakeRange(0, [first_name[indexPath] length])];

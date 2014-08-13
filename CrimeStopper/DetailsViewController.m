@@ -147,6 +147,11 @@
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     
+    if (UserID == NULL) {
+        UserID = @"0";
+        pin = @"0000";
+    }
+    
     NSDictionary *parameters = @{@"userId" : UserID,
                                  @"pin" : pin,
                                  @"os" : OS_VERSION,
