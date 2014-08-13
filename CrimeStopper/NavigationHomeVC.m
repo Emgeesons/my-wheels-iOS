@@ -103,6 +103,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"index path : %d",indexPath.row);
     if(indexPath.row == 0)
     {
         HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:[NSBundle mainBundle]];
@@ -181,8 +182,10 @@
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
         if(UserID == nil || UserID == (id)[NSNull null] || [UserID isEqualToString:@""])
         {
-            LoginVC *vc = [[LoginVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj];
+            [self.revealSideViewController replaceCentralViewControllerWithNewControllerWithoutPopping:nav];
+            [self.revealSideViewController popViewControllerAnimated:YES];
         }
         else
         {

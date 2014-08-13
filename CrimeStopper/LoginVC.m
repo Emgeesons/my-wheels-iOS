@@ -170,19 +170,19 @@
     [super viewWillAppear:YES];
     if(IsIphone5)
     {
-        self.scrollview.frame = CGRectMake(0, 0, 320, 588);
+        self.scrollview.frame = CGRectMake(0, -20, 320, 588);
         
-       [self.scrollview setContentSize:CGSizeMake(320, 568)];
+        [self.scrollview setContentSize:CGSizeMake(320, 568)];
         imgBackGround.frame = CGRectMake(0, 0, 320, 568);
-       
+        
         viewButtons.frame = CGRectMake(19, 283, 282, 220);
         _imgView.frame = CGRectMake(0, 0, 282, 220);
         _imgView1.frame = CGRectMake(0,0, 282, 220);
         _imgView2.frame = CGRectMake(0,0, 282, 220);
         _imgView3.frame = CGRectMake(0,0, 282, 220);
         btnFacebook.frame = CGRectMake(26, 15, 230, 55);
-      btnLogin.frame = CGRectMake(26, 83, 230, 55);
-       btnRegister.frame = CGRectMake(26, 153, 230, 55);
+        btnLogin.frame = CGRectMake(26, 83, 230, 55);
+        btnRegister.frame = CGRectMake(26, 153, 230, 55);
         
         viewForgotPin.frame = CGRectMake(19, 283, 282, 220);
         viewForgotQuestion.frame = CGRectMake(19, 283, 282, 220);
@@ -203,21 +203,21 @@
         _imgView.frame = CGRectMake(0,0, 282, 200);
         _imgView1.frame = CGRectMake(0,0, 282, 200);
         _imgView2.frame = CGRectMake(0,0, 282, 200);
-       _imgView3.frame = CGRectMake(0,0, 282, 200);
+        _imgView3.frame = CGRectMake(0,0, 282, 200);
         btnFacebook.frame = CGRectMake(26, 15, 230, 50);
         btnLogin.frame = CGRectMake(26, 72, 230, 50);
-       btnRegister.frame = CGRectMake(26, 130, 230, 50);
+        btnRegister.frame = CGRectMake(26, 130, 230, 50);
         
-       viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
+        viewForgotPin.frame = CGRectMake(19, 238, 282, 170);
         viewForgotQuestion.frame = CGRectMake(19, 238, 282, 170);
-       viewLogin.frame = CGRectMake(19, 238, 282, 170);
+        viewLogin.frame = CGRectMake(19, 238, 282, 170);
         btnSkiptoHome.frame = CGRectMake(19, 442, 282, 30);
         
         //// set in 4.0
         _btnCancel1.frame = CGRectMake(20, 153, 57, 30);
-       _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
+        _btnForgotPin.frame = CGRectMake(174, 153, 94, 30);
         btnCancel.frame = CGRectMake(112, 158, 58, 30);
-   }
+    }
 
 //
 }

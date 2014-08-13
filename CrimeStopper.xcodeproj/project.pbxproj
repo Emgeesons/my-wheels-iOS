@@ -45,7 +45,6 @@
 		5E3C3FAA196A6859007E6AFA /* HomePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FA9196A6859007E6AFA /* HomePageVC.xib */; };
 		5E3C3FAE196A6975007E6AFA /* mParkingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C3FAC196A6975007E6AFA /* mParkingCell.m */; };
 		5E3C3FAF196A6975007E6AFA /* mParkingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FAD196A6975007E6AFA /* mParkingCell.xib */; };
-		5E3C3FB2196A9A07007E6AFA /* tick_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB1196A9A07007E6AFA /* tick_mark.png */; };
 		5E3C3FB8196A9A11007E6AFA /* ic_like_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB3196A9A11007E6AFA /* ic_like_blue.png */; };
 		5E3C3FB9196A9A11007E6AFA /* ic_like_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB4196A9A11007E6AFA /* ic_like_grey.png */; };
 		5E3C3FBA196A9A11007E6AFA /* ic_unlike_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB5196A9A11007E6AFA /* ic_unlike_blue.png */; };
@@ -53,6 +52,8 @@
 		5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB7196A9A11007E6AFA /* im_points.png */; };
 		5E3E6F7E197A3E8200F2FBC3 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */; };
 		5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */; };
+		5E47232E199B3D9300684821 /* tick_mark1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E47232D199B3D9300684821 /* tick_mark1.png */; };
+		5E472330199B41FD00684821 /* im_complete_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E47232F199B41FD00684821 /* im_complete_profile.png */; };
 		5E815EA51940832700CEAFAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA41940832700CEAFAB /* Foundation.framework */; };
 		5E815EA71940832700CEAFAB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA61940832700CEAFAB /* CoreGraphics.framework */; };
 		5E815EA91940832700CEAFAB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA81940832700CEAFAB /* UIKit.framework */; };
@@ -304,7 +305,6 @@
 		5E3C3FAB196A6975007E6AFA /* mParkingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mParkingCell.h; sourceTree = "<group>"; };
 		5E3C3FAC196A6975007E6AFA /* mParkingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mParkingCell.m; sourceTree = "<group>"; };
 		5E3C3FAD196A6975007E6AFA /* mParkingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mParkingCell.xib; sourceTree = "<group>"; };
-		5E3C3FB1196A9A07007E6AFA /* tick_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_mark.png; sourceTree = "<group>"; };
 		5E3C3FB3196A9A11007E6AFA /* ic_like_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_like_blue.png; sourceTree = "<group>"; };
 		5E3C3FB4196A9A11007E6AFA /* ic_like_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_like_grey.png; sourceTree = "<group>"; };
 		5E3C3FB5196A9A11007E6AFA /* ic_unlike_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_unlike_blue.png; sourceTree = "<group>"; };
@@ -312,6 +312,8 @@
 		5E3C3FB7196A9A11007E6AFA /* im_points.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_points.png; sourceTree = "<group>"; };
 		5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.0.a"; path = "../../../Documents/Airship/libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
+		5E47232D199B3D9300684821 /* tick_mark1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_mark1.png; sourceTree = "<group>"; };
+		5E47232F199B41FD00684821 /* im_complete_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_complete_profile.png; sourceTree = "<group>"; };
 		5E815EA11940832700CEAFAB /* CrimeStopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrimeStopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E815EA41940832700CEAFAB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5E815EA61940832700CEAFAB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -730,7 +732,7 @@
 		5E3C3FB0196A9932007E6AFA /* mparking */ = {
 			isa = PBXGroup;
 			children = (
-				5E3C3FB1196A9A07007E6AFA /* tick_mark.png */,
+				5E47232D199B3D9300684821 /* tick_mark1.png */,
 				5E3C3FB3196A9A11007E6AFA /* ic_like_blue.png */,
 				5E3C3FB4196A9A11007E6AFA /* ic_like_grey.png */,
 				5E3C3FB5196A9A11007E6AFA /* ic_unlike_blue.png */,
@@ -939,6 +941,7 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5E47232F199B41FD00684821 /* im_complete_profile.png */,
 				5EA1CEBF1990EFF800BD81C7 /* File new report */,
 				5E3C3FB0196A9932007E6AFA /* mparking */,
 				5EEEB90E1963DA150083CC56 /* Vehicles */,
@@ -1251,6 +1254,7 @@
 				5EA4BC76195D7BF1006B4B5A /* EditDetailsVC.xib in Resources */,
 				5EF124431987827D0096C4EF /* ic_nav_rate_us1.png in Resources */,
 				5E05DCCC195EBDE90081256F /* default_profile_home2.png in Resources */,
+				5E47232E199B3D9300684821 /* tick_mark1.png in Resources */,
 				5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */,
 				5EF9613A198FB47500ED6565 /* ic_other3.png in Resources */,
 				5E09517819417AEF00DC97E2 /* btn_login(5).png in Resources */,
@@ -1287,6 +1291,7 @@
 				ECEAE27C1966C52A00BBA108 /* points_bg_ios@2x.png in Resources */,
 				5EFE9187195945440014669E /* UserProfileVC.xib in Resources */,
 				5E2371E219866727000DF8E0 /* seperator.png in Resources */,
+				5E472330199B41FD00684821 /* im_complete_profile.png in Resources */,
 				5E02BD74196C136B00897687 /* FindVehicleVC.xib in Resources */,
 				5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */,
 				5E9E35D419544CE500485733 /* im_previous@1x.png in Resources */,
@@ -1312,7 +1317,6 @@
 				5EF124111987705F0096C4EF /* login_bg_640x1136.png in Resources */,
 				5EF1245619878C330096C4EF /* phone1.png in Resources */,
 				5EE8C9201951AFFA009550A1 /* star.png in Resources */,
-				5E3C3FB2196A9A07007E6AFA /* tick_mark.png in Resources */,
 				5EEF21951955B44300A0BA3F /* female_inactive.png in Resources */,
 				5EF1245519878C330096C4EF /* ic_tow_truck1.png in Resources */,
 				5EF1245219878C330096C4EF /* ic_police_assistance.png in Resources */,
@@ -1534,7 +1538,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "My Wheels";
-				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1568,7 +1572,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "My Wheels";
-				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1582,7 +1586,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1610,7 +1613,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1621,8 +1624,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1650,7 +1654,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

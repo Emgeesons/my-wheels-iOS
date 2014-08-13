@@ -1223,6 +1223,11 @@ int intques;
             [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
             [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
             [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+             [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtPin1.text forKey:@"pin1"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtPin2.text forKey:@"pin2"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtPin3.text forKey:@"pin3"];
+            [[NSUserDefaults standardUserDefaults] setValue:txtPin4.text forKey:@"pin4"];
             appDelegate.intCountPushNotification = 0;
             
             HomePageVC *vc = [[HomePageVC alloc]init];

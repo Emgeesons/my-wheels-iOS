@@ -360,7 +360,7 @@ int counterForCell;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
      mParkingCell *cell = (mParkingCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark.png"]];
+    [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark1.png"]];
     
     NSString *cellIdentifier = [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
     //Get the old counter
