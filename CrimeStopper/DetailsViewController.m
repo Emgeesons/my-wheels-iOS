@@ -89,6 +89,12 @@
     self.tableView.hidden = YES;
     
     [self loadDetailsUpdates];
+    
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    
+    if (UserID == NULL) {
+        [self.btnReportSoghting setHidden:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
