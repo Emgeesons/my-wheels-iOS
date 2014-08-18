@@ -42,6 +42,7 @@
 		5E2371CE19862E0D000DF8E0 /* vehicle_graphic(5).png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2371CD19862E0D000DF8E0 /* vehicle_graphic(5).png */; };
 		5E2371DE19866727000DF8E0 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2371D919866727000DF8E0 /* bullet.png */; };
 		5E2371E219866727000DF8E0 /* seperator.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2371DD19866727000DF8E0 /* seperator.png */; };
+		5E2C2C5E199CB704003C934A /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E2C2C5D199CB704003C934A /* AboutUsVC.xib */; };
 		5E3C3FAA196A6859007E6AFA /* HomePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FA9196A6859007E6AFA /* HomePageVC.xib */; };
 		5E3C3FAE196A6975007E6AFA /* mParkingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C3FAC196A6975007E6AFA /* mParkingCell.m */; };
 		5E3C3FAF196A6975007E6AFA /* mParkingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FAD196A6975007E6AFA /* mParkingCell.xib */; };
@@ -120,7 +121,6 @@
 		5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED385DA196166E0007DD44F /* AddVehiclesVC.m */; };
 		5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */; };
 		5EE8C8F519514F36009550A1 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F319514F36009550A1 /* AboutUsVC.m */; };
-		5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C8F419514F36009550A1 /* AboutUsVC.xib */; };
 		5EE8C90519517553009550A1 /* EmergencyNoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C90319517553009550A1 /* EmergencyNoVC.m */; };
 		5EE8C90619517553009550A1 /* EmergencyNoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8C90419517553009550A1 /* EmergencyNoVC.xib */; };
 		5EE8C9161951AAEB009550A1 /* FeedBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8C9141951AAEB009550A1 /* FeedBackVC.m */; };
@@ -301,6 +301,7 @@
 		5E2371CD19862E0D000DF8E0 /* vehicle_graphic(5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vehicle_graphic(5).png"; sourceTree = "<group>"; };
 		5E2371D919866727000DF8E0 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		5E2371DD19866727000DF8E0 /* seperator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seperator.png; sourceTree = "<group>"; };
+		5E2C2C5D199CB704003C934A /* AboutUsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
 		5E3C3FA9196A6859007E6AFA /* HomePageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageVC.xib; sourceTree = "<group>"; };
 		5E3C3FAB196A6975007E6AFA /* mParkingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mParkingCell.h; sourceTree = "<group>"; };
 		5E3C3FAC196A6975007E6AFA /* mParkingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mParkingCell.m; sourceTree = "<group>"; };
@@ -403,7 +404,6 @@
 		5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddVehiclesVC.xib; sourceTree = "<group>"; };
 		5EE8C8F219514F36009550A1 /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		5EE8C8F319514F36009550A1 /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
-		5EE8C8F419514F36009550A1 /* AboutUsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
 		5EE8C90219517553009550A1 /* EmergencyNoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyNoVC.h; sourceTree = "<group>"; };
 		5EE8C90319517553009550A1 /* EmergencyNoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyNoVC.m; sourceTree = "<group>"; };
 		5EE8C90419517553009550A1 /* EmergencyNoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmergencyNoVC.xib; sourceTree = "<group>"; };
@@ -885,7 +885,7 @@
 				5E04AF06194FFD7E003F6CD4 /* NavigationHomeVC.xib */,
 				5EE8C8F219514F36009550A1 /* AboutUsVC.h */,
 				5EE8C8F319514F36009550A1 /* AboutUsVC.m */,
-				5EE8C8F419514F36009550A1 /* AboutUsVC.xib */,
+				5E2C2C5D199CB704003C934A /* AboutUsVC.xib */,
 				5EE8C90219517553009550A1 /* EmergencyNoVC.h */,
 				5EE8C90319517553009550A1 /* EmergencyNoVC.m */,
 				5EE8C90419517553009550A1 /* EmergencyNoVC.xib */,
@@ -1283,6 +1283,7 @@
 				5EFD88EF1980E19A003628FA /* EvertTimePinVC.xib in Resources */,
 				5EEF21791955A3FB00A0BA3F /* app_icon_1024x1024.png in Resources */,
 				5EFABB44196D7060007C0781 /* current_location.png in Resources */,
+				5E2C2C5E199CB704003C934A /* AboutUsVC.xib in Resources */,
 				5E9E35D319544CE500485733 /* im_next@1x.png in Resources */,
 				5EF1245419878C330096C4EF /* ic_suburban_taxi1.png in Resources */,
 				5EF124411987827D0096C4EF /* ic_nav_home1.png in Resources */,
@@ -1361,7 +1362,6 @@
 				5EEEB9161963DA800083CC56 /* ic_car.png in Resources */,
 				5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */,
 				5EF96139198FB47500ED6565 /* ic_cycle3.png in Resources */,
-				5EE8C8F619514F36009550A1 /* AboutUsVC.xib in Resources */,
 				5EF124421987827D0096C4EF /* ic_nav_logout1.png in Resources */,
 				5E2371CE19862E0D000DF8E0 /* vehicle_graphic(5).png in Resources */,
 				5EFDA27C1977EF1100AC7E6A /* vehicle-pic_2.png in Resources */,
@@ -1538,7 +1538,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "My Wheels";
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1572,7 +1572,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "My Wheels";
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1586,7 +1586,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1600,7 +1599,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Users/yogesh/Documents/Airship/**";
+				HEADER_SEARCH_PATHS = "/Users/asha/Documents/Airship/**";
 				INFOPLIST_FILE = "CrimeStopper/CrimeStopper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1614,7 +1613,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1627,7 +1626,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1641,7 +1639,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrimeStopper/CrimeStopper-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Users/yogesh/Documents/Airship/**";
+				HEADER_SEARCH_PATHS = "/Users/asha/Documents/Airship/**";
 				INFOPLIST_FILE = "CrimeStopper/CrimeStopper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1655,7 +1653,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "39002B34-AF07-4179-91C7-DCAA03045818";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

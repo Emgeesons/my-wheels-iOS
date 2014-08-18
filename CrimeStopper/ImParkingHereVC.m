@@ -256,6 +256,13 @@ int counterForCell;
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                            message:@"Something went to wrong."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        CheckAlert.tag = 5;
+        [CheckAlert show];
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
     
@@ -300,6 +307,18 @@ int counterForCell;
         else
         {
             [_viewLocationGuide setHidden:NO];
+        }
+    }
+    if(alertView.tag ==5)
+    {
+        if(buttonIndex == 0)
+        {
+            HomePageVC *vc = [[HomePageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+        
         }
     }
 }
