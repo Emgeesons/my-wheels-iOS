@@ -204,6 +204,14 @@ int counterForCell;
             {
                 [_btnRating setTitle:@"" forState:UIControlStateNormal];
                 [_btnTips setTitle:@"" forState:UIControlStateNormal];
+               
+            }
+            else if([strRate isEqualToString: @"0"] || [strnoTips isEqualToString:@"0"] )
+            {
+                [_btnRating setTitle:@"0 rating" forState:UIControlStateNormal];
+                [_btnTips setTitle:@"0 tips for this location" forState:UIControlStateNormal];
+                [_btnRating setUserInteractionEnabled:NO];
+                [_btnTips setUserInteractionEnabled:NO];
             }
             else
             {
@@ -216,7 +224,16 @@ int counterForCell;
                }
                 else
                 {
-                    NSString *subString = [str substringWithRange:NSMakeRange(0,4)];
+                    NSString *subString;
+                    if(strRate.length > 1)
+                    {
+                        subString = [strRate substringWithRange:NSMakeRange(0,4)];
+                    }
+                   else
+                   {
+                       subString = strRate;
+                   }
+                  //  NSString *strr = [subString stringByAppendingString:strRating];
                     NSLog(@"substring : %@",subString);
                     NSString *rate = [subString stringByAppendingString:@" "];
                     NSString *rat = [rate stringByAppendingString:strRating];
@@ -230,7 +247,15 @@ int counterForCell;
                 }
                 else
                 {
-                    NSString *subString = [str substringWithRange:NSMakeRange(0,4)];
+                    NSString *subString;
+                    if(strRate.length > 1)
+                    {
+                        subString = [strRate substringWithRange:NSMakeRange(0,4)];
+                    }
+                    else
+                    {
+                        subString = strRate;
+                    }
                     NSLog(@"substring : %@",subString);
                     NSString *rate = [subString stringByAppendingString:@" "];
                     NSString *rat = [rate stringByAppendingString:strRating];
@@ -257,7 +282,7 @@ int counterForCell;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
-                                                            message:@"Something went to wrong."
+                                                            message:@"Something went wrong. Please try again."
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil, nil];

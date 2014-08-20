@@ -189,7 +189,7 @@
         }
         else
         {
-         UIAlertView *objalert = [[UIAlertView alloc]initWithTitle:nil message:@"Are you sure you want to logout ?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+         UIAlertView *objalert = [[UIAlertView alloc]initWithTitle:nil message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
          objalert.tag = 1;
         [objalert show];
         }

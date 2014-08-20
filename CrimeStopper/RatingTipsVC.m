@@ -96,54 +96,96 @@
         {
             [param setValue:strVehicleID forKey:@"vehicleId"];
         }
-        [param setValue:@"10" forKey:@"noTips"];
+        [param setValue:@"0" forKey:@"noTips"];
         [param setValue:@"ios7" forKey:@"os"];
         [param setValue:@"iPhone" forKey:@"make"];
         [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+        [param setValue:@"test11" forKeyPath:@"test"];
         NSLog(@"param : %@",param);
-        // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
+       
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//        
+//         NSString *url = [NSString stringWithFormat:@"%@getParkingTips.php", SERVERNAME];
+//        
+//        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            
+//            
+//            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+//            
+//            NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+//            NSLog(@"data : %@",jsonDictionary);
+//            
+//            NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+//            NSLog(@"message %@",EntityID);
+//            if ([EntityID isEqualToString:@"success"])
+//            {
+//                [_arrTips addObjectsFromArray:[jsonDictionary valueForKey:@"response"]];
+//                
+//                NSLog(@"arr : %@",_arrTips);
+//                self.tblRating.delegate=self;
+//                self.tblRating.dataSource=self;
+//                [_tblRating reloadData];
+//            }
+//            else
+//            {
+//                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+//                                                                    message:[jsonDictionary valueForKey:@"message"]
+//                                                                   delegate:self
+//                                                          cancelButtonTitle:@"OK"
+//                                                          otherButtonTitles:nil, nil];
+//                [CheckAlert show];
+//
+//                
+//            }
+//            [SVProgressHUD dismiss];
+//            
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+//        }];
+//        
+//        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        
-         NSString *url = [NSString stringWithFormat:@"%@getParkingTips.php", SERVERNAME];
-        
-        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            
-            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-            
-            NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-            NSLog(@"data : %@",jsonDictionary);
-            
-            NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-            NSLog(@"message %@",EntityID);
-            if ([EntityID isEqualToString:@"success"])
-            {
-                [_arrTips addObjectsFromArray:[jsonDictionary valueForKey:@"response"]];
-                
-                NSLog(@"arr : %@",_arrTips);
-                self.tblRating.delegate=self;
-                self.tblRating.dataSource=self;
-                [_tblRating reloadData];
-            }
-            else
-            {
-                UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
-                                                                    message:[jsonDictionary valueForKey:@"message"]
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil, nil];
-                [CheckAlert show];
-
-                
-            }
-            [SVProgressHUD dismiss];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-        }];
+        NSString *url = [NSString stringWithFormat:@"%@getParkingTips.php", SERVERNAME];
+        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSLog(@"url : %@",manager);
+        }
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+                             NSLog(@"data : %@",jsonDictionary);
+                  //
+                              NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+                             NSLog(@"message %@",EntityID);
+                  if ([EntityID isEqualToString:@"success"])
+                  {
+                            [_arrTips addObjectsFromArray:[jsonDictionary valueForKey:@"response"]];
+                     
+                                  NSLog(@"arr : %@",_arrTips);
+                                      self.tblRating.delegate=self;
+                                      self.tblRating.dataSource=self;
+                                      [_tblRating reloadData];
+                      
+                }
+                  else
+                  {
+                      NSString *strmessage = [jsonDictionary valueForKey:@"message"];
+                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                          message:strmessage
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"OK"
+                                                                otherButtonTitles:nil, nil];
+                      [CheckAlert show];
+                  }
+                  [SVProgressHUD dismiss];
+                  
+              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              }];
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+
         
         
     }

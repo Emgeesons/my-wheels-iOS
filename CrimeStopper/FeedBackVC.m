@@ -14,6 +14,7 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 #import "AFNetworking.h"
+#import "Reachability.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -92,10 +93,25 @@
     }
 -(IBAction)btnSend_click:(id)sender
 {
+    [super viewDidLoad];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
     
    // WebApiController *obj=[[WebApiController alloc]init];
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
-    [param setValue:appdelegate.strUserID forKey:@"userId"];
+    [param setValue:UserID forKey:@"userId"];
     [param setValue:_lblRating.text forKey:@"rating"];
     [param setValue:_txtComment.text forKey:@"feedback"];
  
@@ -149,7 +165,7 @@
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-
+    }
 }
 - (IBAction)btnMinimize_Click:(id)sender {
     [activeTextField resignFirstResponder];

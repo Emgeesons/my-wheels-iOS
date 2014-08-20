@@ -78,10 +78,7 @@
     {
         [_txtlicenceno setTextColor:[UIColor redColor]];
     }
-    if (_txtlicenceno.text.length == 0)
-    {
-        [_txtlicenceno setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-    }
+   
     
     
     if (_txtPostCode.text.length !=4)
@@ -94,7 +91,7 @@
     }
     
     
-    if (_txtStreet.text.length <2)
+    if (_txtStreet.text.length < 6)
     {
         [_txtStreet setTextColor:[UIColor redColor]];
     }
@@ -102,7 +99,7 @@
     {
         [_txtStreet setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
-    if(_txtlicenceno.text.length >= 2 && _txtPostCode.text.length == 4 && _txtStreet.text.length  >= 2)
+    if(_txtPostCode.text.length == 4 && _txtStreet.text.length  >= 6)
     {
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
         NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -198,6 +195,21 @@
      [textField setTextColor:[UIColor blackColor]];
   
     activeTextField=textField;
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(textField == _txtPostCode)
+    {
+        NSUInteger newLength = [_txtPostCode.text length] + [string length] - range.length;
+        if(newLength >4)
+        {
+            [_txtPostCode resignFirstResponder];
+        }
+       
+       
+        // return (newLength > 1) ? NO : YES;
+    }
+     return YES;
 }
 #pragma mark toolbarr's button click event
 - (IBAction)btnMinimize_Click:(id)sender

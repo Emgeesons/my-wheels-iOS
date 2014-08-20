@@ -219,7 +219,7 @@ NSDictionary *arrVehicle;
             [progressView setProgress:0.60f animated:YES];
         }];
         _lblprofile.text = @"Your Profile is 60% complete.";
-        _lblstm.text = @"Add license details and add photos/indusrance details for your vehicle";
+        _lblstm.text = @"Add details and photos/insurance details for your vehicle";
     }
     else if (int1 >= 61 && int1 <=80)
     {
@@ -230,14 +230,14 @@ NSDictionary *arrVehicle;
         }];
         _lblprofile.text = @"Your Profile is 80% complete.";
         //license_no
-        NSString *licenceNo = [[NSUserDefaults standardUserDefaults]objectForKey:@"license_no"];
+        NSString *licenceNo = [[NSUserDefaults standardUserDefaults]objectForKey:@"address"];
         if(licenceNo == nil || licenceNo == (id)[NSNull null] || [licenceNo isEqualToString:@""])
         {
-            _lblstm.text = @"Add license details to your profile";
+            _lblstm.text = @"Add details to your profile";
         }
         else
         {
-            _lblstm.text = @"Add photos/indusrance details for your vehicle";
+            _lblstm.text = @"Add photos/insurance details for your vehicle";
         }
         
     }
@@ -249,11 +249,17 @@ NSDictionary *arrVehicle;
             [progressView setProgress:0.90f animated:YES];
         }];
         _lblprofile.text = @"Your Profile is 90% complete.";
-        _lblstm.text = @"Add photos/indusrance details for your vehicle";
+        _lblstm.text = @"Add photos/insurance details for your vehicle";
     }
     else if (int1 >=100)
     {
-        bottomProgressView.hidden = YES;
+        bottomProgressView.progressTintColor = [UIColor greenColor];
+        [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
+            
+            [progressView setProgress:1.0f animated:YES];
+        }];
+        _lblprofile.text = @"Your Profile is complete.";
+        _lblstm.text = @"";
        
     }
     
@@ -334,6 +340,8 @@ NSDictionary *arrVehicle;
                           NSString *security_question = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                           NSString *street = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"address"];
                           NSString *suburb = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"suburb"];
+                          NSString *oldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];
+                          NSString *pin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];
                           NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                           arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
                           
@@ -362,7 +370,8 @@ NSDictionary *arrVehicle;
                           [[NSUserDefaults standardUserDefaults] setValue:street forKey:@"street"];
                           [[NSUserDefaults standardUserDefaults] setValue:suburb forKey:@"suburb"];
                           [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
-                          
+                          [[NSUserDefaults standardUserDefaults] setValue:pin forKeyPath:@"pin"];
+                          [[NSUserDefaults standardUserDefaults] setValue:oldPin forKeyPath:@"oldPin"];
                           intSamaritan_points  = [samaritan_points intValue];
                           _lblFname.text = first_name;
                           _lblLname.text = last_name;
@@ -435,9 +444,9 @@ NSDictionary *arrVehicle;
                       }
                       else
                       {
-                          [_viewsamaritan setBackgroundColor:[UIColor grayColor]];
-                          [_btnsamaritan setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-                          [_lblsamaritan setTextColor:[UIColor darkGrayColor]];
+                          [_viewsamaritan setBackgroundColor:[UIColor colorWithRed:199.0/255.0f green:200.0/255.0f blue:199.0/255.0f alpha:1]];
+                          [_btnsamaritan setTitleColor:[UIColor blackColor  ] forState:UIControlStateNormal];
+                          [_lblsamaritan setTextColor:[UIColor blackColor]];
                       }
                       
 
@@ -906,9 +915,9 @@ NSDictionary *arrVehicle;
 }
 -(IBAction)btnAddDetails_click:(id)sender
 {
-    NSString *strPostCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"postcode"];
+    NSString *strStreet = [[NSUserDefaults standardUserDefaults] objectForKey:@"street"];
 
-    if(strPostCode == nil || strPostCode == (id)[NSNull null] || [strPostCode isEqualToString:@""] )
+    if(strStreet == nil || strStreet == (id)[NSNull null] || [strStreet isEqualToString:@""] )
     {
         AddDetailsVC *vc = [[AddDetailsVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];

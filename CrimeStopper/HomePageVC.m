@@ -638,8 +638,13 @@
     NSLog(@"str : %@",UserID);
     if(UserID == nil || UserID == (id)[NSNull null])
     {
-        LoginVC *vc = [[LoginVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                            message:@"Please log in to use this feature."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Sign in", nil];
+        CheckAlert.tag =10;
+        [CheckAlert show];
     }
     else
     {
@@ -916,5 +921,18 @@
             appdelegate.intMparking = 1;
         }
     }
+    if(alertView.tag == 10)
+    {
+        if(buttonIndex == 0)
+        {
+            [alertView dismissWithClickedButtonIndex:0 animated:YES];
+        }
+        else
+        {
+            LoginVC *vc = [[LoginVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+
 }
 @end

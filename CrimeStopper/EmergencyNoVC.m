@@ -34,16 +34,21 @@
 
     if(IsIphone5)
     {
+        self.viewPoliceAss.frame = CGRectMake(0,50, 320, 114);
+        self.viewSuburban.frame = CGRectMake(0,60, 320, 114);
         
+        self.viewTow.frame = CGRectMake(0,200, 320, 114);
+        self.viewRaaRoad.frame = CGRectMake(0,282, 320, 114);
         
         
     }
     else
     {
-//        self.viewPoliceAss.frame = CGRectMake(0,50, 320, 109);
-//        self.viewRaaRoad.frame = CGRectMake(0,150, 320, 109);
-//        self.viewTow.frame = CGRectMake(0,279, 320, 109);
-//        self.viewTow.frame = CGRectMake(0,388, 320, 109);
+       self.viewPoliceAss.frame = CGRectMake(0,50, 320, 109);
+       self.viewSuburban.frame = CGRectMake(0,145, 320, 109);
+
+        self.viewTow.frame = CGRectMake(0,232, 320, 109);
+        self.viewRaaRoad.frame = CGRectMake(0,325, 320, 109);
 
     }
     // Do any additional setup after loading the view from its nib.

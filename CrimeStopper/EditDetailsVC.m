@@ -13,8 +13,9 @@
 #import "SVProgressHUD.h"
 #import "AppDelegate.h"
 
-@interface EditDetailsVC ()
+@interface EditDetailsVC () <UIActionSheetDelegate>
 {
+    UIActionSheet *actionSheet, *QuestionPicker;
     AppDelegate *appDelegate;
 }
 @end
@@ -113,7 +114,7 @@ UITextField *txtOtherQuestion;
     _txtEmail.text = email;
    
     _txtMobileNo.text = Mobileno;
-    [_btnSecurityQuestion setTitle:strquestion forState:UIControlStateNormal];
+    _txtSecurityQuestion.text = strquestion;
     _txtAnswer.text = strAnswer;
     _txtLicenceNo.text = strLicenceNo;
     _txtStreet.text = strstreet;
@@ -169,17 +170,18 @@ UITextField *txtOtherQuestion;
     [_txtLicenceNo setInputAccessoryView:self.toolbar];
     [_txtStreet setInputAccessoryView:self.toolbar];
     [_txtPostCode setInputAccessoryView:self.toolbar];
+    [txtOtherQuestion setInputAccessoryView:self.toolbar];
     
     if(IsIphone5)
     {
         _scroll.frame = CGRectMake(0 , 58, 320, 568+50);
-        _scroll.contentSize = CGSizeMake(320, 700);
+        _scroll.contentSize = CGSizeMake(320, 1000);
     }
     else
     {
         _scroll.frame = CGRectMake(0 , 58, 320, 568+50);
         
-        _scroll.contentSize = CGSizeMake(320, 700);
+        _scroll.contentSize = CGSizeMake(320, 1000);
     }
 
     [self.view addSubview:_viewPickerview];
@@ -250,6 +252,7 @@ UITextField *txtOtherQuestion;
 }
 -(IBAction)btnSave_clicl:(id)sender
 {
+    
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
@@ -265,7 +268,7 @@ UITextField *txtOtherQuestion;
     
     
     
-    if (_txtFname.text.length==0 || _txtLname.text.length==0 || _txtEmail.text.length==0 || _txtMobileNo.text.length==0 || _txtDob.text.length==0 || _txtpin1.text.length==0 || _txtpin2.text.length==0 || _txtpin3.text.length==0 || _txtpin4.text.length == 0 || _txtAnswer.text.length == 0 || _txtLicenceNo.text.length == 0 | _txtStreet.text.length == 0 || _txtPostCode.text.length == 0)
+    if (_txtFname.text.length==0 || _txtLname.text.length==0 || _txtEmail.text.length==0 || _txtMobileNo.text.length==0 || _txtDob.text.length==0 || _txtpin1.text.length==0 || _txtpin2.text.length==0 || _txtpin3.text.length==0 || _txtpin4.text.length == 0 || _txtAnswer.text.length == 0 ||  _txtStreet.text.length == 0 || _txtPostCode.text.length == 0 || _txtSecurityQuestion.text.length == 0 )
     {
         if (_txtFname.text.length == 0)
         {
@@ -295,10 +298,7 @@ UITextField *txtOtherQuestion;
         {
             [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
-        if(_txtLicenceNo.text.length == 0)
-        {
-            [_txtLicenceNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
+       
         if(_txtPostCode.text.length == 0)
         {
             [_txtPostCode setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -307,6 +307,14 @@ UITextField *txtOtherQuestion;
         {
             [_txtStreet setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
 
+        }
+        if(_txtSecurityQuestion.text.length == 0)
+        {
+            [_txtSecurityQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        if(txtOtherQuestion.text.length == 0)
+        {
+             [txtOtherQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
         
         
@@ -338,11 +346,7 @@ UITextField *txtOtherQuestion;
         [_txtPostCode setTextColor:[UIColor redColor]];
     }
      
-    else if (_txtLicenceNo.text.length <2)
-    {
-        [_txtLicenceNo setTextColor:[UIColor redColor]];
-    }
-    else if (_txtStreet.text.length <2)
+    else if (_txtStreet.text.length < 6)
     {
             [_txtStreet setTextColor:[UIColor redColor]];
     }
@@ -481,6 +485,60 @@ UITextField *txtOtherQuestion;
 }
 -(void)cancelClicked {
     [sheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+#pragma mark - UIActionSheet done/cancel buttons
+-(void)actionSheet:(UIActionSheet *)actionSheet1 clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet1 == QuestionPicker) {
+        if (buttonIndex == 9) {
+            intques = 1;
+            [txtOtherQuestion setHidden:NO];
+            // [self.scrollview removeFromSuperview];
+            activeTextField = txtOtherQuestion;
+            [_txtSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)];
+            txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,314,300,30)];
+            [_txtAnswer setFrame:CGRectMake(5, 350, 300, 30)];
+            [_txtLicenceNo setFrame:CGRectMake(5, 390, 300, 30)];
+            [_txtStreet setFrame:CGRectMake(5, 430, 300, 30)];
+            [_txtStreet setFrame:CGRectMake(5, 470, 300, 30)];
+            // [self.scrollview addSubview:txtAnswer];
+            txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
+            txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+            txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+            //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
+            txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
+            txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
+            txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            [_txtSecurityQuestion setText:@"other"];
+            txtOtherQuestion.placeholder = @"enter question *";
+            txtOtherQuestion.tag = 11;
+            txtOtherQuestion.delegate = self;
+            
+            [self.scroll addSubview:txtOtherQuestion];
+          
+        }
+        else if (buttonIndex == 10)
+        {
+            // [self.txtSecurityQuestion setText:@""];
+            return;
+        }
+        else
+        {
+            NSString *title = [QuestionPicker buttonTitleAtIndex:buttonIndex];
+            [self.txtSecurityQuestion setText:title];
+            intques = 2;
+            [txtOtherQuestion setHidden:YES];
+            NSString *title1 = [QuestionPicker buttonTitleAtIndex:buttonIndex];
+            [self.txtSecurityQuestion setText:title1];
+         
+            [txtOtherQuestion setHidden:YES];
+            [_txtSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
+            [_txtAnswer setFrame:CGRectMake(5, 315, 300, 30)];
+            [_txtLicenceNo setFrame:CGRectMake(5, 355, 300, 30)];
+            [_txtStreet setFrame:CGRectMake(5, 395, 300, 30)];
+            [_txtPostCode setFrame:CGRectMake(5, 435, 300, 30)];
+        }
+    }
+    
 }
 
 #pragma mark textfield delegate methods
@@ -661,6 +719,14 @@ UITextField *txtOtherQuestion;
     //pickerDateOfBirth setHidden:YES];
      activeTextField = textField ;
     int y=0;
+    if(textField == _txtSecurityQuestion)
+    {
+        [_txtSecurityQuestion resignFirstResponder];
+        
+        QuestionPicker = [[UIActionSheet alloc] initWithTitle:@"security questions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"passport number",@"licence number",@"mother's maiden name",@"first pet's name",@"first childhood friend",@"first primary school",@"colour of your first car",@"all time favourite movie",@"first paid job",@"other", nil];
+        QuestionPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        [QuestionPicker showInView:self.view];
+    }
     if(textField.tag == 4)
     {
         
@@ -731,6 +797,10 @@ UITextField *txtOtherQuestion;
         [_txtFname reloadInputViews];
     }
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
+    if(textField == _txtSecurityQuestion)
+    {
+      y=210;
+    }
     if(textField == _txtquestion)
     {
         y=210;
@@ -749,12 +819,12 @@ UITextField *txtOtherQuestion;
     }
     if(textField == _txtStreet)
     {
-        y=210;
+        y=250;
         // [btnSubmit setHidden:NO];
     }
     if(textField == _txtPostCode)
     {
-        y=210;
+        y=300;
         // [btnSubmit setHidden:NO];
     }
     
@@ -869,12 +939,13 @@ UITextField *txtOtherQuestion;
         
         
     }
-    else if (textField.tag == 8)
+    else if (textField.tag == 9)
     {
         NSUInteger newLength = [_txtpin4.text length] + [string length] - range.length;
         if(newLength >1)
         {
             NSLog(@"no");
+             [_txtpin4 resignFirstResponder];
             //return NO;
         }
         else if(newLength == 0)
@@ -889,25 +960,23 @@ UITextField *txtOtherQuestion;
             [_txtpin4 resignFirstResponder];
         }
     }
-    //    else if (textField == txtFname)
-    //    {
-    //        NSUInteger newLength = [txtFname.text length] + [string length] - range.length;
-    //        return (newLength > 2) ? YES  : NO;
-    //    }
-    //    else if (textField == txtLname)
-    //    {
-    //        NSUInteger newLength = [txtLname.text length] + [string length] - range.length;
-    //        return (newLength > 2) ? YES  : NO;
-    //    }
-    //    else if (textField == txtMobileNo)
-    //    {
-    //        NSUInteger newLength = [txtMobileNo.text length] + [string length] - range.length;
-    //        return (newLength > 5) ? YES  : NO;
-    //    }
     else
     {
         
     }
+    
+    if(textField == _txtPostCode)
+    {
+        NSUInteger newLength = [_txtPostCode.text length] + [string length] - range.length;
+        if(newLength >4)
+        {
+            [_txtPostCode resignFirstResponder];
+        }
+        
+        
+        // return (newLength > 1) ? NO : YES;
+    }
+
     return 1;
 }
 #pragma mark call api and chack validation
@@ -977,16 +1046,23 @@ UITextField *txtOtherQuestion;
     if(intques == 2)
     {
         strQuestion = @"What is your ";
-        strQuestion = [strQuestion stringByAppendingString:strQues];
+        strQuestion = [strQuestion stringByAppendingString:_txtSecurityQuestion.text];
         NSLog(@"ques :: %@",strQuestion);
     }
     else if (intques == 1)
     {
-        strQuestion = _txtquestion.text;
+        if(txtOtherQuestion.text.length == 0)
+        {
+            strQuestion = @"other";
+        }
+        else
+        {
+            strQuestion = txtOtherQuestion.text;
+        }
     }
     else
     {
-        strQuestion =  _btnSecurityQuestion.currentTitle;
+        strQuestion = _txtSecurityQuestion.text;
     }
 
 
@@ -1084,7 +1160,7 @@ UITextField *txtOtherQuestion;
               else
               {
                   NSString *strmessage = [jsonDictionary valueForKey:@"message"];
-                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                  UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                       message:strmessage
                                                                      delegate:self
                                                             cancelButtonTitle:@"OK"

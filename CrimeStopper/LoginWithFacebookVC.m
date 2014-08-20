@@ -15,8 +15,10 @@
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
-@interface LoginWithFacebookVC ()
+@interface LoginWithFacebookVC () <UIActionSheetDelegate>
 {
+    UIActionSheet *actionSheet, *QuestionPicker;
+
     AppDelegate *appdelegate;
 }
 @end
@@ -51,8 +53,8 @@ int intques;
     [arrSecurityQuestion addObject:@"security questions"];
     [arrSecurityQuestion addObject:@"passport number"];
     [arrSecurityQuestion addObject:@"licence number"];
-    [arrSecurityQuestion addObject:@"mothers maiden name"];
-    [arrSecurityQuestion addObject:@"first pets name"];
+    [arrSecurityQuestion addObject:@"mother's maiden name"];
+    [arrSecurityQuestion addObject:@"first pet's name"];
     [arrSecurityQuestion addObject:@"first childhood friend"];
     [arrSecurityQuestion addObject:@"first primary school"];
     [arrSecurityQuestion addObject:@"colour of your first car"];
@@ -160,7 +162,7 @@ int intques;
     
     
     
-    if (txtMobileNo.text.length==0 || txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 || txtAnswer.text.length == 0)
+    if (txtMobileNo.text.length==0 || txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 || txtAnswer.text.length == 0 || txtSecurityQuestion.text.length == 0)
     {
         if (txtMobileNo.text.length == 0)
         {
@@ -173,6 +175,10 @@ int intques;
         if(txtPin1.text.length==0 || txtPin2.text.length==0 || txtPin3.text.length==0 || txtPin4.text.length == 0 )
         {
             [_lblPin setTextColor:[UIColor redColor]];
+        }
+        if(txtSecurityQuestion.text.length == 0)
+        {
+            [txtSecurityQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
     }
         
@@ -333,6 +339,14 @@ int intques;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
       activeTextField=textField;
+    if(textField == txtSecurityQuestion)
+    {
+        [txtSecurityQuestion resignFirstResponder];
+        
+        QuestionPicker = [[UIActionSheet alloc] initWithTitle:@"security questions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"passport number",@"licence number",@"mother's maiden name",@"first pet's name",@"first childhood friend",@"first primary school",@"colour of your first car",@"all time favourite movie",@"first paid job",@"other", nil];
+        QuestionPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        [QuestionPicker showInView:self.view];
+    }
     if(textField == txtPin1 || textField == txtPin2 || textField == txtPin3 || textField == txtPin4)
     {
         [_lblPin setTextColor:[UIColor blackColor]];
@@ -465,19 +479,21 @@ int intques;
         if(newLength >1)
         {
             NSLog(@"no");
-           [txtPin4 resignFirstResponder];
+            [txtPin4 resignFirstResponder];
+            //return NO;
         }
         else if(newLength == 0)
         {
-//            txtPin4.text = @"";
-//            [txtPin4 resignFirstResponder];
-//            [txtPin3 becomeFirstResponder];
-//            
-//        }
-//        else
-//        {
-//            [txtPin4 resignFirstResponder];
+            txtPin4.text = @"";
+            [txtPin4 resignFirstResponder];
+            [txtPin3 becomeFirstResponder];
+            
         }
+        else
+        {
+            [txtPin4 resignFirstResponder];
+        }
+
     }
     //    else if (textField == txtFname)
     //    {
@@ -500,6 +516,57 @@ int intques;
     }
     return 1;
 }
+#pragma mark - UIActionSheet done/cancel buttons
+
+-(void)actionSheet:(UIActionSheet *)actionSheet1 clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet1 == QuestionPicker) {
+        if (buttonIndex == 9) {
+            intques = 1;
+            [txtOtherQuestion setHidden:NO];
+            // [self.scrollview removeFromSuperview];
+            txtSecurityQuestion.text = @"other";
+            [txtSecurityQuestion setFrame:CGRectMake(5, 210, 300, 30)  ];
+            txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,250,300,30)];
+            [txtAnswer setFrame:CGRectMake(5, 290, 300, 30)];
+            // [self.scrollview addSubview:txtAnswer];
+            txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
+            txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+            txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
+            //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
+            txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
+            txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
+            txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            txtOtherQuestion.placeholder = @"enter question *";
+            txtOtherQuestion.tag = 11;
+            txtOtherQuestion.delegate = self;
+            
+            [self.scrollview addSubview:txtOtherQuestion];
+            [viewSecurityQuestion setHidden:YES];
+        }
+        else if (buttonIndex == 10)
+        {
+            // [self.txtSecurityQuestion setText:@""];
+            return;
+        }
+        else
+        {
+            NSString *title = [QuestionPicker buttonTitleAtIndex:buttonIndex];
+            [self.txtSecurityQuestion setText:title];
+            intques = 2;
+            [txtOtherQuestion setHidden:YES];
+            NSString *title1 = [QuestionPicker buttonTitleAtIndex:buttonIndex];
+            [self.txtSecurityQuestion setText:title1];
+            [btnSecurityQuestion setEnabled:YES];
+            [viewSecurityQuestion setHidden:YES];
+            [txtOtherQuestion setHidden:YES];
+            [txtSecurityQuestion setFrame:CGRectMake(5, 210, 300, 30)  ];
+            [txtAnswer setFrame:CGRectMake(5, 250, 300, 30)];
+            
+        }
+    }
+    
+}
+
 #pragma mark call api and chack validation
 -(void)submit
 {
@@ -515,7 +582,7 @@ int intques;
     strQuestion = @"What is your ";
     if(intques == 2)
     {
-        strQuestion = [strQuestion stringByAppendingString:strQues];
+        strQuestion = [strQuestion stringByAppendingString:txtSecurityQuestion.text];
         NSLog(@"ques :: %@",strQues);
     }
     else if (intques == 1)
@@ -581,11 +648,14 @@ int intques;
                   [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
                   [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
                    [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
-                  
+                  [[NSUserDefaults standardUserDefaults] setValue:txtPin1.text forKey:@"pin1"];
+                  [[NSUserDefaults standardUserDefaults] setValue:txtPin2.text forKey:@"pin2"];
+                  [[NSUserDefaults standardUserDefaults] setValue:txtPin3.text forKey:@"pin3"];
+                  [[NSUserDefaults standardUserDefaults] setValue:txtPin4.text forKey:@"pin4"];
                   appdelegate.intCountPushNotification = 0;
                   
                   HomePageVC *vc = [[HomePageVC alloc]init];
-                  
+                  appdelegate.intReg = 1;
                   [self.navigationController pushViewController:vc animated:YES];
                   
               }

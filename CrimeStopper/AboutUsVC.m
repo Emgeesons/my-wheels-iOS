@@ -32,17 +32,17 @@
     // Do any additional setup after loading the view from its nib.
     if(IsIphone5)
     {
-        _scroll.frame = CGRectMake(0  , 200, 320,300 );
-         self.scroll.contentSize = CGSizeMake(320, 500);
+        _scroll.frame = CGRectMake(0  , 205, 320,330 );
+         self.scroll.contentSize = CGSizeMake(320, 530);
       
         
     }
     else
     {
         
-            _scroll.frame = CGRectMake(4 , 235, 320, 247);
+            _scroll.frame = CGRectMake(4 , 235, 320, 277);
         
-            self.scroll.contentSize = CGSizeMake(320, 440);
+            self.scroll.contentSize = CGSizeMake(320, 470);
     }
 
 }

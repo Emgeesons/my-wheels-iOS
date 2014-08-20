@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
+#import "Reachability.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 @interface EvertTimePinVC ()
@@ -134,6 +135,21 @@
 }
 -(IBAction)btnContinue_click:(id)sender
 {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    } else {
+        NSLog(@"There IS internet connection");
+        
+        
+
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     /*userId
      pin
@@ -206,6 +222,7 @@
           }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 #pragma mark toolbar button click event
 - (IBAction)btnMinimize_Click:(id)sender {

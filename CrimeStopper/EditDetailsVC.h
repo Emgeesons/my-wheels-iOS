@@ -30,7 +30,7 @@
 @property (nonatomic,retain) IBOutlet UITextField *txtAnswer;
 @property (nonatomic,retain) IBOutlet UITextField *txtLicenceNo;
 @property (nonatomic,retain) IBOutlet UITextField *txtStreet;
-@property (nonatomic,retain) IBOutlet UITextField *txtPostCode                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+@property (nonatomic,retain) IBOutlet UITextField *txtPostCode,*txtSecurityQuestion;                                                                                                                                                                                                                                                                                                                                                                                                                                    
 @property (nonatomic,retain) IBOutlet UISegmentedControl *gender;
 @property (nonatomic,retain) IBOutlet UISwitch *switchbtn;
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;

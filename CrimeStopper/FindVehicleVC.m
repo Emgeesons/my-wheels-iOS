@@ -42,6 +42,9 @@ NSInteger flag;
 {
     [super viewDidLoad];
     
+    //change backgroung color of located button
+    [_btnLocated setBackgroundColor: [UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1]];
+    
       appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     appDelegate.intMparking = 0;
     [_viewLocation setHidden:YES];
@@ -286,7 +289,7 @@ NSInteger flag;
  if(progressAsInt == 0)
  {
      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
-                                                         message:@"Please give feedback rating."
+                                                         message:@"Please provdie a rating for the parking spot."
                                                         delegate:self
                                                cancelButtonTitle:@"OK"
                                                otherButtonTitles:nil, nil];
@@ -310,7 +313,7 @@ NSInteger flag;
     if(_lblRating.text == nil || _lblRating.text == (id)[NSNull null] || [_lblRating.text isEqualToString:@"0"])
    {
        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
-                                                           message:@"Please give feedback rating."
+                                                           message:@"Please provdie a rating for the parking spot."
                                                           delegate:self
                                                  cancelButtonTitle:@"OK"
                                                  otherButtonTitles:nil, nil];
@@ -506,8 +509,7 @@ else
 }
 -(IBAction)btnDirection_click:(id)sender
 {
-    DirectionMapVC *vc = [[DirectionMapVC alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+   
 }
 #pragma mark slider change
 -(IBAction) sliderChanged:(id) sender{

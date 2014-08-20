@@ -26,7 +26,7 @@
 @property (nonatomic,retain) IBOutlet UITextField *txtPin3;
 @property (nonatomic,retain) IBOutlet UITextField *txtPin4;
 @property (nonatomic,retain) IBOutlet UITextField *txtAnswer;
-@property (nonatomic,retain) IBOutlet UITextField *txtDateOfBirth;
+@property (nonatomic,retain) IBOutlet UITextField *txtDateOfBirth,*txtSecurityQuestion;
 @property (nonatomic,retain) IBOutlet UIButton *btnSubmit;
 @property (nonatomic,retain) IBOutlet UIButton *btndateofbirth;
 @property (nonatomic,retain) IBOutlet UIButton *btnBack;

@@ -312,7 +312,7 @@
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         [_activityIndicator stopAnimating]; // Hide loading indicator
-        
+          [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         if (!user) {
             if (!error) {
                 NSLog(@"Uh oh. The user cancelled the Facebook login.");
@@ -370,6 +370,7 @@
                     
                     if (userData[@"birthday"]) {
                         userProfile[@"birthday"] = userData[@"birthday"];
+                        appdelegate.strFBdob = userData[@"birthday"];
                     }
                     
                     if (userData[@"relationship_status"]) {
@@ -405,7 +406,7 @@
 
         }
     }];
-    
+      [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [_activityIndicator startAnimating]; // Show loading indicator until login is finished}
 
 //    LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
@@ -428,9 +429,9 @@
         NSLog(@"app gender :: %@",appdelegate.strGender);
     }
     
-    if ([[PFUser currentUser] objectForKey:@"profile"][@"user_birthday"]) {
+    if ([[PFUser currentUser] objectForKey:@"basic_info"][@"user_birthday"]) {
        
-        appdelegate.strFBdob =[[PFUser currentUser] objectForKey:@"profile"][@"user_birthday"];
+        appdelegate.strFBdob =[[PFUser currentUser] objectForKey:@"basic_info"][@"user_birthday"];
         NSLog(@"app dob :%@",appdelegate.strFBdob);
     }
     
@@ -557,7 +558,7 @@
                           
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"] forKey:@"fb_id"];
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"] forKey:@"fb_token"];
-                          
+                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"] forKey:@"pin"];
                           
                           HomePageVC *vc = [[HomePageVC alloc]init];
                           [self.navigationController pushViewController:vc animated:YES];

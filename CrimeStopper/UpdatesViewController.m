@@ -376,7 +376,7 @@
                                  @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                  @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
-    //NSLog(@"%@", parameters);
+    NSLog(@"parameters : %@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
