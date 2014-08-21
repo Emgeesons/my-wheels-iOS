@@ -142,6 +142,18 @@
                 originalLongitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.longitude];
                 selectedLatitude = originalLatitude;
                 selectedLongitude = originalLongitude;
+            } else {
+                CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+                MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+                MKCoordinateRegion region = {coord, span};
+                [_mapView setRegion:region];
+                
+                _lblAddress.text = @"5601 SA Australia";
+                
+                originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+                originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
+                selectedLatitude = originalLatitude;
+                selectedLongitude = originalLongitude;
             }
         }];
     }
@@ -217,6 +229,7 @@
         // set Image here
         if ([vehicleType[0] isEqualToString:@"Bicycle"]) {
             self.imgVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+            self.lblRegistrationNumber.text = [NSString stringWithFormat:@"Serial Number : %@", vehicleRegistrationNumber[0]];
         } else if ([vehicleType[0] isEqualToString:@"Car"]) {
             self.imgVehicle.image = [UIImage imageNamed:@"ic_car.png"];
         } else if ([vehicleType[0] isEqualToString:@"Motor Cycle"]) {
@@ -648,6 +661,7 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     UIButton *tmp = [[UIButton alloc] init];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", vehicleMake[indexPath.row], vehicleModel[indexPath.row]];
@@ -659,6 +673,7 @@
     // set Image here
     if ([vehicleType[indexPath.row] isEqualToString:@"Bicycle"]) {
         cell.imageView.image = [UIImage imageNamed:@"ic_cycle.png"];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Serial Number : %@", vehicleRegistrationNumber[indexPath.row]];
     } else if ([vehicleType[indexPath.row] isEqualToString:@"Car"]) {
         cell.imageView.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([vehicleType[indexPath.row] isEqualToString:@"Motor Cycle"]) {
@@ -678,6 +693,7 @@
     // set Image here
     if ([vehicleType[indexPath.row] isEqualToString:@"Bicycle"]) {
         self.imgVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
+        self.lblRegistrationNumber.text = [NSString stringWithFormat:@"Serial Number : %@", vehicleRegistrationNumber[indexPath.row]];
     } else if ([vehicleType[indexPath.row] isEqualToString:@"Car"]) {
         self.imgVehicle.image = [UIImage imageNamed:@"ic_car.png"];
     } else if ([vehicleType[indexPath.row] isEqualToString:@"Motor Cycle"]) {

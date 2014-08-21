@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UpdatesViewController : UIViewController
+@interface UpdatesViewController : UIViewController {
+    UIAlertView *alertViewGuestUser, *alertViewVehicleRecovered;
+}
 @property (nonatomic,retain) IBOutlet UIView *viewLocation;
 
 -(IBAction)btnLocation_click:(id)sender;

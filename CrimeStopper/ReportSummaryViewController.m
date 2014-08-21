@@ -137,9 +137,9 @@
     lblTime.textAlignment = NSTextAlignmentRight;
     lblTime.font = lblDate.font;
     
-    [dtFormat setDateFormat:@"hh:mm:ss"];
+    [dtFormat setDateFormat:@"HH:mm:ss"];
     NSDate *time = [dtFormat dateFromString:self.detailsArray[0][@"selected_time"]];
-    [dtFormat setDateFormat:@"hh:mm"];
+    [dtFormat setDateFormat:@"HH:mm"];
     lblTime.text = [dtFormat stringFromDate:time];
     [viewContainer addSubview:lblTime];
     
@@ -243,6 +243,11 @@
         }
     }
     
+    // Add horizontal line here
+    UIImageView *ivHR2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, top + 20, 300, 1)];
+    ivHR2.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
+    [viewContainer addSubview:ivHR2];
+    
     // Add Vehicles Details label here
     UILabel *lblVehicleDetails = [[UILabel alloc] initWithFrame:CGRectMake(5, top + 30, 300, 20)];
     lblVehicleDetails.text = @"Vehicle Details";
@@ -308,7 +313,7 @@
     }
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [format dateFromString:self.detailsArray[0][@"insurance_expiry_date"]];
     [format setDateFormat:@"F,Y"];
     NSString *dtString = [format stringFromDate:date];
@@ -342,7 +347,7 @@
 }
 
 -(UIView *)addLabelWithText1:(NSString *)text1 andText2:(NSString *)text2 {
-    UILabel *lblVehicleType = [[UILabel alloc] initWithFrame:CGRectMake(10, top, 200, 20)];
+    UILabel *lblVehicleType = [[UILabel alloc] initWithFrame:CGRectMake(10, top, 300, 20)];
     
     NSString *lbl1 = text1;
     NSString *lbl2 = text2;
