@@ -412,6 +412,8 @@
                 [photo1 addObject:reportData[i][@"photo1"]];
                 [photo2 addObject:reportData[i][@"photo2"]];
                 [photo3 addObject:reportData[i][@"photo3"]];
+                
+                report++;
             }
             
             NSArray *sightingData = (NSArray *)[json objectForKey:@"sightings"];
@@ -433,9 +435,11 @@
                 [photo1 addObject:sightingData[i][@"photo1"]];
                 [photo2 addObject:sightingData[i][@"photo2"]];
                 [photo3 addObject:sightingData[i][@"photo3"]];
+                
+                sighting++;
             }
             
-            if (reportData.count > 0 || sightingData.count > 0) {
+            if (report > 0 || sighting > 0) {
                 loadMore = YES;
                 [self.tableViewOthers reloadData];
             } else {
@@ -485,7 +489,7 @@
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"my updates : %@", responseObject);
+        //NSLog(@"my updates : %@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
