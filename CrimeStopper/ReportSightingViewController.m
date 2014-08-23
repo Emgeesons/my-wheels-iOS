@@ -10,6 +10,7 @@
 @import CoreLocation;
 #import "AFNetworking.h"
 #import "Reachability.h"
+#import "HomePageVC.h"
 #import "UserProfileVC.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
@@ -134,6 +135,18 @@
                 
                 originalLatitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
                 originalLongitude = [NSString stringWithFormat:@"%f", _locationManager.location.coordinate.longitude];
+                selectedLatitude = originalLatitude;
+                selectedLongitude = originalLongitude;
+            } else {
+                CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+                MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+                MKCoordinateRegion region = {coord, span};
+                [_mapView setRegion:region];
+                
+                _lblAddress.text = @"5601 SA Australia";
+                
+                originalLatitude = [NSString stringWithFormat:@"%f", 32.028801];
+                originalLongitude = [NSString stringWithFormat:@"%f", 135.0016983];
                 selectedLatitude = originalLatitude;
                 selectedLongitude = originalLongitude;
             }
@@ -268,6 +281,11 @@
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     
+    if (UserID == NULL) {
+        UserID = @"0";
+        pin = @"0000";
+    }
+    
     NSDictionary *parameters = @{@"userId" : UserID,
                                  @"pin" : pin,
                                  @"originalLatitude": originalLatitude,
@@ -315,6 +333,17 @@
         NSDictionary *json = (NSDictionary *)responseObject;
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
+            
+            if (UserID == NULL || [UserID isEqualToString:@"0"]) {
+                NSArray *VCS = self.navigationController.viewControllers;
+                for (int i = 0 ; i < VCS.count; i++) {
+                    if ([VCS[i] isKindOfClass:[HomePageVC class]]) {
+                        [self.navigationController popToViewController:VCS[i] animated:YES];
+                        return;
+                    }
+                }
+            }
+            
             NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
             samaritan_points = [response objectForKey:@"samaritan_points"];
             [self addSuccessView];

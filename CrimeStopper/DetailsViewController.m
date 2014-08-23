@@ -83,18 +83,18 @@
     self.viewBG.backgroundColor = [UIColor colorWithHexString:@"#F7F7F7"];
     self.tableView.backgroundColor = self.viewBG.backgroundColor;
     
-    //[self.btnReportSoghting setTintColor:[UIColor colorWithHexString:@"#00B268"]];
-    [self.btnReportSoghting setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
+    //[self.btnReportSoghting setBackgroundColor:[UIColor colorWithHexString:@"#00B268"]];
+    [self.btnReportSoghting setBackgroundColor:[UIColor colorWithHexString:@"#0067AD"]];
     
     self.tableView.hidden = YES;
     
     [self loadDetailsUpdates];
     
-    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    /*NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     
     if (UserID == NULL) {
         [self.btnReportSoghting setHidden:YES];
-    }
+    }*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,7 +170,8 @@
     NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdatesDetails.php", SERVERNAME];
-    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Details ==> %@", responseObject);
         
         // Stop Animating activityIndicator
@@ -201,8 +202,6 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
@@ -304,13 +303,14 @@
     UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 30)];
     NSString *strName;// = [NSString stringWithFormat:@"%@ lost her vehicle", self.firstNameHeader];
     
-    if ([self.typeSightingHeader isEqualToString:@"Theft"]) {
+    /*if ([self.typeSightingHeader isEqualToString:@"Theft"]) {
         strName = [NSString stringWithFormat:@"%@ lost their vehicle", self.firstNameHeader];
     } else if ([self.typeSightingHeader isEqualToString:@"Vandalism"]) {
         strName = [NSString stringWithFormat:@"%@ reported a %@", self.firstNameHeader, self.typeSightingHeader];
     } else if ([self.typeSightingHeader isEqualToString:@"Stolen /Abandoned Vehicle?"]) {
         strName = [NSString stringWithFormat:@"%@ reported a Stolen /Abandoned Vehicle", self.firstNameHeader];
-    }
+    }*/
+    strName = [NSString stringWithFormat:@"%@ reported their vehicle", self.firstNameHeader];
     
     // Attribute string for User name and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
@@ -401,9 +401,9 @@
     lblTime.textAlignment = NSTextAlignmentRight;
     lblTime.font = lblDate.font;
     
-    [dtFormat setDateFormat:@"hh:mm:ss"];
+    [dtFormat setDateFormat:@"HH:mm:ss"];
     NSDate *time = [dtFormat dateFromString:self.timeHeader];
-    [dtFormat setDateFormat:@"hh:mm"];
+    [dtFormat setDateFormat:@"HH:mm"];
     lblTime.text = [dtFormat stringFromDate:time];
     
     [viewBottom addSubview:lblTime];
@@ -612,7 +612,7 @@
     
     // add UILabel for Name of user
     UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
-    NSString *strName = [NSString stringWithFormat:@"%@ spotted the vehicle", first_name[indexPath]];
+    NSString *strName = [NSString stringWithFormat:@"%@ spotted a vehicle", first_name[indexPath]];
     
     // Attribute string for User anme and activity
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
@@ -657,9 +657,9 @@
     lblTime.textAlignment = NSTextAlignmentRight;
     lblTime.font = lblDate.font;
     
-    [dtFormat setDateFormat:@"hh:mm:ss"];
+    [dtFormat setDateFormat:@"HH:mm:ss"];
     NSDate *time = [dtFormat dateFromString:selected_time[indexPath]];
-    [dtFormat setDateFormat:@"hh:mm"];
+    [dtFormat setDateFormat:@"HH:mm"];
     lblTime.text = [dtFormat stringFromDate:time];
     
     [viewBottom addSubview:lblTime];
@@ -732,7 +732,7 @@
             ivImage1.clipsToBounds = YES;
             ivImage1.userInteractionEnabled = YES;
             ivImage1.imageFileURL = strImage1;
-            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1]];
+            [ivImage1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:strImage1] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
             [viewBottom addSubview:ivImage1];
             
             CustomImageView *ivImage2 = [[CustomImageView alloc] initWithFrame:CGRectMake(ivImage1.frame.origin.x + ivImage1.frame.size.width + 10, ivImage1.frame.origin.y, 60, 60)];
@@ -744,7 +744,7 @@
 
                 ivImage2.userInteractionEnabled = YES;
                 ivImage2.imageFileURL = photo2[indexPath];
-                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]]];
+                [ivImage2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo2[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 
                 [viewBottom addSubview:ivImage2];
             }
@@ -757,7 +757,7 @@
                 [ivImage3 addTarget:self action:@selector(openImage:) forControlEvents:UIControlEventTouchUpInside];
                 ivImage3.userInteractionEnabled = YES;
                 ivImage3.imageFileURL = photo3[indexPath];
-                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]]];
+                [ivImage3 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:photo3[indexPath]] placeholderImage:[UIImage imageNamed:@"add_photos_grey.png"]];
                 
                 [viewBottom addSubview:ivImage3];
             }

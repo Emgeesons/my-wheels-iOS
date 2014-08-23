@@ -20,6 +20,7 @@
 }
 - (IBAction)reportSummaryClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+- (IBAction)btnBackClicked:(id)sender;
 
 @end
 
@@ -93,7 +94,9 @@
     NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@reportSummary.php", SERVERNAME];
-    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Details ==> %@", responseObject);
         
         // Stop Animating activityIndicator
@@ -117,12 +120,18 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
-        //[activityIndicator stopAnimating];
     }];
+}
+- (IBAction)btnBackClicked:(id)sender {
+    NSArray *VCS = self.navigationController.viewControllers;
+    for (int i = 0 ; i < VCS.count; i++) {
+        if ([VCS[i] isKindOfClass:[HomePageVC class]]) {
+            [self.navigationController popToViewController:VCS[i] animated:YES];
+            return;
+        }
+    }
 }
 @end
