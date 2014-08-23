@@ -24,10 +24,9 @@
 @synthesize arrSecurityQuestion;
 NSString *strGender;
 int intques;
-NSString *strQues;
+NSString *strQues,*strSecQuestion;
 NSString *strBirthDate;
 UITextField *txtOtherQuestion;
-
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -98,6 +97,7 @@ UITextField *txtOtherQuestion;
         [self.gender setImage:[[UIImage imageNamed:@"male_active.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:0];
         [self.gender setImage:[[UIImage imageNamed:@"female_inactive.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:1];
         strGender = @"male";
+         _gender.userInteractionEnabled = YES;
        
 	}
 	else
@@ -105,6 +105,7 @@ UITextField *txtOtherQuestion;
         [self.gender setImage:[[UIImage imageNamed:@"male_inactive.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:0];
         [self.gender setImage:[[UIImage imageNamed:@"female_active.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:1];
         strGender = @"female";
+        _gender.userInteractionEnabled = YES;
        
     }
 
@@ -502,7 +503,7 @@ UITextField *txtOtherQuestion;
             [_txtStreet setFrame:CGRectMake(5, 470, 300, 30)];
             // [self.scrollview addSubview:txtAnswer];
             txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
-            txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+            txtOtherQuestion.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:15];
             txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
             //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
             txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
@@ -529,13 +530,44 @@ UITextField *txtOtherQuestion;
             [txtOtherQuestion setHidden:YES];
             NSString *title1 = [QuestionPicker buttonTitleAtIndex:buttonIndex];
             [self.txtSecurityQuestion setText:title1];
-         
+            
             [txtOtherQuestion setHidden:YES];
             [_txtSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
             [_txtAnswer setFrame:CGRectMake(5, 315, 300, 30)];
             [_txtLicenceNo setFrame:CGRectMake(5, 355, 300, 30)];
             [_txtStreet setFrame:CGRectMake(5, 395, 300, 30)];
             [_txtPostCode setFrame:CGRectMake(5, 435, 300, 30)];
+            
+            if(buttonIndex == 0 ||buttonIndex == 1 || buttonIndex == 2 || buttonIndex == 3)
+            {
+                NSString *str = @"What's your ";
+                NSString *str1 = [str stringByAppendingString:_txtSecurityQuestion.text];
+                strSecQuestion = [str1 stringByAppendingString:@" ?"];
+            }
+            else if (buttonIndex == 4)
+            {
+                
+                strSecQuestion = @"Who was your First Childhood Friend ?";
+            }
+            else if (buttonIndex == 5)
+            {
+                
+                strSecQuestion = @"What Primary School did you First Attend ?";
+            }
+            else if (buttonIndex == 6)
+            {
+                strSecQuestion = @"What was the Colour of your First Car ?";
+            }
+            else if (buttonIndex == 7)
+            {
+                strSecQuestion = @"What is your All Time Favourite Movie ?";
+            }
+            else if (buttonIndex == 8)
+            {
+                strSecQuestion = @"What was your First Paid Job ?";
+            }
+
+            
         }
     }
     
@@ -868,6 +900,7 @@ UITextField *txtOtherQuestion;
     if(textField == _txtDob)
     {
     }
+    
     if(textField.tag == 6)
     {
         NSUInteger newLength = [_txtpin1.text length] + [string length] - range.length;
@@ -882,14 +915,14 @@ UITextField *txtOtherQuestion;
         {
             _txtpin1.text = @"";
         }
-        else
-        {
-            NSLog(@"YES");
-            
-            return YES;
-            [_txtpin1 resignFirstResponder];
-            [_txtpin2 becomeFirstResponder];
-        }
+        //        else
+        //        {
+        //            NSLog(@"YES");
+        //
+        //            return YES;
+        //            [txtPin1 resignFirstResponder];
+        //            [txtpin2 becomeFirstResponder];
+        //        }
         
         // return (newLength > 1) ? NO : YES;
     }
@@ -904,15 +937,16 @@ UITextField *txtOtherQuestion;
         }
         if(newLength == 0)
         {
+            _txtpin2.text = @"";
+            
             [_txtpin2 resignFirstResponder];
             [_txtpin1 becomeFirstResponder];
-            _txtpin2.text = @"";
         }
-        else
-        {
-            [_txtpin2 resignFirstResponder];
-            [_txtpin3 becomeFirstResponder];
-        }
+        //        else
+        //        {
+        //            [txtpin2 resignFirstResponder];
+        //            [txtpin3 becomeFirstResponder];
+        //        }
         
     }
     else if(textField.tag == 8)
@@ -927,15 +961,16 @@ UITextField *txtOtherQuestion;
         }
         if(newLength == 0)
         {
+            _txtpin3.text = @"";
             [_txtpin3 resignFirstResponder];
             [_txtpin2 becomeFirstResponder];
-            _txtpin3.text = @"";
+            
         }
-        else
-        {
-            [_txtpin3 resignFirstResponder];
-            [_txtpin4 becomeFirstResponder];
-        }
+        //        else
+        //        {
+        //            [txtpin3 resignFirstResponder];
+        //            [txtPint4 becomeFirstResponder];
+        //        }
         
         
     }
@@ -945,27 +980,23 @@ UITextField *txtOtherQuestion;
         if(newLength >1)
         {
             NSLog(@"no");
-             [_txtpin4 resignFirstResponder];
+            [_txtpin4 resignFirstResponder];
             //return NO;
         }
         else if(newLength == 0)
         {
+            [_txtpin3 becomeFirstResponder];
+            
             _txtpin4.text = @"";
             [_txtpin4 resignFirstResponder];
-            [_txtpin4 becomeFirstResponder];
             
         }
-        else
-        {
-            [_txtpin4 resignFirstResponder];
-        }
+        //        else
+        //        {
+        //            [txtPint4 resignFirstResponder];
+        //        }
     }
-    else
-    {
-        
-    }
-    
-    if(textField == _txtPostCode)
+       if(textField == _txtPostCode)
     {
         NSUInteger newLength = [_txtPostCode.text length] + [string length] - range.length;
         if(newLength >4)
@@ -999,8 +1030,7 @@ UITextField *txtOtherQuestion;
     strPin = [strPin stringByAppendingString:_txtpin3.text];
     strPin = [strPin stringByAppendingString:_txtpin4.text];
     NSLog(@"strpin :: %@",strPin);
-    NSString *strQuestion;
-    strQuestion = @"What is your ";
+ 
 //    if(intques == 2)
 //    {
 //        strQuestion = [strQuestion stringByAppendingString:strQues];
@@ -1043,26 +1073,20 @@ UITextField *txtOtherQuestion;
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
   //  NSString *strQue;
     
+    NSString *strQuestion1;
+    NSLog(@"strquestion : %@",strSecQuestion);
+  
     if(intques == 2)
     {
-        strQuestion = @"What is your ";
-        strQuestion = [strQuestion stringByAppendingString:_txtSecurityQuestion.text];
-        NSLog(@"ques :: %@",strQuestion);
+        strQuestion1 = strSecQuestion;
+       
     }
     else if (intques == 1)
     {
-        if(txtOtherQuestion.text.length == 0)
-        {
-            strQuestion = @"other";
-        }
-        else
-        {
-            strQuestion = txtOtherQuestion.text;
-        }
+        strQuestion1 = txtOtherQuestion.text;
     }
     else
     {
-        strQuestion = _txtSecurityQuestion.text;
     }
 
 
@@ -1087,7 +1111,7 @@ UITextField *txtOtherQuestion;
        [param setValue:strBirthDate forKey:@"dob"];
     }
     [param setValue:strGender forKey:@"gender"];
-    [param setValue:strQuestion forKey:@"securityQuestion"];
+    [param setValue:strQuestion1 forKey:@"securityQuestion"];
     [param setValue:_txtAnswer.text  forKey:@"securityAnswer"];
     [param setValue:latitude forKey:@"latitude"];
     [param setValue:longitude forKey:@"longitude"];
@@ -1095,9 +1119,9 @@ UITextField *txtOtherQuestion;
     [param setValue:_txtLicenceNo.text forKey:@"licenceNo"];
     [param setValue:_txtStreet.text forKey:@"address"];
     [param setValue:_txtPostCode.text forKey:@"pincode"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:OS_VERSION forKey:@"os"];
+    [param setValue:MAKE forKey:@"make"];
+    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     NSLog(@"param : %@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
@@ -1151,9 +1175,15 @@ UITextField *txtOtherQuestion;
                   [[NSUserDefaults standardUserDefaults] setValue:_txtStreet.text forKey:@"street"];
                   //[[NSUserDefaults standardUserDefaults] setValue:samaritan_points forKey:@"samaritan_points"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtAnswer.text forKey:@"security_answer"];
-                  [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+                  [[NSUserDefaults standardUserDefaults] setValue:strQuestion1 forKey:@"security_question"];
                   [[NSUserDefaults standardUserDefaults] setValue:_txtStreet.text forKey:@"street"];
-                  
+                  [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
+                   [[NSUserDefaults standardUserDefaults] setValue:_txtpin1.text forKey:@"pin1"];
+                   [[NSUserDefaults standardUserDefaults] setValue:_txtpin2.text forKey:@"pin2"];
+                   [[NSUserDefaults standardUserDefaults] setValue:_txtpin3.text forKey:@"pin3"];
+                   [[NSUserDefaults standardUserDefaults] setValue:_txtpin4.text forKey:@"pin4"];
+                
+
                   UserProfileVC *vc = [[UserProfileVC alloc]init];
                   [self.navigationController pushViewController:vc animated:YES];
               }
@@ -1177,103 +1207,5 @@ UITextField *txtOtherQuestion;
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
 }
 
-#pragma mark table view methods for securyity question
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [arrSecurityQuestion count];
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
-    }
-    
-    
-    
-    
-    if(indexPath.row == 0)
-    {
-        [cell.textLabel setText:[arrSecurityQuestion objectAtIndex:0]];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        [cell.textLabel setTextColor:[UIColor blackColor]];
-        
-    }
-    
-    else
-    {
-        [cell.textLabel setText:[arrSecurityQuestion objectAtIndex:indexPath.row]];
-        [cell.textLabel setTextColor:[UIColor blueColor]];
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        // [cell.textLabel setValue:[UIColor blueColor] forKeyPath:[arrSecurityQuestion objectAtIndex:indexPath.row]];
-    }
-    return cell;
-    
-    
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    self.scroll.userInteractionEnabled = YES;
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    if(indexPath.row == 10)
-    {
-        intques = 1;
-        [txtOtherQuestion setHidden:NO];
-        _txtAnswer.text = @"";
-        // [self.scrollview removeFromSuperview];
-        [_btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
-        [_btnSecurityQuestion setEnabled:YES];
-        [_btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
-        txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,315,300,30)];
-        [_txtAnswer setFrame:CGRectMake(5, 350, 300, 30)];
-        [_txtLicenceNo setFrame:CGRectMake(5, 390, 300, 30)];
-        [_txtStreet setFrame:CGRectMake(5, 430, 300, 30)];
-        [_txtPostCode setFrame:CGRectMake(5, 470, 300, 30)];
-        // [self.scrollview addSubview:txtAnswer];
-        txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
-        txtOtherQuestion.font = [UIFont systemFontOfSize:15];
-        txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
-        //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
-        txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
-        txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
-        txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        txtOtherQuestion.placeholder = @"enter question *";
-        txtOtherQuestion.tag = 10;
-        txtOtherQuestion.delegate = self;
-        
-        [self.scroll addSubview:txtOtherQuestion];
-        [_viewSecurityQuestion setHidden:YES];
-        
-    }
-    
-    else
-    {
-        intques = 2;
-        [_txtAnswer setText:@""];
-        [txtOtherQuestion setHidden:YES];
-        NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
-        strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
-        [_btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
-        [_btnSecurityQuestion setEnabled:YES];
-        [_viewSecurityQuestion setHidden:YES];
-        [txtOtherQuestion setHidden:YES];
-        [_btnSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
-        [_txtAnswer setFrame:CGRectMake(5, 315, 300, 30)];
-        [_txtLicenceNo setFrame:CGRectMake(5, 355, 300, 30)];
-        [_txtStreet setFrame:CGRectMake(5, 395, 300, 30)];
-        [_txtPostCode setFrame:CGRectMake(5, 435, 300, 30)];
-        
-    }
-    
-}
 
 @end

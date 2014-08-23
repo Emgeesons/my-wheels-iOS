@@ -13,6 +13,7 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgVehicleType;
 
 @property (nonatomic,retain) IBOutlet UILabel *lblRegistrationNumber;
+@property (nonatomic,retain) IBOutlet UILabel *lblSerialNo;
 
 
 @end

@@ -339,7 +339,7 @@
         vehicleType = @"Serial number:";
     } else if ([self.vehicleHeader isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([self.vehicleHeader isEqualToString:@"Motor Cycle"]) {
+    } else if ([self.vehicleHeader isEqualToString:@"Motorcycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         ivVehicle.image = [UIImage imageNamed:@"ic_other.png"];

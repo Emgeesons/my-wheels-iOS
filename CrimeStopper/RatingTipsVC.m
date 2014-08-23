@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 #import "ImParkingHereVC.h"
 #import "VehicleTipsCell.h"
+#import "TipsDetailsVC.h"
 
 @interface RatingTipsVC ()
 
@@ -97,9 +98,9 @@
             [param setValue:strVehicleID forKey:@"vehicleId"];
         }
         [param setValue:@"0" forKey:@"noTips"];
-        [param setValue:@"ios7" forKey:@"os"];
-        [param setValue:@"iPhone" forKey:@"make"];
-        [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+        [param setValue:OS_VERSION forKey:@"os"];
+        [param setValue:MAKE forKey:@"make"];
+        [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
         [param setValue:@"test11" forKeyPath:@"test"];
         NSLog(@"param : %@",param);
        
@@ -201,7 +202,7 @@
 #pragma mark table view delegate methods
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45;
+    return 60;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -235,7 +236,12 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    TipsDetailsVC *vc = [[TipsDetailsVC alloc]init];
+    vc.strLocation = _lblLocation.text;
+    vc.strRating = _lblRating.text;
+    vc.strTips = [[_arrTips objectAtIndex:indexPath.row] valueForKey:@"feedback"];
+    vc.strdate = [[_arrTips objectAtIndex:indexPath.row] valueForKey:@"time"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark button  click event

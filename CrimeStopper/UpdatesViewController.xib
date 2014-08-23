@@ -21,6 +21,7 @@
                 <outlet property="viewMyUpdates" destination="eyh-7m-2PE" id="Jgk-un-Hg0"/>
                 <outlet property="viewOthers" destination="vRM-Os-9Uj" id="ch6-eJ-FL1"/>
                 <outlet property="viewTableMyUpdates" destination="a2D-wO-aFb" id="g7R-P8-1NZ"/>
+                <outlet property="viewTransparent" destination="BBS-HM-MBj" id="G6n-Zy-yMI"/>
                 <outlet property="viewVehicleReported" destination="nY6-MS-cJK" id="p7d-gq-7Xk"/>
             </connections>
         </placeholder>
@@ -189,6 +190,12 @@
                         <constraint firstAttribute="bottom" secondItem="a2D-wO-aFb" secondAttribute="bottom" id="x34-BN-Knm"/>
                         <constraint firstAttribute="trailing" secondItem="nY6-MS-cJK" secondAttribute="trailing" id="ybn-d9-VmM"/>
                     </constraints>
+                </view>
+                <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BBS-HM-MBj">
+                    <rect key="frame" x="0.0" y="44" width="320" height="519"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOd-wc-yLk">
                     <rect key="frame" x="33" y="126" width="254" height="317"/>

@@ -290,13 +290,25 @@
 }
 - (IBAction)loginButtonTouchHandler:(id)sender
 {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    } else {
+
     // Set permissions required from the facebook user account
    // NSArray *permissionsArray = @[ @"public_profile", @"email", @"user_birthday"];
     NSArray *permissionsArray;
     
   
      // permissionsArray = [[NSArray alloc] initWithObjects:@"basic_info",@"public_profile", @"email", @"user_birthday", nil];
-     permissionsArray = [NSArray arrayWithObjects:@"user_photos",@"user_videos",@"publish_stream",@"offline_access",@"user_checkins",@"friends_checkins",@"email",@"user_location",@"user_birthday" ,nil];
+     permissionsArray = [NSArray arrayWithObjects:@"",@"",@"publish_stream",@"",@"",@"",@"email",@"",@"user_birthday" ,nil];
     
    // NSArray *permissionsArray = [[NSArray alloc] initWithObjects:@"basic_info", @"email", @"user_birthday", nil];
     ////
@@ -411,6 +423,7 @@
 
 //    LoginWithFacebookVC *vc = [[LoginWithFacebookVC alloc]init];
 //    [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 - (void)logoutButtonTouchHandler:(id)sender {
     // Logout user, this automatically clears the cache
@@ -514,9 +527,9 @@
         [param setValue:appdelegate.strGender forKey:@"gender"];
         [param setValue:appdelegate.strFacebookID forKey:@"fbId"];
         [param setValue:appdelegate.strFacebookToken forKey:@"fbToken"];
-        [param setValue:@"iOS7" forKey:@"os"];
-        [param setValue:@"iPhone" forKey:@"make"];
-        [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+        [param setValue:OS_VERSION forKey:@"os"];
+        [param setValue:MAKE forKey:@"make"];
+        [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
         
         NSLog(@"param : %@",param);
         
@@ -544,6 +557,9 @@
                       if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
                       {
                           [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
+                          NSDictionary *arrVehicle = [[NSDictionary alloc]init];
+                          arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
+                          
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"] forKey:@"dob"];
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"] forKey:@"UserID"];
                          
@@ -559,7 +575,7 @@
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_id"] forKey:@"fb_id"];
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"] forKey:@"fb_token"];
                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"] forKey:@"pin"];
-                          
+                          [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                           HomePageVC *vc = [[HomePageVC alloc]init];
                           [self.navigationController pushViewController:vc animated:YES];
                       }
@@ -771,10 +787,10 @@
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:appdelegate.strUserID forKey:@"userId"];
     [param setValue:txtAnswer.text forKey:@"securityAnswer"];
-    [param setValue:@"iOS7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
-      AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+          [param setValue:OS_VERSION forKey:@"os"];
+          [param setValue:MAKE forKey:@"make"];
+          [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
+          AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
       manager.requestSerializer = [AFJSONRequestSerializer serializer];
        NSString *url = [NSString stringWithFormat:@"%@forgotPinAnswer.php", SERVERNAME];
       [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -1166,9 +1182,9 @@
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:txtEmail.text forKey:@"email"];
             [param setValue:strPin forKey:@"pin"];
-            [param setValue:@"iOS7" forKey:@"os"];
-            [param setValue:@"iPhone" forKey:@"make"];
-            [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+            [param setValue:OS_VERSION forKey:@"os"];
+            [param setValue:MAKE forKey:@"make"];
+            [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
              manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -1353,9 +1369,9 @@
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:txtEmailIDForForgot.text forKey:@"email"];
            
-            [param setValue:@"iOS7" forKey:@"os"];
-            [param setValue:@"iPhone" forKey:@"make"];
-            [param setValue:@"iPhone5,iPhone5S" forKey:@"model"];
+                [param setValue:OS_VERSION forKey:@"os"];
+                [param setValue:MAKE forKey:@"make"];
+                [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];

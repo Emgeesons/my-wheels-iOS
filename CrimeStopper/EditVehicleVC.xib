@@ -78,7 +78,7 @@
                                 <outlet property="delegate" destination="-1" id="qnL-TD-L5Y"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="registration / serial No *" minimumFontSize="17" id="4Ep-1R-6E0">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="registration * (max 10 chars)" minimumFontSize="17" id="4Ep-1R-6E0">
                             <rect key="frame" x="9" y="134" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
@@ -88,7 +88,7 @@
                                 <outlet property="delegate" destination="-1" id="Xij-D1-4y3"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="state *" minimumFontSize="17" id="j1P-Ei-bWm">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="state * (max 3 chars)" minimumFontSize="17" id="j1P-Ei-bWm">
                             <rect key="frame" x="10" y="172" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
@@ -118,7 +118,7 @@
                                 <outlet property="delegate" destination="-1" id="IGu-Uo-C0x"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="engine no *" minimumFontSize="17" id="CAs-Ne-p8G">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="engine no (min 13 chars)" minimumFontSize="17" id="CAs-Ne-p8G">
                             <rect key="frame" x="9" y="210" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
@@ -128,7 +128,7 @@
                                 <outlet property="delegate" destination="-1" id="oSB-2w-Vzx"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VIN / chassis no *" minimumFontSize="17" id="9mr-Ds-SZO">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VIN / chassis no (min 17 chars)" minimumFontSize="17" id="9mr-Ds-SZO">
                             <rect key="frame" x="10" y="248" width="301" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>

@@ -44,6 +44,8 @@ int counterForCell;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_viewTransparent setHidden:YES];
+    
     NSString *strVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
     NSString *strCurrentVehicleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     _arrVehiclePark = [[NSMutableDictionary alloc]init];
@@ -57,7 +59,7 @@ int counterForCell;
     _arrrandValue = [[NSMutableArray alloc]init];
     if([appDelegate.strVehicleType isEqualToString:@"Bicycle"])
         _arrrandValue = [self getEightRandomLessThan:13];
-    else if([appDelegate.strVehicleType isEqualToString:@"Motor Cycle"])
+    else if([appDelegate.strVehicleType isEqualToString:@"Motorcycle"])
         _arrrandValue = [self getEightRandomLessThan:7];
     else
         _arrrandValue = [self getEightRandomLessThan:10];
@@ -152,6 +154,7 @@ int counterForCell;
     if([latitude isEqualToString:@"0.000000"])
     {
         [_viewLocationGuide setHidden:NO];
+        [_viewTransparent setHidden:NO];
     }
 
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
@@ -172,9 +175,9 @@ int counterForCell;
     
    
   
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+        [param setValue:OS_VERSION forKey:@"os"];
+        [param setValue:MAKE forKey:@"make"];
+        [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -332,6 +335,7 @@ int counterForCell;
         else
         {
             [_viewLocationGuide setHidden:NO];
+            [_viewTransparent setHidden:NO];
         }
     }
     if(alertView.tag ==5)
@@ -384,7 +388,7 @@ int counterForCell;
 //
         [cell.lblCheckList setText:[_arrcycle objectAtIndex: chk]];
     }
-    else if([appDelegate.strVehicleType isEqualToString:@"Motor Cycle"])
+    else if([appDelegate.strVehicleType isEqualToString:@"Motorcycle"])
     {
 //        [self getEightRandomLessThan:[_arrBike count]];
 //        NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrBike count]]);
@@ -537,6 +541,7 @@ int counterForCell;
 -(IBAction)btnGotit_click:(id)sender
 {
     [_viewLocationGuide setHidden:YES];
+    [_viewTransparent setHidden:YES];
 }
 #pragma mark textfield delegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -26,6 +26,7 @@
                 <outlet property="txtSighting" destination="iyd-uk-OqC" id="xlC-39-CuP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewLocationGuide" destination="rEf-ja-nV1" id="JZb-x7-Mhc"/>
+                <outlet property="viewTransparent" destination="fKD-pZ-daa" id="Otm-7d-kt6"/>
                 <outlet property="viewselectVehicle" destination="TOt-TF-CDY" id="uAy-WQ-Iw3"/>
                 <outlet property="vwFileReport" destination="3n8-xH-WG0" id="zGU-Mr-CvK"/>
                 <outlet property="vwNoVehicle" destination="eIL-Jv-816" id="n49-VA-WQu"/>
@@ -215,6 +216,12 @@
                         </view>
                     </subviews>
                 </scrollView>
+                <view alpha="0.69999998807907104" contentMode="scaleToFill" id="fKD-pZ-daa">
+                    <rect key="frame" x="0.0" y="60" width="320" height="519"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </view>
                 <view contentMode="scaleToFill" id="rEf-ja-nV1">
                     <rect key="frame" x="33" y="126" width="254" height="317"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

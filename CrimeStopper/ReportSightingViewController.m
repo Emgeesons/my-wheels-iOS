@@ -53,6 +53,7 @@
     self.navBar.frame = frame;
     
     [_viewLocationGuide setHidden:YES];
+    [_viewTransparent setHidden:YES];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
     
@@ -71,6 +72,7 @@
     if([latitude isEqualToString:@"0.000000"])
     {
         [_viewLocationGuide setHidden:NO];
+        [_viewTransparent setHidden:NO];
     }
     
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -206,6 +208,7 @@
 -(IBAction)btnLocation_click:(id)sender
 {
     [_viewLocationGuide setHidden:YES];
+    [_viewTransparent setHidden:YES];
 }
 - (IBAction)backButtonClicked:(id)sender {
     [self deleteAllimageFiles];
@@ -754,7 +757,7 @@
     //UILabel for 50 points
     UILabel *lblPoints = [[UILabel alloc] init];
     lblPoints.frame = CGRectMake(0, lblGood.frame.origin.y + lblGood.frame.size.height + 5, 280, 35);
-    lblPoints.text = @"You earned yourself 50 good\nSamaritan points!!";
+    lblPoints.text = @"You earned yourself 50 good\nSamaritan points!";
     lblPoints.numberOfLines = 0;
     lblPoints.textAlignment = NSTextAlignmentCenter;
     lblPoints.textColor = [UIColor grayColor];

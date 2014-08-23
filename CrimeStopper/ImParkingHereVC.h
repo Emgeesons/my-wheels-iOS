@@ -31,7 +31,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnDone;
 @property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
 @property (nonatomic,retain) IBOutlet UIButton *btnTips;
-
+@property (nonatomic,retain) IBOutlet UIView *viewTransparent;
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnRating_click:(id)sender;
 -(IBAction)btnTip_click:(id)sender;

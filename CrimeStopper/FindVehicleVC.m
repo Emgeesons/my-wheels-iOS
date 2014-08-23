@@ -27,8 +27,12 @@
 @implementation FindVehicleVC
 #define METERS_PER_MILE 1609.344
 int progressAsInt;
-
+float flatitude;
+float flongitude;
+NSString *parkLatitude;
+NSString *parkLongitude;
 NSInteger flag;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,17 +52,21 @@ NSInteger flag;
       appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     appDelegate.intMparking = 0;
     [_viewLocation setHidden:YES];
+    [_viewTransparent setHidden:YES];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
     [locationManager startUpdatingLocation];
     NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
+    flatitude = (CGFloat)[latitude floatValue];
+    flongitude = (CGFloat)[longitude floatValue];
     NSLog(@"current location : %@",latitude);
     
     if([latitude isEqualToString:@"0.000000"])
     {
         [_viewLocation setHidden:NO];
+        [_viewTransparent setHidden:NO];
     }
 
     [ self.map.delegate self];
@@ -103,8 +111,8 @@ NSInteger flag;
             {
                 NSString *strComment = [[arr objectAtIndex:i]valueForKey:@"Comment"];
                 _lblParking.text = [@"  " stringByAppendingString:strComment];
-                NSString *parkLatitude = [[arr objectAtIndex:i]valueForKey:@"parkingLatitude"];
-                NSString *parkLongitude = [[arr objectAtIndex:i]valueForKey:@"prkingLongitude"];
+                parkLatitude = [[arr objectAtIndex:i]valueForKey:@"parkingLatitude"];
+                parkLongitude = [[arr objectAtIndex:i]valueForKey:@"prkingLongitude"];
               
                 
                 float lat = [parkLatitude floatValue];
@@ -256,10 +264,12 @@ NSInteger flag;
 -(IBAction)GoOt_click:(id)sender
 {
     [_viewLocation setHidden:YES];
+    [_viewTransparent setHidden:YES];
 }
 -(IBAction)btnBack_click:(id)sender
 {
     HomePageVC *vc = [[HomePageVC alloc]init];
+    appDelegate.intMparking = 1;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(IBAction)btnLocated_click:(id)sender
@@ -357,9 +367,9 @@ else
     [param setValue:_txtComment.text forKey:@"feedback"];
    
     [param setValue:_lblRating.text forKey:@"rating"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:OS_VERSION forKey:@"os"];
+    [param setValue:MAKE forKey:@"make"];
+    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -509,7 +519,9 @@ else
 }
 -(IBAction)btnDirection_click:(id)sender
 {
-   
+    NSString *googleMapUrlString = [NSString stringWithFormat:@"http://maps.google.com/?saddr=%f,%f&daddr=%@,%@", flatitude, flongitude, parkLatitude, parkLongitude];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:googleMapUrlString]];
 }
 #pragma mark slider change
 -(IBAction) sliderChanged:(id) sender{

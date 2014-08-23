@@ -39,6 +39,7 @@
 @property (nonatomic,retain) NSMutableArray *arrSecurityQuestion;
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic,retain) IBOutlet UIButton *btnSecurityQuestion;
+@property (nonatomic,retain) IBOutlet UIView *viewUpdate;
 
 -(IBAction)btnSecurityQuestion_click:(id)sender;
 - (IBAction)btnMinimize_Click:(id)sender;

@@ -40,6 +40,13 @@
 @property (nonatomic,retain) IBOutlet UIView *viewCoach;
 @property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
 @property (nonatomic,retain) IBOutlet UILabel *lblPush;
+@property (nonatomic,retain) IBOutlet UIView *viewUpdate;
+@property (nonatomic,retain) IBOutlet UIImageView *imgReportSighting;
+@property (nonatomic,retain) IBOutlet UIImageView *imgFileNewReport;
+@property (nonatomic,retain) IBOutlet UIImageView *imgAboutUs;
+@property (nonatomic,retain) IBOutlet UIImageView *imgUpdates;
+@property (nonatomic,retain)IBOutlet UILabel *lblGray1,*lblGray2;
+@property (nonatomic,retain) IBOutlet UILabel *lblmainText,*lblSubText,*lblmainText1,*lblSubText1,*lblmainText2,*lblSubText2;
 
 
 - (IBAction)tapDetected:(UITapGestureRecognizer *)sender;

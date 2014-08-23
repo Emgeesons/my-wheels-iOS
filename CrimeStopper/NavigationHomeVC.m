@@ -243,6 +243,7 @@
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
             appdelegate.intCountPushNotification = 0;
+            appdelegate.intMparking = 0;
             
             //remove profile pic
             //       NSString *photoURL = appdelegate.strPhotoURL;

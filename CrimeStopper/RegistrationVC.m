@@ -41,6 +41,7 @@ NSString *strQues;
 @synthesize toolbar;
 @synthesize viewPickerview;
 NSString *strBirthDate;
+NSString *strSecQuestion;
 
 UITextField *txtOtherQuestion;
 int intques;
@@ -625,7 +626,7 @@ int intques;
             [txtAnswer setFrame:CGRectMake(5, 350, 300, 30)];
             // [self.scrollview addSubview:txtAnswer];
             txtOtherQuestion.borderStyle = UITextBorderStyleRoundedRect;
-            txtOtherQuestion.font = [UIFont systemFontOfSize:15];
+            txtOtherQuestion.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:15];
             txtOtherQuestion.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
             //  [txtOtherQuestion setBackgroundColor:[UIColor colorWithRed:170 green:170 blue:170 alpha:1]];
             txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
@@ -645,6 +646,11 @@ int intques;
         }
         else
         {
+            /*
+             
+             @"passport number",@"licence number",@"mother's maiden name",@"first pet's name",@"first childhood friend",@"first primary school",@"colour of your first car",@"all time favourite movie",@"first paid job",@"other"
+             
+             */
             NSString *title = [QuestionPicker buttonTitleAtIndex:buttonIndex];
             [self.txtSecurityQuestion setText:title];
             intques = 2;
@@ -656,6 +662,36 @@ int intques;
             [txtOtherQuestion setHidden:YES];
             [_txtSecurityQuestion setFrame:CGRectMake(5, 275, 300, 30)  ];
             [txtAnswer setFrame:CGRectMake(5, 322, 300, 30)];
+            
+            if(buttonIndex == 0 ||buttonIndex == 1 || buttonIndex == 2 || buttonIndex == 3)
+            {
+                NSString *str = @"What's your ";
+                NSString *str1 = [str stringByAppendingString:_txtSecurityQuestion.text];
+                strSecQuestion = [str1 stringByAppendingString:@" ?"];
+            }
+            else if (buttonIndex == 4)
+            {
+               
+                strSecQuestion = @"Who was your First Childhood Friend ?";
+            }
+            else if (buttonIndex == 5)
+            {
+              
+                strSecQuestion = @"What Primary School did you First Attend ?";
+            }
+            else if (buttonIndex == 6)
+            {
+                strSecQuestion = @"What was the Colour of your First Car ?";
+            }
+            else if (buttonIndex == 7)
+            {
+                strSecQuestion = @"What is your All Time Favourite Movie ?";
+            }
+            else if (buttonIndex == 8)
+            {
+                strSecQuestion = @"What was your First Paid Job ?";
+            }
+            
             
         }
     }
@@ -1086,7 +1122,7 @@ int intques;
         if(newLength >1)
         {
             NSLog(@"no");
-           // return NO;
+            // return NO;
             [txtPin1 resignFirstResponder];
             [txtPin2 becomeFirstResponder];
         }
@@ -1094,16 +1130,16 @@ int intques;
         {
             txtPin1.text = @"";
         }
-        else
-        {
-            NSLog(@"YES");
-            
-            return YES;
-            [txtPin1 resignFirstResponder];
-            [txtPin2 becomeFirstResponder];
-        }
+        //        else
+        //        {
+        //            NSLog(@"YES");
+        //
+        //            return YES;
+        //            [txtPin1 resignFirstResponder];
+        //            [txtpin2 becomeFirstResponder];
+        //        }
         
-       // return (newLength > 1) ? NO : YES;
+        // return (newLength > 1) ? NO : YES;
     }
     else if (textField.tag == 7)
     {
@@ -1116,16 +1152,17 @@ int intques;
         }
         if(newLength == 0)
         {
+            txtPin2.text = @"";
+            
             [txtPin2 resignFirstResponder];
             [txtPin1 becomeFirstResponder];
-              txtPin2.text = @"";
         }
-        else
-        {
-            [txtPin2 resignFirstResponder];
-            [txtPin3 becomeFirstResponder];
-        }
-
+        //        else
+        //        {
+        //            [txtpin2 resignFirstResponder];
+        //            [txtpin3 becomeFirstResponder];
+        //        }
+        
     }
     else if(textField.tag == 8)
     {
@@ -1139,16 +1176,17 @@ int intques;
         }
         if(newLength == 0)
         {
+            txtPin3.text = @"";
             [txtPin3 resignFirstResponder];
             [txtPin2 becomeFirstResponder];
-              txtPin3.text = @"";
+            
         }
-        else
-        {
-            [txtPin3 resignFirstResponder];
-            [txtPin4 becomeFirstResponder];
-        }
-
+        //        else
+        //        {
+        //            [txtpin3 resignFirstResponder];
+        //            [txtPint4 becomeFirstResponder];
+        //        }
+        
         
     }
     else if (textField.tag == 9)
@@ -1160,19 +1198,19 @@ int intques;
             [txtPin4 resignFirstResponder];
             //return NO;
         }
-       else if(newLength == 0)
+        else if(newLength == 0)
         {
-             txtPin4.text = @"";
-            [txtPin4 resignFirstResponder];
             [txtPin3 becomeFirstResponder];
-           
-        }
-        else
-        {
+            
+            txtPin4.text = @"";
             [txtPin4 resignFirstResponder];
+            
         }
-    }
-//    else if (textField == txtFname)
+        //        else
+        //        {
+        //            [txtPint4 resignFirstResponder];
+        //        }
+    }//    else if (textField == txtFname)
 //    {
 //        NSUInteger newLength = [txtFname.text length] + [string length] - range.length;
 //        return (newLength > 2) ? YES  : NO;
@@ -1213,22 +1251,22 @@ int intques;
     strPin = [strPin stringByAppendingString:txtPin3.text];
     strPin = [strPin stringByAppendingString:txtPin4.text];
     NSLog(@"strpin :: %@",strPin);
-    NSString *strQuestion;
-    strQuestion = @"What is your ";
+    NSString *strQuestion1;
+    NSLog(@"strquestion : %@",strSecQuestion);
+    strQuestion1 = @"What is your ";
     if(intques == 2)
     {
-        strQuestion = [strQuestion stringByAppendingString:_txtSecurityQuestion.text];
-        NSLog(@"ques :: %@",strQuestion);
+        strQuestion1 = strSecQuestion;
+        NSLog(@"ques :: %@",strQues);
     }
     else if (intques == 1)
     {
-        strQuestion = txtOtherQuestion.text;
+        strQuestion1 = txtOtherQuestion.text;
     }
     else
     {
         
     }
-
    // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:txtEmailAddress.text forKey:@"email"];
@@ -1239,11 +1277,11 @@ int intques;
    // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
     [param setValue:strBirthDate forKey:@"dob"];
     [param setValue:strGender forKey:@"gender"];
-    [param setValue:strQuestion forKey:@"securityQuestion"];
+    [param setValue:strQuestion1 forKey:@"securityQuestion"];
     [param setValue:txtAnswer.text  forKey:@"securityAnswer"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:OS_VERSION forKey:@"os"];
+    [param setValue:MAKE forKey:@"make"];
+    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     NSLog(@"param : %@",param);
    // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1273,7 +1311,7 @@ int intques;
             [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
             [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
             [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
-            [[NSUserDefaults standardUserDefaults] setValue:strQuestion forKey:@"security_question"];
+            [[NSUserDefaults standardUserDefaults] setValue:strQuestion1 forKey:@"security_question"];
             [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
             [[NSUserDefaults standardUserDefaults] setValue:txtPin1.text forKey:@"pin1"];
             [[NSUserDefaults standardUserDefaults] setValue:txtPin2.text forKey:@"pin2"];

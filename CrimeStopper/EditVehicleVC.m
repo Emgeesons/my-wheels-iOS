@@ -43,7 +43,7 @@ NSString *strBody;
     
     [_arrVehicleType addObject:@"Bicycle"];
     [_arrVehicleType addObject:@"Car"];
-    [_arrVehicleType addObject:@"Motor Cycle"];
+    [_arrVehicleType addObject:@"Motorcycle"];
     [_arrVehicleType addObject:@"Other"];
     
     NSLog(@"arr :: :%@",_arrVehicleType);
@@ -124,8 +124,15 @@ NSString *strBody;
         _txtOtherVehicle.returnKeyType = UIReturnKeyDefault;
         
         _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
+        _txtOtherVehicle.placeholder = @"specify Vehicle Type *";
         _txtState.placeholder = @"state";
+        _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+        _txtMake.placeholder = @"make* ";
+        _txtModel.placeholder = @"model* ";
+        _txtColor.placeholder = @"colour *";
+
         _txtOtherVehicle.tag = 0;
         _txtOtherVehicle.delegate = self;
         [_txtState setHidden:NO];
@@ -163,10 +170,11 @@ NSString *strBody;
         [_txtState setHidden:YES];
         [_txtBodyType setHidden:YES];
         _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
         _txtMake.placeholder = @"make *";
         _txtModel.placeholder = @"model *";
+
         
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
@@ -204,8 +212,9 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+
         _txtMake.tag = 1;
         _txtModel.tag = 2;
         _txtBodyType.tag = 3;
@@ -222,13 +231,13 @@ NSString *strBody;
         
         
     }
-   else if([_strVehicleType isEqualToString:@"Motor Cycle"])
+   else if([_strVehicleType isEqualToString:@"Motorcycle"])
     {
         [_txtBodyType setHidden:YES];
         [_txtState setHidden:NO];
         _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
         _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
         _txtState.frame = CGRectMake(9, 140, 301, 30);
         _txtEngineNo.frame = CGRectMake(9,180, 301, 30);
@@ -417,11 +426,11 @@ NSString *strBody;
                 {
                     [_txtRegistrationNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtEngineNo.text.length > 13)
+                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                 {
                     [_txtEngineNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtChassisNo.text.length > 17)
+                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                 {
                     [_txtChassisNo setTextColor:[UIColor redColor]];
                 }
@@ -482,11 +491,11 @@ NSString *strBody;
                 {
                     [_txtRegistrationNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtEngineNo.text.length > 13)
+                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                 {
                     [_txtEngineNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtChassisNo.text.length > 17)
+                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                 {
                     [_txtChassisNo setTextColor:[UIColor redColor]];
                 }
@@ -509,7 +518,7 @@ NSString *strBody;
             }
         }
         // for moter cycle
-        else if([_strVehicleType isEqualToString:@"Motor Cycle"] )
+        else if([_strVehicleType isEqualToString:@"Motorcycle"] )
         {
             
             if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 ||  _txtRegistrationNo.text.length == 0 || _txtState.text.length == 0)
@@ -545,11 +554,11 @@ NSString *strBody;
                 {
                     [_txtRegistrationNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtEngineNo.text.length > 13)
+                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                 {
                     [_txtEngineNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtChassisNo.text.length > 17)
+                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                 {
                     [_txtChassisNo setTextColor:[UIColor redColor]];
                 }
@@ -601,11 +610,11 @@ NSString *strBody;
                 {
                     [_txtRegistrationNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtEngineNo.text.length > 13)
+                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                 {
                     [_txtEngineNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtChassisNo.text.length > 17)
+                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                 {
                     [_txtChassisNo setTextColor:[UIColor redColor]];
                 }
@@ -641,11 +650,10 @@ NSString *strBody;
     [_txtVehicleType setText:[_arrVehicleType objectAtIndex:row]];
     strvehivcle = [_arrVehicleType objectAtIndex:row];
     [_txtVehicleType resignFirstResponder];
-    NSLog(@"veicle : %@",strvehivcle
-          );
+    NSLog(@"veicle : %@",strvehivcle);
     
     // if vehicle type is other
-    if([_txtVehicleType.text isEqualToString:@"Other"])
+    if([strvehivcle isEqualToString:@"Other"])
     {
         [_txtBodyType setHidden:YES];
         
@@ -653,18 +661,18 @@ NSString *strBody;
         [self.view addSubview:_txtOtherVehicle];
         _txtOtherVehicle.borderStyle = UITextBorderStyleRoundedRect;
         _txtOtherVehicle.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
-        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
+        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:15];
         _txtOtherVehicle.keyboardType = UIKeyboardTypeDefault;
         _txtOtherVehicle.returnKeyType = UIReturnKeyDefault;
         
         _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
+        _txtOtherVehicle.placeholder = @"specify Vehicle Type *";
         _txtState.placeholder = @"state";
         _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
-        _txtMake.placeholder = @"make ";
-        _txtModel.placeholder = @"model ";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+        _txtMake.placeholder = @"make* ";
+        _txtModel.placeholder = @"model* ";
         _txtColor.placeholder = @"colour *";
         _txtOtherVehicle.tag = 0;
         _txtOtherVehicle.delegate = self;
@@ -690,16 +698,20 @@ NSString *strBody;
         _txtChassisNo.tag = 6;
         _txtColor.tag = 7;
         _txtAccessories.tag = 8;
+        
+        
+        
+        
     }
+    
     // if vehicle type is bicycle
-   else if([_txtVehicleType.text isEqualToString:@"Bicycle"])
+    if([strvehivcle isEqualToString:@"Bicycle"])
     {
-        [_txtOtherVehicle setHidden:YES];
         [_txtState setHidden:YES];
         [_txtBodyType setHidden:YES];
         _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
         _txtMake.placeholder = @"make *";
         _txtModel.placeholder = @"model *";
         
@@ -723,11 +735,11 @@ NSString *strBody;
         
         
     }
-    else if([_txtVehicleType.text isEqualToString:@"Car"])
+    if([strvehivcle isEqualToString:@"Car"])
     {
         [_txtState setHidden:NO];
         [_txtBodyType setHidden:NO];
-        [_txtOtherVehicle setHidden:YES];
+        
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
         _txtModel.frame = CGRectMake(161, 60, 150, 30);
@@ -738,8 +750,8 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
         _txtMake.tag = 1;
         _txtModel.tag = 2;
         _txtBodyType.tag = 3;
@@ -749,17 +761,19 @@ NSString *strBody;
         _txtChassisNo.tag = 7;
         _txtColor.tag = 8;
         _txtAccessories.tag = 9;
+        
+        
+        
+        
+        
     }
-   else if([_txtVehicleType.text isEqualToString:@"Motor Cycle"])
+    if([strvehivcle isEqualToString:@"Motorcycle"])
     {
-        [_txtOtherVehicle setHidden:YES];
         [_txtBodyType setHidden:YES];
         [_txtState setHidden:NO];
         _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
-        _txtMake.frame = CGRectMake(9,60, 150, 30);
-        _txtModel.frame = CGRectMake(161,60, 150, 30);
+        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
+        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
         _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
         _txtState.frame = CGRectMake(9, 140, 301, 30);
         _txtEngineNo.frame = CGRectMake(9,180, 301, 30);
@@ -776,54 +790,9 @@ NSString *strBody;
         _txtAccessories.tag = 8;
         
     }
-    else
-    {
-        [_txtBodyType setHidden:YES];
-        
-        _txtOtherVehicle  = [[UITextField alloc] initWithFrame:CGRectMake(9,60,301,30)];
-        [self.view addSubview:_txtOtherVehicle];
-        _txtOtherVehicle.borderStyle = UITextBorderStyleRoundedRect;
-        _txtOtherVehicle.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
-        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
-        _txtOtherVehicle.keyboardType = UIKeyboardTypeDefault;
-        _txtOtherVehicle.returnKeyType = UIReturnKeyDefault;
-        
-        _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
-        _txtState.placeholder = @"state";
-        _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
-        _txtEngineNo.placeholder = @"engine no";
-        _txtChassisNo.placeholder = @"VIN / chassis no";
-        _txtMake.placeholder = @"make ";
-        _txtModel.placeholder = @"model ";
-        _txtColor.placeholder = @"colour *";
-        _txtOtherVehicle.tag = 0;
-        _txtOtherVehicle.delegate = self;
-        [_txtState setHidden:NO];
-        [self.txtOtherVehicle setInputAccessoryView:self.toolbar];
-        
-        [self.scroll addSubview:_txtOtherVehicle];
-        _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
-        _txtMake.frame = CGRectMake(9, 100, 150, 30);
-        _txtModel.frame = CGRectMake(161, 100, 150, 30);
-        
-        _txtRegistrationNo.frame = CGRectMake(9,140, 301, 30);
-        _txtState.frame = CGRectMake(9, 180, 301, 30);
-        _txtEngineNo.frame = CGRectMake(9,220, 301, 30);
-        _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
-        _txtColor.frame = CGRectMake(9, 300, 301, 30);
-        _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        _txtMake.tag = 1;
-        _txtModel.tag = 2;
-        _txtRegistrationNo.tag = 3;
-        _txtState.tag = 4;
-        _txtEngineNo.tag = 5;
-        _txtChassisNo.tag = 6;
-        _txtColor.tag = 7;
-        _txtAccessories.tag = 8;
-
-    }
+    
     [self cancelClicked];
+    
     
 }
 -(void)doneBody_click:(id)sender
@@ -1026,7 +995,7 @@ NSString *strBody;
         _txtColor.tag = 6;
         _txtAccessories.tag = 7;
     }
-    else if ([_strVehicleType isEqualToString:@"Motor Cycle"] || [_strVehicleType isEqualToString:@"Other"])
+    else if ([_strVehicleType isEqualToString:@"Motorcycle"] || [_strVehicleType isEqualToString:@"Other"])
     {
         _txtMake.tag = 1;
         _txtModel.tag = 2;
@@ -1125,9 +1094,9 @@ NSString *strBody;
     [param setValue:_txtColor.text forKey:@"colour"];
     [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
     [param setValue:_txtState.text forKey:@"state"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:OS_VERSION forKey:@"os"];
+    [param setValue:MAKE forKey:@"make"];
+    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     NSLog(@"param :%@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];

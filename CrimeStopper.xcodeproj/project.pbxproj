@@ -24,6 +24,8 @@
 		5E04AF4D19505CBD003F6CD4 /* default_profile_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4119505CBD003F6CD4 /* default_profile_1.png */; };
 		5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
 		5E05577B196121C9003A84AD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E05577A196121C9003A84AD /* Parse.framework */; };
+		5E05D1C419A4BC8500A94EDF /* TipsDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E05D1C219A4BC8500A94EDF /* TipsDetailsVC.m */; };
+		5E05D1C519A4BC8500A94EDF /* TipsDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E05D1C319A4BC8500A94EDF /* TipsDetailsVC.xib */; };
 		5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */; };
 		5E05DCCA195EBDE90081256F /* default_profile_homeround.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC6195EBDE90081256F /* default_profile_homeround.png */; };
 		5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC7195EBDE90081256F /* default_profile_home1.png */; };
@@ -279,6 +281,9 @@
 		5E04AF4119505CBD003F6CD4 /* default_profile_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_1.png; sourceTree = "<group>"; };
 		5E04AF59195066AF003F6CD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E05577A196121C9003A84AD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
+		5E05D1C119A4BC8500A94EDF /* TipsDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsDetailsVC.h; sourceTree = "<group>"; };
+		5E05D1C219A4BC8500A94EDF /* TipsDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsDetailsVC.m; sourceTree = "<group>"; };
+		5E05D1C319A4BC8500A94EDF /* TipsDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipsDetailsVC.xib; sourceTree = "<group>"; };
 		5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_profile_home@1x.png"; sourceTree = "<group>"; };
 		5E05DCC6195EBDE90081256F /* default_profile_homeround.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_homeround.png; sourceTree = "<group>"; };
 		5E05DCC7195EBDE90081256F /* default_profile_home1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_home1.png; sourceTree = "<group>"; };
@@ -934,6 +939,9 @@
 				5EFD88EB1980E19A003628FA /* EvertTimePinVC.h */,
 				5EFD88EC1980E19A003628FA /* EvertTimePinVC.m */,
 				5EFD88ED1980E19A003628FA /* EvertTimePinVC.xib */,
+				5E05D1C119A4BC8500A94EDF /* TipsDetailsVC.h */,
+				5E05D1C219A4BC8500A94EDF /* TipsDetailsVC.m */,
+				5E05D1C319A4BC8500A94EDF /* TipsDetailsVC.xib */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -1363,6 +1371,7 @@
 				5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */,
 				5EF96139198FB47500ED6565 /* ic_cycle3.png in Resources */,
 				5EF124421987827D0096C4EF /* ic_nav_logout1.png in Resources */,
+				5E05D1C519A4BC8500A94EDF /* TipsDetailsVC.xib in Resources */,
 				5E2371CE19862E0D000DF8E0 /* vehicle_graphic(5).png in Resources */,
 				5EFDA27C1977EF1100AC7E6A /* vehicle-pic_2.png in Resources */,
 				5EEF21781955A3FB00A0BA3F /* app_icon_512x512.png in Resources */,
@@ -1448,6 +1457,7 @@
 				5EFFBC2C195C00B0003679C6 /* AFURLRequestSerialization.m in Sources */,
 				5EFABB39196D4D20007C0781 /* MyAnnotation.m in Sources */,
 				5E182B4619654252003C1793 /* MyVehicleCell.m in Sources */,
+				5E05D1C419A4BC8500A94EDF /* TipsDetailsVC.m in Sources */,
 				5E8E20191994DE5F00EA7959 /* ReportSubmittedViewController.m in Sources */,
 				5E8E201D1994DE5F00EA7959 /* ShareNewReportViewController.m in Sources */,
 				5E02BD73196C136B00897687 /* FindVehicleVC.m in Sources */,

@@ -98,13 +98,12 @@ NSInteger intImage;
     [param setValue:longitude forKey:@"longitude"];
     [param setValue:pin forKey:@"pin"];
    
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+        [param setValue:OS_VERSION forKey:@"os"];
+        [param setValue:MAKE forKey:@"make"];
+        [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        @try {
             NSString *url = [NSString stringWithFormat:@"%@getVehicleProfile.php", SERVERNAME];
             
             [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -155,11 +154,35 @@ NSInteger intImage;
                           
                           if(photo1 == nil || photo1 == (id)[NSNull null] || [photo1 isEqualToString:@""])
                           {
-                              _imgvehicle1 .image = [UIImage imageNamed:@"add_photos.png.png"];
+                              _imgvehicle1.image = [UIImage imageNamed:@"add_photos.png"];
                           }
                           else
                           {
-                              _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                            //  _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                              
+                                  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                  NSData *imageData = [defaults dataForKey:photo1];
+                                  UIImage *contactImage = [UIImage imageWithData:imageData];
+                                  if(imageData == nil)
+                                  {
+                                      _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                                      [self downloadImageWithURL:[NSURL URLWithString:photo1] completionBlock:^(BOOL succeeded, UIImage *image) {
+                                          if (succeeded) {
+                                              // change the image in the cell
+                                              _imgvehicle1.image = image;
+                                              // Store the data
+                                              
+                                              
+                                              
+                                          }
+                                      }];
+                                  }
+                                  else
+                                  {
+                                      _imgvehicle1.image = contactImage;
+                                  }
+                              
+                              
                           }
                           
                           if(photo2 == nil || photo2 == (id)[NSNull null] || [photo2 isEqualToString:@""])
@@ -168,7 +191,28 @@ NSInteger intImage;
                           }
                           else
                           {
-                              _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                              NSData *imageData = [defaults dataForKey:photo2];
+                              UIImage *contactImage = [UIImage imageWithData:imageData];
+                              if(imageData == nil)
+                              {
+                                  _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                                  [self downloadImageWithURL:[NSURL URLWithString:photo2] completionBlock:^(BOOL succeeded, UIImage *image) {
+                                      if (succeeded) {
+                                          // change the image in the cell
+                                          _imgvehicle2.image = image;
+                                          // Store the data
+                                          
+                                          
+                                          
+                                      }
+                                  }];
+                              }
+                              else
+                              {
+                                  _imgvehicle2.image = contactImage;
+                              }
+
                           }
                           
                           if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
@@ -177,7 +221,28 @@ NSInteger intImage;
                           }
                           else
                           {
-                              _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                              NSData *imageData = [defaults dataForKey:photo3];
+                              UIImage *contactImage = [UIImage imageWithData:imageData];
+                              if(imageData == nil)
+                              {
+                                  _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
+                                  [self downloadImageWithURL:[NSURL URLWithString:photo3] completionBlock:^(BOOL succeeded, UIImage *image) {
+                                      if (succeeded) {
+                                          // change the image in the cell
+                                          _imgvehicle3.image = image;
+                                          // Store the data
+                                          
+                                          
+                                          
+                                      }
+                                  }];
+                              }
+                              else
+                              {
+                                  _imgvehicle3.image = contactImage;
+                              }
+
                           }
 
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
@@ -227,7 +292,7 @@ NSInteger intImage;
                               [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
 
                           }
-                          else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
+                          else if ([_lblVehicleType.text isEqualToString:@"Motorcycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike3.png"]];
                               [_lblRegistrationNo1 setText:@"Registration No:"];
@@ -265,6 +330,19 @@ NSInteger intImage;
                           else
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
+                              [_lblRegistrationNo1 setText:@"Registration No:"];
+                              [_lblState setHidden:NO];
+                              [_lblState1 setHidden:NO];
+                              [_lblBodyType1 setHidden:YES];
+                              [_lblNodyType setHidden: YES];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 116, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 116, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 138, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 138, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 161, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 161, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 184, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
                           }
                           
                           if([_lblStatus.text isEqualToString:@""])
@@ -276,7 +354,8 @@ NSInteger intImage;
                               [_imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];
                           }
                           
-                          if([_lblCompanyName.text isEqualToString:@""])
+                         // if([_lblCompanyName.text isEqualToString:@""])
+                          if(false)
                           {
                               [_view4 setHidden:YES];
                               [_view4 setAlpha:0];
@@ -328,7 +407,8 @@ NSInteger intImage;
                           
                       }
                       
-                      if([_lblCompanyName.text isEqualToString: @""])
+                      //if([_lblCompanyName.text isEqualToString: @""])
+                      if(false)
                       {
                           [_view4 setHidden:YES];
                           _viewPics.frame = CGRectMake(0, 313, 320, 89);
@@ -357,188 +437,8 @@ NSInteger intImage;
             
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-        }
-        @catch (NSException *exception) {
-            
-             NSString *url = [NSString stringWithFormat:@"%@getVehicleProfile.php", SERVERNAME];
-            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                NSLog(@"url : %@",manager);
-            }
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      
-                      
-                      NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-                      
-                      NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                      NSLog(@"data : %@",jsonDictionary);
-                      //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-                      
-                      //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                      NSLog(@"Json dictionary :: %@",jsonDictionary);
-                      NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                      NSLog(@"message %@",EntityID);
-                      
-                      
-                      if ([EntityID isEqualToString:@"success"])
-                      {
-                          _lblAccessories.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"accessories_unique_features"];
-                          _lblNodyType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"body_type"];
-                          _lblColor.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"colour"];
-                          _lblEngineNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"engine_no"];
-                          _lblMake2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
-                          make = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
-                          //_lblMake.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"make"];
-                          _lblModel.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
-                          model = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
-                          _lblModel2.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"model"];
-                          _lblRegistrationNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"registration_serial_no"];
-                          _lblStatus.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"status"];
-                          _lblVehicleType.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_type"];
-                          _lblVin.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vin_chasis_no"];
-                          _lblCompanyName.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
-                          _lblPolicyNo.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_policy_no"];
-                           _lblState.text = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"state"];
-                          phoneNo = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_number"];
-                          
-                          NSString *str1 = [make stringByAppendingString:@" "];
-                          _lblMake1.text = [str1 stringByAppendingString:model];
-                          _lblMake.text = [str1 stringByAppendingString:model];
-                          photo1 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_1"];
-                          photo2 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_2"];
-                          photo3 = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"photo_3"];
-                          insuranceCompanyName = [[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_company_name"];
-                          
-                          
-                          NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
-                          
-                          NSLog(@"date : %@",str);
-                          [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-                          NSString *date = [dateFormatter stringFromDate:str];
-                          
-                          NSLog(@"date1 : %@",date);
-                          
-                          
-                          _lblExpiry.text = date;
-                          
-                          if([_lblVehicleType.text isEqualToString:@"Bicycle"])
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle3.png"]];
-                          }
-                          else if ([_lblVehicleType.text isEqualToString:@"Car"])
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_car3.png"]];
-                          }
-                          else if ([_lblVehicleType.text isEqualToString:@"Motor Cycle"])
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_bike3.png"]];
-                              
-                          }
-                          else if ([_lblVehicleType.text isEqualToString:@"Other"])
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
-                          }
-                          else
-                          {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
-                          }
-                          
-                          if([_lblStatus.text isEqualToString:@""])
-                          {
-                              
-                          }
-                          else
-                          {
-                              [_imgStatus setImage:[UIImage imageNamed:@"incomplete.png"]];
-                          }
-                          
-                          if([_lblCompanyName.text isEqualToString:@""])
-                          {
-                              [_view4 setHidden:YES];
-                              [_view4 setAlpha:0];
-                          }
-                          else
-                          {
-                              [_view4 setAlpha:1];
-                              [_view4 setHidden:NO];
-                          }
-                          
-                          if([_lblCompanyName.text isEqualToString:@""])
-                          {
-                              [_btnAddInsurance setTitle:@"Add Insurance" forState:UIControlStateNormal];
-                              // [_btnAddInsurance setBackgroundColor:[UIColor blueColor]];
-                          }
-                          else
-                          {
-                              [_btnAddInsurance setTitle:@"Edit Insurance" forState:UIControlStateNormal];
-                              [_btnAddInsurance setBackgroundColor:[UIColor whiteColor]];
-                              _btnAddInsurance.layer.borderWidth=1.0f;
-                              
-                              _btnAddInsurance.layer.borderColor=[[UIColor lightGrayColor] CGColor];
-                              _btnAddInsurance.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-                              [_btnAddInsurance setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                              
-                          }
-
-                      }
-                      else
-                      {
-                          UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
-                                                                              message:[jsonDictionary valueForKey:@"message"]
-                                                                             delegate:self
-                                                                    cancelButtonTitle:@"OK"
-                                                                    otherButtonTitles:nil, nil];
-                          [CheckAlert show];
-                          
-                          
-                      }
-                      [SVProgressHUD dismiss];
-                      
-                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        [SVProgressHUD dismiss];
-                      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
-                                                                          message:@"Something went wrong. Please try again."
-                                                                         delegate:self
-                                                                cancelButtonTitle:@"OK"
-                                                                otherButtonTitles:nil, nil];
-                      CheckAlert.tag = 5;
-                      [CheckAlert show];
-
-                      NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                  }];
-            
-            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-        }
-        @finally {
-            
-        }
+    
         
-    }
-    if(photo1 == nil || photo1 == (id)[NSNull null] || [photo1 isEqualToString:@""])
-    {
-        _imgvehicle1 .image = [UIImage imageNamed:@"add_photos.png.png"];
-    }
-    else
-    {
-        _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
-    }
-    
-    if(photo2 == nil || photo2 == (id)[NSNull null] || [photo2 isEqualToString:@""])
-    {
-        _imgvehicle2 .image = [UIImage imageNamed:@"add_photos.png.png"];
-    }
-    else
-    {
-        _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
-    }
-    
-    if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
-    {
-        _imgvehicle3 .image = [UIImage imageNamed:@"add_photos.png.png"];
-    }
-    else
-    {
-        _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
     }
     if(IsIphone5)
     {
@@ -554,69 +454,37 @@ NSInteger intImage;
 
     // Do any additional setup after loading the view from its nib.
 }
+- (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
+{
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if ( !error )
+                               {
+                                   UIImage *image = [[UIImage alloc] initWithData:data];
+                                   
+                                   
+                                   // Store the data
+                                   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                   NSString *photoUrl = [NSString stringWithFormat:@"%@",url];
+                                   
+                                   [defaults setObject:data forKey:photoUrl];
+                                   [defaults synchronize];
+                                   completionBlock(YES,image);
+                                   [super viewDidLoad];
+                               } else{
+                                   completionBlock(NO,nil);
+                               }
+                           }];
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     
     [super viewDidAppear:animated];
     
-    NSLog(@"photo : %@",photo1);
-    NSLog(@"photo2 : %@",photo2);
-    NSLog(@"photo3: %@",photo3);
-    // NSString *photoURL = @"https://pullquotesandexcerpts.files.wordpress.com/2013/11/silver-apple-logo.png?w=360";
-    if(photo1 == nil || photo1 == (id)[NSNull null] || [photo1 isEqualToString:@""])
-    {
-        //_imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
-    }
-    else
-    {
-        _imgvehicle1.image = [UIImage imageNamed:@"add_photos_grey.png"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo1]];
-        UIImage *image = [UIImage imageWithData:imageData];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                
-                  _imgvehicle1.image = image;
-                
-            });
-        });
-    }
-    if(photo2 == nil || photo2 == (id)[NSNull null] || [photo2 isEqualToString:@""])
-    {
-        //_imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
-    }
-    else
-    {
-        _imgvehicle2.image = [UIImage imageNamed:@"add_photos_grey.png"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo2]];
-            UIImage *image = [UIImage imageWithData:imageData];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                
-                _imgvehicle2.image = image;
-                
-            });
-        });
-    }
-    if(photo3 == nil || photo3 == (id)[NSNull null] || [photo3 isEqualToString:@""])
-    {
-        //_imgUserProfilepic .image = [UIImage imageNamed:@"default_profile_2.png"];
-    }
-    else
-    {
-        _imgvehicle3.image = [UIImage imageNamed:@"add_photos_grey.png"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo3]];
-            UIImage *image = [UIImage imageWithData:imageData];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                
-                _imgvehicle3.image = image;
-                
-            });
-        });
-    }
+  
     
 }
 
@@ -672,7 +540,18 @@ NSInteger intImage;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-   
+    CGFloat compression = 0.9f;
+    CGFloat maxCompression = 0.1f;
+    int maxFileSize = 250*1024;
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, compression);
+    
+    while ([imageData length] > maxFileSize && compression > maxCompression)
+    {
+        compression -= 0.1;
+        imageData = UIImageJPEGRepresentation(image, compression);
+    }
+
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -688,7 +567,7 @@ NSInteger intImage;
      model
 */
     
-    NSData *imageData = UIImagePNGRepresentation(image);
+   // NSData *imageData = UIImagePNGRepresentation(image);
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
     NSString *strcount = [NSString stringWithFormat:@"%d", [_arrVehiclesCount count]];
@@ -702,14 +581,19 @@ NSInteger intImage;
     [param setValue:strPostion forKey:@"position"];
     [param setValue:strNoPhoto forKey:@"noPhotos"];
     [param setValue:pin forKey:@"pin"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:OS_VERSION forKey:@"os"];
+    [param setValue:MAKE forKey:@"make"];
+    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
      NSString *url = [NSString stringWithFormat:@"%@uploadVehiclePic.php", SERVERNAME];
     
     [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //do not put image inside parameters dictionary as I did, but append it!
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
+        
+//        NSString *imgName = @"imge";
+//        NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:savedImagePath1]];
+  //      [formData appendPartWithFileData:imgData name:imgName fileName:imgName mimeType:@"image/png"];
+
     }
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
@@ -721,20 +605,61 @@ NSInteger intImage;
          NSLog(@"message %@",EntityID);
          if ([EntityID isEqualToString:@"success"])
          {
+             _lblStatus.text=[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_status"];
+             if([_lblStatus.text isEqualToString:@""] || _lblStatus.text == nil || _lblStatus.text == (id)[NSNull null])
+             {
+                 [_imgStatus setHidden:YES];
+             }
              if(_intPosition == 1)
              {
-                 _imgvehicle1.image = [UIImage imageWithData:imageData];
+                
+                 // store image in device
+                 NSString *photo_url1 =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"]; ;
+                 NSLog(@"photo url :%@",photo_url1);
+                 [[NSUserDefaults standardUserDefaults] setValue:photo_url1 forKey:@"photo_url"];
+                
+                 // Store the data
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 
+                 [defaults setObject:imageData forKey:photo_url1];
+                 [defaults synchronize];
+                 
+                _imgvehicle1.image = [UIImage imageWithData:imageData];
+                 
                  _intNoPhoto = 1;
                  
              }
              else if(_intPosition == 2)
              {
+                 // store image in device
+                 NSString *photo_url2 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];;
+                 NSLog(@"photo url :%@",photo_url2);
+                 [[NSUserDefaults standardUserDefaults] setValue:photo_url2 forKey:@"photo_url"];
+                 
+                 // Store the data
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 
+                 [defaults setObject:imageData forKey:photo_url2];
+                 [defaults synchronize];
+                 
                  _imgvehicle2.image = [UIImage imageWithData:imageData];
                  _intNoPhoto = 2;
                  
              }
              else
              {
+                 // store image in device
+                 NSString *photo_url3 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+                
+                 NSLog(@"photo url :%@",photo_url3);
+                 [[NSUserDefaults standardUserDefaults] setValue:photo_url3 forKey:@"photo_url"];
+                 
+                 // Store the data
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 
+                 [defaults setObject:imageData forKey:photo_url3];
+                 [defaults synchronize];
+                 
                  _imgvehicle3.image = [UIImage imageWithData:imageData];
                  _intNoPhoto = 3;
                  [_btnAddPhoto setHidden:YES];
@@ -848,6 +773,7 @@ NSInteger intImage;
 }
 -(IBAction)btnAddPhoto_click:(id)sender
 {
+    
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
                             @"Choose Existing",
@@ -860,6 +786,21 @@ NSInteger intImage;
 
 -(IBAction)btnAddPhoto1_click:(id)sender
 {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
+        NSLog(@"There IS internet connection");
+        
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
                             @"Choose Existing",
@@ -868,9 +809,24 @@ NSInteger intImage;
     _intPosition = 1 ;
     popup.tag = 1;
     [popup showInView:[UIApplication sharedApplication].keyWindow];
+    }
 }
 -(IBAction)btnAddPhoto2_click:(id)sender
 {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
+        NSLog(@"There IS internet connection");
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
                             @"Choose Existing",
@@ -879,9 +835,24 @@ NSInteger intImage;
     _intPosition = 2 ;
     popup.tag = 1;
     [popup showInView:[UIApplication sharedApplication].keyWindow];
+    }
 }
 -(IBAction)btnAddPhoto3_click:(id)sender
 {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
+                                                            message:@"Please connect to the internet to continue."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [CheckAlert show];
+    }
+    else
+    {
+        NSLog(@"There IS internet connection");
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
                             @"Choose Existing",
@@ -890,6 +861,7 @@ NSInteger intImage;
     _intPosition =3 ;
     popup.tag = 1;
     [popup showInView:[UIApplication sharedApplication].keyWindow];
+    }
 }
 #pragma mark alert view delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -1026,9 +998,9 @@ NSInteger intImage;
                  [param setValue:strCount forKey:@"noVehicles"];
                 [param setValue:profile_completed forKey:@"profileCompleteness"];
                 
-                [param setValue:@"ios7" forKey:@"os"];
-                [param setValue:@"iPhone" forKey:@"make"];
-                [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+                [param setValue:OS_VERSION forKey:@"os"];
+                [param setValue:MAKE forKey:@"make"];
+                [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
                 
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                 manager.requestSerializer = [AFJSONRequestSerializer serializer];

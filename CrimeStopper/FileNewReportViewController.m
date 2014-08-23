@@ -61,6 +61,7 @@
     self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     
     [_viewLocationGuide setHidden:YES];
+    [_viewTransparent setHidden:YES];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
     
@@ -79,6 +80,7 @@
     if([latitude isEqualToString:@"0.000000"])
     {
         [_viewLocationGuide setHidden:NO];
+        [_viewTransparent setHidden:NO];
     }
     
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -219,7 +221,7 @@
             self.imgVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
         } else if ([vehicleType[0] isEqualToString:@"Car"]) {
             self.imgVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-        } else if ([vehicleType[0] isEqualToString:@"Motor Cycle"]) {
+        } else if ([vehicleType[0] isEqualToString:@"Motorcycle"]) {
             self.imgVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
         } else {
             self.imgVehicle.image = [UIImage imageNamed:@"ic_other.png"];
@@ -458,6 +460,7 @@
 -(IBAction)btnGot_click:(id)sender
 {
     [_viewLocationGuide setHidden:YES];
+    [_viewTransparent setHidden:YES];
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == sightingPicker) {
@@ -661,7 +664,7 @@
         cell.imageView.image = [UIImage imageNamed:@"ic_cycle.png"];
     } else if ([vehicleType[indexPath.row] isEqualToString:@"Car"]) {
         cell.imageView.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicleType[indexPath.row] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicleType[indexPath.row] isEqualToString:@"Motorcycle"]) {
         cell.imageView.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         cell.imageView.image = [UIImage imageNamed:@"ic_other.png"];
@@ -680,7 +683,7 @@
         self.imgVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
     } else if ([vehicleType[indexPath.row] isEqualToString:@"Car"]) {
         self.imgVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicleType[indexPath.row] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicleType[indexPath.row] isEqualToString:@"Motorcycle"]) {
         self.imgVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         self.imgVehicle.image = [UIImage imageNamed:@"ic_other.png"];

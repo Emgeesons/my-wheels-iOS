@@ -177,9 +177,9 @@
     [param setValue:latitude forKey:@"latitude"];
     [param setValue:longitude forKey:@"longitude"];
     [param setValue:strPin forKey:@"pin"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+        [param setValue:OS_VERSION forKey:@"os"];
+        [param setValue:MAKE forKey:@"make"];
+        [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     NSLog(@"param : %@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -310,6 +310,16 @@
         {
             _txtPin1.text = @"";
         }
+        //        else
+        //        {
+        //            NSLog(@"YES");
+        //
+        //            return YES;
+        //            [txtPin1 resignFirstResponder];
+        //            [txtpin2 becomeFirstResponder];
+        //        }
+        
+        // return (newLength > 1) ? NO : YES;
     }
     else if (textField.tag == 2)
     {
@@ -327,6 +337,12 @@
             [_txtPin2 resignFirstResponder];
             [_txtPin1 becomeFirstResponder];
         }
+        //        else
+        //        {
+        //            [txtpin2 resignFirstResponder];
+        //            [txtpin3 becomeFirstResponder];
+        //        }
+        
     }
     else if(textField.tag == 3)
     {
@@ -345,6 +361,12 @@
             [_txtPin2 becomeFirstResponder];
             
         }
+        //        else
+        //        {
+        //            [txtpin3 resignFirstResponder];
+        //            [txtPint4 becomeFirstResponder];
+        //        }
+        
         
     }
     else if (textField.tag == 4)
@@ -364,8 +386,12 @@
             [_txtPin4 resignFirstResponder];
             
         }
-       
+        //        else
+        //        {
+        //            [txtPint4 resignFirstResponder];
+        //        }
     }
+    
     return 1;
     
 }

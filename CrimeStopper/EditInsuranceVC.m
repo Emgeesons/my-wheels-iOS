@@ -323,12 +323,12 @@ NSString *strDate;
         [self.view addSubview:_txtOtherInsurance];
         _txtOtherInsurance.borderStyle = UITextBorderStyleRoundedRect;
         _txtOtherInsurance.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
-        _txtOtherInsurance.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
+        _txtOtherInsurance.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:15];
         _txtOtherInsurance.keyboardType = UIKeyboardTypeDefault;
         _txtOtherInsurance.returnKeyType = UIReturnKeyDefault;
         
         _txtOtherInsurance.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        _txtOtherInsurance.placeholder = @"specify vehicle insurance company";
+        _txtOtherInsurance.placeholder = @"specify vehicle insurance company*";
         _txtOtherInsurance.tag = 2;
         _txtOtherInsurance.delegate = self;
         [_txtOtherInsurance setInputAccessoryView:self.toolbar];
@@ -349,7 +349,7 @@ NSString *strDate;
         [_txtPhoneNo setText:@"1800 069 336"];
         
     }
-    if([strInsurance isEqualToString:@"QBE"] && [ _strVehicleType isEqualToString:@"Motor Cycle"])
+    if([strInsurance isEqualToString:@"QBE"] && [ _strVehicleType isEqualToString:@"Motorcycle"])
     {
         [_txtPhoneNo setText:@"1300 365 354"];
     }
@@ -467,9 +467,9 @@ NSString *strDate;
             NSString *strdat = [dateFormatter stringFromDate:date];
             [param setValue:strdat forKey:@"insuranceExpiryDate"];
             [param setValue:appdelegate.strVehicleId forKey:@"vehicleId"];
-            [param setValue:@"ios7" forKey:@"os"];
-            [param setValue:@"iPhone" forKey:@"make"];
-            [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+            [param setValue:OS_VERSION forKey:@"os"];
+            [param setValue:MAKE forKey:@"make"];
+            [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
             
             // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

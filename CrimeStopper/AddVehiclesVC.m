@@ -44,7 +44,7 @@ NSString *strBody;
    
         [_arrVehicleType addObject:@"Bicycle"];
         [_arrVehicleType addObject:@"Car"];
-        [_arrVehicleType addObject:@"Motor Cycle"];
+        [_arrVehicleType addObject:@"Motorcycle"];
         [_arrVehicleType addObject:@"Other"];
     
     NSLog(@"arr :: :%@",_arrVehicleType);
@@ -206,11 +206,11 @@ NSString *strBody;
                 {
                     [_txtRegistrationNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtEngineNo.text.length > 13)
+                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                 {
                     [_txtEngineNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtChassisNo.text.length > 17)
+                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                 {
                     [_txtChassisNo setTextColor:[UIColor redColor]];
                 }
@@ -270,11 +270,11 @@ NSString *strBody;
                 {
                     [_txtRegistrationNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtEngineNo.text.length > 13)
+                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                 {
                     [_txtEngineNo setTextColor:[UIColor redColor]];
                 }
-                else if (_txtChassisNo.text.length > 17)
+                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                 {
                     [_txtChassisNo setTextColor:[UIColor redColor]];
                 }
@@ -297,7 +297,7 @@ NSString *strBody;
             }
         }
         // for moter cycle
-       else if([strvehivcle isEqualToString:@"Motor Cycle"] )
+       else if([strvehivcle isEqualToString:@"Motorcycle"] )
        {
            
            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 ||  _txtRegistrationNo.text.length == 0 || _txtstate.text.length == 0)
@@ -333,14 +333,15 @@ NSString *strBody;
                {
                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
                }
-               else if (_txtEngineNo.text.length > 13)
+               else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                {
                    [_txtEngineNo setTextColor:[UIColor redColor]];
                }
-               else if (_txtChassisNo.text.length > 17)
+               else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                {
                    [_txtChassisNo setTextColor:[UIColor redColor]];
                }
+
                else if ( _txtColor.text.length <3)
                {
                    [_txtColor setTextColor:[UIColor redColor]];
@@ -367,7 +368,7 @@ NSString *strBody;
        else if([strvehivcle isEqualToString:@"Other"] )
        {
            
-           if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtOtherVehicle.text.length == 0)
+           if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtOtherVehicle.text.length == 0 ||  (_txtMake.text.length == 0 && _txtModel.text.length == 0))
            {
                if(_txtVehicleType.text.length == 0)
                {
@@ -378,6 +379,14 @@ NSString *strBody;
                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                }
              
+               if (_txtMake.text.length == 0)
+               {
+                   [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+               }
+               if (_txtModel.text.length == 0)
+               {
+                   [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+               }
                if (_txtOtherVehicle.text.length == 0)
                {
                    [_txtOtherVehicle setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -389,14 +398,15 @@ NSString *strBody;
                {
                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
                }
-               else if (_txtEngineNo.text.length > 13)
+               else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
                {
                    [_txtEngineNo setTextColor:[UIColor redColor]];
                }
-               else if (_txtChassisNo.text.length > 17)
+               else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
                {
                    [_txtChassisNo setTextColor:[UIColor redColor]];
                }
+
                else if (_txtstate.text.length > 3)
                {
                    [_txtstate setTextColor:[UIColor redColor]];
@@ -443,18 +453,18 @@ NSString *strBody;
     [self.view addSubview:_txtOtherVehicle];
     _txtOtherVehicle.borderStyle = UITextBorderStyleRoundedRect;
         _txtOtherVehicle.backgroundColor = [UIColor colorWithRed:240.0/255.0f green:240.0/255.0f blue:240.0/255.0f alpha:1.0];
-        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:17];
+        _txtOtherVehicle.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:15];
     _txtOtherVehicle.keyboardType = UIKeyboardTypeDefault;
     _txtOtherVehicle.returnKeyType = UIReturnKeyDefault;
    
     _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    _txtOtherVehicle.placeholder = @"Specify Vehicle Type *";
+    _txtOtherVehicle.placeholder = @"specify Vehicle Type *";
         _txtstate.placeholder = @"state";
         _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
         _txtEngineNo.placeholder = @"engine no (min 13 chars)";
         _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
-        _txtMake.placeholder = @"make ";
-        _txtModel.placeholder = @"model ";
+        _txtMake.placeholder = @"make* ";
+        _txtModel.placeholder = @"model* ";
         _txtColor.placeholder = @"colour *";
     _txtOtherVehicle.tag = 0;
     _txtOtherVehicle.delegate = self;
@@ -549,7 +559,7 @@ NSString *strBody;
         
         
     }
-    if([strvehivcle isEqualToString:@"Motor Cycle"])
+    if([strvehivcle isEqualToString:@"Motorcycle"])
     {
         [_txtBodyType setHidden:YES];
         [_txtstate setHidden:NO];
@@ -803,7 +813,7 @@ NSString *strBody;
         _txtColor.tag = 6;
         _txtAccessories.tag = 7;
     }
-    else if ([strvehivcle isEqualToString:@"Motor Cycle"] || [strvehivcle isEqualToString:@"Other"])
+    else if ([strvehivcle isEqualToString:@"Motorcycle"] || [strvehivcle isEqualToString:@"Other"])
     {
         _txtMake.tag = 1;
         _txtModel.tag = 2;
@@ -885,9 +895,9 @@ NSString *strBody;
     [param setValue:_txtColor.text forKey:@"colour"];
     [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
     [param setValue:_txtstate.text forKey:@"state"];
-    [param setValue:@"ios7" forKey:@"os"];
-    [param setValue:@"iPhone" forKey:@"make"];
-    [param setValue:@"iPhone5,iPhone5s" forKey:@"model"];
+    [param setValue:OS_VERSION forKey:@"os"];
+    [param setValue:MAKE forKey:@"make"];
+    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

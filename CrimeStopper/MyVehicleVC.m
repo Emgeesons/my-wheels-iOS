@@ -99,7 +99,7 @@
         [cell.lblRegNo setText:@"Serial Number:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle3.png"]];
     }
-    else if ([vehivleType isEqualToString:@"Motor Cycle"])
+    else if ([vehivleType isEqualToString:@"Motorcycle"])
     {
          [cell.lblRegNo setText:@"Registration No:"];
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_bike3.png"]];

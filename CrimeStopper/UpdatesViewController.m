@@ -100,7 +100,12 @@
     NSLog(@"latitude==> %f", latitude);
     address = [[NSMutableString alloc] initWithString:@""];
     CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    
+    NSString *lat = [NSString stringWithFormat:@"%f",latitude];
+    if([lat isEqualToString:@"0.000000"])
+    {
+        [_viewLocation setHidden:NO];
+        [_viewTransparent setHidden:NO];
+    }
     // get location
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -137,6 +142,7 @@
     self.btnLetsGo.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     
     [_viewLocation setHidden:YES];
+    [_viewTransparent setHidden:YES];
     // initialize all NSMutableArray here
     type = [[NSMutableArray alloc] init];
     comments = [[NSMutableArray alloc] init];
@@ -274,6 +280,7 @@
 -(IBAction)btnLocation_click:(id)sender
 {
     [_viewLocation setHidden:YES];
+    [_viewTransparent setHidden:YES];
 }
 - (IBAction)segmentedClicked:(id)sender {
     
@@ -681,7 +688,7 @@
         vehicleType = @"Serial number:";
     } else if ([vehicle_type[indexPath] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicle_type[indexPath] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicle_type[indexPath] isEqualToString:@"Motorcycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         ivVehicle.image = [UIImage imageNamed:@"ic_other.png"];
@@ -1088,7 +1095,7 @@
         vehicleType = @"Serial number:";
     } else if ([vehicleHeader[indexPath] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicleHeader[indexPath] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicleHeader[indexPath] isEqualToString:@"Motorcycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         ivVehicle.image = [UIImage imageNamed:@"ic_other.png"];

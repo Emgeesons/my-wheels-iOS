@@ -24,14 +24,14 @@
                         <color key="textColor" red="0.11372549830000001" green="0.58823531870000001" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Registration Number:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZO-Bv-pHf">
-                        <rect key="frame" x="41" y="29" width="133" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Registration No:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZO-Bv-pHf">
+                        <rect key="frame" x="41" y="29" width="103" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1234567890" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOw-nU-QIh">
-                        <rect key="frame" x="174" y="29" width="119" height="22"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOw-nU-QIh">
+                        <rect key="frame" x="141" y="29" width="119" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
@@ -43,6 +43,7 @@
                 <outlet property="imgVehicleType" destination="yPX-kh-Tki" id="CuO-Hm-fKV"/>
                 <outlet property="lblMakeModel" destination="XWZ-N5-gpR" id="2F2-YQ-biY"/>
                 <outlet property="lblRegistrationNumber" destination="oOw-nU-QIh" id="JVf-ff-33g"/>
+                <outlet property="lblSerialNo" destination="sZO-Bv-pHf" id="9LS-us-ei0"/>
             </connections>
         </tableViewCell>
     </objects>

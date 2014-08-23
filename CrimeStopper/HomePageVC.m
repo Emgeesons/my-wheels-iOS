@@ -52,10 +52,10 @@
     [super viewDidLoad];
     
     //get pushnotification counter
-    NSLog(@"push :%d",appdelegate.intCountPushNotification);
+  
     // change status bar color
      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+     [_viewUpdate setBackgroundColor: [UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1]];
     [self.viewTrasparent setHidden:YES];
     [self setNeedsStatusBarAppearanceUpdate];
     self.library = [[ALAssetsLibrary alloc] init];
@@ -76,6 +76,7 @@
     int countVehicle = [_arrVehicles count];
     [_btnFindVehicle setEnabled:NO];
     [_imgTick setHidden:YES];
+     _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [_viewLocationGuide setHidden:YES];
     
     //set status bar color
@@ -174,7 +175,10 @@
     loc.latitude = currlat;
     loc.longitude = currlongt;
     
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
+    region.center.latitude = currlat;
+    region.center.longitude = currlongt;
+    
     [self.map setRegion:region animated:YES];
     
     NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
@@ -210,9 +214,11 @@
         if(strvid == strCurrentVehicleID && strvid != nil)
         {
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
-            [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+            [_btnMParking setBackgroundColor:[UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1] ];
+            [_btnMParking setAlpha:1.0f];
              [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [_imgTick setHidden:NO];
+             _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
            // appdelegate.intMparking = 1;
             [_btnFindVehicle setEnabled:YES];
         }
@@ -221,7 +227,9 @@
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
              [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [_btnMParking setAlpha:0.9f];
             [_imgTick setHidden:YES];
+             _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             [_btnFindVehicle setEnabled:NO];
            // appdelegate.intMparking = 2;
         }
@@ -235,16 +243,19 @@
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [_btnMParking setAlpha:0.9f];
             [_imgTick setHidden:YES];
+             _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             [_btnFindVehicle setEnabled:NO];
         }
         else if(appdelegate.intMparking == 1)
         {
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
-            [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+            [_btnMParking setBackgroundColor:[UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1] ];
+            [_btnMParking setAlpha:1.0f];
             [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [_imgTick setHidden:NO];
-            
+             _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [_btnFindVehicle setEnabled:YES];
             
            
@@ -306,6 +317,9 @@
     }
     
     }
+    
+
+   
    
     
 }
@@ -423,8 +437,8 @@
         //scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
        // self.scrollview.contentSize = CGSizeMake(320, 800);
         _map.frame = CGRectMake(0,55, 320, 270);
-        _btnParking.frame = CGRectMake(1, 210, 150, 60);
-        _btnVehicles.frame = CGRectMake(152, 210, 150, 60);
+        _btnParking.frame = CGRectMake(1, 220, 150, 60);
+        _btnVehicles.frame = CGRectMake(152, 220, 150, 60);
         viewReport.frame = CGRectMake(0, 230, 320, 60);
         viewNewReport.frame = CGRectMake(0, 290, 320, 60);
         viewUpdates.frame = CGRectMake(0, 350, 320, 60);
@@ -433,13 +447,21 @@
     }
     else
     {
-        _map.frame = CGRectMake(0,55, 320, 270);
-        _btnParking.frame = CGRectMake(1, 120, 150, 55);
-        _btnVehicles.frame = CGRectMake(152, 120, 150, 55);
+        _map.frame = CGRectMake(0,55, 320, 220);
+        _btnMParking.frame = CGRectMake(1, 183, 158, 50);
+        _btnFindVehicle.frame = CGRectMake(160, 183, 158, 50);
         viewReport.frame = CGRectMake(0, 230, 320, 55);
         viewNewReport.frame = CGRectMake(0, 290, 320, 55);
         viewUpdates.frame = CGRectMake(0, 350, 320, 55);
         viewUpdates.frame = CGRectMake(0, 410, 320, 55);
+        _imgReportSighting.frame = CGRectMake(11, 10, 30, 30);
+        _imgFileNewReport.frame = CGRectMake(11, 10, 33, 35);
+        _imgAboutUs.frame = CGRectMake(11, 12, 33, 35);
+        _imgUpdates.frame = CGRectMake(11, 20, 33, 35);
+        _lblGray1.frame = CGRectMake(0, 55, 320, 1);
+        _lblGray2.frame = CGRectMake(0, 53, 320, 1);
+        _lblmainText.frame = CGRectMake(56, 5, 245, 30);
+        _lblSubText.frame = CGRectMake(56, 30, 257, 21);
 //        scrollview.frame = CGRectMake(4 , 58, 320, 568+50);
         
 //        self.scrollview.contentSize = CGSizeMake(320, 700);
@@ -538,7 +560,9 @@
 {
     NSLog(@"in zoom ");
     CLLocationCoordinate2D loc = [userLocation coordinate];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
+    region.center.latitude = loc.latitude;
+    region.center.longitude = loc.longitude;
     [self.map setRegion:region animated:YES];
     
     
@@ -605,9 +629,13 @@
     NSLog(@"str : %@",UserID);
     if(UserID == nil || UserID == (id)[NSNull null])
     {
-        LoginVC *vc = [[LoginVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                            message:@"Please log in to use this feature."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Sign in", nil];
+        CheckAlert.tag =10;
+        [CheckAlert show];    }
     else
     {
         FileNewReportViewController *vc = [[FileNewReportViewController alloc] init];
@@ -797,18 +825,22 @@
     if([vehivleType isEqualToString:@"Car"])
     {
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_car.png"]];
+        [cell.lblSerialNo setText:@"Registration No"];
     }
     else if ([vehivleType isEqualToString:@"Bicycle"])
     {
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle.png"]];
+        [cell.lblSerialNo setText:@"Serial No"];
     }
-    else if ([vehivleType isEqualToString:@"Motor Cycle"])
+    else if ([vehivleType isEqualToString:@"Motorcycle"])
     {
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_bike.png"]];
+        [cell.lblSerialNo setText:@"Registration No"];
     }
     else
     {
         [cell.imgVehicleType setImage:[UIImage imageNamed:@"ic_other.png"]];
+        [cell.lblSerialNo setText:@"Registration No"];
     }
     
     //    cell.lblExercise.text = [ExerciseArray objectAtIndex:[indexPath row]];
@@ -851,9 +883,11 @@
             if(strvid == strVehicleId && strvid != nil)
             {
                 [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
-                [_btnMParking setBackgroundColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] ];
+                [_btnMParking setBackgroundColor:[UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1] ];
+                [_btnMParking setAlpha:1.0f];
                 [_btnMParking setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [_imgTick setHidden:NO];
+                _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 [_btnFindVehicle setEnabled:YES];
                 appdelegate.intMparking =1;
                 return;
@@ -863,10 +897,12 @@
                 [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
                 [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
                 [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
-                [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+                [_btnMParking setTitleColor:[UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1] forState:UIControlStateNormal];
+                [_btnMParking setAlpha:0.9f];
                 [_btnFindVehicle setEnabled:NO];
                 appdelegate.intMparking = 2;
                 [_imgTick setHidden:YES];
+                 _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             }
         }
     }
@@ -911,8 +947,9 @@
             appdelegate.intMparking = 2;
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];
-            [_btnMParking setTitleColor:[UIColor colorWithRed:14.0/255.0f green:122.0/255.0f blue:254.0f/255.0f alpha:1] forState:UIControlStateNormal];
+            [_btnMParking setTitleColor:[UIColor colorWithRed:0.0/255.0f green:101.0/255.0f blue:179.0/255.0f alpha:1] forState:UIControlStateNormal];
             [_imgTick setHidden:YES];
+             _btnMParking.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             [_btnFindVehicle setEnabled:NO];
             
         }

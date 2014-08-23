@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UpdatesViewController : UIViewController
-@property (nonatomic,retain) IBOutlet UIView *viewLocation;
+@property (nonatomic,retain) IBOutlet UIView *viewLocation,*viewTransparent;
 
 -(IBAction)btnLocation_click:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnLetsGo;
