@@ -318,14 +318,14 @@ NSInteger intImage;
                               [_lblState1 setHidden:NO];
                               [_lblBodyType1 setHidden:YES];
                               [_lblNodyType setHidden: YES];
-                              [_lblEngineNo1 setFrame:CGRectMake(22, 116, 90, 21)];
-                              [_lblEngineNo setFrame:CGRectMake(103, 116, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 138, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 138, 250, 21)];
-                              [_lblColor1 setFrame:CGRectMake(22, 161, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 161, 217, 21)];
-                              [_lblAccessories1 setFrame:CGRectMake(22, 184, 107, 21)];
-                              [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 95, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 116, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 116, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 138, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 138, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
+                              [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
                           }
                           else
                           {
@@ -335,14 +335,15 @@ NSInteger intImage;
                               [_lblState1 setHidden:NO];
                               [_lblBodyType1 setHidden:YES];
                               [_lblNodyType setHidden: YES];
-                              [_lblEngineNo1 setFrame:CGRectMake(22, 116, 90, 21)];
-                              [_lblEngineNo setFrame:CGRectMake(103, 116, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 138, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 138, 250, 21)];
-                              [_lblColor1 setFrame:CGRectMake(22, 161, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 161, 217, 21)];
-                              [_lblAccessories1 setFrame:CGRectMake(22, 184, 107, 21)];
-                              [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
+                              [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
+                              [_lblEngineNo setFrame:CGRectMake(103, 95, 211, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 116, 40, 21)];
+                              [_lblVin setFrame:CGRectMake(57, 116, 250, 21)];
+                              [_lblColor1 setFrame:CGRectMake(22, 138, 53, 21)];
+                              [_lblColor setFrame:CGRectMake(70, 138, 217, 21)];
+                              [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
+
+                              [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
                           }
                           
                           if([_lblStatus.text isEqualToString:@""])
