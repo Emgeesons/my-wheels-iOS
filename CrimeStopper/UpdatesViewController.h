@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UpdatesViewController : UIViewController
-@property (nonatomic,retain) IBOutlet UIView *viewLocation,*viewTransparent;
+@interface UpdatesViewController : UIViewController {
+    UIAlertView *alertViewGuestUser, *alertViewVehicleRecovered;
+}
+@property (nonatomic,retain) IBOutlet UIView *viewLocation;
 
 -(IBAction)btnLocation_click:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnLetsGo;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *navBarHeightConstraint;
+@property (nonatomic,retain) IBOutlet UIView *viewTransparent;
+
 
 @end

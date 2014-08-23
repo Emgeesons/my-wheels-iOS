@@ -24,6 +24,8 @@
 		5E04AF4D19505CBD003F6CD4 /* default_profile_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E04AF4119505CBD003F6CD4 /* default_profile_1.png */; };
 		5E04AF5A195066AF003F6CD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
 		5E05577B196121C9003A84AD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E05577A196121C9003A84AD /* Parse.framework */; };
+		5E05C0CE19A870D800F9F5C6 /* ic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05C0CC19A870D800F9F5C6 /* ic_location.png */; };
+		5E05C0CF19A870D800F9F5C6 /* ic_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05C0CD19A870D800F9F5C6 /* ic_location@2x.png */; };
 		5E05D1C419A4BC8500A94EDF /* TipsDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E05D1C219A4BC8500A94EDF /* TipsDetailsVC.m */; };
 		5E05D1C519A4BC8500A94EDF /* TipsDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E05D1C319A4BC8500A94EDF /* TipsDetailsVC.xib */; };
 		5E05DCC9195EBDE90081256F /* default_profile_home@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E05DCC5195EBDE90081256F /* default_profile_home@1x.png */; };
@@ -285,6 +287,8 @@
 		5E04AF4119505CBD003F6CD4 /* default_profile_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_1.png; sourceTree = "<group>"; };
 		5E04AF59195066AF003F6CD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E05577A196121C9003A84AD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = CrimeStopper/Parse.framework; sourceTree = "<group>"; };
+		5E05C0CC19A870D800F9F5C6 /* ic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_location.png; sourceTree = "<group>"; };
+		5E05C0CD19A870D800F9F5C6 /* ic_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_location@2x.png"; sourceTree = "<group>"; };
 		5E05D1C119A4BC8500A94EDF /* TipsDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsDetailsVC.h; sourceTree = "<group>"; };
 		5E05D1C219A4BC8500A94EDF /* TipsDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsDetailsVC.m; sourceTree = "<group>"; };
 		5E05D1C319A4BC8500A94EDF /* TipsDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipsDetailsVC.xib; sourceTree = "<group>"; };
@@ -957,6 +961,8 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5E05C0CC19A870D800F9F5C6 /* ic_location.png */,
+				5E05C0CD19A870D800F9F5C6 /* ic_location@2x.png */,
 				5E47232F199B41FD00684821 /* im_complete_profile.png */,
 				5EA1CEBF1990EFF800BD81C7 /* File new report */,
 				5E3C3FB0196A9932007E6AFA /* mparking */,
@@ -1343,6 +1349,7 @@
 				5EE8C9201951AFFA009550A1 /* star.png in Resources */,
 				5EEF21951955B44300A0BA3F /* female_inactive.png in Resources */,
 				5EF1245519878C330096C4EF /* ic_tow_truck1.png in Resources */,
+				5E05C0CF19A870D800F9F5C6 /* ic_location@2x.png in Resources */,
 				5EF1245219878C330096C4EF /* ic_police_assistance.png in Resources */,
 				ECEAE27B1966C52A00BBA108 /* points_bg_ios.png in Resources */,
 				5EEF21771955A3FB00A0BA3F /* app_icon_120x120.png in Resources */,
@@ -1378,6 +1385,7 @@
 				5E2371CC19862DEE000DF8E0 /* login_bg (5).png in Resources */,
 				5E182B3F19653D6E003C1793 /* MyVehicleVC.xib in Resources */,
 				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
+				5E05C0CE19A870D800F9F5C6 /* ic_location.png in Resources */,
 				5EF1245319878C330096C4EF /* ic_raa1.png in Resources */,
 				5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,

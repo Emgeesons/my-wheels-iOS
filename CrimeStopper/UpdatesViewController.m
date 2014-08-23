@@ -1374,7 +1374,7 @@
         ivVehicle.image = [UIImage imageNamed:@"ic_cycle.png"];
     } else if ([vehicleHeader[0] isEqualToString:@"Car"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_car.png"];
-    } else if ([vehicleHeader[0] isEqualToString:@"Motor Cycle"]) {
+    } else if ([vehicleHeader[0] isEqualToString:@"Motorcycle"]) {
         ivVehicle.image = [UIImage imageNamed:@"ic_bike.png"];
     } else {
         ivVehicle.image = [UIImage imageNamed:@"ic_other.png"];
