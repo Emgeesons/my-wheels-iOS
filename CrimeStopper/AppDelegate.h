@@ -46,5 +46,5 @@
 @property (nonatomic,retain) NSString *strCurrentTime;
 @property (nonatomic) NSInteger intMparking;
 @property (nonatomic) NSInteger intCountPushNotification;
-
+@property (nonatomic,retain) NSDate *Time;
 @end

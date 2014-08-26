@@ -14,6 +14,8 @@
 #import "CustomImageView.h"
 #import "ReportSightingViewController.h"
 #import "Reachability.h"
+#import "SVProgressHUD.h"
+
 @import QuickLook;
 @import CoreLocation;
 
@@ -51,6 +53,7 @@
     // Do any additional setup after loading the view from its nib.
     
     // set navigationBar height to 55
+     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     self.navBarHeightConstraint.constant = 55;
     [self.navBar setNeedsUpdateConstraints];
     
@@ -170,6 +173,7 @@
     NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdatesDetails.php", SERVERNAME];
+    
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Details ==> %@", responseObject);
@@ -197,11 +201,14 @@
             initialValue = 1;
             self.tableView.hidden = NO;
             [self.tableView reloadData];
+            [SVProgressHUD dismiss];
             
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
+            [SVProgressHUD dismiss];
         }
+       //  [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];

@@ -69,14 +69,14 @@ help solve and prevent crime.</string>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3u6-yz-NrW">
-                            <rect key="frame" x="25" y="267" width="271" height="199"/>
+                            <rect key="frame" x="25" y="264" width="271" height="199"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <string key="text">CSSA also works with a range of Partners, Sponsors and Third Party service providers and undertakes all reasonable endeavours to ensure that these companies are of good repute. However, CSSA does not provide any warranty, guarantee, promise or representation in relation to the goods or services that these companies provide, nor does it endorse these products or services.</string>
+                            <string key="text">CSSA also works with a range of partners, sponsors and third party service providers and undertakes all reasonable endeavours to ensure that these companies are of good repute. However, CSSA does not provide any warranty, guarantee, promise or representation in relation to the goods or services that these companies provide, nor does it endorse these products or services.</string>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CSSA uses SSL security protocol." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eFH-QB-HUt">
-                            <rect key="frame" x="25" y="470" width="264" height="21"/>
+                            <rect key="frame" x="25" y="466" width="264" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                             <nil key="highlightedColor"/>

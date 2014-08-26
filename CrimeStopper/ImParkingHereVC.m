@@ -234,7 +234,9 @@ int counterForCell;
                     }
                    else
                    {
+                       strRate = [strRate stringByAppendingString:@".00"];
                        subString = strRate;
+                       
                    }
                   //  NSString *strr = [subString stringByAppendingString:strRating];
                     NSLog(@"substring : %@",subString);

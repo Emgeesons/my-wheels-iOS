@@ -25,6 +25,7 @@
 @synthesize strPhotoURL,intReg;
 @synthesize strCurrentTime,strPinTimeStamp;
 @synthesize intMparking;
+@synthesize Time;
 
 UINavigationController *nav;
 
@@ -207,24 +208,50 @@ UINavigationController *nav;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"wlcome to crime stoper....");
+    NSLog(@"time : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Time"]);
+    NSLog(@"current time :%@",[NSDate date]);
+    NSLog(@"app Time :%@",Time);
+    
+    // compare time
+    NSTimeInterval timeDifference = [[NSDate date] timeIntervalSinceDate:Time];
+    
+    double minutes = timeDifference / 60;
+    double hours = minutes / 60;
+    double seconds = timeDifference;
+    double days = minutes / 1440;
+    
+    NSLog(@" days = %.0f,hours = %.2f, minutes = %.0f,seconds = %.0f", days, hours, minutes, seconds);
+    
+   
+    
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss +GMT"];
+
+    NSDate *date = [dateFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"Time"]];
+    NSLog(@"date : %@",date);
+    
+    
+    
      NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    if(UserID == nil || UserID == (id)[NSNull null] || [UserID isEqualToString:@""])
+    if(UserID == nil || UserID == (id)[NSNull null] || [UserID isEqualToString:@""])// This is for guest user
     {
         LoginVC *vc = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
         [vc.navigationController pushViewController:vc animated:YES];
-     }
+    }
+    else if (minutes < 5)
+    {
+        //do nothing
+    }
     else
     {
         EvertTimePinVC *vc = [[EvertTimePinVC alloc]init];
         [nav pushViewController:vc animated:YES];
-       // [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
-        
-        
     }
-    //[self.nav pushViewController:vc animated:YES];
     
-    
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        
+      
 }
 
 

@@ -12,6 +12,7 @@
 #import "Reachability.h"
 #import "HomePageVC.h"
 #import "UserProfileVC.h"
+#import "LoginVC.h"
 
 @interface ReportSightingViewController () <UITextFieldDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIActionSheet *sightingPicker, *datePickerSheet, *imagePickerSheet;
@@ -334,20 +335,25 @@
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             
-            if (UserID == NULL || [UserID isEqualToString:@"0"]) {
+            if (UserID == NULL || [UserID isEqualToString:@"0"]) {// this is for guest user
                 NSArray *VCS = self.navigationController.viewControllers;
                 for (int i = 0 ; i < VCS.count; i++) {
                     if ([VCS[i] isKindOfClass:[HomePageVC class]]) {
-                        [self.navigationController popToViewController:VCS[i] animated:YES];
+                     //   [self.navigationController popToViewController:VCS[i] animated:YES];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Thank you for your sighting. Sign in and earn good samaritan points" delegate:self cancelButtonTitle:@"Not now" otherButtonTitles:@"Sign in", nil];
+                        alert.tag = 10;
+                        [alert show];
                         return;
                     }
                 }
+                
+              
             }
             
             NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
             samaritan_points = [response objectForKey:@"samaritan_points"];
             [self addSuccessView];
-        } else {
+        } else {// this is for registered user
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
@@ -894,5 +900,22 @@
 - (IBAction)doneClicked:(id)sender {
     [activeTextField resignFirstResponder];
     [self.scrollView setContentOffset:CGPointMake(0, -20) animated:YES];
+}
+#pragma mark alert view delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 10)
+    {
+        if(buttonIndex == 0)
+        {
+            HomePageVC *vc = [[HomePageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+            LoginVC *vc = [[LoginVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 @end

@@ -775,7 +775,7 @@
     NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
     [dtFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *dt = [dtFormat dateFromString:selected_date[indexPath]];
-    [dtFormat setDateFormat:@"E,MMMM dd,yyyy"];
+    [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
     lblDate.text = [dtFormat stringFromDate:dt];
     
     [viewBottom addSubview:lblDate];
@@ -1182,7 +1182,7 @@
     NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
     [dtFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *dt = [dtFormat dateFromString:dateHeader[indexPath]];
-    [dtFormat setDateFormat:@"E,MMMM dd,yyyy"];
+    [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
     lblDate.text = [dtFormat stringFromDate:dt];
     
     [viewBottom addSubview:lblDate];
@@ -1417,7 +1417,7 @@
     NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
     [dtFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *dt = [dtFormat dateFromString:selected_dateMy[indexPath]];
-    [dtFormat setDateFormat:@"E,MMMM dd,yyyy"];
+    [dtFormat setDateFormat:@"E, MMMM dd, yyyy"];
     lblDate.text = [dtFormat stringFromDate:dt];
     
     [viewBottom addSubview:lblDate];

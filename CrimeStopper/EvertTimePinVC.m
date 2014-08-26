@@ -12,10 +12,13 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 #import "Reachability.h"
+#import "AppDelegate.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 @interface EvertTimePinVC ()
-
+{
+    AppDelegate *appdelegate;
+}
 @end
 
 @implementation EvertTimePinVC
@@ -38,6 +41,7 @@
     [self.txtPin3 setDelegate:self];
     [self.txtPin4 setDelegate:self];
     
+    appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     // self.txtDateOfBirth.inputView = self.pickerDateOfBirth;
     [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
@@ -135,6 +139,11 @@
 }
 -(IBAction)btnContinue_click:(id)sender
 {
+    [_txtPin1 resignFirstResponder];
+        [_txtPin2 resignFirstResponder];
+        [_txtPin3 resignFirstResponder];
+        [_txtPin4 resignFirstResponder];
+    
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
@@ -201,7 +210,7 @@
               NSLog(@"message %@",EntityID);
               if ([EntityID isEqualToString:@"success"])
               {
-                 
+                  appdelegate.Time = [NSDate date];
                   
                   HomePageVC *vc = [[HomePageVC alloc]init];
                   [self.navigationController pushViewController:vc animated:YES];

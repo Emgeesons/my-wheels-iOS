@@ -733,16 +733,9 @@
 {
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSLog(@"str : %@",UserID);
-    if(UserID == nil || UserID == (id)[NSNull null])
-    {
-        LoginVC *vc = [[LoginVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else
-    {
-        ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+  
+    ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark get current location

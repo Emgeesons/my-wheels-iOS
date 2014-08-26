@@ -556,6 +556,7 @@
                       appdelegate.intCountPushNotification = 0;
                       if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
                       {
+                          appdelegate.Time = [NSDate date];
                           [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
                           NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                           arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
@@ -1208,6 +1209,17 @@
                 NSLog(@"message %@",EntityID);
                 if ([EntityID isEqualToString:@"success"])
                 {
+                 
+                    NSDate *date = [NSDate date];
+                    appdelegate.Time = date;
+                    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    NSString *dat = [dateFormat stringFromDate:date];
+                    NSLog(@"dat : %@",dat);
+
+                    [[NSUserDefaults standardUserDefaults] setObject:dat forKey:@"Time"];
+                 
+                    
                     NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                     NSLog(@"data : %@",jsonDictionary);
                     appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];

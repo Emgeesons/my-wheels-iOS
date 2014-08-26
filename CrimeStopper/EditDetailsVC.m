@@ -171,7 +171,7 @@ UITextField *txtOtherQuestion;
     [_txtLicenceNo setInputAccessoryView:self.toolbar];
     [_txtStreet setInputAccessoryView:self.toolbar];
     [_txtPostCode setInputAccessoryView:self.toolbar];
-    [txtOtherQuestion setInputAccessoryView:self.toolbar];
+     [txtOtherQuestion setInputAccessoryView:self.toolbar];
     
     if(IsIphone5)
     {
@@ -313,12 +313,16 @@ UITextField *txtOtherQuestion;
         {
             [_txtSecurityQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
-        if(txtOtherQuestion.text.length == 0)
-        {
-             [txtOtherQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
+       
         
         
+    }
+    else if([_txtSecurityQuestion .text isEqualToString:@"other"] && txtOtherQuestion.text.length == 0)
+    {
+        
+       
+            [txtOtherQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+       
     }
    else if (_txtFname.text.length <2)
     {
@@ -509,11 +513,10 @@ UITextField *txtOtherQuestion;
             txtOtherQuestion.keyboardType = UIKeyboardTypeDefault;
             txtOtherQuestion.returnKeyType = UIReturnKeyDefault;
             txtOtherQuestion.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            [_txtSecurityQuestion setText:@"other"];
             txtOtherQuestion.placeholder = @"enter question *";
             txtOtherQuestion.tag = 11;
             txtOtherQuestion.delegate = self;
-            
+            _txtSecurityQuestion.text = @"other";
             [self.scroll addSubview:txtOtherQuestion];
           
         }
@@ -859,7 +862,12 @@ UITextField *txtOtherQuestion;
         y=300;
         // [btnSubmit setHidden:NO];
     }
-    
+    if(textField == txtOtherQuestion)
+    {
+        y=200;
+        [txtOtherQuestion setInputAccessoryView:self.toolbar];
+        // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
+    }
     NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];

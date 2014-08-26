@@ -363,6 +363,13 @@ int intques;
         
         
     }
+    else if([_txtSecurityQuestion .text isEqualToString:@"other"] && txtOtherQuestion.text.length == 0)
+    {
+        
+        
+        [txtOtherQuestion setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+        
+    }
    else if (txtFname.text.length>0 && txtFname.text.length <2)
     {
         [txtFname setTextColor:[UIColor redColor]];
@@ -1302,6 +1309,7 @@ int intques;
         if ([EntityID isEqualToString:@"success"])
         {
             NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
+            appDelegate.Time = [NSDate date];
             [[NSUserDefaults standardUserDefaults] setValue:userID forKey:@"UserID"];
             [[NSUserDefaults standardUserDefaults] setValue:strBirthDate forKey:@"dob"];
             [[NSUserDefaults standardUserDefaults] setValue:txtEmailAddress.text forKey:@"email"];

@@ -186,7 +186,10 @@
 }
 
 -(void)postOnFacebook {
-    [self makeRequestToUpdateStatus:self.tvFacebook.text title:nil description:nil image:self.photo1 link:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
+    
+    NSString *test = [NSString stringWithFormat:@"%@ #MyWheels", self.tvFacebook.text];
+    
+    [self makeRequestToUpdateStatus:test title:nil description:nil image:self.photo1 link:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
 }
 
 - (void)makeRequestToUpdateStatus:(NSString *)message title:(NSString *)title description:(NSString *)description image:(NSString *)image link:(NSString *)link {

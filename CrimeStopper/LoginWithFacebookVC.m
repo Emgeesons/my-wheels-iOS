@@ -655,7 +655,7 @@ int intques;
               if ([EntityID isEqualToString:@"success"])
               {
                 
-                  
+                  appdelegate.Time = [NSDate date];
                   [[NSUserDefaults standardUserDefaults] setValue:txtMobileNo.text forKey:@"mobile_number"];
                   [[NSUserDefaults standardUserDefaults] setValue:@"30" forKey:@"profile_completed"];
                   [[NSUserDefaults standardUserDefaults] setValue:txtAnswer.text forKey:@"security_answer"];
