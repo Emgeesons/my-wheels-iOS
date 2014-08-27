@@ -68,8 +68,8 @@ NSString *strBody;
     [self.txtColor setDelegate:self];
     [self.txtEngineNo setDelegate:self];
     [self.txtMake setDelegate:self];
-        [self.txtModel setDelegate:self];
-        [self.txtRegistrationNo setDelegate:self];
+    [self.txtModel setDelegate:self];
+    [self.txtRegistrationNo setDelegate:self];
     
     
     [_toolbar setFrame:CGRectMake(0, -30, 320, 40)];
@@ -501,6 +501,7 @@ NSString *strBody;
     {
         [_txtstate setHidden:YES];
         [_txtBodyType setHidden:YES];
+        [_txtOtherVehicle setHidden:YES];
         _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
         _txtEngineNo.placeholder = @"engine no (min 13 chars)";
         _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
@@ -530,8 +531,8 @@ NSString *strBody;
     if([strvehivcle isEqualToString:@"Car"])
     {
         [_txtstate setHidden:NO];
-         [_txtBodyType setHidden:NO];
-        
+        [_txtBodyType setHidden:NO];
+        [_txtOtherVehicle setHidden:YES];
         _txtVehicleType.frame = CGRectMake(9, 20, 301, 30);
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
         _txtModel.frame = CGRectMake(161, 60, 150, 30);
@@ -553,19 +554,17 @@ NSString *strBody;
         _txtChassisNo.tag = 7;
         _txtColor.tag = 8;
         _txtAccessories.tag = 9;
-        
-
-        
-        
-        
     }
     if([strvehivcle isEqualToString:@"Motorcycle"])
     {
         [_txtBodyType setHidden:YES];
         [_txtstate setHidden:NO];
+        [_txtOtherVehicle setHidden:YES];
         _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
         _txtEngineNo.placeholder = @"engine no (min 13 chars)";
         _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+        _txtMake.frame = CGRectMake(9, 60, 150, 30);
+        _txtModel.frame = CGRectMake(161, 60, 150, 30);
         _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
         _txtstate.frame = CGRectMake(9, 140, 301, 30);
         _txtEngineNo.frame = CGRectMake(9,180, 301, 30);
@@ -584,9 +583,6 @@ NSString *strBody;
     }
 
     [self cancelClicked];
-    
-    
-    
 }
 -(void)doneBody_click:(id)sender
 {
@@ -654,8 +650,6 @@ NSString *strBody;
 #pragma mark textfeild delegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
-    
     activeTextField=textField;
     NSInteger nextTag = activeTextField.tag + 1;
     // Try to find next responder
@@ -669,6 +663,8 @@ NSString *strBody;
   
     }
     return YES;
+    
+    
 }
 -(bool)textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -685,7 +681,7 @@ NSString *strBody;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-     [textField setTextColor:[UIColor blackColor]];
+    [textField setTextColor:[UIColor blackColor]];
     activeTextField=textField;
     [textField selectAll:self];
     if(textField == _txtVehicleType)
