@@ -102,8 +102,8 @@
     [viewContainer addSubview:lblMakeModel];
     
     // Add Type of report here.
-    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 20)];
-    lblTypeReport.numberOfLines = 0;
+    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 30)];
+    lblTypeReport.numberOfLines = 2;
     lblTypeReport.textAlignment = NSTextAlignmentRight;
     lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     lblTypeReport.text = [NSString stringWithFormat:@"%@", self.detailsArray[0][@"report_type"]];

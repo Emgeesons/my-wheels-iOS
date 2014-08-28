@@ -802,7 +802,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism"/*, @"Stolen /Abandoned Vehicle?"*/, nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of report" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Serious Vandalism"/*, @"Stolen /Abandoned Vehicle?"*/, nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;

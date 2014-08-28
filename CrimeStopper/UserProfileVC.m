@@ -803,7 +803,7 @@ NSDictionary *arrVehicle;
 -(IBAction)btnSamaritan_click:(id)sender
 {
     UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Samaritan Points"
-                                                        message:@"Earn Samaritan points against your activities like Report Sighting and Profile completeness in order to gain priority listing and other benefits."
+                                                        message:@"Earn Samaritan points against your activities like Report Sighting and Parking Feedback in order to gain priority listing and other benefits."
                                                        delegate:self
                                               cancelButtonTitle:@"Close"
                                               otherButtonTitles:nil, nil];

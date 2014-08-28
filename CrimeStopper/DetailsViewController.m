@@ -312,7 +312,7 @@
     
     /*if ([self.typeSightingHeader isEqualToString:@"Theft"]) {
         strName = [NSString stringWithFormat:@"%@ lost their vehicle", self.firstNameHeader];
-    } else if ([self.typeSightingHeader isEqualToString:@"Vandalism"]) {
+    } else if ([self.typeSightingHeader isEqualToString:@"Serious Vandalism"]) {
         strName = [NSString stringWithFormat:@"%@ reported a %@", self.firstNameHeader, self.typeSightingHeader];
     } else if ([self.typeSightingHeader isEqualToString:@"Stolen /Abandoned Vehicle?"]) {
         strName = [NSString stringWithFormat:@"%@ reported a Stolen /Abandoned Vehicle", self.firstNameHeader];
@@ -372,8 +372,8 @@
     [viewBottom addSubview:lblMakeModel];
     
     // Add Type of report here.
-    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 20)];
-    lblTypeReport.numberOfLines = 0;
+    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 30)];
+    lblTypeReport.numberOfLines = 2;
     lblTypeReport.textAlignment = NSTextAlignmentRight;
     lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     lblTypeReport.text = [NSString stringWithFormat:@"%@", self.typeSightingHeader];

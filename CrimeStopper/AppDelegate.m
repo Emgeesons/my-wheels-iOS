@@ -239,7 +239,7 @@ UINavigationController *nav;
         LoginVC *vc = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
         [vc.navigationController pushViewController:vc animated:YES];
     }
-    else if (minutes < 5)
+    else if (minutes < 15)
     {
         //do nothing
     }

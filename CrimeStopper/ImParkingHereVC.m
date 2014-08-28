@@ -88,7 +88,7 @@ int counterForCell;
     
     [self.txtComment setInputAccessoryView:self.toolbar];
     _arrCar = [[NSMutableArray alloc]init];
-    [_arrCar addObject:@"does this parking spot have a good My Wheels user rating ?"];
+    [_arrCar addObject:@"does this parking spot have a good MyWheels user rating ?"];
     [_arrCar addObject:@"well lit spot?"];
     [_arrCar addObject:@"spot in full view of people?"];
     [_arrCar addObject:@"windows closed and doors locked?"];
@@ -101,7 +101,7 @@ int counterForCell;
     [_arrCar addObject:@"if home – in a locked garage?"];
     
     _arrBike = [[NSMutableArray alloc]init];
-    [_arrBike addObject:@"does this parking spot have a good My Wheels user rating ?"];
+    [_arrBike addObject:@"does this parking spot have a good MyWheels user rating ?"];
     [_arrBike addObject:@"well lit spot?"];
     [_arrBike addObject:@"spot in full view of people?"];
     [_arrBike addObject:@"steering and ignition locked and taking the key?"];
@@ -117,7 +117,7 @@ int counterForCell;
     [_arrBike addObject:@"if home – chained to U-bolt in garage floor?"];
     
     _arrcycle = [[NSMutableArray alloc]init];
-    [_arrcycle addObject:@"does this parking spot have a good My Wheels user rating ?"];
+    [_arrcycle addObject:@"does this parking spot have a good MyWheels user rating ?"];
     [_arrcycle addObject:@"well lit spot?"];
     [_arrcycle addObject:@"spot in full view of people?"];
     [_arrcycle addObject:@"got a good quality lock – cable or D-lock, padlock and chain?"];

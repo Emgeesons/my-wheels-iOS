@@ -340,7 +340,7 @@
                 for (int i = 0 ; i < VCS.count; i++) {
                     if ([VCS[i] isKindOfClass:[HomePageVC class]]) {
                      //   [self.navigationController popToViewController:VCS[i] animated:YES];
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Thank you for your sighting. Sign in and earn good samaritan points" delegate:self cancelButtonTitle:@"Not now" otherButtonTitles:@"Sign in", nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Thank you for your sighting. Sign in and earn Good Samaritan points" delegate:self cancelButtonTitle:@"Not now" otherButtonTitles:@"Sign in", nil];
                         alert.tag = 10;
                         [alert show];
                         return;
@@ -517,7 +517,7 @@
     activeTextField=textField;
     
     if (textField == self.txtSighting) {
-        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Vandalism", @"Suspicious Activity", /*@"Other",*/ nil];
+        sightingPicker = [[UIActionSheet alloc] initWithTitle:@"Type of Sighting" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Theft", @"Serious Vandalism", @"Suspicious Activity", /*@"Other",*/ nil];
         sightingPicker.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [sightingPicker showInView:self.view];
         return NO;
@@ -792,7 +792,7 @@
     //UILabel for 50 points
     UILabel *lblPoints = [[UILabel alloc] init];
     lblPoints.frame = CGRectMake(0, lblGood.frame.origin.y + lblGood.frame.size.height + 5, 280, 35);
-    lblPoints.text = @"You earned yourself 50 good\nSamaritan points!";
+    lblPoints.text = @"You earned yourself 50 Good\nSamaritan points!";
     lblPoints.numberOfLines = 0;
     lblPoints.textAlignment = NSTextAlignmentCenter;
     lblPoints.textColor = [UIColor grayColor];

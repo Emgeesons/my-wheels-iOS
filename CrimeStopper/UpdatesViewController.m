@@ -679,7 +679,7 @@
     if ([type[indexPath] isEqualToString:@"report"]) {
         /*if ([report_type[indexPath] isEqualToString:@"Theft"]) {
             strName = [NSString stringWithFormat:@"%@ lost their vehicle", first_name[indexPath]];
-        } else if ([report_type[indexPath] isEqualToString:@"Vandalism"]) {
+        } else if ([report_type[indexPath] isEqualToString:@"Serious Vandalism"]) {
             strName = [NSString stringWithFormat:@"%@ reported a %@", first_name[indexPath], report_type[indexPath]];
         } else if ([report_type[indexPath] isEqualToString:@"Stolen /Abandoned Vehicle?"]) {
             strName = [NSString stringWithFormat:@"%@ reported a Stolen /Abandoned Vehicle", first_name[indexPath]];
@@ -688,7 +688,7 @@
         }*/
         strName = [NSString stringWithFormat:@"%@ reported their vehicle", first_name[indexPath]];
     } else {
-        if ([report_type[indexPath] isEqualToString:@"Theft"] || [report_type[indexPath] isEqualToString:@"Vandalism"] || [report_type[indexPath] isEqualToString:@"Suspicious Activity"]) {
+        if ([report_type[indexPath] isEqualToString:@"Theft"] || [report_type[indexPath] isEqualToString:@"Serious Vandalism"] || [report_type[indexPath] isEqualToString:@"Suspicious Activity"]) {
             strName = [NSString stringWithFormat:@"%@ spotted a %@", first_name[indexPath], report_type[indexPath]];
         } else {
             strName = [NSString stringWithFormat:@"%@ spotted a Suspicious Activity", first_name[indexPath]];
@@ -749,8 +749,8 @@
     [viewBottom addSubview:lblMakeModel];
     
     // Add Type of report here.
-    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 20)];
-    lblTypeReport.numberOfLines = 0;
+    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 30)];
+    lblTypeReport.numberOfLines = 2;
     lblTypeReport.textAlignment = NSTextAlignmentRight;
     lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     lblTypeReport.text = [NSString stringWithFormat:@"%@", report_type[indexPath]];
@@ -1156,8 +1156,8 @@
     [viewBottom addSubview:lblMakeModel];
     
     // Add Type of report here.
-    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 20)];
-    lblTypeReport.numberOfLines = 0;
+    UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x + lblMakeModel.frame.size.width + 5, lblMakeModel.frame.origin.y, 75, 30)];
+    lblTypeReport.numberOfLines = 2;
     lblTypeReport.textAlignment = NSTextAlignmentRight;
     lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     lblTypeReport.text = [NSString stringWithFormat:@"%@", typeSightingHeader[indexPath]];
@@ -1350,7 +1350,7 @@
     
     // Add Type of report here.
     UILabel *lblTypeReport = [[UILabel alloc] initWithFrame:CGRectMake(lblName.frame.origin.x + lblName.frame.size.width + 5, lblName.frame.origin.y, 75, 30)];
-    lblTypeReport.numberOfLines = 0;
+    lblTypeReport.numberOfLines = 2;
     lblTypeReport.textAlignment = NSTextAlignmentRight;
     lblTypeReport.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     lblTypeReport.text = [NSString stringWithFormat:@"%@", report_typeMy[indexPath]];

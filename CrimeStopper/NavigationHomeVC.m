@@ -144,7 +144,7 @@
     else if (indexPath.row == 3)
     {
         //share app
-        NSString *text = @"Check out My Wheels by Crime Stoppers. Get it from -  ";
+        NSString *text = @"Check out MyWheels by Crime Stoppers South Australia. Get it from -  ";
         NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
         UIImage *image = [UIImage imageNamed:@"app_icon_120x120.png"];
         
