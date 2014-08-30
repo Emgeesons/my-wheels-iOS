@@ -100,7 +100,7 @@
     alertViewGuestUser = [[UIAlertView alloc] initWithTitle:nil message:@"Please log in to use this feature" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign in", nil];
     alertViewVehicleRecovered = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
     
-    NSLog(@"latitude==> %f", latitude);
+    //NSLog(@"latitude==> %f", latitude);
     address = [[NSMutableString alloc] initWithString:@""];
     CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     NSString *lat = [NSString stringWithFormat:@"%f",latitude];
@@ -289,14 +289,14 @@
 - (IBAction)segmentedClicked:(id)sender {
     if (self.segmentedControl.selectedSegmentIndex == 0)
     {
-        NSLog(@"Other");
+        //NSLog(@"Other");
         self.viewOthers.hidden = NO;
         self.viewMyUpdates.hidden = YES;
        
     }
     else
     {
-        NSLog(@"my");
+        //NSLog(@"my");
         
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
         NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -387,12 +387,12 @@
                                  @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                  @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
-    NSLog(@"parameters : %@", parameters);
+    //NSLog(@"parameters : %@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"other : %@", responseObject);
+        //NSLog(@"other : %@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -401,7 +401,7 @@
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSArray *reportData = (NSArray *)[json objectForKey:@"reports"];
-            //NSLog(@"%d", reportData.count);
+            ////NSLog(@"%d", reportData.count);
             for (int i = 0; i < reportData.count; i++) {
                 [type addObject:@"report"];
                 [comments addObject:reportData[i][@"comments"]];
@@ -424,7 +424,7 @@
             }
             
             NSArray *sightingData = (NSArray *)[json objectForKey:@"sightings"];
-            //NSLog(@"%d", sightingData.count);
+            ////NSLog(@"%d", sightingData.count);
             for (int i = 0; i < sightingData.count; i++) {
                 [type addObject:@"sighting"];
                 [comments addObject:sightingData[i][@"comments"]];
@@ -465,7 +465,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
         [activityIndicator stopAnimating];
     }];
@@ -491,12 +491,12 @@
                                  @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                  @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
-    //NSLog(@"%@", parameters);
+    ////NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"my updates : %@", responseObject);
+        ////NSLog(@"my updates : %@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -505,7 +505,7 @@
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSArray *reportData = (NSArray *)[json objectForKey:@"response"];
-            //NSLog(@"%d", reportData.count);
+            ////NSLog(@"%d", reportData.count);
             
             // Set detailsArray value here
             detailsArray = reportData;
@@ -542,7 +542,7 @@
             }
             
             NSArray *sightingData = (NSArray *)[json objectForKey:@"sightings"];
-            //NSLog(@"%d", sightingData.count);
+            ////NSLog(@"%d", sightingData.count);
             for (int i = 0; i < sightingData.count; i++) {
                 [commentsMy addObject:sightingData[i][@"comments"]];
                 [first_nameMy addObject:sightingData[i][@"first_name"]];
@@ -586,7 +586,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         //[DeviceInfo errorInConnection];
         [activityIndicator stopAnimating];
     }];
@@ -598,7 +598,7 @@
     if (tableView == self.tableViewOthers) {
         return type.count;
     } else if(tableView == self.tableViewMyUpdates) {
-        //NSLog(@"vehicle_idMy ==> %lu", (unsigned long)vehicle_idMy.count);
+        ////NSLog(@"vehicle_idMy ==> %lu", (unsigned long)vehicle_idMy.count);
         if (vehicle_idMy.count == 0) {
             return 1;
         }
@@ -694,9 +694,9 @@
             strName = [NSString stringWithFormat:@"%@ spotted a Suspicious Activity", first_name[indexPath]];
         }
     }
-    //NSLog(@"%@", strName);
+    ////NSLog(@"%@", strName);
     // Attribute string for User name and activity
-    //NSLog(@"%@ : %@", type[indexPath], first_name[indexPath]);
+    ////NSLog(@"%@ : %@", type[indexPath], first_name[indexPath]);
     NSMutableAttributedString *attrStringName = [[NSMutableAttributedString alloc] initWithString:strName];
     [attrStringName addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f] range:NSMakeRange(0, strName.length)];
     [attrStringName addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#0067AD"] range:NSMakeRange(0, [first_name[indexPath] length])];
@@ -1048,10 +1048,10 @@
     [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = [[NSData alloc] initWithData:responseObject];
         [data writeToFile:filePath atomically:YES];
-        NSLog(@"saved");
+        //NSLog(@"saved");
         [self presentViewController:previewController animated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"file downloading error : %@", [error localizedDescription]);
+        //NSLog(@"file downloading error : %@", [error localizedDescription]);
     }];
     [downloadRequest start];
     
@@ -1714,12 +1714,12 @@
                                          @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                          @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
             
-            NSLog(@"Vehicle Recovered:%@", parameters);
+            //NSLog(@"Vehicle Recovered:%@", parameters);
             
             NSString *url = [NSString stringWithFormat:@"%@vehicleRecovered.php", SERVERNAME];
             [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"%@", responseObject);
+                //NSLog(@"%@", responseObject);
                 
                 // Stop Animating activityIndicator
                 [navActivityIndicator stopAnimating];
@@ -1819,7 +1819,7 @@
                 }
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                 [DeviceInfo errorInConnection];
                 
                 // Stop Animating activityIndicator

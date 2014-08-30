@@ -60,13 +60,13 @@ UITextField *txtOtherQuestion;
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
    
     
-    NSLog(@"dob : %@",dob);
+    ////NSLog(@"dob : %@",dob);
     dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSDate *datedob = [dateFormatter dateFromString:dob];
     
-    NSLog(@"dob : %@",datedob);
+    ////NSLog(@"dob : %@",datedob);
     
     dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"dd-MM-yyyy"];
@@ -74,13 +74,13 @@ UITextField *txtOtherQuestion;
     NSString *date = [dateFormatter stringFromDate:datedob];
     
    
-    NSLog(@"dob1 : %@",date );
+    ////NSLog(@"dob1 : %@",date );
 
     _txtDob.text = date;
     if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
     {
         NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
-        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
+        ////NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
         
         //[pickerDateOfBirth setHidden:YES];
         
@@ -91,7 +91,7 @@ UITextField *txtOtherQuestion;
         
     }
 
-    NSLog(@"strquestion : %@",strquestion);
+    ////NSLog(@"strquestion : %@",strquestion);
     if([gender isEqualToString:@"male"])
     {
         [self.gender setImage:[[UIImage imageNamed:@"male_active.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forSegmentAtIndex:0];
@@ -215,12 +215,12 @@ UITextField *txtOtherQuestion;
         _txtpin2.secureTextEntry = NO;
         _txtpin3.secureTextEntry = NO;
         _txtpin4.secureTextEntry = NO;
-        NSLog(@"switch is off");
+        ////NSLog(@"switch is off");
         _switchbtn.on = YES;
     }
     else
     {
-        NSLog(@"switch is on..");
+        ////NSLog(@"switch is on..");
         _txtpin1.secureTextEntry = YES;
         _txtpin2.secureTextEntry = YES;
         _txtpin3.secureTextEntry = YES;
@@ -257,7 +257,7 @@ UITextField *txtOtherQuestion;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -265,7 +265,7 @@ UITextField *txtOtherQuestion;
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
     } else {
-        NSLog(@"There IS internet connection");
+        ////NSLog(@"There IS internet connection");
     
     
     
@@ -434,11 +434,11 @@ UITextField *txtOtherQuestion;
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setYear:-13]; // note that I'm setting it to -1
     NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-    NSLog(@"%@", maxDate);
+    ////NSLog(@"%@", maxDate);
     
     [offsetComponents setYear:-100]; // note that I'm setting it to -1
     NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-    NSLog(@"%@", minDate);
+    ////NSLog(@"%@", minDate);
     [timePicker setMaximumDate:maxDate];
     [timePicker setMinimumDate:minDate];
     
@@ -449,14 +449,14 @@ UITextField *txtOtherQuestion;
     dob = [dob stringByAppendingString:[arr1 objectAtIndex:0]];
     dob = [dob stringByAppendingString:@"-"];
     dob = [dob stringByAppendingString:[arr1 objectAtIndex:2]];
-    NSLog(@"dob = %@",dob);
+    ////NSLog(@"dob = %@",dob);
 
     
     _txtDob.text = dob;
     if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
     {
         NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
-        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
+        ////NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
         
         //[pickerDateOfBirth setHidden:YES];
        
@@ -475,11 +475,11 @@ UITextField *txtOtherQuestion;
         });
     }
     
-    NSLog(@"birthdate :%@",birthDate);
+    ////NSLog(@"birthdate :%@",birthDate);
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     strBirthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
-    NSLog(@"strdate : %@",strBirthDate);
+    ////NSLog(@"strdate : %@",strBirthDate);
     self.scroll.userInteractionEnabled = YES;
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [timePicker setHidden:YES];
@@ -636,11 +636,11 @@ UITextField *txtOtherQuestion;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", maxDate);
+        ////NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", minDate);
+        ////NSLog(@"%@", minDate);
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
         
@@ -737,7 +737,7 @@ UITextField *txtOtherQuestion;
         y=80;
         //[btnSubmit setHidden:NO];
     }
-    NSLog(@"y = %d",y);
+    ////NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:_scroll];
@@ -868,7 +868,7 @@ UITextField *txtOtherQuestion;
         [txtOtherQuestion setInputAccessoryView:self.toolbar];
         // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,300,300,30)];
     }
-    NSLog(@"y = %d",y);
+    ////NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:_scroll];
@@ -914,7 +914,7 @@ UITextField *txtOtherQuestion;
         NSUInteger newLength = [_txtpin1.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             // return NO;
             [_txtpin1 resignFirstResponder];
             [_txtpin2 becomeFirstResponder];
@@ -925,7 +925,7 @@ UITextField *txtOtherQuestion;
         }
         //        else
         //        {
-        //            NSLog(@"YES");
+        //            //NSLog(@"YES");
         //
         //            return YES;
         //            [txtPin1 resignFirstResponder];
@@ -939,7 +939,7 @@ UITextField *txtOtherQuestion;
         NSUInteger newLength = [_txtpin2.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             [_txtpin2 resignFirstResponder];
             [_txtpin3 becomeFirstResponder];
         }
@@ -962,7 +962,7 @@ UITextField *txtOtherQuestion;
         NSUInteger newLength = [_txtpin3.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             [_txtpin3 resignFirstResponder];
             [_txtpin4 becomeFirstResponder];
             //return NO;
@@ -987,7 +987,7 @@ UITextField *txtOtherQuestion;
         NSUInteger newLength = [_txtpin4.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             [_txtpin4 resignFirstResponder];
             //return NO;
         }
@@ -1030,19 +1030,19 @@ UITextField *txtOtherQuestion;
 }
 -(void)submit
 {
-    NSLog(@"valid email...");
+    ////NSLog(@"valid email...");
     NSString *strPin;
     strPin = @"";
     strPin = [strPin stringByAppendingString:_txtpin1.text];
     strPin = [strPin stringByAppendingString:_txtpin2.text];
     strPin = [strPin stringByAppendingString:_txtpin3.text];
     strPin = [strPin stringByAppendingString:_txtpin4.text];
-    NSLog(@"strpin :: %@",strPin);
+    ////NSLog(@"strpin :: %@",strPin);
  
 //    if(intques == 2)
 //    {
 //        strQuestion = [strQuestion stringByAppendingString:strQues];
-//        NSLog(@"ques :: %@",strQues);
+//        //NSLog(@"ques :: %@",strQues);
 //    }
 //    else if (intques == 1)
 //    {
@@ -1082,7 +1082,7 @@ UITextField *txtOtherQuestion;
   //  NSString *strQue;
     
     NSString *strQuestion1;
-    NSLog(@"strquestion : %@",strSecQuestion);
+    ////NSLog(@"strquestion : %@",strSecQuestion);
   
     if(intques == 2)
     {
@@ -1106,7 +1106,7 @@ UITextField *txtOtherQuestion;
     [param setValue:_txtFname.text forKey:@"firstName"];
     [param setValue:_txtLname.text forKey:@"lastName"];
     [param setValue:_txtMobileNo.text forKey:@"mobileNumber"];
-    NSLog(@"strbirthdate : %@",strBirthDate);
+    ////NSLog(@"strbirthdate : %@",strBirthDate);
     // [param setValue:[dateFormatter stringFromDate:pickerDateOfBirth.date] forKey:@"dob"];
     if(strBirthDate == nil || strBirthDate == (id)[NSNull null] || [strBirthDate isEqualToString:@""])
     {
@@ -1115,7 +1115,7 @@ UITextField *txtOtherQuestion;
     }
     else
     {
-        NSLog(@"strbirthdate : %@",strBirthDate);
+        ////NSLog(@"strbirthdate : %@",strBirthDate);
        [param setValue:strBirthDate forKey:@"dob"];
     }
     [param setValue:strGender forKey:@"gender"];
@@ -1131,27 +1131,27 @@ UITextField *txtOtherQuestion;
     [param setValue:MAKE forKey:@"make"];
     [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
-    NSLog(@"param : %@",param);
+    ////NSLog(@"param : %@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
       NSString *url = [NSString stringWithFormat:@"%@updateProfile.php", SERVERNAME];
     [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSLog(@"url : %@",manager);
+        ////NSLog(@"url : %@",manager);
     }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               
-              NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+              ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
               
               NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-              NSLog(@"data : %@",jsonDictionary);
-              //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+              ////NSLog(@"data : %@",jsonDictionary);
+              //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
               
               //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-              NSLog(@"Json dictionary :: %@",jsonDictionary);
+              ////NSLog(@"Json dictionary :: %@",jsonDictionary);
               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-              NSLog(@"message %@",EntityID);
+              ////NSLog(@"message %@",EntityID);
               if ([EntityID isEqualToString:@"success"])
               {
                   [[NSUserDefaults standardUserDefaults] setValue:UserID forKey:@"UserID"];
@@ -1208,7 +1208,7 @@ UITextField *txtOtherQuestion;
               [SVProgressHUD dismiss];
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
           }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

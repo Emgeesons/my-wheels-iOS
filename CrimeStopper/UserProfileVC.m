@@ -60,7 +60,7 @@ NSDictionary *arrVehicle;
     NSString *Lname = [[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"];
     NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
     NSString *dob = [[NSUserDefaults standardUserDefaults] objectForKey:@"dob"];
-    NSLog(@"dob :%@",dob);
+    //NSLog(@"dob :%@",dob);
     NSString *Mobileno = [[NSUserDefaults standardUserDefaults] objectForKey:@"mobile_number"];
     NSString *gender = [[NSUserDefaults standardUserDefaults] objectForKey:@"gender"];
     NSString *samaritan_points =  [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
@@ -68,7 +68,7 @@ NSDictionary *arrVehicle;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -85,7 +85,7 @@ NSDictionary *arrVehicle;
         Reachability *networkReachability1 = [Reachability reachabilityForInternetConnection];
         NetworkStatus networkStatus1 = [networkReachability1 currentReachabilityStatus];
         if (networkStatus1 == NotReachable) {
-            NSLog(@"There IS NO internet connection");
+            //NSLog(@"There IS NO internet connection");
             //        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
             //                                                            message:@"Please connect to the internet to continue."
             //                                                           delegate:self
@@ -96,7 +96,7 @@ NSDictionary *arrVehicle;
         else
         {
             
-            NSLog(@"There IS internet connection");
+            //NSLog(@"There IS internet connection");
             NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
             [param setValue:UserID forKey:@"userId"];
             
@@ -107,7 +107,7 @@ NSDictionary *arrVehicle;
             [param setValue:OS_VERSION forKey:@"os"];
             [param setValue:MAKE forKey:@"make"];
             [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
-            NSLog(@"param : %@",param);
+            //NSLog(@"param : %@",param);
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
            
@@ -119,18 +119,18 @@ NSDictionary *arrVehicle;
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           
                           
-                          NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                          //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                           
                           NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                           
                           NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                          NSLog(@"message %@",EntityID);
+                          //NSLog(@"message %@",EntityID);
                           
                           
                           if ([EntityID isEqualToString:@"success"])
                           {
                               NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                              NSLog(@"data : %@",jsonDictionary);
+                              //NSLog(@"data : %@",jsonDictionary);
                               appDelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
                               
                               dob1 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
@@ -206,11 +206,11 @@ NSDictionary *arrVehicle;
                                   
                                   NSArray *parts = [photo_url componentsSeparatedByString:@"/"];
                                   NSString *filename = [parts objectAtIndex:[parts count]-1];
-                                  NSLog(@"file name : %@",filename);
+                                  //NSLog(@"file name : %@",filename);
                                   
                                   NSString *str = @"My_Wheels_";
                                   NSString *strFileName = [str stringByAppendingString:filename];
-                                  NSLog(@"strfilename : %@",strFileName);
+                                  //NSLog(@"strfilename : %@",strFileName);
                                   
                                   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                                   NSData *imageData = [defaults dataForKey:strFileName];
@@ -349,7 +349,7 @@ NSDictionary *arrVehicle;
                               
                               
                               NSString *strPostCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"postcode"];
-                              NSLog(@"postcode : %@",strPostCode);
+                              //NSLog(@"postcode : %@",strPostCode);
                               //    NSString *strStreet = [[NSUserDefaults standardUserDefaults] objectForKey:@"street"];
                               //    NSString *strLicenceno = [[NSUserDefaults standardUserDefaults] objectForKey:@"license_no"];
                               
@@ -386,7 +386,7 @@ NSDictionary *arrVehicle;
                           _lblFname.text = strFullName;
                           
                           
-                          NSLog(@"dob : %@",dob);
+                          //NSLog(@"dob : %@",dob);
                           dateFormatter = [[NSDateFormatter alloc]init];
                           [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                           
@@ -394,15 +394,15 @@ NSDictionary *arrVehicle;
                           NSDate *todayDate = [NSDate date];
                           
                           
-                          NSLog(@"dob : %@",datedob);
+                          //NSLog(@"dob : %@",datedob);
                           
                           int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:dob1]];
                           int allDays = (((time/60)/60)/24);
                           int days = allDays%365;
                           years = (allDays-days)/365;
                           
-                          NSLog(@"You live since %i years and %i days",years,days);
-                          NSLog(@"dob1 : %@",dob1 );
+                          //NSLog(@"You live since %i years and %i days",years,days);
+                          //NSLog(@"dob1 : %@",dob1 );
                           
                           if([dob isEqualToString:@"0000-00-00 00:00:00"])
                           {
@@ -416,7 +416,7 @@ NSDictionary *arrVehicle;
                           
                           
                           NSString *ques = [[NSUserDefaults standardUserDefaults] objectForKey:@"security_question"];
-                          NSLog(@"ques: %@",ques);
+                          //NSLog(@"ques: %@",ques);
                           
                           samaritan_points1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"samaritan_points"];
                           _lblsamaritan.text = samaritan_points1;
@@ -447,7 +447,7 @@ NSDictionary *arrVehicle;
                                                                     otherButtonTitles:nil, nil];
                           CheckAlert.tag = 5;
                           [CheckAlert show];
-                          NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                          //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                       }];
                 
             
@@ -478,11 +478,11 @@ NSDictionary *arrVehicle;
 //    {
 //    NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
 //    NSString *filename = [parts objectAtIndex:[parts count]-1];
-//    NSLog(@"file name : %@",filename);
+//    //NSLog(@"file name : %@",filename);
 //    
 //    NSString *str = @"My_Wheels_";
 //    NSString *strFileName = [str stringByAppendingString:filename];
-//    NSLog(@"strfilename : %@",strFileName);
+//    //NSLog(@"strfilename : %@",strFileName);
 //    
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //    NSData *imageData = [defaults dataForKey:strFileName];
@@ -508,11 +508,11 @@ NSDictionary *arrVehicle;
 //        
 //        NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
 //        NSString *filename = [parts objectAtIndex:[parts count]-1];
-//        NSLog(@"file name : %@",filename);
+//        //NSLog(@"file name : %@",filename);
 //        
 //        NSString *str = @"My_Wheels_";
 //        NSString *strFileName = [str stringByAppendingString:filename];
-//        NSLog(@"strfilename : %@",strFileName);
+//        //NSLog(@"strfilename : %@",strFileName);
 //        
 //        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //        NSData *imageData = [defaults dataForKey:strFileName];
@@ -576,7 +576,7 @@ NSDictionary *arrVehicle;
 
     
      NSString *profile_completed = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile_complete"];
-    NSLog(@"profile complete :: %@",profile_complete);
+    //NSLog(@"profile complete :: %@",profile_complete);
     
     
        NSMutableArray *vehicle = [[NSMutableArray alloc]init];
@@ -609,11 +609,11 @@ NSDictionary *arrVehicle;
                                    NSString *photoURL1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
                                    NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
                                    NSString *filename = [parts objectAtIndex:[parts count]-1];
-                                   NSLog(@"file name : %@",filename);
+                                   //NSLog(@"file name : %@",filename);
                                    
                                    NSString *str = @"My_Wheels_";
                                    NSString *strFileName = [str stringByAppendingString:filename];
-                                   NSLog(@"strfilename : %@",strFileName);
+                                   //NSLog(@"strfilename : %@",strFileName);
                                    
                                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                                   
@@ -718,12 +718,12 @@ NSDictionary *arrVehicle;
     }
           success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-        NSLog(@"data : %@",jsonDictionary);
+        //NSLog(@"data : %@",jsonDictionary);
        
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-        NSLog(@"message %@",EntityID);
+        //NSLog(@"message %@",EntityID);
         if ([EntityID isEqualToString:@"success"])
         {
             // store image in device
@@ -731,11 +731,11 @@ NSDictionary *arrVehicle;
             [[NSUserDefaults standardUserDefaults] setValue:photo_url forKey:@"photo_url"];
             NSArray *parts = [photo_url componentsSeparatedByString:@"/"];
             NSString *filename = [parts objectAtIndex:[parts count]-1];
-            NSLog(@"file name : %@",filename);
+            //NSLog(@"file name : %@",filename);
             
             NSString *str = @"My_Wheels_";
             NSString *strFileName = [str stringByAppendingString:filename];
-            NSLog(@"strfilename : %@",strFileName);
+            //NSLog(@"strfilename : %@",strFileName);
             // Store the data
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             
@@ -762,7 +762,7 @@ NSDictionary *arrVehicle;
 
         [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
 
    
@@ -775,11 +775,11 @@ NSDictionary *arrVehicle;
 {
     if (error != nil)
     {
-        NSLog(@"Image Can not be saved");
+        //NSLog(@"Image Can not be saved");
     }
     else
     {
-        NSLog(@"Successfully saved Image");
+        //NSLog(@"Successfully saved Image");
     }
 }
 - (void)didReceiveMemoryWarning
@@ -815,7 +815,7 @@ NSDictionary *arrVehicle;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -825,7 +825,7 @@ NSDictionary *arrVehicle;
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
         
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",

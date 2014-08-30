@@ -75,7 +75,7 @@
     //get current location
     NSString *latitude=[NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
    
-    NSLog(@"current location : %@",latitude);
+    ////NSLog(@"current location : %@",latitude);
     
     if([latitude isEqualToString:@"0.000000"])
     {
@@ -287,7 +287,7 @@
     
     isLocationEnabled = NO;
     
-    NSLog(@"didFailWithError: %@", error);
+    ////NSLog(@"didFailWithError: %@", error);
     CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
     MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
     MKCoordinateRegion region = {coord, span};
@@ -355,7 +355,7 @@
             _lblAddress.text = address;
             
         } else {
-            NSLog(@"%@", error.debugDescription);
+            ////NSLog(@"%@", error.debugDescription);
         }
     } ];
 }
@@ -411,7 +411,7 @@
             
             
         } else {
-            NSLog(@"%@", error.debugDescription);
+            ////NSLog(@"%@", error.debugDescription);
         }
     } ];
     
@@ -557,7 +557,7 @@
     NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dataPath = [[docPaths objectAtIndex:0] stringByAppendingPathComponent:@"/fileNewReport"];
     NSArray *filelist= [fm contentsOfDirectoryAtPath:dataPath error:nil];
-    //NSLog(@"%lu", (unsigned long)filelist.count);
+    ////NSLog(@"%lu", (unsigned long)filelist.count);
     int filesCount = (int)[filelist count];
     
     // get current date & time
@@ -592,7 +592,7 @@
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString]};
     
-    NSLog(@"%@", parameters);
+    ////NSLog(@"%@", parameters);
     
     // Start Animating activityIndicator
     [activityIndicator startAnimating];
@@ -609,13 +609,13 @@
         }
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        ////NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
         
         NSDictionary *json = (NSDictionary *)responseObject;
-        //NSLog(@"%@", json);
+        ////NSLog(@"%@", json);
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
@@ -635,7 +635,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
         [activityIndicator stopAnimating];
         [bgToolBar removeFromSuperview];

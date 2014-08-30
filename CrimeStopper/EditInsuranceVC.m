@@ -38,9 +38,9 @@ NSString *strDate;
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication ]delegate];
-    NSLog(@"date :%@",_txtExpiry.text);
+    ////NSLog(@"date :%@",_txtExpiry.text);
    
-    NSLog(@"strvehicleId : %@",appdelegate.strVehicleId);
+    ////NSLog(@"strvehicleId : %@",appdelegate.strVehicleId);
     if([_strVehicleType isEqualToString:@"Bicycle"])
     {
         _arrinsurance = [[NSMutableArray alloc]init];
@@ -249,7 +249,7 @@ NSString *strDate;
     }
     _txtPolicyNo.text = _strPolicyNo;
     _txtPhoneNo.text = _strPhoneNo;
-    NSLog(@"strexpiry : %@",_strExpiry);
+    ////NSLog(@"strexpiry : %@",_strExpiry);
     if([_strExpiry isEqualToString:@""])
     {
         _txtExpiry.placeholder = @"expiry";
@@ -283,12 +283,12 @@ NSString *strDate;
     if([_txtExpiry.text isEqualToString:@""])
     {
         strDate = @"0000-00-00";
-        NSLog(@"strdate : %@",strDate);
+        ////NSLog(@"strdate : %@",strDate);
     }
     else
     {
         strDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
-        NSLog(@"strdate : %@",strDate);
+        ////NSLog(@"strdate : %@",strDate);
     }
     [self cancelClicked];
     
@@ -303,7 +303,7 @@ NSString *strDate;
     [_txtPhoneNo setText:[_arrTelephone objectAtIndex:row]];
   
     NSString *strInsurance = [_arrinsurance objectAtIndex:row];
-    NSLog(@"strInsurance : %@",strInsurance);
+    ////NSLog(@"strInsurance : %@",strInsurance);
     if([strInsurance isEqualToString:@"1Cover"] || [strInsurance isEqualToString:@"AAMI"] || [strInsurance isEqualToString:@"Allianz"] || [strInsurance isEqualToString:@"APIA"] || [strInsurance isEqualToString:@"Budget Direct"] || [strInsurance isEqualToString:@"Bupa/HBA"] || [strInsurance isEqualToString:@"CGU"] || [strInsurance isEqualToString:@"Coles"] || [strInsurance isEqualToString:@"CommInsure"] || [strInsurance isEqualToString:@"COTA"] || [strInsurance isEqualToString:@"Elders"] || [strInsurance isEqualToString:@"GIO"]|| [strInsurance isEqualToString:@"NAB"] || [strInsurance isEqualToString:@"NRMA"] || [strInsurance isEqualToString:@"People’s Choice"] || [strInsurance isEqualToString:@"QBE"] || [strInsurance isEqualToString:@"RAA"] || [strInsurance isEqualToString:@"RACT"] || [strInsurance isEqualToString:@"RACQ"] || [strInsurance isEqualToString:@"RACV"] || [strInsurance isEqualToString:@"SGIC"] || [strInsurance  isEqualToString:@"Shannons"] || [strInsurance isEqualToString:@"St George"] || [strInsurance isEqualToString:@"Suncorp"] || [strInsurance isEqualToString:@"TIO"] || [strInsurance isEqualToString:@"Westpac"] || [strInsurance isEqualToString:@"Woolworths"] || [strInsurance isEqualToString:@"Youi"] || [strInsurance isEqualToString:@"BikeSure"] ||  [strInsurance isEqualToString:@"CycleCover"] || [strInsurance isEqualToString:@"RealBike"] || [strInsurance isEqualToString:@"Velosure"])
     {
         _txtOtherInsurance.text = @"";
@@ -381,7 +381,7 @@ NSString *strDate;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -393,7 +393,7 @@ NSString *strDate;
     else
         
     {
-        NSLog(@"There IS internet connection");
+        ////NSLog(@"There IS internet connection");
         
         if([_txtCompanyName.text isEqualToString:@"Other"])
         {
@@ -439,7 +439,7 @@ NSString *strDate;
         
         else
         {
-            NSLog(@"in api");
+            ////NSLog(@"in api");
             NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
             NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
             NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -462,7 +462,7 @@ NSString *strDate;
             
             [dateFormatter setDateFormat:@"dd-MM-yyyy"];
             NSDate *date = [dateFormatter dateFromString:_txtExpiry.text];
-            NSLog(@"expiry date : %@",date);
+            ////NSLog(@"expiry date : %@",date);
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
             NSString *strdat = [dateFormatter stringFromDate:date];
             [param setValue:strdat forKey:@"insuranceExpiryDate"];
@@ -482,13 +482,13 @@ NSString *strDate;
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 
-                NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 
                 NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                NSLog(@"data : %@",jsonDictionary);
+                ////NSLog(@"data : %@",jsonDictionary);
                 
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                NSLog(@"message %@",EntityID);
+                ////NSLog(@"message %@",EntityID);
                 if ([EntityID isEqualToString:@"success"])
                 {
                     VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
@@ -511,7 +511,7 @@ NSString *strDate;
                 [SVProgressHUD dismiss];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
             }];
             
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

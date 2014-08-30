@@ -64,15 +64,15 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController.navigationBar  setBarTintColor:[UIColor whiteColor]];
     
-    NSLog(@"user id:%@",appdelegate.strUserID);
+    //NSLog(@"user id:%@",appdelegate.strUserID);
     [_voewMakeModel setHidden:YES];
     [_viewCoach setHidden:YES];
     [_tblMakeModel setSeparatorInset:UIEdgeInsetsZero];
     _arrVehicles = [[NSDictionary alloc]init];
     _arrVehicles = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
-    NSLog(@"vehivle count : :%d",[_arrVehicles count]);
+    //NSLog(@"vehivle count : :%d",[_arrVehicles count]);
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSLog(@"arr vehicles : %@",_arrVehicles);
+    //NSLog(@"arr vehicles : %@",_arrVehicles);
     int countVehicle = [_arrVehicles count];
     [_btnFindVehicle setEnabled:NO];
     [_imgTick setHidden:YES];
@@ -130,8 +130,8 @@
     
     NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
     NSString *strCurrentVehicleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
-    NSLog(@"strcurrent : %@",strCurrentVehicleID);
-    NSLog(@"strCurretn Vehicle name :%@",strCurrentVehicleName);
+    //NSLog(@"strcurrent : %@",strCurrentVehicleID);
+    //NSLog(@"strCurretn Vehicle name :%@",strCurrentVehicleName);
     if([_arrVehicles count] > 0)
     {
       if(strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null] || [strCurrentVehicleID isEqualToString:@"0"])
@@ -181,8 +181,8 @@
     
     [self.map setRegion:region animated:YES];
     
-    NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
-    NSLog(@"latitude : %@",latitude);
+    //NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
+    //NSLog(@"latitude : %@",latitude);
     
     if([latitude isEqualToString:@"0.000000"])
     {
@@ -192,8 +192,8 @@
     //parkVehicle
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
    
-    NSLog(@"arr : %@",arr);
-    NSLog(@"arr counbt :%d",[arr count]);
+    //NSLog(@"arr : %@",arr);
+    //NSLog(@"arr counbt :%d",[arr count]);
     if(arr == nil || arr == (id)[NSNull null])
     {
     
@@ -204,7 +204,7 @@
     {
         [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
         NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
-        NSLog(@"strvid : %@",strvid);
+        //NSLog(@"strvid : %@",strvid);
         if([strCurrentVehicleID isEqualToString:@"0"] || strCurrentVehicleID == nil || strCurrentVehicleID == (id)[NSNull null] )
         {
         
@@ -237,7 +237,7 @@
     }
     }
    //for m parking color change
-    NSLog(@"mparking  :%d",appdelegate.intMparking);
+    //NSLog(@"mparking  :%d",appdelegate.intMparking);
            if(appdelegate.intMparking == 2)
         {
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
@@ -269,8 +269,8 @@
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
     
    
-    NSLog(@"%@",latitude);
-    NSLog(@"%@",longitude);
+    //NSLog(@"%@",latitude);
+    //NSLog(@"%@",longitude);
 
     self.navigationController.navigationBarHidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -288,11 +288,11 @@
     {
     NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
     NSString *filename = [parts objectAtIndex:[parts count]-1];
-    NSLog(@"file name : %@",filename);
+    //NSLog(@"file name : %@",filename);
     
     NSString *str = @"My_Wheels_";
     NSString *strFileName = [str stringByAppendingString:filename];
-    NSLog(@"strfilename : %@",strFileName);
+    //NSLog(@"strfilename : %@",strFileName);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *imageData = [defaults dataForKey:strFileName];
@@ -327,10 +327,10 @@
 //    
 //    UA_LINFO(@"Received remote notification: %@", userInfo);
 //    appdelegate.intCountPushNotification ++ ;
-//    NSLog(@"int : %d",appdelegate.intCountPushNotification);
+//    //NSLog(@"int : %d",appdelegate.intCountPushNotification);
 //    //  [[NSUserDefaults standardUserDefaults]setObject:_intCountPushNotification forKey:@"CountPushNoti"];
 //    
-//    NSLog(@"I camhe here ");
+//    //NSLog(@"I camhe here ");
 //    // Fire the handlers for both regular and rich push
 //    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
 //    // [UAInboxPushHandler handleNotification:userInfo];
@@ -349,11 +349,11 @@
                                    NSString *photoURL1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo_url"];
                                    NSArray *parts = [photoURL1 componentsSeparatedByString:@"/"];
                                    NSString *filename = [parts objectAtIndex:[parts count]-1];
-                                   NSLog(@"file name : %@",filename);
+                                   //NSLog(@"file name : %@",filename);
                                    
                                    NSString *str = @"My_Wheels_";
                                    NSString *strFileName = [str stringByAppendingString:filename];
-                                   NSLog(@"strfilename : %@",strFileName);
+                                   //NSLog(@"strfilename : %@",strFileName);
                                    
                                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                                    
@@ -402,11 +402,11 @@
 //                //  _imgUserProfilepic.image = image;
 //                NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
 //                NSString *filename = [parts objectAtIndex:[parts count]-1];
-//                NSLog(@"file name : %@",filename);
+//                //NSLog(@"file name : %@",filename);
 //                
 //                NSString *str = @"My_Wheels_";
 //                NSString *strFileName = [str stringByAppendingString:filename];
-//                NSLog(@"strfilename : %@",strFileName);
+//                //NSLog(@"strfilename : %@",strFileName);
 //                
 //                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //                NSData *imageData = [defaults dataForKey:strFileName];
@@ -498,19 +498,19 @@
          if (!(error))
          {
              CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             NSLog(@"\nCurrent Location Detected\n");
-             NSLog(@"placemark %@",placemark);
+             //NSLog(@"\nCurrent Location Detected\n");
+             //NSLog(@"placemark %@",placemark);
              NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
              NSString *Address = [[NSString alloc]initWithString:locatedAt];
              NSString *Area = [[NSString alloc]initWithString:placemark.locality];
              NSString *Country = [[NSString alloc]initWithString:placemark.country];
              NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
-             NSLog(@"%@",CountryArea);
+             //NSLog(@"%@",CountryArea);
          }
          else
          {
-             NSLog(@"Geocode failed with error %@", error);
-             NSLog(@"\nCurrent Location Not Detected\n");
+             //NSLog(@"Geocode failed with error %@", error);
+             //NSLog(@"\nCurrent Location Not Detected\n");
              //return;
              // CountryArea = NULL;
          }
@@ -558,7 +558,7 @@
 }
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    NSLog(@"in zoom ");
+    //NSLog(@"in zoom ");
     CLLocationCoordinate2D loc = [userLocation coordinate];
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
     region.center.latitude = loc.latitude;
@@ -626,7 +626,7 @@
 }
 - (IBAction)openFileNewReport:(id)sender {
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSLog(@"str : %@",UserID);
+    //NSLog(@"str : %@",UserID);
     if(UserID == nil || UserID == (id)[NSNull null])
     {
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
@@ -663,7 +663,7 @@
 -(IBAction)btnProfile_click:(id)sender
 {
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSLog(@"str : %@",UserID);
+    //NSLog(@"str : %@",UserID);
     if(UserID == nil || UserID == (id)[NSNull null])
     {
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
@@ -732,7 +732,7 @@
 -(IBAction)btnReportSighting_click:(id)sender
 {
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSLog(@"str : %@",UserID);
+    //NSLog(@"str : %@",UserID);
   
     ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -759,19 +759,19 @@
 //         if (!(error))
 //         {
 //             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-//             NSLog(@"\nCurrent Location Detected\n");
-//             NSLog(@"placemark %@",placemark);
+//             //NSLog(@"\nCurrent Location Detected\n");
+//             //NSLog(@"placemark %@",placemark);
 //             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
 //            // NSString *Address = [[NSString alloc]initWithString:locatedAt];
 //             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
 //             NSString *Country = [[NSString alloc]initWithString:placemark.country];
 //             NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
-//             NSLog(@"%@",CountryArea);
+//             //NSLog(@"%@",CountryArea);
 //         }
 //         else
 //         {
-//             NSLog(@"Geocode failed with error %@", error);
-//             NSLog(@"\nCurrent Location Not Detected\n");
+//             //NSLog(@"Geocode failed with error %@", error);
+//             //NSLog(@"\nCurrent Location Not Detected\n");
 //             //return;
 //            // CountryArea = NULL;
 //         }
@@ -860,8 +860,8 @@
     [self.ViewMain setAlpha:0.9];
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
     
-    NSLog(@"arr : %@",arr);
-    NSLog(@"arr counbt :%d",[arr count]);
+    //NSLog(@"arr : %@",arr);
+    //NSLog(@"arr counbt :%d",[arr count]);
     if(arr == nil || arr == (id)[NSNull null])
     {
         
@@ -872,7 +872,7 @@
         for(int i=0;i<[arr count];i++)
         {
             NSString *strvid = [[arr objectAtIndex:i]valueForKey:@"VehivleID"];
-            NSLog(@"strvid : %@",strvid);
+            //NSLog(@"strvid : %@",strvid);
             if(strvid == strVehicleId && strvid != nil)
             {
                 [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
@@ -907,18 +907,18 @@
     {
         if(buttonIndex == 0)
         {
-           // NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
+           // //NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
             NSString *strCurrentVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
             
             NSMutableArray  *arr = [[NSMutableArray alloc]init];
             arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"]mutableCopy];
             
-            NSLog(@"arr : %@",arr);
-            NSLog(@"current vehicle id : %@",strCurrentVehicleID);
+            //NSLog(@"arr : %@",arr);
+            //NSLog(@"current vehicle id : %@",strCurrentVehicleID);
             for(int i=0;i< [arr count];i++)
             {
                 NSString *veh = [[arr objectAtIndex:i] valueForKey:@"VehivleID"];
-                NSLog(@"veh : %@",veh);
+                //NSLog(@"veh : %@",veh);
                 if([veh isEqualToString:strCurrentVehicleID])
                 {
                     if([arr count] == 1)
@@ -936,7 +936,7 @@
                 
             }
             [[NSUserDefaults standardUserDefaults] setValue:arr forKey:@"parkVehicle"];
-            NSLog(@"arr : %@",arr);
+            //NSLog(@"arr : %@",arr);
             appdelegate.intMparking = 2;
             [_btnFindVehicle setBackgroundColor:[UIColor lightTextColor]];
             [_btnMParking setBackgroundColor:[UIColor lightTextColor]];

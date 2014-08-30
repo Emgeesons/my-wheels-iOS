@@ -15,6 +15,10 @@
 
 #import "AppDelegate.h"
 
+#import "UAConfig.h"
+#import "UAPush.h"
+#import "UAirship.h"
+
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface RegistrationVC () <UIActionSheetDelegate>
@@ -197,7 +201,7 @@ int intques;
     int years = (allDays-days)/365;
    // years = years - 13;
   
-    NSLog(@"You live since %i years and %i days",years,days);
+    //NSLog(@"You live since %i years and %i days",years,days);
      txtDateOfBirth.text = birthDate;
     
     [dateFormatter setDateFormat:@"yyyy"];
@@ -209,18 +213,18 @@ int intques;
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setYear:-13]; // note that I'm setting it to -1
     NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-    NSLog(@"%@", maxDate);
+    //NSLog(@"%@", maxDate);
     
     [offsetComponents setYear:-100]; // note that I'm setting it to -1
     NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-    NSLog(@"%@", minDate);
+    //NSLog(@"%@", minDate);
     [timePicker setMaximumDate:maxDate];
     [timePicker setMinimumDate:minDate];
     
 //    if ([timePicker.date compare:timePicker.date] == NSOrderedDescending)
 //    {
 //        NSTimeInterval minutesToStartTime = [timePicker.date timeIntervalSinceDate:timePicker.date] / 60;
-//        NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
+//        //NSLog(@"Start time is in %02d+%02d", (int)(minutesToStartTime / 60), (int)minutesToStartTime % 60);
 //       
 //        //[pickerDateOfBirth setHidden:YES];
 //        [btnSubmit setHidden:YES];
@@ -238,11 +242,11 @@ int intques;
 //            
 //        });
 //    }
-    NSLog(@"birthdate :%@",birthDate);
+    //NSLog(@"birthdate :%@",birthDate);
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     strBirthDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
-    NSLog(@"strdate : %@",strBirthDate);
+    //NSLog(@"strdate : %@",strBirthDate);
 
     self.scrollview.userInteractionEnabled = YES;
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -281,12 +285,12 @@ int intques;
         txtPin2.secureTextEntry = NO;
         txtPin3.secureTextEntry = NO;
         txtPin4.secureTextEntry = NO;
-        NSLog(@"switch is off");
+        //NSLog(@"switch is off");
         switchbtn.on = YES;
     }
     else
     {
-        NSLog(@"switch is on..");
+        //NSLog(@"switch is on..");
         txtPin1.secureTextEntry = YES;
         txtPin2.secureTextEntry = YES;
         txtPin3.secureTextEntry = YES;
@@ -314,7 +318,7 @@ int intques;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -322,7 +326,7 @@ int intques;
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
     } else {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
     
     
     
@@ -493,11 +497,11 @@ int intques;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", maxDate);
+        //NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", minDate);
+        //NSLog(@"%@", minDate);
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
         
@@ -580,11 +584,11 @@ int intques;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", maxDate);
+        //NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", minDate);
+        //NSLog(@"%@", minDate);
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
         
@@ -837,7 +841,7 @@ int intques;
     {
         y=220;
         [btnSubmit setHidden:NO];
-    }    NSLog(@"y = %d",y);
+    }    //NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
@@ -898,11 +902,11 @@ int intques;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", maxDate);
+        //NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", minDate);
+        //NSLog(@"%@", minDate);
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
 
@@ -999,7 +1003,7 @@ int intques;
         y=270;
         [btnSubmit setHidden:NO];
     }
-    NSLog(@"y = %d",y);
+    //NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
@@ -1068,11 +1072,11 @@ int intques;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", maxDate);
+        //NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        NSLog(@"%@", minDate);
+        //NSLog(@"%@", minDate);
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
         
@@ -1128,7 +1132,7 @@ int intques;
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             // return NO;
             [txtPin1 resignFirstResponder];
             [txtPin2 becomeFirstResponder];
@@ -1139,7 +1143,7 @@ int intques;
         }
         //        else
         //        {
-        //            NSLog(@"YES");
+        //            //NSLog(@"YES");
         //
         //            return YES;
         //            [txtPin1 resignFirstResponder];
@@ -1153,7 +1157,7 @@ int intques;
         NSUInteger newLength = [txtPin2.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPin2 resignFirstResponder];
             [txtPin3 becomeFirstResponder];
         }
@@ -1176,7 +1180,7 @@ int intques;
         NSUInteger newLength = [txtPin3.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPin3 resignFirstResponder];
             [txtPin4 becomeFirstResponder];
             //return NO;
@@ -1201,7 +1205,7 @@ int intques;
         NSUInteger newLength = [txtPin4.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPin4 resignFirstResponder];
             //return NO;
         }
@@ -1250,21 +1254,21 @@ int intques;
 }
 -(void)submit
 {
-    NSLog(@"valid email...");
+    //NSLog(@"valid email...");
     NSString *strPin;
     strPin = @"";
     strPin = [strPin stringByAppendingString:txtPin1.text];
     strPin = [strPin stringByAppendingString:txtPin2.text];
     strPin = [strPin stringByAppendingString:txtPin3.text];
     strPin = [strPin stringByAppendingString:txtPin4.text];
-    NSLog(@"strpin :: %@",strPin);
+    //NSLog(@"strpin :: %@",strPin);
     NSString *strQuestion1;
-    NSLog(@"strquestion : %@",strSecQuestion);
+    //NSLog(@"strquestion : %@",strSecQuestion);
     strQuestion1 = @"What is your ";
     if(intques == 2)
     {
         strQuestion1 = strSecQuestion;
-        NSLog(@"ques :: %@",strQues);
+        //NSLog(@"ques :: %@",strQues);
     }
     else if (intques == 1)
     {
@@ -1289,7 +1293,7 @@ int intques;
     [param setValue:OS_VERSION forKey:@"os"];
     [param setValue:MAKE forKey:@"make"];
     [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
-    NSLog(@"param : %@",param);
+    //NSLog(@"param : %@",param);
    // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -1300,12 +1304,12 @@ int intques;
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-        NSLog(@"data : %@",jsonDictionary);
+        //NSLog(@"data : %@",jsonDictionary);
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-        NSLog(@"message %@",EntityID);
+        //NSLog(@"message %@",EntityID);
         if ([EntityID isEqualToString:@"success"])
         {
             NSString *userID =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
@@ -1325,7 +1329,14 @@ int intques;
             [[NSUserDefaults standardUserDefaults] setValue:txtPin2.text forKey:@"pin2"];
             [[NSUserDefaults standardUserDefaults] setValue:txtPin3.text forKey:@"pin3"];
             [[NSUserDefaults standardUserDefaults] setValue:txtPin4.text forKey:@"pin4"];
+            
             appDelegate.intCountPushNotification = 0;
+            //URBAN AIRSHIP SET UP
+            NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+            NSString *yourAlias = UserId;
+            [UAPush shared].alias = yourAlias;
+            [[UAPush shared] setPushEnabled:YES];
+            //End of Urban Airship Set up
             
             HomePageVC *vc = [[HomePageVC alloc]init];
             appDelegate.intReg = 1;
@@ -1358,7 +1369,7 @@ int intques;
         [SVProgressHUD dismiss];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -1443,7 +1454,7 @@ int intques;
     {
         intques = 2;
         [txtOtherQuestion setHidden:YES];
-        NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
+        //NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
         strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];

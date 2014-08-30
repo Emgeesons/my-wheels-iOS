@@ -97,7 +97,7 @@
 //    
 //    NSString* apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
 //    NSURL* apiUrl = [NSURL URLWithString:apiUrlStr];
-//    //NSLog(@"api url: %@", apiUrl);
+//    ////NSLog(@"api url: %@", apiUrl);
 //    NSError* error = nil;
 //    NSString *apiResponse = [NSString stringWithContentsOfURL:apiUrl encoding:NSASCIIStringEncoding error:&error];
 //    NSString *encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];

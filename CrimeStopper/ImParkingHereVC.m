@@ -55,7 +55,7 @@ int counterForCell;
 //    [_btnVehicleName setTitle:strCurrentVehicleName forState:UIControlStateNormal];
       [_lblHeading setText:strCurrentVehicleName];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSLog(@"appdelegate str vehicle type: %@",appDelegate.strVehicleType);
+    //NSLog(@"appdelegate str vehicle type: %@",appDelegate.strVehicleType);
     _arrrandValue = [[NSMutableArray alloc]init];
     if([appDelegate.strVehicleType isEqualToString:@"Bicycle"])
         _arrrandValue = [self getEightRandomLessThan:13];
@@ -132,7 +132,7 @@ int counterForCell;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -144,12 +144,12 @@ int counterForCell;
     else
         
     {
-    NSLog(@"in api");
+    //NSLog(@"in api");
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
-     NSLog(@"current location : %@",latitude);
+     //NSLog(@"current location : %@",latitude);
     
     if([latitude isEqualToString:@"0.000000"])
     {
@@ -189,13 +189,13 @@ int counterForCell;
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-        NSLog(@"data : %@",jsonDictionary);
+        //NSLog(@"data : %@",jsonDictionary);
         
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-        NSLog(@"message %@",EntityID);
+        //NSLog(@"message %@",EntityID);
         if ([EntityID isEqualToString:@"success"])
         {
             NSString *strRating = @" rating";
@@ -239,7 +239,7 @@ int counterForCell;
                        
                    }
                   //  NSString *strr = [subString stringByAppendingString:strRating];
-                    NSLog(@"substring : %@",subString);
+                    //NSLog(@"substring : %@",subString);
                     NSString *rate = [subString stringByAppendingString:@" "];
                     NSString *rat = [rate stringByAppendingString:strRating];
                     strRating1 = rat;
@@ -261,7 +261,7 @@ int counterForCell;
                     {
                         subString = strRate;
                     }
-                    NSLog(@"substring : %@",subString);
+                    //NSLog(@"substring : %@",subString);
                     NSString *rate = [subString stringByAppendingString:@" "];
                     NSString *rat = [rate stringByAppendingString:strRating];
                     strRating1 = rat;
@@ -293,7 +293,7 @@ int counterForCell;
                                                   otherButtonTitles:nil, nil];
         CheckAlert.tag = 5;
         [CheckAlert show];
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -373,7 +373,7 @@ int counterForCell;
     mParkingCell *cell = (mParkingCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
 //    [self getEightRandomLessThan:[_arrCar count]];
-//    NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrCar count]]);
+//    //NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrCar count]]);
     int chk = [[_arrrandValue objectAtIndex:indexPath.row ] intValue];
     
     
@@ -386,14 +386,14 @@ int counterForCell;
       if([appDelegate.strVehicleType isEqualToString:@"Bicycle"])
     {
 //        [self getEightRandomLessThan:[_arrcycle count]];
-//        NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrcycle count]]);
+//        //NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrcycle count]]);
 //
         [cell.lblCheckList setText:[_arrcycle objectAtIndex: chk]];
     }
     else if([appDelegate.strVehicleType isEqualToString:@"Motorcycle"])
     {
 //        [self getEightRandomLessThan:[_arrBike count]];
-//        NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrBike count]]);
+//        //NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrBike count]]);
 //        int chk = [[[self getEightRandomLessThan:3] objectAtIndex:indexPath.row ] intValue];
         [cell.lblCheckList setText:[_arrBike objectAtIndex: chk]];
     }
@@ -419,11 +419,11 @@ int counterForCell;
     counterForCell++;
     //set it in the dictionary
     [dicCounter setValue:[NSNumber numberWithInt:counterForCell] forKey:cellIdentifier];
-    NSLog(@"counter for cell : %d",counterForCell);
-    NSLog(@"didcounter : %@",dicCounter);
-    NSLog(@"section : %d",indexPath.section);
+    //NSLog(@"counter for cell : %d",counterForCell);
+    //NSLog(@"didcounter : %@",dicCounter);
+    //NSLog(@"section : %d",indexPath.section);
     
-    NSLog(@"deselect :%@",[self.tblCheckList indexPathForSelectedRow]);
+    //NSLog(@"deselect :%@",[self.tblCheckList indexPathForSelectedRow]);
      [self.tblCheckList deselectRowAtIndexPath:[self.tblCheckList indexPathForSelectedRow] animated:YES];
 
 }
@@ -454,7 +454,7 @@ int counterForCell;
 {
     
     
-    NSLog(@"didFailWithError: %@", error);
+    //NSLog(@"didFailWithError: %@", error);
 //    UIAlertView *errorAlert = [[UIAlertView alloc]
 //                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //    [errorAlert show];
@@ -463,7 +463,7 @@ int counterForCell;
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
+    //NSLog(@"didUpdateToLocation: %@", newLocation);
     CLLocation *currentLocation = newLocation;
     
     if (currentLocation != nil) {
@@ -472,9 +472,9 @@ int counterForCell;
     }
     
     // Reverse Geocoding
-    NSLog(@"Resolving the Address");
+    //NSLog(@"Resolving the Address");
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
+        //NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
         if (error == nil && [placemarks count] > 0) {
             placemark = [placemarks lastObject];
             _lblLocation.text = [NSString stringWithFormat:@"%@ \n%@",
@@ -483,7 +483,7 @@ int counterForCell;
                                 
                                  ];
         } else {
-            NSLog(@"%@", error.debugDescription);
+            //NSLog(@"%@", error.debugDescription);
         }
     } ];
     
@@ -516,7 +516,7 @@ int counterForCell;
     [_arrVehiclePark setValue:_txtComment.text forKey:@"Comment"];
     [appDelegate.arrMutvehiclePark addObject:_arrVehiclePark];
     
-    NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
+    //NSLog(@"vehicle : %@",appDelegate.arrMutvehiclePark);
      [[NSUserDefaults standardUserDefaults] setValue:appDelegate.arrMutvehiclePark forKey:@"parkVehicle"];
     HomePageVC *vc = [[HomePageVC alloc]init];
     //vc.intblue = 1;
@@ -576,7 +576,7 @@ int counterForCell;
         //[btnSubmit setHidden:NO];
     }
     
-    NSLog(@"y = %d",y);
+    //NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:_scroll];

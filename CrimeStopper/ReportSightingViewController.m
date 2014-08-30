@@ -69,7 +69,7 @@
     //get current location
     NSString *latitude=[NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
    
-    NSLog(@"current location : %@",latitude);
+    //NSLog(@"current location : %@",latitude);
     
     if([latitude isEqualToString:@"0.000000"])
     {
@@ -167,7 +167,7 @@
     timeFormat = [[NSDateFormatter alloc] init];
     [timeFormat setDateFormat:@"HH:mm:ss"];
     
-    //NSLog(@"%@", [DeviceInfo platformNiceString]);
+    ////NSLog(@"%@", [DeviceInfo platformNiceString]);
     
     // Add UIToolBar to view with alpha 0.7 for transparency
     bgToolBar = [[UIToolbar alloc] initWithFrame:self.view.frame];
@@ -194,7 +194,7 @@
     
     // Check If this page opened from UpdatesVC or not,
     if ([self.sighting isEqualToString:@""] || self.sighting == NULL) {
-        NSLog(@"direct");
+        //NSLog(@"direct");
     } else {
         self.txtSighting.text = self.sighting;
         self.txtRegistrationNo.text = self.regNo;
@@ -255,11 +255,11 @@
     
     // get the count of files in gallery folder
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);    NSLog(@"%@", docPaths);
-    NSLog(@"%@", docPaths);
+    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);    //NSLog(@"%@", docPaths);
+    //NSLog(@"%@", docPaths);
     NSString *dataPath = [[docPaths objectAtIndex:0] stringByAppendingPathComponent:@"/gallery"];
     NSArray *filelist= [fm contentsOfDirectoryAtPath:dataPath error:nil];
-    //NSLog(@"%lu", (unsigned long)filelist.count);
+    ////NSLog(@"%lu", (unsigned long)filelist.count);
     int filesCount = (int)[filelist count];
     
     // Atleast 1 textfield should be filled
@@ -309,7 +309,7 @@
                                  @"make" : MAKE,
                                  @"model" : [DeviceInfo platformNiceString]};
     
-    NSLog(@"%@", parameters);
+    //NSLog(@"%@", parameters);
     
     // Start Animating activityIndicator
     [activityIndicator startAnimating];
@@ -326,7 +326,7 @@
         }
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         
         // Stop Animating activityIndicator
         [activityIndicator stopAnimating];
@@ -360,7 +360,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
         [activityIndicator stopAnimating];
         [bgToolBar removeFromSuperview];
@@ -380,7 +380,7 @@
     
     isLocationEnabled = NO;
     
-    NSLog(@"didFailWithError: %@", error);
+    //NSLog(@"didFailWithError: %@", error);
     CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
     MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
     MKCoordinateRegion region = {coord, span};
@@ -431,7 +431,7 @@
                 [address appendFormat:@"%@", placemark.country];
             }
 
-            NSLog(@"%@", originalLatitude);
+            //NSLog(@"%@", originalLatitude);
             
             //if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
                 
@@ -450,7 +450,7 @@
             _lblAddress.text = address;
             
         } else {
-            NSLog(@"%@", error.debugDescription);
+            //NSLog(@"%@", error.debugDescription);
         }
     } ];
 }
@@ -505,7 +505,7 @@
             _lblAddress.text = address;
             
         } else {
-            NSLog(@"%@", error.debugDescription);
+            //NSLog(@"%@", error.debugDescription);
         }
     } ];
 

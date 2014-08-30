@@ -40,7 +40,7 @@ NSString *strDate;
     [dateFormatter setDateFormat:@"yyyy-mm-dd"];
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication ]delegate];
   
-    NSLog(@"strvehicleId : %@",appdelegate.strVehicleId);
+    ////NSLog(@"strvehicleId : %@",appdelegate.strVehicleId);
     if([_strVehicleType isEqualToString:@"Bicycle"])
     {
     _arrinsurance = [[NSMutableArray alloc]init];
@@ -242,12 +242,12 @@ NSString *strDate;
     if([_txtExpiry.text isEqualToString:@""])
     {
         strDate = @"0000-00-00";
-        NSLog(@"strdate : %@",strDate);
+        ////NSLog(@"strdate : %@",strDate);
     }
     else
     {
         strDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:timePicker.date]];
-         NSLog(@"strdate : %@",strDate);
+         ////NSLog(@"strdate : %@",strDate);
     }
     [self cancelClicked];
     
@@ -262,7 +262,7 @@ NSString *strDate;
     [_txtPhoneNo setText:[_arrTelephone objectAtIndex:row]];
     _txtCompanyName.userInteractionEnabled = NO;
    NSString *strInsurance = [_arrinsurance objectAtIndex:row];
-    NSLog(@"strInsurance : %@",strInsurance);
+    ////NSLog(@"strInsurance : %@",strInsurance);
     if([strInsurance isEqualToString:@"Other"])
     {
         _txtOtherInsurance  = [[UITextField alloc] initWithFrame:CGRectMake(9,48,301,30)];
@@ -325,7 +325,7 @@ NSString *strDate;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -337,7 +337,7 @@ NSString *strDate;
     else
         
     {
-        NSLog(@"There IS internet connection");
+        ////NSLog(@"There IS internet connection");
         
         
         
@@ -378,7 +378,7 @@ NSString *strDate;
         
         else
         {
-            NSLog(@"in api");
+            ////NSLog(@"in api");
             NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
             NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
             NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -431,13 +431,13 @@ NSString *strDate;
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 
-                NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 
                 NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                NSLog(@"data : %@",jsonDictionary);
+                ////NSLog(@"data : %@",jsonDictionary);
                 
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                NSLog(@"message %@",EntityID);
+                ////NSLog(@"message %@",EntityID);
                 if ([EntityID isEqualToString:@"success"])
                 {
                     VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
@@ -459,7 +459,7 @@ NSString *strDate;
                 [SVProgressHUD dismiss];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
             }];
             
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

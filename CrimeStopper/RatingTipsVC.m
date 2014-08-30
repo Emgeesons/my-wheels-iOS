@@ -46,7 +46,7 @@
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -58,7 +58,7 @@
     else
         
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
         
         
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
@@ -102,7 +102,7 @@
         [param setValue:MAKE forKey:@"make"];
         [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
         [param setValue:@"test11" forKeyPath:@"test"];
-        NSLog(@"param : %@",param);
+        //NSLog(@"param : %@",param);
        
 //        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -112,18 +112,18 @@
 //        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //            
 //            
-//            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+//            //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
 //            
 //            NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-//            NSLog(@"data : %@",jsonDictionary);
+//            //NSLog(@"data : %@",jsonDictionary);
 //            
 //            NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-//            NSLog(@"message %@",EntityID);
+//            //NSLog(@"message %@",EntityID);
 //            if ([EntityID isEqualToString:@"success"])
 //            {
 //                [_arrTips addObjectsFromArray:[jsonDictionary valueForKey:@"response"]];
 //                
-//                NSLog(@"arr : %@",_arrTips);
+//                //NSLog(@"arr : %@",_arrTips);
 //                self.tblRating.delegate=self;
 //                self.tblRating.dataSource=self;
 //                [_tblRating reloadData];
@@ -142,7 +142,7 @@
 //            [SVProgressHUD dismiss];
 //            
 //        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+//            //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
 //        }];
 //        
 //        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -151,19 +151,19 @@
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         NSString *url = [NSString stringWithFormat:@"%@getParkingTips.php", SERVERNAME];
         [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            NSLog(@"url : %@",manager);
+            //NSLog(@"url : %@",manager);
         }
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                             NSLog(@"data : %@",jsonDictionary);
+                             //NSLog(@"data : %@",jsonDictionary);
                   //
                               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                             NSLog(@"message %@",EntityID);
+                             //NSLog(@"message %@",EntityID);
                   if ([EntityID isEqualToString:@"success"])
                   {
                             [_arrTips addObjectsFromArray:[jsonDictionary valueForKey:@"response"]];
                      
-                                  NSLog(@"arr : %@",_arrTips);
+                                  //NSLog(@"arr : %@",_arrTips);
                                       self.tblRating.delegate=self;
                                       self.tblRating.dataSource=self;
                                       [_tblRating reloadData];
@@ -182,7 +182,7 @@
                   [SVProgressHUD dismiss];
                   
               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                  //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
               }];
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -206,7 +206,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"count : %d",[_arrTips count]);
+    //NSLog(@"count : %d",[_arrTips count]);
     return [_arrTips count];
     
     
@@ -229,8 +229,8 @@
     NSString *time = [[_arrTips objectAtIndex:indexPath.row] valueForKey:@"time"];
     NSDate *time1 = [dateFormatter dateFromString:time];
     
-    NSLog(@"time 1 : %@",time1);
-     NSLog(@"time 1 : %@",[dateFormatter stringFromDate:time1]);
+    //NSLog(@"time 1 : %@",time1);
+     //NSLog(@"time 1 : %@",[dateFormatter stringFromDate:time1]);
     [cell.lblDate setText:time];
     return cell;
 }

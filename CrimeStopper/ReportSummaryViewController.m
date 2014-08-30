@@ -57,7 +57,7 @@
     self.btnCallPolice.backgroundColor = [UIColor colorWithHexString:@"#0067AD"];
     self.btnCallInsurer.backgroundColor = self.btnCallPolice.backgroundColor;
     
-    //NSLog(@"%d", self.detailsArray.count);
+    ////NSLog(@"%d", self.detailsArray.count);
     [self displayDetails];
 }
 
@@ -368,10 +368,10 @@
 }
 
 - (IBAction)backButtonClicked:(id)sender {
-    NSLog(@"%@",self.navigationController.viewControllers);
+    //NSLog(@"%@",self.navigationController.viewControllers);
     
     NSArray *VCS = self.navigationController.viewControllers;
-    NSLog(@"%@", [VCS[VCS.count - 2] class]);
+    //NSLog(@"%@", [VCS[VCS.count - 2] class]);
     
     if ([VCS[VCS.count - 2] isKindOfClass:[UpdatesViewController class]]) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -417,10 +417,10 @@
     [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = [[NSData alloc] initWithData:responseObject];
         [data writeToFile:filePath atomically:YES];
-        NSLog(@"saved");
+        //NSLog(@"saved");
         [self presentViewController:previewController animated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"file downloading error : %@", [error localizedDescription]);
+        //NSLog(@"file downloading error : %@", [error localizedDescription]);
     }];
     [downloadRequest start];
     

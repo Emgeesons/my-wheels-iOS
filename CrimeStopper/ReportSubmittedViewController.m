@@ -91,13 +91,13 @@
                                  @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                  @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
-    NSLog(@"%@", parameters);
+    //NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@reportSummary.php", SERVERNAME];
     
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Details ==> %@", responseObject);
+        //NSLog(@"Details ==> %@", responseObject);
         
         // Stop Animating activityIndicator
         //[activityIndicator stopAnimating];
@@ -106,7 +106,7 @@
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSArray *reportData = (NSArray *)[json objectForKey:@"response"];
-            //NSLog(@"%d", reportData.count);
+            ////NSLog(@"%d", reportData.count);
             
             // Set detailsArray value here
             NSArray *detailsArray = reportData;
@@ -121,7 +121,7 @@
             [alert show];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
     }];
 }

@@ -147,7 +147,7 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -155,7 +155,7 @@
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
     } else {
-        NSLog(@"There IS internet connection");
+        ////NSLog(@"There IS internet connection");
         
         
 
@@ -174,10 +174,10 @@
     strPin = [strPin stringByAppendingString:_txtPin2.text];
     strPin = [strPin stringByAppendingString:_txtPin3.text];
     strPin = [strPin stringByAppendingString:_txtPin4.text];
-    NSLog(@"strpin :: %@",strPin);
+    ////NSLog(@"strpin :: %@",strPin);
 
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSLog(@"str : %@",UserID);
+    ////NSLog(@"str : %@",UserID);
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
 
@@ -189,7 +189,7 @@
         [param setValue:OS_VERSION forKey:@"os"];
         [param setValue:MAKE forKey:@"make"];
         [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
-    NSLog(@"param : %@",param);
+    ////NSLog(@"param : %@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -202,12 +202,12 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               
-              NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+              ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
               
               NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-              NSLog(@"data : %@",jsonDictionary);
+              ////NSLog(@"data : %@",jsonDictionary);
               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-              NSLog(@"message %@",EntityID);
+              ////NSLog(@"message %@",EntityID);
               if ([EntityID isEqualToString:@"success"])
               {
                   appdelegate.Time = [NSDate date];
@@ -227,7 +227,7 @@
               [SVProgressHUD dismiss];
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
           }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -310,7 +310,7 @@
         NSUInteger newLength = [_txtPin1.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             // return NO;
             [_txtPin1 resignFirstResponder];
             [_txtPin2 becomeFirstResponder];
@@ -321,7 +321,7 @@
         }
         //        else
         //        {
-        //            NSLog(@"YES");
+        //            //NSLog(@"YES");
         //
         //            return YES;
         //            [txtPin1 resignFirstResponder];
@@ -335,7 +335,7 @@
         NSUInteger newLength = [_txtPin2.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             [_txtPin2 resignFirstResponder];
             [_txtPin3 becomeFirstResponder];
         }
@@ -358,7 +358,7 @@
         NSUInteger newLength = [_txtPin3.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             [_txtPin3 resignFirstResponder];
             [_txtPin4 becomeFirstResponder];
             //return NO;
@@ -383,7 +383,7 @@
         NSUInteger newLength = [_txtPin4.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            ////NSLog(@"no");
             [_txtPin4 resignFirstResponder];
             //return NO;
         }

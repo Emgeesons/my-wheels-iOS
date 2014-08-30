@@ -92,7 +92,7 @@
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable)
     {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"There is no internet connection."
                                                            delegate:self
@@ -102,7 +102,7 @@
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
     }
     
     if(IsIphone5)
@@ -293,7 +293,7 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -327,19 +327,19 @@
           [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         if (!user) {
             if (!error) {
-                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+                //NSLog(@"Uh oh. The user cancelled the Facebook login.");
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Uh oh. The user cancelled the Facebook login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             } else {
-                NSLog(@"Uh oh. An error occurred: %@", error);
+                //NSLog(@"Uh oh. An error occurred: %@", error);
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:[error description] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             }
         } else if (user.isNew) {
-            NSLog(@"User with facebook signed up and logged in!");
+            //NSLog(@"User with facebook signed up and logged in!");
            // [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
         } else {
-            NSLog(@"User with facebook logged in!");
+            //NSLog(@"User with facebook logged in!");
             
 //            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
 //            UserDetailsViewController *vc = [[UserDetailsViewController alloc]init];
@@ -354,9 +354,9 @@
                     self.loginView.readPermissions = @[@"basic_info", @"email",@"user_birthday"];
                     // Parse the data received
                     NSDictionary *userData = (NSDictionary *)result;
-                    NSLog(@"user data : %@",userData);
+                    //NSLog(@"user data : %@",userData);
                     NSString *facebookID = userData[@"id"];
-                    NSLog(@"facebookID :: %@",facebookID);
+                    //NSLog(@"facebookID :: %@",facebookID);
                     
                     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
                     
@@ -404,10 +404,10 @@
                     [self updateProfile];
                 } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
                             isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
-                    NSLog(@"The facebook session was invalidated");
+                    //NSLog(@"The facebook session was invalidated");
                     [self logoutButtonTouchHandler:nil];
                 } else {
-                    NSLog(@"Some other error: %@", error);
+                    //NSLog(@"Some other error: %@", error);
                 }
             }];
             
@@ -439,13 +439,13 @@
     if ([[PFUser currentUser] objectForKey:@"profile"][@"gender"]) {
       
         appdelegate.strGender = [[PFUser currentUser] objectForKey:@"profile"][@"gender"];
-        NSLog(@"app gender :: %@",appdelegate.strGender);
+        //NSLog(@"app gender :: %@",appdelegate.strGender);
     }
     
     if ([[PFUser currentUser] objectForKey:@"basic_info"][@"user_birthday"]) {
        
         appdelegate.strFBdob =[[PFUser currentUser] objectForKey:@"basic_info"][@"user_birthday"];
-        NSLog(@"app dob :%@",appdelegate.strFBdob);
+        //NSLog(@"app dob :%@",appdelegate.strFBdob);
     }
     
     //       [self.tableView reloadData];
@@ -453,25 +453,25 @@
     if ([[PFUser currentUser] objectForKey:@"profile"][@"facebookId"]) {
       
         appdelegate.strFacebookID =[[PFUser currentUser] objectForKey:@"profile"][@"facebookId"];
-        NSLog(@"app facebook id :%@",appdelegate.strFacebookID);
+        //NSLog(@"app facebook id :%@",appdelegate.strFacebookID);
     }
     
     if ([[PFUser currentUser] objectForKey:@"profile"][@"email"]) {
       
         appdelegate.strFacebookEmail =[[PFUser currentUser] objectForKey:@"profile"][@"email"];
-        NSLog(@"app facebook email :%@",appdelegate.strFacebookEmail);
+        //NSLog(@"app facebook email :%@",appdelegate.strFacebookEmail);
     }
     
     appdelegate.strFacebookToken =[[[FBSession activeSession] accessTokenData] accessToken];
-    NSLog(@"app facebook Token :%@",appdelegate.strFacebookToken);
+    //NSLog(@"app facebook Token :%@",appdelegate.strFacebookToken);
     
     
     if (FBSession.activeSession.isOpen) {
         [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error) {
-                NSLog(@"Email %@",[user objectForKey:@"email"]);
+                //NSLog(@"Email %@",[user objectForKey:@"email"]);
                 appdelegate.strFacebookEmail = [user objectForKey:@"email"];
-                NSLog(@"email : %@",appdelegate.strFacebookEmail);
+                //NSLog(@"email : %@",appdelegate.strFacebookEmail);
             }
         }];
     }
@@ -479,7 +479,7 @@
     if ([[PFUser currentUser] objectForKey:@"profile"][@"name"]) {
         
         appdelegate.strFBUserName = [[PFUser currentUser] objectForKey:@"profile"][@"name"];
-        NSLog(@"app username : %@",appdelegate.strFBUserName);
+        //NSLog(@"app username : %@",appdelegate.strFBUserName);
         
         
     }
@@ -513,10 +513,10 @@
         dob = [dob stringByAppendingString:[arr1 objectAtIndex:0]];
         dob = [dob stringByAppendingString:@"-"];
         dob = [dob stringByAppendingString:[arr1 objectAtIndex:1]];
-        NSLog(@"dob = %@",dob);
+        //NSLog(@"dob = %@",dob);
 
         NSArray * arr = [appdelegate.strFBUserName componentsSeparatedByString:@" "];
-        NSLog(@"Array values are : %@",arr);
+        //NSLog(@"Array values are : %@",arr);
         
         // WebApiController *obj=[[WebApiController alloc]init];
         NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
@@ -531,26 +531,26 @@
         [param setValue:MAKE forKey:@"make"];
         [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
         
-        NSLog(@"param : %@",param);
+        //NSLog(@"param : %@",param);
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
         NSString *url = [NSString stringWithFormat:@"%@fbLoginRegister.php", SERVERNAME];
-        NSLog(@"url :%@",url);
+        //NSLog(@"url :%@",url);
         [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             
         }
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   
-                  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                   
                   NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                  NSLog(@"data : %@",jsonDictionary);
+                  //NSLog(@"data : %@",jsonDictionary);
                   NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                  NSLog(@"message %@",EntityID);
+                  //NSLog(@"message %@",EntityID);
                   if ([EntityID isEqualToString:@"success"])
                   {
                       appdelegate.intCountPushNotification = 0;
@@ -577,6 +577,15 @@
                           [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"fb_token"] forKey:@"fb_token"];
                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"] forKey:@"pin"];
                           [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
+                          
+                          appdelegate.intCountPushNotification = 0;
+                          //URBAN AIRSHIP SET UP
+                          NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+                          NSString *yourAlias = UserId;
+                          [UAPush shared].alias = yourAlias;
+                          [[UAPush shared] setPushEnabled:YES];
+                          //End of Urban Airship Set up
+                          
                           HomePageVC *vc = [[HomePageVC alloc]init];
                           [self.navigationController pushViewController:vc animated:YES];
                       }
@@ -593,8 +602,8 @@
                       {
                           appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];;
                           appdelegate.strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];;
-                          NSLog(@"user id :%@",appdelegate.strUserID);
-                          NSLog(@"pin :%@",appdelegate.strOldPin);
+                          //NSLog(@"user id :%@",appdelegate.strUserID);
+                          //NSLog(@"pin :%@",appdelegate.strOldPin);
                           /*  dob = "1989-09-14";
                            email = "asha@emgeesons.com";
                            fbId = 1432652336998546;
@@ -634,7 +643,7 @@
                   
                   
               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                  //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
               }];
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -712,7 +721,7 @@
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
         NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
         if (networkStatus == NotReachable) {
-            NSLog(@"There IS NO internet connection");
+            //NSLog(@"There IS NO internet connection");
             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                                 message:@"Please connect to the internet to continue."
                                                                delegate:self
@@ -720,7 +729,7 @@
                                                       otherButtonTitles:nil, nil];
             [CheckAlert show];
         } else {
-            NSLog(@"There IS internet connection");
+            //NSLog(@"There IS internet connection");
 
                 [self NSStringIsValidEmail:txtEmailIDForForgot.text];
             
@@ -774,7 +783,7 @@
       Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
       NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
       if (networkStatus == NotReachable) {
-          NSLog(@"There IS NO internet connection");
+          //NSLog(@"There IS NO internet connection");
           UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                               message:@"Please connect to the internet to continue."
                                                              delegate:self
@@ -782,7 +791,7 @@
                                                     otherButtonTitles:nil, nil];
           [CheckAlert show];
       } else {
-          NSLog(@"There IS internet connection");
+          //NSLog(@"There IS internet connection");
 
    // WebApiController *obj=[[WebApiController alloc]init];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
@@ -799,16 +808,16 @@
       } success:^(AFHTTPRequestOperation *operation, id responseObject) {
           
           
-          NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+          //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
           
           NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-          NSLog(@"data : %@",jsonDictionary);
-          //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+          //NSLog(@"data : %@",jsonDictionary);
+          //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
           
           //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-          NSLog(@"Json dictionary :: %@",jsonDictionary);
+          //NSLog(@"Json dictionary :: %@",jsonDictionary);
           NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-          NSLog(@"message %@",EntityID);
+          //NSLog(@"message %@",EntityID);
           NSString *message = [jsonDictionary valueForKey:@"message"];
           if ([EntityID isEqualToString:@"success"])
           {
@@ -834,7 +843,7 @@
           }
        [SVProgressHUD dismiss];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+          //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
       }];
  
       [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -898,7 +907,7 @@
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable)
     {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -908,7 +917,7 @@
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
         [self NSStringIsValidEmail:txtEmail.text];
     
     }
@@ -1029,7 +1038,7 @@
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             // return NO;
             [txtPin1 resignFirstResponder];
             [txtpin2 becomeFirstResponder];
@@ -1040,7 +1049,7 @@
         }
 //        else
 //        {
-//            NSLog(@"YES");
+//            //NSLog(@"YES");
 //            
 //            return YES;
 //            [txtPin1 resignFirstResponder];
@@ -1054,7 +1063,7 @@
         NSUInteger newLength = [txtpin2.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtpin2 resignFirstResponder];
             [txtpin3 becomeFirstResponder];
         }
@@ -1077,7 +1086,7 @@
         NSUInteger newLength = [txtpin3.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtpin3 resignFirstResponder];
             [txtPint4 becomeFirstResponder];
             //return NO;
@@ -1102,7 +1111,7 @@
         NSUInteger newLength = [txtPint4.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPint4 resignFirstResponder];
             //return NO;
         }
@@ -1148,7 +1157,7 @@
   
         if (regExMatches == 0)
         {
-            NSLog(@"Invalid email...");
+            //NSLog(@"Invalid email...");
        
             if([txtEmail.text isEqualToString: @""])
             {
@@ -1164,14 +1173,14 @@
         }
         else
         {
-            NSLog(@"valid email...");
+            //NSLog(@"valid email...");
             NSString *strPin;
             strPin = @"";
             strPin = [strPin stringByAppendingString:txtPin1.text];
             strPin = [strPin stringByAppendingString:txtpin2.text];
             strPin = [strPin stringByAppendingString:txtpin3.text];
             strPin = [strPin stringByAppendingString:txtPint4.text];
-            NSLog(@"strpin :: %@",strPin);
+            //NSLog(@"strpin :: %@",strPin);
             [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
             
              [[NSUserDefaults standardUserDefaults] setValue:txtPin1.text forKey:@"pin1"];
@@ -1200,13 +1209,13 @@
             success:^(AFHTTPRequestOperation *operation, id responseObject)
             {
                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                NSLog(@"data : %@",jsonDictionary);
-           //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                //NSLog(@"data : %@",jsonDictionary);
+           //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 
               //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                NSLog(@"Json dictionary :: %@",jsonDictionary);
+                //NSLog(@"Json dictionary :: %@",jsonDictionary);
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                NSLog(@"message %@",EntityID);
+                //NSLog(@"message %@",EntityID);
                 if ([EntityID isEqualToString:@"success"])
                 {
                  
@@ -1215,13 +1224,13 @@
                     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                     NSString *dat = [dateFormat stringFromDate:date];
-                    NSLog(@"dat : %@",dat);
+                    //NSLog(@"dat : %@",dat);
 
                     [[NSUserDefaults standardUserDefaults] setObject:dat forKey:@"Time"];
                  
                     
                     NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                    NSLog(@"data : %@",jsonDictionary);
+                    //NSLog(@"data : %@",jsonDictionary);
                     appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"user_id"];
                     
                     NSString *dob = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"dob"];
@@ -1248,7 +1257,7 @@
                     NSString *strOldPin = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"];
                     NSDictionary *arrVehicle = [[NSDictionary alloc]init];
                     arrVehicle = [jsonDictionary valueForKey:@"vehicles"];
-                    NSLog(@"user id: %@",appdelegate.strUserID);
+                    //NSLog(@"user id: %@",appdelegate.strUserID);
                     
                     [[NSUserDefaults standardUserDefaults] setValue:appdelegate.strUserID forKey:@"UserID"];
                     [[NSUserDefaults standardUserDefaults] setValue:dob forKey:@"dob"];
@@ -1311,10 +1320,10 @@
                  }
                 [SVProgressHUD dismiss];
 
-                 NSLog(@"Success: %@",responseObject);
+                 //NSLog(@"Success: %@",responseObject);
              }
                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+             //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
              }];
              
                  [txtEmail setTextColor:[UIColor blackColor]];
@@ -1347,7 +1356,7 @@
         
         if (regExMatches == 0)
         {
-            NSLog(@"Invalid email...");
+            //NSLog(@"Invalid email...");
             
             if([txtEmailIDForForgot.text isEqualToString: @""])
             {
@@ -1362,11 +1371,11 @@
         }
         else
         {
-            NSLog(@"valid email...");
+            //NSLog(@"valid email...");
             Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
             NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
             if (networkStatus == NotReachable) {
-                NSLog(@"There IS NO internet connection");
+                //NSLog(@"There IS NO internet connection");
                 UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                                     message:@"Please connect to the internet to continue."
                                                                    delegate:self
@@ -1374,7 +1383,7 @@
                                                           otherButtonTitles:nil, nil];
                 [CheckAlert show];
             } else {
-                NSLog(@"There IS internet connection");
+                //NSLog(@"There IS internet connection");
 
           [txtEmailIDForForgot setTextColor:[UIColor blackColor]];
            // WebApiController *obj=[[WebApiController alloc]init];
@@ -1393,22 +1402,22 @@
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 
-                NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 
                 NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                NSLog(@"data : %@",jsonDictionary);
-                //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                //NSLog(@"data : %@",jsonDictionary);
+                //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 
                 //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                NSLog(@"Json dictionary :: %@",jsonDictionary);
+                //NSLog(@"Json dictionary :: %@",jsonDictionary);
                 NSString *EntityID = [jsonDictionary valueForKey:@"status"];
                 NSString *msg = [jsonDictionary valueForKey:@"message"];
-                NSLog(@"message %@",EntityID);
+                //NSLog(@"message %@",EntityID);
                 if ([EntityID isEqualToString:@"success"])
                 {
                     NSString *respinse = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"security_question"];
                     appdelegate.strUserID = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"userId"];
-                    NSLog(@"response :: %@",respinse);
+                    //NSLog(@"response :: %@",respinse);
                     
                     
                     CGRect basketTopFrame1 = viewForgotPin.frame;
@@ -1441,7 +1450,7 @@
                 [SVProgressHUD dismiss];
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
             }];
             
           

@@ -58,7 +58,7 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -70,7 +70,7 @@
     else
     
     {
-        NSLog(@"There IS internet connection");
+        ////NSLog(@"There IS internet connection");
        
     
     
@@ -129,13 +129,13 @@
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             
-            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+            ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
             
             NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-            NSLog(@"data : %@",jsonDictionary);
+            ////NSLog(@"data : %@",jsonDictionary);
             
             NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-            NSLog(@"message %@",EntityID);
+            ////NSLog(@"message %@",EntityID);
             if ([EntityID isEqualToString:@"success"])
             {
                 NSString *strProfileCompleted = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"profile_completed"];
@@ -163,7 +163,7 @@
             [SVProgressHUD dismiss];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+            ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         }];
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

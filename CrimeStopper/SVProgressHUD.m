@@ -455,7 +455,7 @@ static SVProgressHUD *sharedView = nil;
                               sharedView = nil;
                              
                              // uncomment to make sure UIWindow is gone from app.windows
-                             //NSLog(@"%@", [UIApplication sharedApplication].windows);
+                             ////NSLog(@"%@", [UIApplication sharedApplication].windows);
                          }
                      }];
 }

@@ -36,7 +36,7 @@
     _arrVehicles = [[NSDictionary alloc]init];
     _arrVehicles = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
     app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSLog(@"arr vehicles : %@",_arrVehicles);
+    //NSLog(@"arr vehicles : %@",_arrVehicles);
     
     // Do any additional setup after loading the view from its nib.
 }

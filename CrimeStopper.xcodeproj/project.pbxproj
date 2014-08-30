@@ -82,7 +82,6 @@
 		5E815ECA1940832700CEAFAB /* CrimeStopperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E815EC91940832700CEAFAB /* CrimeStopperTests.m */; };
 		5E815EDC1940859F00CEAFAB /* HomeScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E815EDA1940859F00CEAFAB /* HomeScreenVC.m */; };
 		5E815EDD1940859F00CEAFAB /* HomeScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */; };
-		5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */; };
 		5E815EE319408CE900CEAFAB /* DisclaimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E815EE119408CE900CEAFAB /* DisclaimerViewController.m */; };
 		5E815EE419408CE900CEAFAB /* DisclaimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */; };
 		5E815EE619408DFD00CEAFAB /* disclaimer_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E815EE519408DFD00CEAFAB /* disclaimer_bg.png */; };
@@ -109,7 +108,6 @@
 		5E9CCBA01949AF68006B43AE /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB9F1949AF68006B43AE /* libz.1.1.3.dylib */; };
 		5E9CCBA21949AF73006B43AE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCBA11949AF73006B43AE /* MobileCoreServices.framework */; };
 		5E9CCBA41949AF81006B43AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCBA31949AF81006B43AE /* QuartzCore.framework */; };
-		5E9CCBA61949AF8D006B43AE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCBA51949AF8D006B43AE /* StoreKit.framework */; };
 		5E9CCBA81949AF9C006B43AE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCBA71949AF9C006B43AE /* SystemConfiguration.framework */; };
 		5E9CCE931949B29E006B43AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCE921949B29E006B43AE /* Security.framework */; };
 		5E9CCE961949B439006B43AE /* FBUserSettingsViewResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */; };
@@ -130,6 +128,8 @@
 		5EB5B209196FC7CD00DE2ABE /* DirectionMapVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB5B207196FC7CD00DE2ABE /* DirectionMapVC.xib */; };
 		5EB5B2121970033D00DE2ABE /* RatingTipsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */; };
 		5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */; };
+		5EB9E35719B1A88E008B53A8 /* splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB9E35619B1A88E008B53A8 /* splashscreen.png */; };
+		5EB9E35919B1A8E9008B53A8 /* splashscreen_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB9E35819B1A8E9008B53A8 /* splashscreen_640x1136.png */; };
 		5ED385D819612578007DD44F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED385D719612578007DD44F /* FacebookSDK.framework */; };
 		5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED385DA196166E0007DD44F /* AddVehiclesVC.m */; };
 		5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */; };
@@ -364,7 +364,6 @@
 		5E815ED91940859F00CEAFAB /* HomeScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScreenVC.h; sourceTree = "<group>"; };
 		5E815EDA1940859F00CEAFAB /* HomeScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScreenVC.m; sourceTree = "<group>"; };
 		5E815EDB1940859F00CEAFAB /* HomeScreenVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeScreenVC.xib; sourceTree = "<group>"; };
-		5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen_640x1136.png; sourceTree = "<group>"; };
 		5E815EE019408CE900CEAFAB /* DisclaimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclaimerViewController.h; sourceTree = "<group>"; };
 		5E815EE119408CE900CEAFAB /* DisclaimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclaimerViewController.m; sourceTree = "<group>"; };
 		5E815EE219408CE900CEAFAB /* DisclaimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclaimerViewController.xib; sourceTree = "<group>"; };
@@ -401,7 +400,6 @@
 		5E9CCB9F1949AF68006B43AE /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		5E9CCBA11949AF73006B43AE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5E9CCBA31949AF81006B43AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		5E9CCBA51949AF8D006B43AE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5E9CCBA71949AF9C006B43AE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5E9CCE921949B29E006B43AE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = ../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
@@ -429,6 +427,8 @@
 		5EB5B20F1970033D00DE2ABE /* RatingTipsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingTipsVC.h; sourceTree = "<group>"; };
 		5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingTipsVC.m; sourceTree = "<group>"; };
 		5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingTipsVC.xib; sourceTree = "<group>"; };
+		5EB9E35619B1A88E008B53A8 /* splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen.png; sourceTree = "<group>"; };
+		5EB9E35819B1A8E9008B53A8 /* splashscreen_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen_640x1136.png; sourceTree = "<group>"; };
 		5ED385D719612578007DD44F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = CrimeStopper/FacebookSDK.framework; sourceTree = "<group>"; };
 		5ED385D9196166E0007DD44F /* AddVehiclesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddVehiclesVC.h; sourceTree = "<group>"; };
 		5ED385DA196166E0007DD44F /* AddVehiclesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddVehiclesVC.m; sourceTree = "<group>"; };
@@ -619,7 +619,6 @@
 				5E9CCE961949B439006B43AE /* FBUserSettingsViewResources.bundle in Frameworks */,
 				5E9CCE931949B29E006B43AE /* Security.framework in Frameworks */,
 				5E9CCBA81949AF9C006B43AE /* SystemConfiguration.framework in Frameworks */,
-				5E9CCBA61949AF8D006B43AE /* StoreKit.framework in Frameworks */,
 				5E9CCBA41949AF81006B43AE /* QuartzCore.framework in Frameworks */,
 				5E9CCBA21949AF73006B43AE /* MobileCoreServices.framework in Frameworks */,
 				5E9CCBA01949AF68006B43AE /* libz.1.1.3.dylib in Frameworks */,
@@ -811,7 +810,6 @@
 				5E9CCE951949B439006B43AE /* FBUserSettingsViewResources.bundle */,
 				5E9CCE921949B29E006B43AE /* Security.framework */,
 				5E9CCBA71949AF9C006B43AE /* SystemConfiguration.framework */,
-				5E9CCBA51949AF8D006B43AE /* StoreKit.framework */,
 				5E9CCBA31949AF81006B43AE /* QuartzCore.framework */,
 				5E9CCBA11949AF73006B43AE /* MobileCoreServices.framework */,
 				5E9CCB9F1949AF68006B43AE /* libz.1.1.3.dylib */,
@@ -979,6 +977,7 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5EB9E35519B1A87E008B53A8 /* Splash Screen */,
 				5E05C0E019A8946C00F9F5C6 /* target_symbol.png */,
 				5E05C0E119A8946C00F9F5C6 /* target_symbol@2x.png */,
 				5E05C0DC19A8946500F9F5C6 /* report_submitted.png */,
@@ -1001,7 +1000,6 @@
 				5E04AEFB194FFA3D003F6CD4 /* home page */,
 				5E0324671942FBA2006EEA24 /* Registration */,
 				5E095171194177C200DC97E2 /* login */,
-				5E815EDE1940899C00CEAFAB /* splashscreen_640x1136.png */,
 				ECEAE2711966C52A00BBA108 /* green_pin.png */,
 				ECEAE2721966C52A00BBA108 /* green_pin@2x.png */,
 				ECEAE2731966C52A00BBA108 /* points_bg_ios.png */,
@@ -1025,7 +1023,6 @@
 				5EEF21711955A3FB00A0BA3F /* app_icon_120x120.png */,
 				5EEF21721955A3FB00A0BA3F /* app_icon_512x512.png */,
 				5EEF21731955A3FB00A0BA3F /* app_icon_1024x1024.png */,
-				5EEF21741955A3FB00A0BA3F /* splashscreen@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1035,6 +1032,16 @@
 			children = (
 			);
 			name = "File new report";
+			sourceTree = "<group>";
+		};
+		5EB9E35519B1A87E008B53A8 /* Splash Screen */ = {
+			isa = PBXGroup;
+			children = (
+				5EB9E35619B1A88E008B53A8 /* splashscreen.png */,
+				5EEF21741955A3FB00A0BA3F /* splashscreen@2x.png */,
+				5EB9E35819B1A8E9008B53A8 /* splashscreen_640x1136.png */,
+			);
+			name = "Splash Screen";
 			sourceTree = "<group>";
 		};
 		5EE8C8F719515032009550A1 /* About Us */ = {
@@ -1256,7 +1263,15 @@
 				ORGANIZATIONNAME = Emgeesons;
 				TargetAttributes = {
 					5E815EA01940832700CEAFAB = {
-						DevelopmentTeam = 44C2WNQ95S;
+						DevelopmentTeam = 6K2B8LDNL9;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					5E815EBB1940832700CEAFAB = {
 						TestTargetID = 5E815EA01940832700CEAFAB;
@@ -1333,6 +1348,7 @@
 				5EFE9193195948D80014669E /* edit_white.png in Resources */,
 				5EF124441987827D0096C4EF /* ic_nav_share_app1.png in Resources */,
 				5E0369E21973F55F00E5009F /* images1111.jpeg in Resources */,
+				5EB9E35719B1A88E008B53A8 /* splashscreen.png in Resources */,
 				5EEEB9141963DA800083CC56 /* add_photos.png in Resources */,
 				5EFABB41196D621D007C0781 /* vehicle_parked@2x.png in Resources */,
 				5E3C3FBA196A9A11007E6AFA /* ic_unlike_blue.png in Resources */,
@@ -1401,6 +1417,7 @@
 				5EF124401987827D0096C4EF /* ic_nav_feedback1.png in Resources */,
 				5E05C0D719A8945500F9F5C6 /* headphone@2x.png in Resources */,
 				5E3C3FAA196A6859007E6AFA /* HomePageVC.xib in Resources */,
+				5EB9E35919B1A8E9008B53A8 /* splashscreen_640x1136.png in Resources */,
 				5E182B4719654252003C1793 /* MyVehicleCell.xib in Resources */,
 				ECEAE2801966C52A00BBA108 /* red_pin@2x.png in Resources */,
 				5EF1245E1987B2B30096C4EF /* switch1.png in Resources */,
@@ -1417,7 +1434,6 @@
 				5EF1242B1987804E0096C4EF /* ic_report_sighting1.png in Resources */,
 				5E2371CC19862DEE000DF8E0 /* login_bg (5).png in Resources */,
 				5E182B3F19653D6E003C1793 /* MyVehicleVC.xib in Resources */,
-				5E815EDF1940899C00CEAFAB /* splashscreen_640x1136.png in Resources */,
 				5E05C0CE19A870D800F9F5C6 /* ic_location.png in Resources */,
 				5EF1245319878C330096C4EF /* ic_raa1.png in Resources */,
 				5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */,
@@ -1588,8 +1604,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1608,7 +1624,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = MyWheels;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1629,8 +1645,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1642,7 +1658,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = MyWheels;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1655,7 +1671,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1683,7 +1699,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1695,7 +1711,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Asha Sharma (E7M4FD9F9W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CrimeStopper/FacebookSDK",
@@ -1723,7 +1739,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "E73F2791-882B-4600-8E82-3DCAA3909DE3";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

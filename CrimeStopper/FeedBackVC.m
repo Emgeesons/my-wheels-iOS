@@ -97,7 +97,7 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -128,13 +128,13 @@
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-        NSLog(@"data : %@",jsonDictionary);
+        ////NSLog(@"data : %@",jsonDictionary);
         
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-        NSLog(@"message %@",EntityID);
+        ////NSLog(@"message %@",EntityID);
         if ([EntityID isEqualToString:@"success"])
         {
             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:nil
@@ -161,7 +161,7 @@
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -218,7 +218,7 @@
     }completion:nil];
 
     
-    NSLog(@"Started editing target!");
+    ////NSLog(@"Started editing target!");
     
 }
 @end

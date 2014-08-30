@@ -47,12 +47,12 @@
     
     NSString *savedValue = [[NSUserDefaults standardUserDefaults]
                             stringForKey:@"first"];
-    NSLog(@"str1 : %@",savedValue);
+    //NSLog(@"str1 : %@",savedValue);
     if([savedValue isEqualToString:@"first"])
     {
-        NSLog(@"second time... ");
+        //NSLog(@"second time... ");
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-        NSLog(@"str : %@",UserID);
+        //NSLog(@"str : %@",UserID);
         if(UserID == nil || UserID == (id)[NSNull null])
         {
             LoginVC *vc = [[LoginVC alloc]init];

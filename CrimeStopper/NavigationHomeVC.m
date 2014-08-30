@@ -103,7 +103,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"index path : %d",indexPath.row);
+    //NSLog(@"index path : %d",indexPath.row);
     if(indexPath.row == 0)
     {
         HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:[NSBundle mainBundle]];
@@ -123,7 +123,7 @@
     else if (indexPath.row == 2)
     {
         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-        NSLog(@"str : %@",UserID);
+        //NSLog(@"str : %@",UserID);
         if(UserID == nil || UserID == (id)[NSNull null])
         {
             LoginVC *obj = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:[NSBundle mainBundle]];
@@ -145,7 +145,7 @@
     {
         //share app
         NSString *text = @"Check out MyWheels by Crime Stoppers South Australia. Get it from -  ";
-        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
+        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/app/mywheels-australia/id914228666?ls=1&mt=8"];
         UIImage *image = [UIImage imageNamed:@"app_icon_120x120.png"];
         
         UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
@@ -175,7 +175,7 @@
     else if (indexPath.row == 4)
     {
         //Rate us
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/mywheels-australia/id914228666?ls=1&mt=8"]];
     }
     else if (indexPath.row == 5)
     {
@@ -248,14 +248,14 @@
             
             //remove profile pic
             //       NSString *photoURL = appdelegate.strPhotoURL;
-            //        NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
+            //        //NSLog(@"phtoturl : %@",appdelegate.strPhotoURL);
             //        NSArray *parts = [photoURL componentsSeparatedByString:@"/"];
             //        NSString *filename = [parts objectAtIndex:[parts count]-1];
-            //        NSLog(@"file name : %@",filename);
+            //        //NSLog(@"file name : %@",filename);
             //
             //        NSString *str = @"My_Wheels_";
             //        NSString *strFileName = [str stringByAppendingString:filename];
-            //        NSLog(@"strfilename : %@",strFileName);
+            //        //NSLog(@"strfilename : %@",strFileName);
             //
             //         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
             

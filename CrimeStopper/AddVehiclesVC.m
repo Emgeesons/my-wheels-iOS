@@ -47,7 +47,7 @@ NSString *strBody;
         [_arrVehicleType addObject:@"Motorcycle"];
         [_arrVehicleType addObject:@"Other"];
     
-    NSLog(@"arr :: :%@",_arrVehicleType);
+    ////NSLog(@"arr :: :%@",_arrVehicleType);
     
     
     
@@ -111,7 +111,7 @@ NSString *strBody;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        ////NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -173,7 +173,7 @@ NSString *strBody;
             }
             }
         }
-        NSLog(@"There IS internet connection");
+        ////NSLog(@"There IS internet connection");
         
         // for only bicycle
         
@@ -442,7 +442,7 @@ NSString *strBody;
     [_txtVehicleType setText:[_arrVehicleType objectAtIndex:row]];
     strvehivcle = [_arrVehicleType objectAtIndex:row];
     [_txtVehicleType resignFirstResponder];
-     NSLog(@"veicle : %@",strvehivcle);
+     ////NSLog(@"veicle : %@",strvehivcle);
     
     // if vehicle type is other
     if([strvehivcle isEqualToString:@"Other"])
@@ -754,7 +754,7 @@ NSString *strBody;
         y=200;
     }
    
-    NSLog(@"y = %d",y);
+    ////NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:_scroll];
@@ -863,7 +863,7 @@ NSString *strBody;
 #pragma mark call api
 -(void)Callapi
 {
-    NSLog(@"in api");
+    ////NSLog(@"in api");
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -905,13 +905,13 @@ NSString *strBody;
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-        NSLog(@"data : %@",jsonDictionary);
+        ////NSLog(@"data : %@",jsonDictionary);
         
         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-        NSLog(@"message %@",EntityID);
+        ////NSLog(@"message %@",EntityID);
         if ([EntityID isEqualToString:@"success"])
         {
             VehicleProfilePageVC *vc = [[VehicleProfilePageVC alloc]init];
@@ -935,7 +935,7 @@ NSString *strBody;
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

@@ -91,7 +91,7 @@
     [self.tvFacebook setInputAccessoryView:self.toolBar];
     [self.tvtwitter setInputAccessoryView:self.toolBar];
     
-    //NSLog(@"access token==> %@", [[FHSTwitterEngine sharedEngine] accessToken].description);
+    ////NSLog(@"access token==> %@", [[FHSTwitterEngine sharedEngine] accessToken].description);
 }
 
 - (void)didReceiveMemoryWarning
@@ -171,7 +171,7 @@
             if ([returned isKindOfClass:[NSError class]]) {
 
             } else {
-                NSLog(@"%@",returned);
+                //NSLog(@"%@",returned);
             }
             
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -189,7 +189,7 @@
     
     NSString *test = [NSString stringWithFormat:@"%@ #MyWheels", self.tvFacebook.text];
     
-    [self makeRequestToUpdateStatus:test title:nil description:nil image:self.photo1 link:@"https://itunes.apple.com/app/my-wheels/id904923792?ls=1&mt=8"];
+    [self makeRequestToUpdateStatus:test title:nil description:nil image:self.photo1 link:@"https://itunes.apple.com/us/app/mywheels-australia/id914228666?ls=1&mt=8"];
 }
 
 - (void)makeRequestToUpdateStatus:(NSString *)message title:(NSString *)title description:(NSString *)description image:(NSString *)image link:(NSString *)link {
@@ -212,7 +212,7 @@
                               if (!error) {
                                   [self skipClicked:nil];
                               } else {
-                                  NSLog(@"%@", error.description);
+                                  //NSLog(@"%@", error.description);
                                   [activityIndicator stopAnimating];
                               }
                           }];
@@ -277,7 +277,7 @@
             if (FBSession.activeSession.isOpen)
             {
                 // post to wall
-                //NSLog(@"post to wall");
+                ////NSLog(@"post to wall");
                 // Do Nothing
             } else {
                 // try to open session with existing valid token
@@ -286,11 +286,11 @@
                 [FBSession setActiveSession:session];
                 if([FBSession openActiveSessionWithAllowLoginUI:NO]) {
                     // post to wall
-                    //NSLog(@"post to wall");
+                    ////NSLog(@"post to wall");
                     // Do Nothing
                 } else {
                     // you need to log the user
-                    NSLog(@"you need to log the user");
+                    //NSLog(@"you need to log the user");
                     NSArray *permissions = @[@"publish_actions"];
                     FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                     [FBSession setActiveSession:session];

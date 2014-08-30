@@ -57,8 +57,8 @@ NSInteger intImage;
     _arrVehicle = [[NSDictionary alloc]init];
     _arrVehicle = [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
     
-    NSLog(@"vehicle id :%@",_strVehicleId);
-    NSLog(@"vehicle if:: %@",appDelegate.strVehicleId);
+    //NSLog(@"vehicle id :%@",_strVehicleId);
+    //NSLog(@"vehicle if:: %@",appDelegate.strVehicleId);
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -80,7 +80,7 @@ NSInteger intImage;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -90,7 +90,7 @@ NSInteger intImage;
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:UserID forKey:@"userId"];
     [param setValue:appDelegate.strVehicleId forKey:@"vehicleId"];
@@ -107,21 +107,21 @@ NSInteger intImage;
             NSString *url = [NSString stringWithFormat:@"%@getVehicleProfile.php", SERVERNAME];
             
             [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                NSLog(@"url : %@",manager);
+                //NSLog(@"url : %@",manager);
             }
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       
                       
-                      NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                       
                       NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                      NSLog(@"data : %@",jsonDictionary);
-                      //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                      //NSLog(@"data : %@",jsonDictionary);
+                      //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                       
                       //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                      NSLog(@"Json dictionary :: %@",jsonDictionary);
+                      //NSLog(@"Json dictionary :: %@",jsonDictionary);
                       NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                      NSLog(@"message %@",EntityID);
+                      //NSLog(@"message %@",EntityID);
                       
                       
                       if ([EntityID isEqualToString:@"success"])
@@ -247,15 +247,15 @@ NSInteger intImage;
 
                           NSDate *str = [dateFormatter dateFromString:[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"insurance_expiry_date"]];
                           
-                          NSLog(@"date : %@",str);
+                          //NSLog(@"date : %@",str);
                           [dateFormatter setDateFormat:@"dd-MM-yyyy"];
                           NSString *date = [dateFormatter stringFromDate:str];
                           
-                          NSLog(@"date1 : %@",date);
+                          //NSLog(@"date1 : %@",date);
                           
                           
                           _lblExpiry.text = date;
-                          NSLog(@"bicycle : %@",_lblVehicleType.text);
+                          //NSLog(@"bicycle : %@",_lblVehicleType.text);
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle3.png"]];
@@ -433,7 +433,7 @@ NSInteger intImage;
                       CheckAlert.tag = 5;
                       [CheckAlert show];
 
-                      NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                      //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                   }];
             
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -598,12 +598,12 @@ NSInteger intImage;
     }
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+         //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
          NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-         NSLog(@"data : %@",jsonDictionary);
+         //NSLog(@"data : %@",jsonDictionary);
          
          NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-         NSLog(@"message %@",EntityID);
+         //NSLog(@"message %@",EntityID);
          if ([EntityID isEqualToString:@"success"])
          {
              _lblStatus.text=[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_status"];
@@ -616,7 +616,7 @@ NSInteger intImage;
                 
                  // store image in device
                  NSString *photo_url1 =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"]; ;
-                 NSLog(@"photo url :%@",photo_url1);
+                 //NSLog(@"photo url :%@",photo_url1);
                  [[NSUserDefaults standardUserDefaults] setValue:photo_url1 forKey:@"photo_url"];
                 
                  // Store the data
@@ -634,7 +634,7 @@ NSInteger intImage;
              {
                  // store image in device
                  NSString *photo_url2 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];;
-                 NSLog(@"photo url :%@",photo_url2);
+                 //NSLog(@"photo url :%@",photo_url2);
                  [[NSUserDefaults standardUserDefaults] setValue:photo_url2 forKey:@"photo_url"];
                  
                  // Store the data
@@ -652,7 +652,7 @@ NSInteger intImage;
                  // store image in device
                  NSString *photo_url3 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
                 
-                 NSLog(@"photo url :%@",photo_url3);
+                 //NSLog(@"photo url :%@",photo_url3);
                  [[NSUserDefaults standardUserDefaults] setValue:photo_url3 forKey:@"photo_url"];
                  
                  // Store the data
@@ -686,7 +686,7 @@ NSInteger intImage;
          
          [SVProgressHUD dismiss];
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+         //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
      }];
     
     
@@ -699,11 +699,11 @@ NSInteger intImage;
 {
     if (error != nil)
     {
-        NSLog(@"Image Can not be saved");
+        //NSLog(@"Image Can not be saved");
     }
     else
     {
-        NSLog(@"Successfully saved Image");
+        //NSLog(@"Successfully saved Image");
     }
 }
 
@@ -790,7 +790,7 @@ NSInteger intImage;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -800,7 +800,7 @@ NSInteger intImage;
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
         
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
@@ -817,7 +817,7 @@ NSInteger intImage;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -827,7 +827,7 @@ NSInteger intImage;
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
                             @"Choose Existing",
@@ -843,7 +843,7 @@ NSInteger intImage;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -853,7 +853,7 @@ NSInteger intImage;
     }
     else
     {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Take Photo",
                             @"Choose Existing",
@@ -873,7 +873,7 @@ NSInteger intImage;
             Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
             NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
             if (networkStatus == NotReachable) {
-                NSLog(@"There IS NO internet connection");
+                //NSLog(@"There IS NO internet connection");
                 UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                                     message:@"Please connect to the internet to continue."
                                                                    delegate:self
@@ -906,12 +906,12 @@ NSInteger intImage;
                 NSMutableArray  *arr = [[NSMutableArray alloc]init];
                 arr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"] mutableCopy];
                 
-                NSLog(@"arr : %@",arr);
-                NSLog(@"current vehicle id : %@",appDelegate.strVehicleId);
+                //NSLog(@"arr : %@",arr);
+                //NSLog(@"current vehicle id : %@",appDelegate.strVehicleId);
                 for(int i=0;i< [arr count];i++)
                 {
                     NSString *veh = [[arr objectAtIndex:i] valueForKey:@"vehicle_id"];
-                    NSLog(@"veh : %@",veh);
+                    //NSLog(@"veh : %@",veh);
                     if(veh == appDelegate.strVehicleId)
                     {
                         if([arr count] == 1)
@@ -937,7 +937,7 @@ NSInteger intImage;
                 
                 NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
                 dic =  [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"];
-                NSLog(@"dixt : %@",dic);
+                //NSLog(@"dixt : %@",dic);
                 
                 NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
                 NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -945,7 +945,7 @@ NSInteger intImage;
                 NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
                 NSString *profile_completed = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile_completed"];
                 NSString *licence = [[NSUserDefaults standardUserDefaults] objectForKey:@"license_no"];
-                NSLog(@"profile complete :: %@",profile_completed);
+                //NSLog(@"profile complete :: %@",profile_completed);
                 
                 UIApplication *app = [UIApplication sharedApplication];
                 NSArray *eventArray = [app scheduledLocalNotifications];
@@ -962,7 +962,7 @@ NSInteger intImage;
                     }
                 }
 
-                NSLog(@"There IS internet connection");
+                //NSLog(@"There IS internet connection");
                 NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
                 [param setValue:UserID forKey:@"userId"];
                 [param setValue:appDelegate.strVehicleId forKey:@"vehicleId"];
@@ -1008,21 +1008,21 @@ NSInteger intImage;
                  NSString *url = [NSString stringWithFormat:@"%@deleteVehicle.php", SERVERNAME];
                 
                 [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    NSLog(@"url : %@",manager);
+                    //NSLog(@"url : %@",manager);
                 }
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           
                           
-                          NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                          //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                           
                           NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-                          NSLog(@"data : %@",jsonDictionary);
-                          //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                          //NSLog(@"data : %@",jsonDictionary);
+                          //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                           
                           //  NSMutableArray *jsonDictionary=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                          NSLog(@"Json dictionary :: %@",jsonDictionary);
+                          //NSLog(@"Json dictionary :: %@",jsonDictionary);
                           NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-                          NSLog(@"message %@",EntityID);
+                          //NSLog(@"message %@",EntityID);
                           NSString *message = [jsonDictionary valueForKey:@"message"];
                           
                           if ([EntityID isEqualToString:@"success"])
@@ -1048,7 +1048,7 @@ NSInteger intImage;
                           [SVProgressHUD dismiss];
                           
                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                          NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                          //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                       }];
                 
                 [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

@@ -170,13 +170,13 @@
                                  @"latitude" : [NSString stringWithFormat:@"%f", latitude],
                                  @"longitude" : [NSString stringWithFormat:@"%f", longitude]};
     
-    NSLog(@"%@", parameters);
+    ////NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdatesDetails.php", SERVERNAME];
     
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Details ==> %@", responseObject);
+        ////NSLog(@"Details ==> %@", responseObject);
         
         // Stop Animating activityIndicator
         //[activityIndicator stopAnimating];
@@ -185,7 +185,7 @@
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSArray *reportData = (NSArray *)[json objectForKey:@"response"];
-            //NSLog(@"%d", reportData.count);
+            ////NSLog(@"%d", reportData.count);
             for (int i = 0; i < reportData.count; i++) {
                 [comments addObject:reportData[i][@"comments"]];
                 [first_name addObject:reportData[i][@"first_name"]];
@@ -210,7 +210,7 @@
         }
        //  [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
         [DeviceInfo errorInConnection];
         //[activityIndicator stopAnimating];
     }];
@@ -242,7 +242,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = self.tableView.backgroundColor;
     }
-    NSLog(@"call");
+    ////NSLog(@"call");
     if (sighting_id.count == 0) {
         // create Stay tuned view here
         UIView *viewBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
@@ -565,10 +565,10 @@
     [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = [[NSData alloc] initWithData:responseObject];
         [data writeToFile:filePath atomically:YES];
-        NSLog(@"saved");
+        ////NSLog(@"saved");
         [self presentViewController:previewController animated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"file downloading error : %@", [error localizedDescription]);
+        ////NSLog(@"file downloading error : %@", [error localizedDescription]);
     }];
     [downloadRequest start];
 }

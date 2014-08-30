@@ -12,6 +12,9 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 #import "LoginVC.h"
+#import "UAConfig.h"
+#import "UAPush.h"
+#import "UAirship.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -150,7 +153,7 @@ int intques;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        //NSLog(@"There IS NO internet connection");
         UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@"Warning"
                                                             message:@"Please connect to the internet to continue."
                                                            delegate:self
@@ -158,7 +161,7 @@ int intques;
                                                   otherButtonTitles:nil, nil];
         [CheckAlert show];
     } else {
-        NSLog(@"There IS internet connection");
+        //NSLog(@"There IS internet connection");
     
     
     
@@ -297,7 +300,7 @@ int intques;
     {
         intques = 2;
         [txtOtherQuestion setHidden:YES];
-        NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
+        //NSLog(@"selected value : %@",[arrSecurityQuestion objectAtIndex:indexPath.row]);
         strQues = [arrSecurityQuestion objectAtIndex:indexPath.row];
         [btnSecurityQuestion setTitle:[arrSecurityQuestion objectAtIndex:indexPath.row] forState:UIControlStateNormal];
         [btnSecurityQuestion setEnabled:YES];
@@ -320,12 +323,12 @@ int intques;
         txtPin2.secureTextEntry = NO;
         txtPin3.secureTextEntry = NO;
         txtPin4.secureTextEntry = NO;
-        NSLog(@"switch is off");
+        //NSLog(@"switch is off");
         switchPin.on = YES;
     }
     else
     {
-        NSLog(@"switch is on..");
+        //NSLog(@"switch is on..");
         txtPin1.secureTextEntry = YES;
         txtPin2.secureTextEntry = YES;
         txtPin3.secureTextEntry = YES;
@@ -361,7 +364,7 @@ int intques;
     {
         y=140;
     }
-    NSLog(@"y = %d",y);
+    //NSLog(@"y = %d",y);
     [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionTransitionCurlUp animations:^{
         CGRect rc = [textField bounds];
         rc = [textField convertRect:rc toView:scrollview];
@@ -389,7 +392,7 @@ int intques;
     
     NSInteger nextTag = textField.tag + 1;
     // Try to find next responder
-    NSLog(@"tag :: %d",nextTag);
+    //NSLog(@"tag :: %d",nextTag);
     UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
     if (nextResponder) {
         // Found next responder, so set it.
@@ -407,7 +410,7 @@ int intques;
         NSUInteger newLength = [txtPin1.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             // return NO;
             [txtPin1 resignFirstResponder];
             [txtPin2 becomeFirstResponder];
@@ -418,7 +421,7 @@ int intques;
         }
         //        else
         //        {
-        //            NSLog(@"YES");
+        //            //NSLog(@"YES");
         //
         //            return YES;
         //            [txtPin1 resignFirstResponder];
@@ -432,7 +435,7 @@ int intques;
         NSUInteger newLength = [txtPin2.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPin2 resignFirstResponder];
             [txtPin3 becomeFirstResponder];
         }
@@ -455,7 +458,7 @@ int intques;
         NSUInteger newLength = [txtPin3.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPin3 resignFirstResponder];
             [txtPin4 becomeFirstResponder];
             //return NO;
@@ -480,7 +483,7 @@ int intques;
         NSUInteger newLength = [txtPin4.text length] + [string length] - range.length;
         if(newLength >1)
         {
-            NSLog(@"no");
+            //NSLog(@"no");
             [txtPin4 resignFirstResponder];
             //return NO;
         }
@@ -583,21 +586,21 @@ int intques;
 #pragma mark call api and chack validation
 -(void)submit
 {
-    NSLog(@"valid email...");
+    //NSLog(@"valid email...");
     NSString *strPin;
     strPin = @"";
     strPin = [strPin stringByAppendingString:txtPin1.text];
     strPin = [strPin stringByAppendingString:txtPin2.text];
     strPin = [strPin stringByAppendingString:txtPin3.text];
     strPin = [strPin stringByAppendingString:txtPin4.text];
-    NSLog(@"strpin :: %@",strPin);
+    //NSLog(@"strpin :: %@",strPin);
     NSString *strQuestion1;
-    NSLog(@"strquestion : %@",strSecQuestion);
+    //NSLog(@"strquestion : %@",strSecQuestion);
     strQuestion1 = @"What is your ";
     if(intques == 2)
     {
         strQuestion1 = strSecQuestion;
-        NSLog(@"ques :: %@",strQues);
+        //NSLog(@"ques :: %@",strQues);
     }
     else if (intques == 1)
     {
@@ -635,7 +638,7 @@ int intques;
     [param setValue:MAKE forKey:@"make"];
     [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
-    NSLog(@"param : %@",param);
+    //NSLog(@"param : %@",param);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
      NSString *url = [NSString stringWithFormat:@"%@fbCompleteRegistration.php", SERVERNAME];
@@ -646,12 +649,12 @@ int intques;
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               
-              NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+              //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
               
               NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-              NSLog(@"data : %@",jsonDictionary);
+              //NSLog(@"data : %@",jsonDictionary);
               NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-              NSLog(@"message %@",EntityID);
+              //NSLog(@"message %@",EntityID);
               if ([EntityID isEqualToString:@"success"])
               {
                 
@@ -665,7 +668,14 @@ int intques;
                   [[NSUserDefaults standardUserDefaults] setValue:txtPin2.text forKey:@"pin2"];
                   [[NSUserDefaults standardUserDefaults] setValue:txtPin3.text forKey:@"pin3"];
                   [[NSUserDefaults standardUserDefaults] setValue:txtPin4.text forKey:@"pin4"];
+                  
                   appdelegate.intCountPushNotification = 0;
+                  //URBAN AIRSHIP SET UP
+                  NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+                  NSString *yourAlias = UserId;
+                  [UAPush shared].alias = yourAlias;
+                  [[UAPush shared] setPushEnabled:YES];
+                  //End of Urban Airship Set up
                   
                   HomePageVC *vc = [[HomePageVC alloc]init];
                   appdelegate.intReg = 1;
@@ -687,7 +697,7 @@ int intques;
               [SVProgressHUD dismiss];
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+              //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
           }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];

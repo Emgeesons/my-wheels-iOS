@@ -98,7 +98,7 @@ UINavigationController *nav;
     _intCountPushNotification = 0;
   //  [[NSUserDefaults standardUserDefaults]setObject:_intCountPushNotification forKey:@"CountPushNoti"];
     _intCountPushNotification ++;
-    NSLog(@"I camhe here ");
+    ////NSLog(@"I camhe here ");
   //  NSString *str = [NSString stringWithFormat:@"%d",_intCountPushNotification];
   
     
@@ -207,10 +207,10 @@ UINavigationController *nav;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"wlcome to crime stoper....");
-    NSLog(@"time : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Time"]);
-    NSLog(@"current time :%@",[NSDate date]);
-    NSLog(@"app Time :%@",Time);
+    /*//NSLog(@"wlcome to crime stoper....");
+    //NSLog(@"time : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"Time"]);
+    //NSLog(@"current time :%@",[NSDate date]);
+    //NSLog(@"app Time :%@",Time);*/
     
     // compare time
     NSTimeInterval timeDifference = [[NSDate date] timeIntervalSinceDate:Time];
@@ -220,7 +220,7 @@ UINavigationController *nav;
     double seconds = timeDifference;
     double days = minutes / 1440;
     
-    NSLog(@" days = %.0f,hours = %.2f, minutes = %.0f,seconds = %.0f", days, hours, minutes, seconds);
+    ////NSLog(@" days = %.0f,hours = %.2f, minutes = %.0f,seconds = %.0f", days, hours, minutes, seconds);
     
    
     
@@ -229,7 +229,7 @@ UINavigationController *nav;
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss +GMT"];
 
     NSDate *date = [dateFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"Time"]];
-    NSLog(@"date : %@",date);
+    ////NSLog(@"date : %@",date);
     
     
     
