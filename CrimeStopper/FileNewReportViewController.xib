@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -347,7 +347,7 @@
         <image name="app_icon_120x120.png" width="120" height="120"/>
         <image name="edit.png" width="13" height="13"/>
         <image name="ic_car.png" width="32" height="26"/>
-        <image name="im_complete_profile.png" width="588" height="380"/>
+        <image name="im_complete_profile.png" width="294" height="190"/>
         <image name="location1.png" width="64" height="60"/>
         <image name="privacy1.png" width="64" height="60"/>
         <image name="red_pin.png" width="30" height="40"/>

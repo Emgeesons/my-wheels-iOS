@@ -39,7 +39,7 @@
     self.navigationController.navigationBarHidden = YES;
     
     
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view from its nib.98
 }
 //hdgfdhfhg
 -(void)callDisclaimer:(NSTimer *)theTimer 
