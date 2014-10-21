@@ -28,6 +28,8 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgsamaritan;
 @property (nonatomic,retain) IBOutlet UIImageView *imgUserProfilepic;
 @property (nonatomic,retain) IBOutlet UIButton *btnAddVehicle;
+@property (nonatomic,retain) NSMutableData *receivedData;
+
 
 -(IBAction)btnAddDetails_click:(id)sender;
 -(IBAction)btnProfilepic_click:(id)sender;

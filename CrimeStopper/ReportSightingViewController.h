@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageview3;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
 @property (nonatomic,retain) IBOutlet UIView *viewLocationGuide,*viewTransparent;
+@property (nonatomic,retain) NSMutableData *receivedData;
+
 
 -(IBAction)btnLocation_click:(id)sender;
 - (IBAction)addImage:(id)sender;

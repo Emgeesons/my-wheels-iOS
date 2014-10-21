@@ -35,7 +35,7 @@
 @property (nonatomic) NSInteger intPosition, intNoPhoto;
 @property (nonatomic,retain) IBOutlet UILabel *lblState;
 @property (nonatomic,retain) IBOutlet UILabel *lblBodyType1,*lblRegistrationNo1,*lblVehicleType1,*lblStatu1s,*lblState1,*lblEngineNo1,*lblVin1,*lblColor1,*lblAccessories1;
-
+@property (nonatomic,retain) NSMutableData *receivedData;
 
 -(IBAction)btnBack_click:(id)sender;
 -(IBAction)btnAdd_click:(id)sender;

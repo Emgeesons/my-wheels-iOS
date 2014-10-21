@@ -25,6 +25,7 @@
 {
     UIActionSheet *actionSheet, *QuestionPicker;
     AppDelegate *appDelegate;
+     UIView  *timeBackgroundView;
 }
 @end
 
@@ -250,13 +251,16 @@ int intques;
 
     self.scrollview.userInteractionEnabled = YES;
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.gender setBackgroundColor:[UIColor whiteColor]];
+    [self.switchbtn setBackgroundColor:[UIColor whiteColor]];
      [timePicker setHidden:YES];
     [btnSubmit setHidden:NO];
      [self cancelClicked];
     
 }
 -(void)cancelClicked {
-    [sheet dismissWithClickedButtonIndex:0 animated:YES];
+   // [sheet dismissWithClickedButtonIndex:0 animated:YES];
+    [timeBackgroundView setHidden:YES];
 }
 
 #pragma mark segmented method
@@ -467,7 +471,7 @@ int intques;
     {
         [viewPickerview setHidden:NO];
         self.scrollview.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
+        //[self.view setBackgroundColor:[UIColor grayColor]];
         
         [txtEmailAddress resignFirstResponder];
         [txtFname resignFirstResponder];
@@ -484,20 +488,68 @@ int intques;
         
         
         // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        timePicker.backgroundColor = [UIColor whiteColor];
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+//        [dateFormatter setLocale:[NSLocale currentLocale]];
+//        
+//        NSDate *currentDate = [NSDate date];
+//        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+//        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+//        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", maxDate);
+//        
+//        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+//        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", minDate);
+//        [timePicker setMaximumDate:maxDate];
+//        [timePicker setMinimumDate:minDate];
+//        
+//        
+//        //format datePicker mode. in this example time is used
+//        timePicker.datePickerMode = UIDatePickerModeDate;
+//        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+//        //
+//        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+//        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+//        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+//        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+//        //
+//        [toolbarPicker addSubview:bbitem];
+//        //        [toolbarPicker addSubview:bbitem1];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:timePicker];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
         
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
+        NSDate *date;
+        date = [NSDate date];
         
+        
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        timePicker.hidden = NO;
+        
+        // set maximum date of datePicker to today's date
+        // set maximum date and minimum date of datePicker to today's date
         NSDate *currentDate = [NSDate date];
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        //NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
@@ -506,31 +558,42 @@ int intques;
         [timePicker setMinimumDate:minDate];
         
         
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-        //
-        [toolbarPicker addSubview:bbitem];
-        //        [toolbarPicker addSubview:bbitem1];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        //formate datepicker
+        NSDateFormatter  *displayFormatter = [[NSDateFormatter alloc] init];
+        [displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+        [displayFormatter setDateFormat:@"MM/dd/yyyy"];
+        
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
         
         
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(DOBChanged:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+        if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:timePicker];
+        
+        [self.view addSubview:timeBackgroundView];
         
         
     }
@@ -553,8 +616,8 @@ int intques;
     if(nextTag == 4)
     {
         [viewPickerview setHidden:NO];
-        self.scrollview.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
+      //  self.scrollview.userInteractionEnabled = NO ;
+       // [self.view setBackgroundColor:[UIColor grayColor]];
         
         [txtEmailAddress resignFirstResponder];
         [txtFname resignFirstResponder];
@@ -571,20 +634,68 @@ int intques;
         
         
         // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        timePicker.backgroundColor = [UIColor whiteColor];
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+//        [dateFormatter setLocale:[NSLocale currentLocale]];
+//        
+//        NSDate *currentDate = [NSDate date];
+//        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+//        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+//        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", maxDate);
+//        
+//        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+//        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", minDate);
+//        [timePicker setMaximumDate:maxDate];
+//        [timePicker setMinimumDate:minDate];
+//        
+//        //format datePicker mode. in this example time is used
+//        timePicker.datePickerMode = UIDatePickerModeDate;
+//        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+//        //
+//        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+//        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+//        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+//        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+//        //
+//        [toolbarPicker addSubview:bbitem];
+//        //        [toolbarPicker addSubview:bbitem1];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:timePicker];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
+//
         
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
+        NSDate *date;
+        date = [NSDate date];
         
+        
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        timePicker.hidden = NO;
+        
+        // set maximum date of datePicker to today's date
+        // set maximum date and minimum date of datePicker to today's date
         NSDate *currentDate = [NSDate date];
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        //NSLog(@"%@", maxDate);
         
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
@@ -592,30 +703,43 @@ int intques;
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
         
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-        //        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        //        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-        //        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-        //
-        [toolbarPicker addSubview:bbitem];
-        //        [toolbarPicker addSubview:bbitem1];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
         
+        //formate datepicker
+        NSDateFormatter  *displayFormatter = [[NSDateFormatter alloc] init];
+        [displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+        [displayFormatter setDateFormat:@"MM/dd/yyyy"];
+        
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
+        
+        
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(DOBChanged:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+        if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:timePicker];
+        
+        [self.view addSubview:timeBackgroundView];
         
         
         
@@ -797,7 +921,7 @@ int intques;
     {
         [viewPickerview setHidden:NO];
         self.scrollview.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
+      //  [self.view setBackgroundColor:[UIColor grayColor]];
         
         if(IsIphone5)
         {
@@ -871,7 +995,9 @@ int intques;
     {
          [viewPickerview setHidden:NO];
         self.scrollview.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
+//        [self.view setBackgroundColor:[UIColor grayColor]];
+//       self.gender.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+//        [self.switchbtn setBackgroundColor:[UIColor grayColor]];
         
         [txtEmailAddress resignFirstResponder];
         [txtFname resignFirstResponder];
@@ -888,52 +1014,114 @@ int intques;
        
         
         // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        timePicker.backgroundColor = [UIColor whiteColor];
+//       dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+//        [dateFormatter setLocale:[NSLocale currentLocale]];
+////        timePicker.maximumDate = [NSDate date];
+//        
+//        NSDate *currentDate = [NSDate date];
+//        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+//        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+//        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", maxDate);
+//        
+//        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+//        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", minDate);
+//        [timePicker setMaximumDate:maxDate];
+//        [timePicker setMinimumDate:minDate];
+//
+//        
+//        //format datePicker mode. in this example time is used
+//        timePicker.datePickerMode = UIDatePickerModeDate;
+//        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+////
+////        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
+////        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+////        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
+////        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+////        
+//        [toolbarPicker addSubview:bbitem];
+////        [toolbarPicker addSubview:bbitem1];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:timePicker];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
         
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-       dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-//        timePicker.maximumDate = [NSDate date];
+        //date picker for ios8
+        NSDate *date;
+        date = [NSDate date];
         
+        
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        timePicker.hidden = NO;
+        
+        // set maximum date of datePicker to today's date
+        // set maximum date and minimum date of datePicker to today's date
         NSDate *currentDate = [NSDate date];
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setYear:-13]; // note that I'm setting it to -1
         NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        //NSLog(@"%@", maxDate);
-        
+                
         [offsetComponents setYear:-100]; // note that I'm setting it to -1
         NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
         //NSLog(@"%@", minDate);
         [timePicker setMaximumDate:maxDate];
         [timePicker setMinimumDate:minDate];
-
         
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-//
-//        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(250, 0, 60, 44)];
-//        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-//        //[bbitem1 setTitleColor:[UIColor colorWithHexString:@"#FE2E2E"] forState:UIControlStateNormal];
-//        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-//        
-        [toolbarPicker addSubview:bbitem];
-//        [toolbarPicker addSubview:bbitem1];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        
+        //formate datepicker
+        NSDateFormatter  *displayFormatter = [[NSDateFormatter alloc] init];
+        [displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+        [displayFormatter setDateFormat:@"MM/dd/yyyy"];
+        
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
+        
+        
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(DOBChanged:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+        if(IsIphone5)
+           timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+         timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+        
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:timePicker];
+        
+        [self.view addSubview:timeBackgroundView];
 
         
       
@@ -953,8 +1141,8 @@ int intques;
     else if(textField == txtDateOfBirth)
     {
          [viewPickerview setHidden:NO];
-        self.scrollview.userInteractionEnabled = NO ;
-        [self.view setBackgroundColor:[UIColor grayColor]];
+//        self.scrollview.userInteractionEnabled = NO ;
+//        [self.view setBackgroundColor:[UIColor grayColor]];
        if(IsIphone5)
        {
         [self.txtDateOfBirth endEditing:YES];
@@ -1058,47 +1246,108 @@ int intques;
     if(textField.tag == 3)
     {
         // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        //        timePicker.maximumDate = [NSDate date];
-        
-        NSDate *currentDate = [NSDate date];
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-        [offsetComponents setYear:-13]; // note that I'm setting it to -1
-        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        //NSLog(@"%@", maxDate);
-        
-        [offsetComponents setYear:-100]; // note that I'm setting it to -1
-        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
-        //NSLog(@"%@", minDate);
-        [timePicker setMaximumDate:maxDate];
-        [timePicker setMinimumDate:minDate];
-        
-        
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
-        
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        timePicker.backgroundColor = [UIColor whiteColor];
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+//        [dateFormatter setLocale:[NSLocale currentLocale]];
+//        //        timePicker.maximumDate = [NSDate date];
+//        
+//        NSDate *currentDate = [NSDate date];
+//        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+//        [offsetComponents setYear:-13]; // note that I'm setting it to -1
+//        NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", maxDate);
+//        
+//        [offsetComponents setYear:-100]; // note that I'm setting it to -1
+//        NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+//        //NSLog(@"%@", minDate);
+//        [timePicker setMaximumDate:maxDate];
+//        [timePicker setMinimumDate:minDate];
+//        
+//        
+//        //format datePicker mode. in this example time is used
+//        timePicker.datePickerMode = UIDatePickerModeDate;
+//        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+//
+//        [toolbarPicker addSubview:bbitem];
+//       
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:timePicker];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
 
-        [toolbarPicker addSubview:bbitem];
-       
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
+    //datepicker for ios8
+        NSDate *date;
+        date = [NSDate date];
+        
+        
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        timePicker.hidden = NO;
+        
+        // set maximum date and minimum date of datePicker to today's date
+        NSDate *currentDate = [NSDate date];
+                NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+                [offsetComponents setYear:-13]; // note that I'm setting it to -1
+                NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+                //NSLog(@"%@", maxDate);
+        
+                [offsetComponents setYear:-100]; // note that I'm setting it to -1
+                NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:currentDate options:0];
+                //NSLog(@"%@", minDate);
+                [timePicker setMaximumDate:maxDate];
+                [timePicker setMinimumDate:minDate];
+        
+        //formate datepicker
+        NSDateFormatter  *displayFormatter = [[NSDateFormatter alloc] init];
+        [displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+        [displayFormatter setDateFormat:@"MM/dd/yyyy"];
+        
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
+        
+        
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(DOBChanged:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+        if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:timePicker];
+        
+        [self.view addSubview:timeBackgroundView];
+
     }
 
     return YES;
@@ -1293,17 +1542,17 @@ int intques;
     [param setValue:OS_VERSION forKey:@"os"];
     [param setValue:MAKE forKey:@"make"];
     [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
-    //NSLog(@"param : %@",param);
+    NSLog(@"param : %@",param);
    // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
      NSString *url = [NSString stringWithFormat:@"%@register.php", SERVERNAME];
-    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        
+//    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        
+//    }
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+  [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
@@ -1337,7 +1586,7 @@ int intques;
             [UAPush shared].alias = yourAlias;
             [[UAPush shared] setPushEnabled:YES];
             //End of Urban Airship Set up
-            
+            appDelegate.Time = [NSDate date];
             HomePageVC *vc = [[HomePageVC alloc]init];
             appDelegate.intReg = 1;
             [self.navigationController pushViewController:vc animated:YES];

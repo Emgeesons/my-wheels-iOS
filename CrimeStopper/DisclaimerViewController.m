@@ -8,6 +8,8 @@
 
 #import "DisclaimerViewController.h"
 #import "LoginVC.h"
+#import "APPViewController.h"
+
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface DisclaimerViewController ()
@@ -69,7 +71,8 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     LoginVC *vc = [[LoginVC alloc]init];
-//    [self presentViewController:vc animated:YES completion:nil];
-     [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
+//    APPViewController *vc = [[APPViewController alloc]init];
+//     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

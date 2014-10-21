@@ -17,6 +17,8 @@
 @interface AddVehiclesVC ()
 {
     AppDelegate *appdelegate;
+    UIView *timeBackgroundView;
+    UIView *timeBackgroundView1;
 }
 @end
 
@@ -180,7 +182,7 @@ NSString *strBody;
         if([strvehivcle isEqualToString:@"Bicycle"] )
         {
             
-            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 ||  (_txtMake.text.length == 0 && _txtModel.text.length == 0))
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0)
             {
                 if(_txtVehicleType.text.length == 0)
                 {
@@ -191,37 +193,19 @@ NSString *strBody;
                     [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                 }
                
-                if (_txtMake.text.length == 0)
-                {
-                    [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-                }
-                if (_txtModel.text.length == 0)
-                {
-                    [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-                }
             }
             else
             {
-                if(_txtRegistrationNo.text.length > 13)
+                if ( _txtModel.text.length < 1 && _txtMake.text.length < 1)
                 {
-                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
-                }
-                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
-                {
-                    [_txtEngineNo setTextColor:[UIColor redColor]];
-                }
-                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
-                {
-                    [_txtChassisNo setTextColor:[UIColor redColor]];
-                }
-                else if ( _txtColor.text.length <3)
-                {
-                    [_txtColor setTextColor:[UIColor redColor]];
-                }
-                else if ( _txtModel.text.length < 1 && _txtMake.text.length < 1)
-                {
-                    [_txtModel setTextColor:[UIColor redColor]];
-                    [_txtMake setTextColor:[UIColor redColor]];
+//                    [_txtModel setTextColor:[UIColor redColor]];
+//                    [_txtMake setTextColor:[UIColor redColor]];
+                    UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                        message:@"Please enter either make or model."
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil, nil];
+                    [CheckAlert show];
                 }
                 else
                 {
@@ -233,7 +217,7 @@ NSString *strBody;
        else if([strvehivcle isEqualToString:@"Car"] )
         {
             
-            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 || _txtBodyType.text.length == 0 || _txtRegistrationNo.text.length == 0 || _txtstate.text.length == 0)
+            if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtMake.text.length == 0 || _txtModel.text.length == 0 || _txtRegistrationNo.text.length == 0 || _txtstate.text.length == 0)
             {
                 if(_txtVehicleType.text.length == 0)
                 {
@@ -251,10 +235,10 @@ NSString *strBody;
                 {
                     [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                 }
-                if (_txtBodyType.text.length == 0)
-                {
-                    [_txtBodyType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-                }
+//                if (_txtBodyType.text.length == 0)
+//                {
+//                    [_txtBodyType setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//                }
                 if (_txtRegistrationNo.text.length == 0)
                 {
                     [_txtRegistrationNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -266,34 +250,7 @@ NSString *strBody;
             }
             else
             {
-                if(_txtRegistrationNo.text.length > 10)
-                {
-                    [_txtRegistrationNo setTextColor:[UIColor redColor]];
-                }
-                else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
-                {
-                    [_txtEngineNo setTextColor:[UIColor redColor]];
-                }
-                else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
-                {
-                    [_txtChassisNo setTextColor:[UIColor redColor]];
-                }
-                else if ( _txtColor.text.length <3)
-                {
-                    [_txtColor setTextColor:[UIColor redColor]];
-                }
-                else if ( _txtMake.text.length <2)
-                {
-                    [_txtMake setTextColor:[UIColor redColor]];
-                }
-                else if (_txtstate.text.length > 3)
-                {
-                    [_txtstate setTextColor:[UIColor redColor]];
-                }
-                else
-                {
-                    [self Callapi];
-                }
+                 [self Callapi];
             }
         }
         // for moter cycle
@@ -329,35 +286,8 @@ NSString *strBody;
            }
            else
            {
-               if(_txtRegistrationNo.text.length > 10)
-               {
-                   [_txtRegistrationNo setTextColor:[UIColor redColor]];
-               }
-               else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
-               {
-                   [_txtEngineNo setTextColor:[UIColor redColor]];
-               }
-               else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
-               {
-                   [_txtChassisNo setTextColor:[UIColor redColor]];
-               }
+               [self Callapi];
 
-               else if ( _txtColor.text.length <3)
-               {
-                   [_txtColor setTextColor:[UIColor redColor]];
-               }
-               else if ( _txtMake.text.length <2)
-               {
-                   [_txtMake setTextColor:[UIColor redColor]];
-               }
-               else if (_txtstate.text.length >3)
-               {
-                   [_txtstate setTextColor:[UIColor redColor]];
-               }
-               else
-               {
-                   [self Callapi];
-               }
            }
        }
         
@@ -368,7 +298,7 @@ NSString *strBody;
        else if([strvehivcle isEqualToString:@"Other"] )
        {
            
-           if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtOtherVehicle.text.length == 0 ||  (_txtMake.text.length == 0 && _txtModel.text.length == 0))
+           if(_txtVehicleType.text.length == 0 || _txtColor.text.length == 0 || _txtOtherVehicle.text.length == 0)
            {
                if(_txtVehicleType.text.length == 0)
                {
@@ -378,15 +308,6 @@ NSString *strBody;
                {
                    [_txtColor setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
                }
-             
-               if (_txtMake.text.length == 0)
-               {
-                   [_txtMake setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-               }
-               if (_txtModel.text.length == 0)
-               {
-                   [_txtModel setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-               }
                if (_txtOtherVehicle.text.length == 0)
                {
                    [_txtOtherVehicle setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -394,28 +315,17 @@ NSString *strBody;
            }
            else
            {
-               if(_txtRegistrationNo.text.length > 13)
+               if ( _txtModel.text.length < 1 && _txtMake.text.length < 1)
                {
-                   [_txtRegistrationNo setTextColor:[UIColor redColor]];
+                   //                    [_txtModel setTextColor:[UIColor redColor]];
+                   //                    [_txtMake setTextColor:[UIColor redColor]];
+                   UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                       message:@"Please enter either make or model."
+                                                                      delegate:self
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil, nil];
+                   [CheckAlert show];
                }
-               else if (_txtEngineNo.text.length!=0 && _txtEngineNo.text.length < 13)
-               {
-                   [_txtEngineNo setTextColor:[UIColor redColor]];
-               }
-               else if (_txtChassisNo.text.length !=0 && _txtChassisNo.text.length < 17)
-               {
-                   [_txtChassisNo setTextColor:[UIColor redColor]];
-               }
-
-               else if (_txtstate.text.length > 3)
-               {
-                   [_txtstate setTextColor:[UIColor redColor]];
-               }
-               else if ( _txtColor.text.length <3)
-               {
-                   [_txtColor setTextColor:[UIColor redColor]];
-               }
-               
                else
                {
                    [self Callapi];
@@ -460,11 +370,11 @@ NSString *strBody;
     _txtOtherVehicle.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _txtOtherVehicle.placeholder = @"specify Vehicle Type *";
         _txtstate.placeholder = @"state";
-        _txtRegistrationNo.placeholder = @"registration  (max 13 chars)";
-        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
-        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
-        _txtMake.placeholder = @"make* ";
-        _txtModel.placeholder = @"model* ";
+        _txtRegistrationNo.placeholder = @"registration no / serial no";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
+        _txtMake.placeholder = @"make *";
+        _txtModel.placeholder = @"model *";
         _txtColor.placeholder = @"colour *";
     _txtOtherVehicle.tag = 0;
     _txtOtherVehicle.delegate = self;
@@ -502,9 +412,9 @@ NSString *strBody;
         [_txtstate setHidden:YES];
         [_txtBodyType setHidden:YES];
         [_txtOtherVehicle setHidden:YES];
-        _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
-        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
-        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+        _txtRegistrationNo.placeholder = @"serial no";
+        _txtEngineNo.placeholder = @"serial no 2";
+        _txtChassisNo.placeholder = @"e-bike battery no";
         _txtMake.placeholder = @"make *";
         _txtModel.placeholder = @"model *";
         
@@ -543,8 +453,8 @@ NSString *strBody;
         _txtChassisNo.frame = CGRectMake(9, 260, 301, 30);
         _txtColor.frame = CGRectMake(9, 300, 301, 30);
         _txtAccessories.frame = CGRectMake(9, 340, 301, 30);
-        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
-        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
         _txtMake.tag = 1;
         _txtModel.tag = 2;
         _txtBodyType.tag = 3;
@@ -560,9 +470,9 @@ NSString *strBody;
         [_txtBodyType setHidden:YES];
         [_txtstate setHidden:NO];
         [_txtOtherVehicle setHidden:YES];
-        _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
-        _txtEngineNo.placeholder = @"engine no (min 13 chars)";
-        _txtChassisNo.placeholder = @"VIN / chassis no (min 17 chars)";
+        _txtRegistrationNo.placeholder = @"registration no *";
+        _txtEngineNo.placeholder = @"engine no";
+        _txtChassisNo.placeholder = @"VIN / chassis no";
         _txtMake.frame = CGRectMake(9, 60, 150, 30);
         _txtModel.frame = CGRectMake(161, 60, 150, 30);
         _txtRegistrationNo.frame = CGRectMake(9,100, 301, 30);
@@ -582,7 +492,7 @@ NSString *strBody;
         
     }
 
-    [self cancelClicked];
+    [self cancelClicked1];
 }
 -(void)doneBody_click:(id)sender
 {
@@ -596,8 +506,11 @@ NSString *strBody;
     [self cancelClicked];
     
 }
+-(void)cancelClicked1 {
+    [timeBackgroundView setHidden:YES];
+}
 -(void)cancelClicked {
-    [sheet dismissWithClickedButtonIndex:0 animated:YES];
+     [timeBackgroundView1 setHidden:YES];
 }
 
 
@@ -684,52 +597,144 @@ NSString *strBody;
     [textField setTextColor:[UIColor blackColor]];
     activeTextField=textField;
     [textField selectAll:self];
+    if(textField == _txtRegistrationNo)
+    {
+//        _txtRegistrationNo.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         _txtRegistrationNo.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    }
+    if(textField == _txtstate)
+    {
+         _txtstate.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    }
+    
     if(textField == _txtVehicleType)
     {
         [_pkvVehicleType setHidden:NO];
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        _pkvVehicleType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        [_pkvVehicleType setDelegate:self];
+//        _pkvVehicleType.backgroundColor = [UIColor whiteColor];
+//        
+//        //format datePicker mode. in this example time is used
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(done_click:) forControlEvents:UIControlEventTouchUpInside];
+//        [toolbarPicker addSubview:bbitem];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:_pkvVehicleType];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
         
-        _pkvVehicleType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        //picker view for ios8
+        [textField resignFirstResponder];
+        _pkvVehicleType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44, 0.0, 0.0)];
         [_pkvVehicleType setDelegate:self];
         _pkvVehicleType.backgroundColor = [UIColor whiteColor];
         
-        //format datePicker mode. in this example time is used
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(done_click:) forControlEvents:UIControlEventTouchUpInside];
-        [toolbarPicker addSubview:bbitem];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:_pkvVehicleType];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done_click:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+     //   timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        [self.view addSubview:timeBackgroundView]; if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:_pkvVehicleType];
+        
+        [self.view addSubview:timeBackgroundView];
+        
+        
     }
     if(textField == _txtBodyType)
     {
+         [textField resignFirstResponder];
         [_pkvBodyType setHidden:NO];
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        _pkvBodyType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        [_pkvBodyType setDelegate:self];
+//        _pkvBodyType.backgroundColor = [UIColor whiteColor];
+//        
+//        //format datePicker mode. in this example time is used
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(doneBody_click:) forControlEvents:UIControlEventTouchUpInside];
+//        [toolbarPicker addSubview:bbitem];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:_pkvBodyType];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
+//        [textField resignFirstResponder];
+        
+        //picker view for ios8
+       
+        [_txtModel resignFirstResponder];
+        [_txtMake resignFirstResponder];
         
         _pkvBodyType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
         [_pkvBodyType setDelegate:self];
         _pkvBodyType.backgroundColor = [UIColor whiteColor];
         
-        //format datePicker mode. in this example time is used
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(doneBody_click:) forControlEvents:UIControlEventTouchUpInside];
-        [toolbarPicker addSubview:bbitem];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:_pkvBodyType];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
-        [textField resignFirstResponder];
+        
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneBody_click:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+     //   timeBackgroundView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        [self.view addSubview:timeBackgroundView]; if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+        [timeBackgroundView1 setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView1 addSubview:pickerToolbar];
+        [timeBackgroundView1 addSubview:_pkvBodyType];
+        
+        [self.view addSubview:timeBackgroundView1];
+        
+
     }
     int y=0;
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
@@ -740,10 +745,12 @@ NSString *strBody;
     if(textField == _txtEngineNo)
     {
         y=170;
+        _txtEngineNo.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
     if(textField == _txtChassisNo)
     {
         y=200;
+        _txtChassisNo.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
     if(textField == _txtColor)
     {
@@ -786,14 +793,14 @@ NSString *strBody;
     [activeTextField resignFirstResponder];
     if([_txtVehicleType.text isEqualToString: @"Bicycle"])
     {
-        _txtRegistrationNo.placeholder = @"serial no (max 13 chars)";
+        _txtRegistrationNo.placeholder = @"serial no ";
 
     }else if([_txtVehicleType.text isEqualToString: @"Other"])
     {
-        _txtRegistrationNo.placeholder = @"registration no (max 10 chars)";
+        _txtRegistrationNo.placeholder = @"registration no ";
         
     }else{
-        _txtRegistrationNo.placeholder = @"registration no * (max 10 chars)";
+        _txtRegistrationNo.placeholder = @"registration no * ";
     }
     
 }
@@ -822,6 +829,7 @@ NSString *strBody;
     }
     else
     {
+        
         _txtMake.tag = 1;
         _txtModel.tag = 2;
         _txtBodyType.tag = 3;
@@ -831,6 +839,12 @@ NSString *strBody;
         _txtChassisNo.tag = 7;
         _txtColor.tag = 8;
         _txtAccessories.tag = 9;
+        if(_txtBodyType.tag == 3)
+        {
+            [_txtMake resignFirstResponder];
+            [_txtModel resignFirstResponder];
+            [_txtBodyType resignFirstResponder];
+        }
     }
         
     NSInteger nextTag = activeTextField.tag + 1;
@@ -869,6 +883,18 @@ NSString *strBody;
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
     
+    NSString *regno = [_txtRegistrationNo.text uppercaseString];
+    NSLog(@"reg no : %@",regno);
+    
+    NSString *state = [_txtstate.text uppercaseString];
+    NSLog(@"state : %@",state);
+    
+    NSString *engine = [_txtEngineNo.text uppercaseString];
+    NSLog(@"engine : %@",engine);
+    
+    NSString *vin = [_txtChassisNo.text uppercaseString];
+    NSLog(@"engine : %@",vin);
+    
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:UserID forKey:@"userId"];
     [param setValue:pin forKey:@"pin"];
@@ -885,9 +911,9 @@ NSString *strBody;
     [param setValue:_txtMake.text forKey:@"vehicleMake"];
     [param setValue:_txtModel.text forKey:@"vehicleModel"];
     [param setValue:strBody forKey:@"vehicleBodyType"];
-    [param setValue:_txtRegistrationNo.text forKey:@"registrationSerialNo"];
-    [param setValue:_txtEngineNo.text forKey:@"engineNo"];
-    [param setValue:_txtChassisNo.text forKey:@"vinChassisNo"];
+    [param setValue:regno forKey:@"registrationSerialNo"];
+    [param setValue:engine forKey:@"engineNo"];
+    [param setValue:vin forKey:@"vinChassisNo"];
     [param setValue:_txtColor.text forKey:@"colour"];
     [param setValue:_txtAccessories.text forKey:@"uniqueFeatures"];
     [param setValue:_txtstate.text forKey:@"state"];
@@ -897,12 +923,15 @@ NSString *strBody;
     
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+   // manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSString *url = [NSString stringWithFormat:@"%@addVehicle.php", SERVERNAME];
     
-    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    //
+    //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //
+    [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
         
         
         ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);

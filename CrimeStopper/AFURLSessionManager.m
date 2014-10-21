@@ -94,7 +94,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 #pragma mark -
 
 @interface AFURLSessionManagerTaskDelegate : NSObject <NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
-@property (nonatomic, strong) AFURLSessionManager *manager;
+@property (nonatomic, weak) AFURLSessionManager *manager;
 @property (nonatomic, strong) id <AFURLResponseSerialization> responseSerializer;
 @property (nonatomic, strong) NSMutableData *mutableData;
 @property (nonatomic, strong) NSProgress *uploadProgress;

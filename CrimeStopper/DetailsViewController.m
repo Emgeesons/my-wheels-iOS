@@ -151,7 +151,7 @@
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+   // manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -174,8 +174,12 @@
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdatesDetails.php", SERVERNAME];
     
-    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    //
+    //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
         ////NSLog(@"Details ==> %@", responseObject);
         
         // Stop Animating activityIndicator

@@ -203,6 +203,7 @@ UINavigationController *nav;
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    Time = [NSDate date];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -213,27 +214,14 @@ UINavigationController *nav;
     //NSLog(@"app Time :%@",Time);*/
     
     // compare time
+    NSLog(@"date : %@",Time);
     NSTimeInterval timeDifference = [[NSDate date] timeIntervalSinceDate:Time];
-    
+     NSLog(@" timeDifference = %.0f",  timeDifference);
     double minutes = timeDifference / 60;
-    double hours = minutes / 60;
-    double seconds = timeDifference;
-    double days = minutes / 1440;
+   NSLog(@" minutes = %.0f",  minutes);
     
     ////NSLog(@" days = %.0f,hours = %.2f, minutes = %.0f,seconds = %.0f", days, hours, minutes, seconds);
-    
-   
-    
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss +GMT"];
-
-    NSDate *date = [dateFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"Time"]];
-    ////NSLog(@"date : %@",date);
-    
-    
-    
-     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+         NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     if(UserID == nil || UserID == (id)[NSNull null] || [UserID isEqualToString:@""])// This is for guest user
     {
         LoginVC *vc = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
@@ -241,7 +229,7 @@ UINavigationController *nav;
     }
     else if (minutes < 15)
     {
-        //do nothing
+        
     }
     else
     {
@@ -249,9 +237,8 @@ UINavigationController *nav;
         [nav pushViewController:vc animated:YES];
     }
     
-        
-        
-      
+
+    
 }
 
 

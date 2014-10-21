@@ -148,12 +148,14 @@
 //        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+      //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
         NSString *url = [NSString stringWithFormat:@"%@getParkingTips.php", SERVERNAME];
-        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            //NSLog(@"url : %@",manager);
-        }
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //
+        //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //
+        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
                   NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                              //NSLog(@"data : %@",jsonDictionary);
                   //

@@ -640,14 +640,16 @@ int intques;
     
     //NSLog(@"param : %@",param);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+   // manager.requestSerializer = [AFJSONRequestSerializer serializer];
      NSString *url = [NSString stringWithFormat:@"%@fbCompleteRegistration.php", SERVERNAME];
     
-    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
+    //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    //
+    //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //
+    [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
               
               //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
               
@@ -676,7 +678,7 @@ int intques;
                   [UAPush shared].alias = yourAlias;
                   [[UAPush shared] setPushEnabled:YES];
                   //End of Urban Airship Set up
-                  
+                  appdelegate.Time = [NSDate date];
                   HomePageVC *vc = [[HomePageVC alloc]init];
                   appdelegate.intReg = 1;
                   [self.navigationController pushViewController:vc animated:YES];

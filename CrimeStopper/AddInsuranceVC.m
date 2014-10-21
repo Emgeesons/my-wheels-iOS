@@ -16,6 +16,7 @@
 @interface AddInsuranceVC ()
 {
     AppDelegate *appdelegate;
+    UIView *timeBackgroundView;
     
 }
 @end
@@ -318,7 +319,7 @@ NSString *strDate;
 
 
 -(void)cancelClicked {
-    [sheet dismissWithClickedButtonIndex:0 animated:YES];
+    [timeBackgroundView setHidden:YES];
 }
 -(IBAction)btnAdd_click:(id)sender
 {
@@ -341,7 +342,7 @@ NSString *strDate;
         
         
         
-        if (_txtCompanyName.text.length==0 || _txtPhoneNo.text.length==0 || _txtPolicyNo.text.length==0 )
+        if (_txtCompanyName.text.length==0 || _txtPhoneNo.text.length==0)
         {
             if (_txtCompanyName.text.length == 0)
             {
@@ -351,22 +352,22 @@ NSString *strDate;
             {
                 [_txtPhoneNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
             }
-            if (_txtPolicyNo.text.length == 0)
-            {
-                [_txtPolicyNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-            }
+//            if (_txtPolicyNo.text.length == 0)
+//            {
+//                [_txtPolicyNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//            }
             
             
             
         }
-        else if (_txtPolicyNo.text.length>0 && _txtPolicyNo.text.length <3)
-        {
-            [_txtPolicyNo setTextColor:[UIColor redColor]];
-        }
-        else if (_txtPolicyNo.text.length == 0)
-        {
-            [_txtPolicyNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
-        }
+//        else if (_txtPolicyNo.text.length>0 && _txtPolicyNo.text.length <3)
+//        {
+//            [_txtPolicyNo setTextColor:[UIColor redColor]];
+//        }
+//        else if (_txtPolicyNo.text.length == 0)
+//        {
+//            [_txtPolicyNo setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//        }
         else if (_txtCompanyName.text.length == 0)
         {
             [_txtCompanyName setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -422,13 +423,15 @@ NSString *strDate;
             
             // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+          //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
             
              NSString *url = [NSString stringWithFormat:@"%@addVehicleInsurance.php", SERVERNAME];
-            
-            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                
-            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            //
+            //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //
+            [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+             {
                 
                 
                 ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
@@ -477,6 +480,14 @@ NSString *strDate;
 - (IBAction)btnNext_Click:(id)sender
 {
     NSInteger nextTag = activeTextField.tag + 1;
+    if(nextTag == 5)
+    {
+        [_txtCompanyName resignFirstResponder];
+        [_txtExpiry resignFirstResponder];
+        [_txtOtherInsurance resignFirstResponder];
+        [_txtPhoneNo resignFirstResponder];
+        [_txtPolicyNo resignFirstResponder];
+    }
     // Try to find next responder
     UIResponder* nextResponder = [activeTextField.superview viewWithTag:nextTag];
     if (nextResponder) {
@@ -532,54 +543,145 @@ NSString *strDate;
     if(textField == _txtCompanyName)
     {
         [_pkvInsurance setHidden:NO];
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        _pkvInsurance = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        [_pkvInsurance setDelegate:self];
+//        _pkvInsurance.backgroundColor = [UIColor whiteColor];
+//        
+//        //format datePicker mode. in this example time is used
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor grayColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(done_click:) forControlEvents:UIControlEventTouchUpInside];
+//        [toolbarPicker addSubview:bbitem];
+//        [sheet addSubview:toolbarPicker];
+//        [sheet addSubview:_pkvInsurance];
+//        [sheet showInView:self.view];
+//        [sheet setBounds:CGRectMake(0,0,320, 464)];
         
+        //add picker view in ios8 for insurance
+        [textField resignFirstResponder];
         _pkvInsurance = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
         [_pkvInsurance setDelegate:self];
         _pkvInsurance.backgroundColor = [UIColor whiteColor];
         
-        //format datePicker mode. in this example time is used
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(done_click:) forControlEvents:UIControlEventTouchUpInside];
-        [toolbarPicker addSubview:bbitem];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:_pkvInsurance];
-        [sheet showInView:self.view];
-        [sheet setBounds:CGRectMake(0,0,320, 464)];
+        
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done_click:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+        if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:_pkvInsurance];
+        
+        [self.view addSubview:timeBackgroundView];
+
     }
     if(textField == _txtExpiry)
     {
         // Open DatePicker when age textfield is clicked
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        _txtExpiry.text = @"";
+        //        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        //
+        //        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        //        timePicker.backgroundColor = [UIColor whiteColor];
+        //        dateFormatter = [[NSDateFormatter alloc] init];
+        //        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        //        [dateFormatter setLocale:[NSLocale currentLocale]];
+        //        timePicker.minimumDate = [NSDate date];
+        //
+        //
+        //        //format datePicker mode. in this example time is used
+        //        timePicker.datePickerMode = UIDatePickerModeDate;
+        //        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        //        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        //        toolbarPicker.backgroundColor = [UIColor grayColor];
+        //        [toolbarPicker sizeToFit];
+        //
+        //        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        //        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+        //        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
+        //        [toolbarPicker addSubview:bbitem];
+        //        [sheet addSubview:toolbarPicker];
+        //        [sheet addSubview:toolbarPicker];
+        //        [sheet addSubview:timePicker];
+        //        [sheet showInView:self.view];
         
-        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        timePicker.backgroundColor = [UIColor whiteColor];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setLocale:[NSLocale currentLocale]];
+        
+        //datepickerview for ios8
+        //date picker for ios8
+        NSDate *date;
+        date = [NSDate date];
+        
+        
+        
+        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+        timePicker.datePickerMode = UIDatePickerModeDate;
+        timePicker.hidden = NO;
+        
+        
+        
+        //formate datepicker
+        NSDateFormatter  *displayFormatter = [[NSDateFormatter alloc] init];
+        [displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+        [displayFormatter setDateFormat:@"MM/dd/yyyy"];
+        [displayFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [displayFormatter setLocale:[NSLocale currentLocale]];
         timePicker.minimumDate = [NSDate date];
         
+        // Create toolbar kind of view using UIView for placing Done and cancel button
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
         
-        //format datePicker mode. in this example time is used
-        timePicker.datePickerMode = UIDatePickerModeDate;
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor grayColor];
-        [toolbarPicker sizeToFit];
         
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(DOBChanged:) forControlEvents:UIControlEventTouchUpInside];
-        [toolbarPicker addSubview:bbitem];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:toolbarPicker];
-        [sheet addSubview:timePicker];
-        [sheet showInView:self.view];
+        
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(DOBChanged:)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+        [self.view addSubview:timeBackgroundView]; if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:timePicker];
+        
+        [self.view addSubview:timeBackgroundView];
+        
         
         NSDate *sevenDaysAgo = [timePicker.date dateByAddingTimeInterval:-7*24*60*60];
         [sheet setBounds:CGRectMake(0,0,320, 464)];
@@ -588,7 +690,7 @@ NSString *strDate;
         NSString *str = [@"Insurance for " stringByAppendingString:_strmake];
         NSString *str1 = [str stringByAppendingString:@" "];
         NSString *str2= [str1 stringByAppendingString:_strModel];
-        NSString *str3 = [str2 stringByAppendingString:@" expires in a week"];
+        NSString *str3 = [str2 stringByAppendingString:@" is expire for service in a week"];
         
         localNotification.alertBody = str3;
         localNotification.alertAction = @"Reminder";

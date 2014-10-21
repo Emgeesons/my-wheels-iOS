@@ -192,15 +192,17 @@
     ////NSLog(@"param : %@",param);
     // [obj callAPI_POST:@"register.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+   // manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
      NSString *url = [NSString stringWithFormat:@"%@verifyPin.php", SERVERNAME];
     
-    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
+        //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //
+        //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //
+        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+  
               
               ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
               

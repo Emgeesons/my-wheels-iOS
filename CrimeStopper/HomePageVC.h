@@ -13,7 +13,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface HomePageVC : UIViewController <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,MKAnnotation>
+@interface HomePageVC : UIViewController <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,MKAnnotation,MKMapViewDelegate,CLLocationManagerDelegate>
 {
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
@@ -47,7 +47,7 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgUpdates;
 @property (nonatomic,retain)IBOutlet UILabel *lblGray1,*lblGray2;
 @property (nonatomic,retain) IBOutlet UILabel *lblmainText,*lblSubText,*lblmainText1,*lblSubText1,*lblmainText2,*lblSubText2;
-
+@property(nonatomic, retain) CLLocationManager *locationManager;
 
 - (IBAction)tapDetected:(UITapGestureRecognizer *)sender;
 -(IBAction)btnLocation_click:(id)sender;

@@ -30,6 +30,8 @@ NSString *photo1,*photo2,*photo3;
 NSString *insuranceCompanyName;
 NSString *phoneNo;
 NSInteger intImage;
+NSData *imageData;
+
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -103,14 +105,16 @@ NSInteger intImage;
         [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+ //   manager.requestSerializer = [AFJSONRequestSerializer serializer];
             NSString *url = [NSString stringWithFormat:@"%@getVehicleProfile.php", SERVERNAME];
             
-            [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                //NSLog(@"url : %@",manager);
-            }
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      
+        //    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //
+        //    }
+        //          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
                       
                       //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                       
@@ -422,8 +426,12 @@ NSInteger intImage;
                           _viewButton.frame = CGRectMake(0, 487, 320, 58);
 
                       }
+            NSLog(@"finish");
                       
-                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  }
+         
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  NSLog(@"error --- >%@",error);
                         [SVProgressHUD dismiss];
                       UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                                           message:@"Something went wrong. Please try again."
@@ -545,7 +553,7 @@ NSInteger intImage;
     CGFloat maxCompression = 0.1f;
     int maxFileSize = 250*1024;
     
-    NSData *imageData = UIImageJPEGRepresentation(image, compression);
+   imageData = UIImageJPEGRepresentation(image, compression);
     
     while ([imageData length] > maxFileSize && compression > maxCompression)
     {
@@ -554,147 +562,356 @@ NSInteger intImage;
     }
 
     
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//  //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    
+//    /*userId
+//     vehicleId
+//     position
+//     noPhotos (already existing)
+//     noVehicles
+//     os
+//     make
+//     model
+//*/
+//    
+//   // NSData *imageData = UIImagePNGRepresentation(image);
+//    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+//    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
+//    NSString *strcount = [NSString stringWithFormat:@"%d", [_arrVehiclesCount count]];
+//    NSString *strPostion = [NSString stringWithFormat:@"%d", _intPosition];
+//    NSString *strNoPhoto = [NSString stringWithFormat:@"%d", _intNoPhoto];
+//    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
+//    
+//    [param setValue:UserID forKey:@"userId"];
+//    [param setValue:appDelegate.strVehicleId forKey:@"vehicleId"];
+//    [param setValue:strcount forKey:@"noVehicles"];
+//    [param setValue:strPostion forKey:@"position"];
+//    [param setValue:strNoPhoto forKey:@"noPhotos"];
+//    [param setValue:pin forKey:@"pin"];
+//    [param setValue:OS_VERSION forKey:@"os"];
+//    [param setValue:MAKE forKey:@"make"];
+//    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
+//     NSString *url = [NSString stringWithFormat:@"%@uploadVehiclePic.php", SERVERNAME];
+//    
+//    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        //do not put image inside parameters dictionary as I did, but append it!
+//        [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
+//        
+////        NSString *imgName = @"imge";
+////        NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:savedImagePath1]];
+//  //      [formData appendPartWithFileData:imgData name:imgName fileName:imgName mimeType:@"image/png"];
+//
+//    }
+//          success:^(AFHTTPRequestOperation *operation, id responseObject)
+//     {
+//         //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+//         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
+//         //NSLog(@"data : %@",jsonDictionary);
+//         
+//         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+//         //NSLog(@"message %@",EntityID);
+//         if ([EntityID isEqualToString:@"success"])
+//         {
+//             _lblStatus.text=[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_status"];
+//             if([_lblStatus.text isEqualToString:@""] || _lblStatus.text == nil || _lblStatus.text == (id)[NSNull null])
+//             {
+//                 [_imgStatus setHidden:YES];
+//             }
+//             if(_intPosition == 1)
+//             {
+//                
+//                 // store image in device
+//                 NSString *photo_url1 =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"]; ;
+//                 //NSLog(@"photo url :%@",photo_url1);
+//                 [[NSUserDefaults standardUserDefaults] setValue:photo_url1 forKey:@"photo_url"];
+//                
+//                 // Store the data
+//                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                 
+//                 [defaults setObject:imageData forKey:photo_url1];
+//                 [defaults synchronize];
+//                 
+//                _imgvehicle1.image = [UIImage imageWithData:imageData];
+//                 
+//                 _intNoPhoto = 1;
+//                 
+//             }
+//             else if(_intPosition == 2)
+//             {
+//                 // store image in device
+//                 NSString *photo_url2 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];;
+//                 //NSLog(@"photo url :%@",photo_url2);
+//                 [[NSUserDefaults standardUserDefaults] setValue:photo_url2 forKey:@"photo_url"];
+//                 
+//                 // Store the data
+//                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                 
+//                 [defaults setObject:imageData forKey:photo_url2];
+//                 [defaults synchronize];
+//                 
+//                 _imgvehicle2.image = [UIImage imageWithData:imageData];
+//                 _intNoPhoto = 2;
+//                 
+//             }
+//             else
+//             {
+//                 // store image in device
+//                 NSString *photo_url3 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+//                
+//                 //NSLog(@"photo url :%@",photo_url3);
+//                 [[NSUserDefaults standardUserDefaults] setValue:photo_url3 forKey:@"photo_url"];
+//                 
+//                 // Store the data
+//                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                 
+//                 [defaults setObject:imageData forKey:photo_url3];
+//                 [defaults synchronize];
+//                 
+//                 _imgvehicle3.image = [UIImage imageWithData:imageData];
+//                 _intNoPhoto = 3;
+//                 [_btnAddPhoto setHidden:YES];
+//                 
+//             }
+//
+//         }
+//         else
+//         {
+//             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+//                                                                 message:[jsonDictionary valueForKey:@"message"]
+//                                                                delegate:self
+//                                                       cancelButtonTitle:@"OK"
+//                                                       otherButtonTitles:nil, nil];
+//             [CheckAlert show];
+//
+//             //  UIImage *contactImage = [UIImage imageWithData:imageData];
+//             
+//             
+//             
+//             
+//         }
+//         
+//         [SVProgressHUD dismiss];
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+//     }];
+//    
+//    
+//    
+//    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+//    
+//    [picker dismissViewControllerAnimated:YES completion:NULL];
     
     /*userId
-     vehicleId
-     position
-     noPhotos (already existing)
-     noVehicles
-     os
-     make
-     model
-*/
+     //     vehicleId
+     //     position
+     //     noPhotos (already existing)
+     //     noVehicles
+     //     os
+     //     make
+     //     model
+     
+     strcount forKey:@"noVehicles"];
+     //    [param setValue:strPostion forKey:@"position"];
+     //    [param setValue:strNoPhoto */
     
-   // NSData *imageData = UIImagePNGRepresentation(image);
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    NSString *url = [NSString stringWithFormat:@"%@uploadVehiclePic.php", SERVERNAME];
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
     NSString *strcount = [NSString stringWithFormat:@"%d", [_arrVehiclesCount count]];
     NSString *strPostion = [NSString stringWithFormat:@"%d", _intPosition];
     NSString *strNoPhoto = [NSString stringWithFormat:@"%d", _intNoPhoto];
-    NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     
-    [param setValue:UserID forKey:@"userId"];
-    [param setValue:appDelegate.strVehicleId forKey:@"vehicleId"];
-    [param setValue:strcount forKey:@"noVehicles"];
-    [param setValue:strPostion forKey:@"position"];
-    [param setValue:strNoPhoto forKey:@"noPhotos"];
-    [param setValue:pin forKey:@"pin"];
-    [param setValue:OS_VERSION forKey:@"os"];
-    [param setValue:MAKE forKey:@"make"];
-    [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
-     NSString *url = [NSString stringWithFormat:@"%@uploadVehiclePic.php", SERVERNAME];
     
-    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        //do not put image inside parameters dictionary as I did, but append it!
-        [formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
+    
+    NSArray *keys = [[NSArray alloc]initWithObjects:@"userId", @"vehicleId", @"pin",@"os",@"make",@"model",@"position",@"noPhotos",@"noVehicles",nil];
+    
+    NSArray *values =[[NSArray alloc]initWithObjects:UserID,appDelegate.strVehicleId,pin,OS_VERSION,MAKE ,[DeviceInfo platformNiceString],strPostion,strNoPhoto,strcount, nil];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    NSURL *baseUrl = [NSURL URLWithString:url];
+    
+    NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    [request setURL:baseUrl];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *boundary = @"0xKhTmLbOuNdArY";
+    NSString *endBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n", boundary];
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; charset=%@; boundary=%@", charset, boundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *tempPostData = [NSMutableData data];
+    [tempPostData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    for(int i=0;i<keys.count;i++){
+        NSString *str = values[i];
+        NSString *key =keys[i];
+        NSLog(@"Key Value pair: %@-%@",key,str);
+        [tempPostData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
+        [tempPostData appendData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+        // [tempPostData appendData:[@"\r\n--%@\r\n",boundary dataUsingEncoding:NSUTF8StringEncoding]];
+        [tempPostData appendData:[endBoundary dataUsingEncoding:NSUTF8StringEncoding]];
         
-//        NSString *imgName = @"imge";
-//        NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:savedImagePath1]];
-  //      [formData appendPartWithFileData:imgData name:imgName fileName:imgName mimeType:@"image/png"];
-
     }
-          success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-         NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
-         //NSLog(@"data : %@",jsonDictionary);
-         
-         NSString *EntityID = [jsonDictionary valueForKey:@"status"];
-         //NSLog(@"message %@",EntityID);
-         if ([EntityID isEqualToString:@"success"])
-         {
-             _lblStatus.text=[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_status"];
-             if([_lblStatus.text isEqualToString:@""] || _lblStatus.text == nil || _lblStatus.text == (id)[NSNull null])
-             {
-                 [_imgStatus setHidden:YES];
-             }
-             if(_intPosition == 1)
-             {
-                
-                 // store image in device
-                 NSString *photo_url1 =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"]; ;
-                 //NSLog(@"photo url :%@",photo_url1);
-                 [[NSUserDefaults standardUserDefaults] setValue:photo_url1 forKey:@"photo_url"];
-                
-                 // Store the data
-                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                 
-                 [defaults setObject:imageData forKey:photo_url1];
-                 [defaults synchronize];
-                 
-                _imgvehicle1.image = [UIImage imageWithData:imageData];
-                 
-                 _intNoPhoto = 1;
-                 
-             }
-             else if(_intPosition == 2)
-             {
-                 // store image in device
-                 NSString *photo_url2 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];;
-                 //NSLog(@"photo url :%@",photo_url2);
-                 [[NSUserDefaults standardUserDefaults] setValue:photo_url2 forKey:@"photo_url"];
-                 
-                 // Store the data
-                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                 
-                 [defaults setObject:imageData forKey:photo_url2];
-                 [defaults synchronize];
-                 
-                 _imgvehicle2.image = [UIImage imageWithData:imageData];
-                 _intNoPhoto = 2;
-                 
-             }
-             else
-             {
-                 // store image in device
-                 NSString *photo_url3 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
-                
-                 //NSLog(@"photo url :%@",photo_url3);
-                 [[NSUserDefaults standardUserDefaults] setValue:photo_url3 forKey:@"photo_url"];
-                 
-                 // Store the data
-                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                 
-                 [defaults setObject:imageData forKey:photo_url3];
-                 [defaults synchronize];
-                 
-                 _imgvehicle3.image = [UIImage imageWithData:imageData];
-                 _intNoPhoto = 3;
-                 [_btnAddPhoto setHidden:YES];
-                 
-             }
-
-         }
-         else
-         {
-             UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
-                                                                 message:[jsonDictionary valueForKey:@"message"]
-                                                                delegate:self
-                                                       cancelButtonTitle:@"OK"
-                                                       otherButtonTitles:nil, nil];
-             [CheckAlert show];
-
-             //  UIImage *contactImage = [UIImage imageWithData:imageData];
-             
-             
-             
-             
-         }
-         
-         [SVProgressHUD dismiss];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-     }];
     
     
     
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    
+    
+    // image file to send as data using post method in nsurlconnection methods
+    [tempPostData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image\"; filename=\"%@\"\r\n", @"ProfilePic.png"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [tempPostData appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [tempPostData appendData:imageData];
+    
+    [tempPostData appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:tempPostData];
+    _receivedData = [NSMutableData dataWithCapacity: 0];
+    
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if( theConnection )
+    {
+        
+        NSLog(@"request uploading successful");
+        
+        
+    }
+    else
+    {
+        _receivedData = nil;
+        NSLog(@"theConnection is NULL");
+    }
+    
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
+#pragma mark nsurlconnection delegate methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    
+    [_receivedData setLength:0];
+    NSLog(@"responsse : %@",response);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    
+    [_receivedData appendData:data];
+    NSLog(@"receive data : %@",_receivedData);
+}
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSLog(@"connectionDidFinishLoading");
+    NSLog(@"Succeeded! Received %d bytes of data",[self.receivedData length]);
+    // NSString *strr = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
+    NSLog(@"data is: %@",self.receivedData);
+    
+    //NSDictionary *dict = [[NSDictionary alloc] initwithd]
+    
+    
+    // convert to JSON
+    
+    NSError *e = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: _receivedData options:NSJSONReadingMutableContainers error:&e];
+    
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingMutableLeaves error:nil];
+    //  NSLog(@"data -- %@",[dict objectForKey:@"data"]);
+    NSLog(@"data -- %@",jsonDictionary);
+    
+    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+    //NSLog(@"message %@",EntityID);
+    if ([EntityID isEqualToString:@"success"])
+    {
+        _lblStatus.text=[[[jsonDictionary valueForKey:@"response" ] objectAtIndex:0] valueForKey:@"vehicle_status"];
+                     if([_lblStatus.text isEqualToString:@""] || _lblStatus.text == nil || _lblStatus.text == (id)[NSNull null])
+                     {
+                         [_imgStatus setHidden:YES];
+                     }
+                     if(_intPosition == 1)
+                     {
+        
+                         // store image in device
+                         NSString *photo_url1 =  [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"]; ;
+                         //NSLog(@"photo url :%@",photo_url1);
+                         [[NSUserDefaults standardUserDefaults] setValue:photo_url1 forKey:@"photo_url"];
+        
+                         // Store the data
+                         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+                         [defaults setObject:imageData forKey:photo_url1];
+                         [defaults synchronize];
+        
+                        _imgvehicle1.image = [UIImage imageWithData:imageData];
+        
+                         _intNoPhoto = 1;
+        
+                     }
+                     else if(_intPosition == 2)
+                     {
+                         // store image in device
+                         NSString *photo_url2 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];;
+                         //NSLog(@"photo url :%@",photo_url2);
+                         [[NSUserDefaults standardUserDefaults] setValue:photo_url2 forKey:@"photo_url"];
+        
+                         // Store the data
+                         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+                         [defaults setObject:imageData forKey:photo_url2];
+                         [defaults synchronize];
+        
+                         _imgvehicle2.image = [UIImage imageWithData:imageData];
+                         _intNoPhoto = 2;
+        
+                     }
+                     else
+                     {
+                         // store image in device
+                         NSString *photo_url3 = [[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"photo_url"];
+        
+                         //NSLog(@"photo url :%@",photo_url3);
+                         [[NSUserDefaults standardUserDefaults] setValue:photo_url3 forKey:@"photo_url"];
+        
+                         // Store the data
+                         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+                         [defaults setObject:imageData forKey:photo_url3];
+                         [defaults synchronize];
+        
+                         _imgvehicle3.image = [UIImage imageWithData:imageData];
+                         _intNoPhoto = 3;
+                         [_btnAddPhoto setHidden:YES];
+        
+                     }
+        
+                 }
+                 else
+                 {
+                     UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                         message:[jsonDictionary valueForKey:@"message"]
+                                                                        delegate:self
+                                                               cancelButtonTitle:@"OK"
+                                                               otherButtonTitles:nil, nil];
+                     [CheckAlert show];
+        
+                     //  UIImage *contactImage = [UIImage imageWithData:imageData];
+                     
+                     
+                     
+                     
+                 }
+                 
+                 [SVProgressHUD dismiss];
+
+
+    if (!jsonArray) {
+        NSLog(@"Error parsing JSON: %@", e);
+    }
+}
+
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo: (void *)contextInfo
 {
     if (error != nil)
@@ -1004,15 +1221,15 @@ NSInteger intImage;
                 [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
                 
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                manager.requestSerializer = [AFJSONRequestSerializer serializer];
+              //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
                  NSString *url = [NSString stringWithFormat:@"%@deleteVehicle.php", SERVERNAME];
                 
-                [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    //NSLog(@"url : %@",manager);
-                }
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                          
-                          
+//                [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//                    //NSLog(@"url : %@",manager);
+//                }
+//                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                          
+                [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject){
                           //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                           
                           NSDictionary *jsonDictionary=(NSDictionary *)responseObject;

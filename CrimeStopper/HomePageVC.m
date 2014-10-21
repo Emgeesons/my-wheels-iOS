@@ -26,6 +26,8 @@
 #import "UAPush.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
 
 @interface HomePageVC ()
 {
@@ -157,10 +159,35 @@
     /// implementing map
     
     [ self.map.delegate self];
+    locationManager.delegate = self;
+    #ifdef __IPHONE_8_0
+    if(IS_OS_8_OR_LATER) {
+        // Use one or the other, not both. Depending on what you put in info.plist
+        [self.locationManager requestWhenInUseAuthorization];
+        [self.locationManager requestAlwaysAuthorization];
+    }
+    #endif
+    [self.locationManager startUpdatingLocation];
+    _map.showsUserLocation = YES;
+    [_map setMapType:MKMapTypeStandard];
+    [_map setZoomEnabled:YES];
+    [_map setScrollEnabled:YES];
+    
+    
     locationManager = [[CLLocationManager alloc] init];
-    locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
-    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
-    [locationManager startUpdatingLocation];
+    [locationManager requestWhenInUseAuthorization];
+//     _locationManager.delegate = self;
+//   // locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
+//   // locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
+//     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
+//    [locationManager startUpdatingLocation];
+    
+    
+    _locationManager.delegate = self; // Set delegate
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
+    
+    [_locationManager startUpdatingLocation];
+    
   NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
     NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
     
@@ -381,10 +408,30 @@
 //{
 //    return self.navigationController.navigationBar.barStyle = ui;
 //}
-
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        self.map.showsUserLocation = YES;
+    }
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    _locationManager.delegate = self; // Set delegate
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
+    
+    [_locationManager startUpdatingLocation];
+    NSLog(@"%@", [self deviceLocation]);
+    
+    //View Area
+    MKCoordinateRegion region = { { 0.0, 0.0 }, { 0.0, 0.0 } };
+    region.center.latitude = self.locationManager.location.coordinate.latitude;
+    region.center.longitude = self.locationManager.location.coordinate.longitude;
+    region.span.longitudeDelta = 0.005f;
+    region.span.longitudeDelta = 0.005f;
+    [_map setRegion:region animated:YES];
+    
     
 //    if(photoURL == nil || photoURL == (id)[NSNull null] || [photoURL isEqualToString:@""])
 //    {
@@ -476,6 +523,18 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark get current location
+- (NSString *)deviceLocation {
+    return [NSString stringWithFormat:@"latitude: %f longitude: %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude];
+}
+- (NSString *)deviceLat {
+    return [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.latitude];
+}
+- (NSString *)deviceLon {
+    return [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.longitude];
+}
+- (NSString *)deviceAlt {
+    return [NSString stringWithFormat:@"%f", self.locationManager.location.altitude];
+}
 -(void)CurrentLocationIdentifier
 {
     //---- For getting current gps location
@@ -556,14 +615,26 @@
     return pinAnnotation;
     
 }
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    //NSLog(@"in zoom ");
+    NSLog(@"in zoom ");
     CLLocationCoordinate2D loc = [userLocation coordinate];
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
     region.center.latitude = loc.latitude;
     region.center.longitude = loc.longitude;
     [self.map setRegion:region animated:YES];
+    [self.map setCenterCoordinate:userLocation.location.coordinate animated:YES];
+    
+//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+//    [self.map setRegion:[self.map regionThatFits:region] animated:YES];
+//    
+//    // Add an annotation
+//    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+//    point.coordinate = userLocation.coordinate;
+//    point.title = @"Where am I?";
+//    point.subtitle = @"I'm here!!!";
+//    
+//    [self.map addAnnotation:point];
     
     
 }

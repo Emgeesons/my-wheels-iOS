@@ -367,7 +367,7 @@
 
 -(void)loadOtherUpdates {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+  //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -390,8 +390,12 @@
     //NSLog(@"parameters : %@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@otherUpdates.php", SERVERNAME];
-    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    //
+    //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
         //NSLog(@"other : %@", responseObject);
         
         // Stop Animating activityIndicator
@@ -473,7 +477,7 @@
 
 -(void)loadMyUpdates {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+  //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -494,8 +498,12 @@
     ////NSLog(@"%@", parameters);
     
     NSString *url = [NSString stringWithFormat:@"%@myUpdates.php", SERVERNAME];
-    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    //
+    //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
         ////NSLog(@"my updates : %@", responseObject);
         
         // Stop Animating activityIndicator
@@ -1691,7 +1699,7 @@
             [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+           // manager.requestSerializer = [AFJSONRequestSerializer serializer];
             
             NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
             NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
@@ -1717,8 +1725,12 @@
             //NSLog(@"Vehicle Recovered:%@", parameters);
             
             NSString *url = [NSString stringWithFormat:@"%@vehicleRecovered.php", SERVERNAME];
-            [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            //
+            //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+             {
                 //NSLog(@"%@", responseObject);
                 
                 // Stop Animating activityIndicator

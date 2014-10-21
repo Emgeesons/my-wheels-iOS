@@ -11,6 +11,7 @@
 #import "LoginVC.h"
 #import "HomePageVC.h"
 #import "EvertTimePinVC.h"
+#import "APPViewController.h"
 
 @interface HomeScreenVC ()
 {
@@ -55,8 +56,10 @@
         //NSLog(@"str : %@",UserID);
         if(UserID == nil || UserID == (id)[NSNull null])
         {
-            LoginVC *vc = [[LoginVC alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
+            APPViewController *vc = [[APPViewController alloc]init];
+            //DisclaimerViewController *vc = [[DisclaimerViewController alloc]init];
+            //        [self presentViewController:vc animated:YES completion:nil];
+            [self.navigationController pushViewController:vc animated:YES];
 
         }
         else
@@ -69,7 +72,8 @@
     }
     else
     {
-        DisclaimerViewController *vc = [[DisclaimerViewController alloc]init];
+        APPViewController *vc = [[APPViewController alloc]init];
+        //DisclaimerViewController *vc = [[DisclaimerViewController alloc]init];
 //        [self presentViewController:vc animated:YES completion:nil];
          [self.navigationController pushViewController:vc animated:YES];
     }

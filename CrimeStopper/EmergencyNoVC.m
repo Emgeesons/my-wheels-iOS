@@ -32,7 +32,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
 
-    if(IsIphone5)
+   /* if(IsIphone5)
     {
         self.viewPoliceAss.frame = CGRectMake(0,50, 320, 114);
         self.viewSuburban.frame = CGRectMake(0,60, 320, 114);
@@ -50,7 +50,7 @@
         self.viewTow.frame = CGRectMake(0,232, 320, 109);
         self.viewRaaRoad.frame = CGRectMake(0,325, 320, 109);
 
-    }
+    }*/
     // Do any additional setup after loading the view from its nib.
 }
 

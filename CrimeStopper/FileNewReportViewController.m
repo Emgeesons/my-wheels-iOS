@@ -12,7 +12,7 @@
 #import "ShareNewReportViewController.h"
 #import "Reachability.h"
 #import "UIColor+Extra.h"
-
+#import "SVProgressHUD.h"
 
 @interface FileNewReportViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
     CLGeocoder *geocoder;
@@ -27,9 +27,11 @@
     NSDateFormatter *dateFormat, *timeFormat;
     UIToolbar *bgToolBar, *bgToolBar1;
     UIActivityIndicatorView *activityIndicator;
-    
+    UIView *timeBackgroundView;
     BOOL isLocationEnabled;
+    NSData *imageData1,*imageData2,*imageData3;
 }
+#define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -161,7 +163,7 @@
     }
 
     // set contentSize of scrollview here
-    [self.scrollView setContentSize:CGSizeMake(0, 470)];
+    [self.scrollView setContentSize:CGSizeMake(0, 700)];
     
     // initialize dateFormat & timeFormat
     dateFormat = [[NSDateFormatter alloc] init];
@@ -501,8 +503,7 @@
 }
 
 -(void)cancelClicked {
-    [sheet dismissWithClickedButtonIndex:0 animated:YES];
-    [datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
+    [timeBackgroundView setHidden:YES];
 }
 
 -(void)dateDoneClicked {
@@ -567,80 +568,258 @@
     originalDate = [dateFormat stringFromDate:currentDate];
     originalTime = [timeFormat stringFromDate:currentDate];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
-    
-    NSDictionary *parameters = @{@"userId" : UserID,
-                                 @"vehicleId" : vehicleID[selectedNumber],
-                                 @"pin" : pin,
-                                 @"originalLatitude": originalLatitude,
-                                 @"originalLongitude" : originalLongitude,
-                                 @"selectedLatitude" : selectedLatitude,
-                                 @"selectedLongitude" : selectedLongitude,
-                                 @"location" : address,
-                                 @"originalDate" : originalDate,
-                                 @"originalTime" : originalTime,
-                                 @"selectedDate" : selectedDate,
-                                 @"selectedTime" : selectedTime,
-                                 @"reportType" : self.txtSighting.text,
-                                 @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
-                                 @"comments" : self.txtComments.text,
-                                 @"os" : OS_VERSION,
-                                 @"make" : MAKE,
-                                 @"model" : [DeviceInfo platformNiceString]};
-    
-    ////NSLog(@"%@", parameters);
-    
-    // Start Animating activityIndicator
-    [activityIndicator startAnimating];
-    
-    // add bgToolbar to view
-    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
-    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//   // manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    
+//    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+//    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
+//    
+//    NSDictionary *parameters = @{@"userId" : UserID,
+//                                 @"vehicleId" : vehicleID[selectedNumber],
+//                                 @"pin" : pin,
+//                                 @"originalLatitude": originalLatitude,
+//                                 @"originalLongitude" : originalLongitude,
+//                                 @"selectedLatitude" : selectedLatitude,
+//                                 @"selectedLongitude" : selectedLongitude,
+//                                 @"location" : address,
+//                                 @"originalDate" : originalDate,
+//                                 @"originalTime" : originalTime,
+//                                 @"selectedDate" : selectedDate,
+//                                 @"selectedTime" : selectedTime,
+//                                 @"reportType" : self.txtSighting.text,
+//                                 @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
+//                                 @"comments" : self.txtComments.text,
+//                                 @"os" : OS_VERSION,
+//                                 @"make" : MAKE,
+//                                 @"model" : [DeviceInfo platformNiceString]};
+//    
+//    ////NSLog(@"%@", parameters);
+//    
+//    // Start Animating activityIndicator
+//    [activityIndicator startAnimating];
+//    
+//    // add bgToolbar to view
+//    [self.view.superview insertSubview:bgToolBar aboveSubview:self.view];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@fileNewReport.php", SERVERNAME];
+//    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        
+//        for (int i = 0; i < filesCount; i++) {
+//            NSString *imgName = [NSString stringWithFormat:@"image%d", (int)(i + 1)];
+//            NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", filelist[i]]]];
+//            [formData appendPartWithFileData:imgData name:imgName fileName:filelist[i] mimeType:@"image/png"];
+//        }
+//        
+//    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        ////NSLog(@"%@", responseObject);
+//        
+//        // Stop Animating activityIndicator
+//        [activityIndicator stopAnimating];
+//        
+//        NSDictionary *json = (NSDictionary *)responseObject;
+//        ////NSLog(@"%@", json);
+//        
+//        if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
+//            NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
+//            NSString *photo1 = [response objectForKey:@"photo1"];
+//            //NSString *photo2 = [response objectForKey:@"photo2"];
+//            //NSString *photo3 = [response objectForKey:@"photo3"];
+//            
+//            ShareNewReportViewController *vc = [[ShareNewReportViewController alloc] init];
+//            vc.photo1 = photo1;
+//            vc.vehicleId = vehicleID[selectedNumber];
+//            [self.navigationController pushViewController:vc animated:YES];
+//            
+//        } else {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//            [alert show];
+//        }
+//        
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+//        [DeviceInfo errorInConnection];
+//        [activityIndicator stopAnimating];
+//        [bgToolBar removeFromSuperview];
+//    }];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     NSString *url = [NSString stringWithFormat:@"%@fileNewReport.php", SERVERNAME];
-    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        for (int i = 0; i < filesCount; i++) {
-            NSString *imgName = [NSString stringWithFormat:@"image%d", (int)(i + 1)];
-            NSData *imgData = [[NSData alloc] initWithContentsOfFile:[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", filelist[i]]]];
-            [formData appendPartWithFileData:imgData name:imgName fileName:filelist[i] mimeType:@"image/png"];
+    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"oldPin"];
+  //  NSDictionary *parameters = @{@"userId" : UserID,
+                                 //                                 @"vehicleId" : vehicleID[selectedNumber],
+                                 //                                 @"pin" : pin,
+                                 //                                 @"originalLatitude": originalLatitude,
+                                 //                                 @"originalLongitude" : originalLongitude,
+                                 //                                 @"selectedLatitude" : selectedLatitude,
+                                 //                                 @"selectedLongitude" : selectedLongitude,
+                                 //                                 @"location" : address,
+                                 //                                 @"originalDate" : originalDate,
+                                 //                                 @"originalTime" : originalTime,
+                                 //                                 @"selectedDate" : selectedDate,
+                                 //                                 @"selectedTime" : selectedTime,
+                                 //                                 @"reportType" : self.txtSighting.text,
+                                 //                                 @"noPhotos" : [NSString stringWithFormat:@"%d", filesCount],
+                                 //                                 @"comments" : self.txtComments.text,
+                                 //                                 @"os" : OS_VERSION,
+                                 //                                 @"make" : MAKE,
+                                 //                                 @"model" : [DeviceInfo platformNiceString]};
+    
+    NSArray *keys = [[NSArray alloc]initWithObjects:@"userId",@"vehicleId",@"pin", @"originalLatitude",@"originalLongitude",@"selectedLatitude",@"selectedLongitude",@"location",@"originalDate",@"originalTime",@"selectedDate",@"selectedTime",@"reportType",@"noPhotos",@"comments",@"os", @"make",@"model", nil];
+    
+    NSArray *values =[[NSArray alloc]initWithObjects:UserID,vehicleID[selectedNumber],pin,originalLatitude,originalLongitude,selectedLatitude,selectedLongitude,address,originalDate,originalTime,selectedDate,selectedTime,self.txtSighting.text,[NSString stringWithFormat:@"%d", filesCount],self.txtComments.text,OS_VERSION,MAKE, [DeviceInfo platformNiceString], nil];
+    
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    NSURL *baseUrl = [NSURL URLWithString:url];
+    
+    NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    [request setURL:baseUrl];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *boundary = @"0xKhTmLbOuNdArY";
+    NSString *endBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n", boundary];
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; charset=%@; boundary=%@", charset, boundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *tempPostData = [NSMutableData data];
+    [tempPostData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    
+    for(int i=0;i<keys.count;i++){
+        NSString *str = values[i];
+        NSString *key =keys[i];
+        NSLog(@"Key Value pair: %@-%@",key,str);
+        [tempPostData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
+        [tempPostData appendData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+        // [tempPostData appendData:[@"\r\n--%@\r\n",boundary dataUsingEncoding:NSUTF8StringEncoding]];
+        [tempPostData appendData:[endBoundary dataUsingEncoding:NSUTF8StringEncoding]];
+        
+    }
+    
+    //semd multiple images to server
+    for (int i = 0; i < filesCount; i++) {
+        
+        [tempPostData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        if (i == 0)
+        {
+            [tempPostData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image1\"; filename=\"%@\"\r\n", filelist[0]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [tempPostData appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [tempPostData appendData:imageData1];
+            [tempPostData appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
         }
         
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        ////NSLog(@"%@", responseObject);
-        
-        // Stop Animating activityIndicator
-        [activityIndicator stopAnimating];
-        
-        NSDictionary *json = (NSDictionary *)responseObject;
-        ////NSLog(@"%@", json);
-        
-        if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
-            NSDictionary *response = (NSDictionary *)[json objectForKey:@"response"][0];
-            NSString *photo1 = [response objectForKey:@"photo1"];
-            //NSString *photo2 = [response objectForKey:@"photo2"];
-            //NSString *photo3 = [response objectForKey:@"photo3"];
-            
-            ShareNewReportViewController *vc = [[ShareNewReportViewController alloc] init];
-            vc.photo1 = photo1;
-            vc.vehicleId = vehicleID[selectedNumber];
-            [self.navigationController pushViewController:vc animated:YES];
-            
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[json objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
+        else if (i == 1)
+        {
+            [tempPostData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image2\"; filename=\"%@\"\r\n", filelist[1]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [tempPostData appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [tempPostData appendData:imageData2];
+            [tempPostData appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
         }
+        else
+        {
+            [tempPostData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image3\"; filename=\"%@\"\r\n", filelist[2]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [tempPostData appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [tempPostData appendData:imageData3];
+            [tempPostData appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+        //        [tempPostData appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        //        [tempPostData appendData:imgData];
+        
+    }
+    
+    
+    
+    
+    [tempPostData appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:tempPostData];
+    _receivedData = [NSMutableData dataWithCapacity: 0];
+    
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if( theConnection )
+    {
+        
+        NSLog(@"request uploading successful");
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ////NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-        [DeviceInfo errorInConnection];
-        [activityIndicator stopAnimating];
-        [bgToolBar removeFromSuperview];
-    }];
+    }
+    else
+    {
+        _receivedData = nil;
+        NSLog(@"theConnection is NULL");
+    }
+    
+    
+    //[picker dismissViewControllerAnimated:YES completion:NULL];
 }
+#pragma mark nsurlconnection delegate methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    
+    [_receivedData setLength:0];
+    NSLog(@"responsse : %@",response);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    
+    [_receivedData appendData:data];
+    NSLog(@"receive data : %@",_receivedData);
+}
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSLog(@"connectionDidFinishLoading");
+    NSLog(@"Succeeded! Received %ld bytes of data",[self.receivedData length]);
+    // NSString *strr = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
+    NSLog(@"data is: %@",self.receivedData);
+    
+    //NSDictionary *dict = [[NSDictionary alloc] initwithd]
+    
+    
+    // convert to JSON
+    
+    NSError *e = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: _receivedData options:NSJSONReadingMutableContainers error:&e];
+    
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingMutableLeaves error:nil];
+    //  NSLog(@"data -- %@",[dict objectForKey:@"data"]);
+    NSLog(@"data -- %@",jsonDictionary);
+    
+    NSString *EntityID = [jsonDictionary valueForKey:@"status"];
+    //NSLog(@"message %@",EntityID);
+   
+    if ([EntityID isEqualToString:@"success"])
+    {
+        NSDictionary *response = (NSDictionary *)[jsonDictionary objectForKey:@"response"][0];
+                    NSString *photo1 = [response objectForKey:@"photo1"];
+//                    NSString *photo2 = [response objectForKey:@"photo2"];
+//                    NSString *photo3 = [response objectForKey:@"photo3"];
+        
+                    ShareNewReportViewController *vc = [[ShareNewReportViewController alloc] init];
+                    vc.photo1 = photo1;
+                    vc.vehicleId = vehicleID[selectedNumber];
+                    [self.navigationController pushViewController:vc animated:YES];
+        [SVProgressHUD dismiss];
+        
+    }
+    else
+    {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[jsonDictionary objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+        [SVProgressHUD dismiss];
+    }
+   
+    
+    if (!jsonArray) {
+        NSLog(@"Error parsing JSON: %@", e);
+    }
+}
+
+
 
 #pragma mark - UITableView Delegate methods
 
@@ -726,8 +905,8 @@
     NSString *savedImagePath1 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"1.png"]];
     BOOL fileExists1 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath1];
     if (!fileExists1) {
-        NSData *imageData = UIImagePNGRepresentation(chosenImage);
-        [imageData writeToFile:savedImagePath1 atomically:NO];
+       imageData1 = UIImagePNGRepresentation(chosenImage);
+        [imageData1 writeToFile:savedImagePath1 atomically:NO];
         
         [self loadImages];
         [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -738,8 +917,8 @@
     NSString *savedImagePath2 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"2.png"]];
     BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath2];
     if (!fileExists2) {
-        NSData *imageData = UIImagePNGRepresentation(chosenImage);
-        [imageData writeToFile:savedImagePath2 atomically:NO];
+       imageData2 = UIImagePNGRepresentation(chosenImage);
+        [imageData2 writeToFile:savedImagePath2 atomically:NO];
         
         [self loadImages];
         [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -750,8 +929,8 @@
     NSString *savedImagePath3 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"3.png"]];
     BOOL fileExists3 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath3];
     if (!fileExists3) {
-        NSData *imageData = UIImagePNGRepresentation(chosenImage);
-        [imageData writeToFile:savedImagePath3 atomically:NO];
+        imageData3 = UIImagePNGRepresentation(chosenImage);
+        [imageData3 writeToFile:savedImagePath3 atomically:NO];
         
         [self loadImages];
         [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -808,51 +987,106 @@
         return NO;
     } else if (textField == self.txtDateTime) {
         // Open DatePicker when age textfield is clicked
-        datePickerSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        datePickerSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//        
+//        datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+//        datePicker.backgroundColor = [UIColor whiteColor];
+//        datePicker.maximumDate = [NSDate date];
+//        
+//        // Open selected date when date is previously selected
+//        if (datePickerSelectedDate) {
+//            [datePicker setDate:datePickerSelectedDate];
+//        }
+//        
+//        //format datePicker mode.
+//        datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+//        
+//        // Create toolbar kind of view using UIView for placing Done and cancel button
+//        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//        toolbarPicker.backgroundColor = [UIColor whiteColor];
+//        [toolbarPicker sizeToFit];
+//        
+//        // create Done button for selecting date from picker
+//        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(260, 0, 60, 44)];
+//        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
+//        [bbitem setTitleColor:bbitem.tintColor forState:UIControlStateNormal];
+//        [bbitem addTarget:self action:@selector(dateDoneClicked) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        // create Cancel button for dismissing datepicker
+//        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 44)];
+//        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
+//        [bbitem1 setTitleColor:bbitem1.tintColor forState:UIControlStateNormal];
+//        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        // add subviews
+//        [toolbarPicker addSubview:bbitem];
+//        [toolbarPicker addSubview:bbitem1];
+//        [datePickerSheet addSubview:toolbarPicker];
+//        [datePickerSheet addSubview:toolbarPicker];
+//        [datePickerSheet addSubview:datePicker];
+//        [datePickerSheet showInView:self.view];
+//        [datePickerSheet setBounds:CGRectMake(0,0,320, 464)];
+
+        //date picker for ios8
+        NSDate *date;
+        date = [NSDate date];
         
-        datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
-        datePicker.backgroundColor = [UIColor whiteColor];
+        
+        
+        datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+        datePicker.datePickerMode = UIDatePickerModeDate;
+        datePicker.hidden = NO;
         datePicker.maximumDate = [NSDate date];
-        
-        // Open selected date when date is previously selected
-        if (datePickerSelectedDate) {
-            [datePicker setDate:datePickerSelectedDate];
-        }
         
         //format datePicker mode.
         datePicker.datePickerMode = UIDatePickerModeDateAndTime;
         
+        
+        
+        //formate datepicker
+        NSDateFormatter  *displayFormatter = [[NSDateFormatter alloc] init];
+        [displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+        [displayFormatter setDateFormat:@"MM/dd/yyyy"];
+        
         // Create toolbar kind of view using UIView for placing Done and cancel button
-        UIView *toolbarPicker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        toolbarPicker.backgroundColor = [UIColor whiteColor];
-        [toolbarPicker sizeToFit];
+        UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        pickerToolbar.tintColor = [UIColor whiteColor];
+        [pickerToolbar sizeToFit];
         
-        // create Done button for selecting date from picker
-        UIButton *bbitem = [[UIButton alloc] initWithFrame:CGRectMake(260, 0, 60, 44)];
-        [bbitem setTitle:@"Done" forState:UIControlStateNormal];
-        [bbitem setTitleColor:bbitem.tintColor forState:UIControlStateNormal];
-        [bbitem addTarget:self action:@selector(dateDoneClicked) forControlEvents:UIControlEventTouchUpInside];
         
-        // create Cancel button for dismissing datepicker
-        UIButton *bbitem1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 44)];
-        [bbitem1 setTitle:@"Cancel" forState:UIControlStateNormal];
-        [bbitem1 setTitleColor:bbitem1.tintColor forState:UIControlStateNormal];
-        [bbitem1 addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
         
-        // add subviews
-        [toolbarPicker addSubview:bbitem];
-        [toolbarPicker addSubview:bbitem1];
-        [datePickerSheet addSubview:toolbarPicker];
-        [datePickerSheet addSubview:toolbarPicker];
-        [datePickerSheet addSubview:datePicker];
-        [datePickerSheet showInView:self.view];
-        [datePickerSheet setBounds:CGRectMake(0,0,320, 464)];
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(dateDoneClicked)];
+        
+        [doneBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIColor blackColor],
+                                         NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+        
+        NSArray *itemArray = [[NSArray alloc] initWithObjects: doneBtn, nil];
+        
+        [pickerToolbar setItems:itemArray animated:YES];
+        
+        //set backgound view of date picker
+      //  timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+       if(IsIphone5)
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        else
+            timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:datePicker];
+        
+        [self.view addSubview:timeBackgroundView];
+        
+
+        
         return NO;
     } else if (textField == self.txtComments) {
         if ([DeviceInfo isIphone5]) {
-            [self.scrollView setContentOffset:CGPointMake(0, 110) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 154) animated:YES];
         } else {
-            [self.scrollView setContentOffset:CGPointMake(0, 195) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, 248) animated:YES];
         }
     }
     return YES;

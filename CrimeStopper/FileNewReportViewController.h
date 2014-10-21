@@ -32,6 +32,8 @@
 @property (nonatomic,retain) IBOutlet UIView *viewLocationGuide;
 @property (weak, nonatomic) IBOutlet UIButton *btnLetsGo;
 @property (nonatomic,retain) IBOutlet UIView *viewTransparent;
+@property (nonatomic,retain) NSMutableData *receivedData;
+
 -(IBAction)btnGot_click:(id)sender;
 - (IBAction)selectVehicles:(id)sender;
 - (IBAction)addImages:(id)sender;

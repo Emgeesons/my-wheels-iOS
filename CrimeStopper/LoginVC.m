@@ -535,16 +535,17 @@
         
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+       // manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
         NSString *url = [NSString stringWithFormat:@"%@fbLoginRegister.php", SERVERNAME];
         //NSLog(@"url :%@",url);
-        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            
-        }
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  
-                  
+        //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //
+        //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //
+        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             
                   //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                   
                   NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
@@ -801,11 +802,14 @@
           [param setValue:MAKE forKey:@"make"];
           [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
           AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-      manager.requestSerializer = [AFJSONRequestSerializer serializer];
+     // manager.requestSerializer = [AFJSONRequestSerializer serializer];
        NSString *url = [NSString stringWithFormat:@"%@forgotPinAnswer.php", SERVERNAME];
-      [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-          
-      } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+          //
+          //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          //
+          [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+           {
           
           
           //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
@@ -1195,19 +1199,17 @@
             [param setValue:OS_VERSION forKey:@"os"];
             [param setValue:MAKE forKey:@"make"];
             [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
-            
+            NSLog(@"param %@",param);
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-             
-             NSString *url = [NSString stringWithFormat:@"%@login.php", SERVERNAME];
-             [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
-              {
-             //do not put image inside parameters dictionary as I did, but append it!
-             //[formData appendPartWithFileData:imageData name:@"image" fileName:@"profilePic.png" mimeType:@"image/png"];
-                  [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-             }
-            success:^(AFHTTPRequestOperation *operation, id responseObject)
-            {
+           // manager.requestSerializer = [AFJSONRequestSerializer serializer];
+
+            NSString *url = [NSString stringWithFormat:@"%@login.php", SERVERNAME];
+//                    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//            
+//                    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+             {
                  NSDictionary *jsonDictionary=(NSDictionary *)responseObject;
                 //NSLog(@"data : %@",jsonDictionary);
            //  //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
@@ -1292,11 +1294,13 @@
                     [[UAPush shared] setPushEnabled:YES];
                     //End of Urban Airship Set up
                     
-                    
+                    NSLog(@"home");
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                    HomePageVC *obj=[[HomePageVC alloc]init];
+                    appdelegate.Time = [NSDate date];
                     
-                    [self.navigationController pushViewController:obj animated:YES];
+                     HomePageVC *vc = [[HomePageVC alloc]initWithNibName:@"HomePageVC" bundle:Nil];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
                     // [self presentViewController:obj animated:YES completion:nil];
                 }
                 else
@@ -1325,7 +1329,7 @@
                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
              }];
-             
+             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
                  [txtEmail setTextColor:[UIColor blackColor]];
             [self.lblPin setTextColor:[UIColor blackColor]];
             return YES;
@@ -1395,12 +1399,14 @@
                 [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+           // manager.requestSerializer = [AFJSONRequestSerializer serializer];
              NSString *url = [NSString stringWithFormat:@"%@forgotPinEmail.php", SERVERNAME];
-                       [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-              
-            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
+                //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                //
+                //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //
+                [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+                 {
                 
                 //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 

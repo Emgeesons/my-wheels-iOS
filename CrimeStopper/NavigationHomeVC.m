@@ -145,7 +145,7 @@
     {
         //share app
         NSString *text = @"Check out MyWheels by Crime Stoppers South Australia. Get it from -  ";
-        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/app/mywheels-australia/id914228666?ls=1&mt=8"];
+        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/au/app/mywheels-australia/id914228666?ls=1&mt=8"];
         UIImage *image = [UIImage imageNamed:@"app_icon_120x120.png"];
         
         UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
@@ -175,7 +175,7 @@
     else if (indexPath.row == 4)
     {
         //Rate us
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/mywheels-australia/id914228666?ls=1&mt=8"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/au/app/mywheels-australia/id914228666?ls=1&mt=8"]];
     }
     else if (indexPath.row == 5)
     {

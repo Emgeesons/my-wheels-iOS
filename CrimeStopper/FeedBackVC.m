@@ -121,11 +121,14 @@
     
     //[obj callAPI_POST:@"feedback.php" andParams:param SuccessCallback:@selector(service_reponse:Response:) andDelegate:self];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-   NSString *url = [NSString stringWithFormat:@"%@feedback.php", SERVERNAME];
-    [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+   // manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSString *url = [NSString stringWithFormat:@"%@feedback.php", SERVERNAME];
+        //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //
+        //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //
+        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
         
         
         ////NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
