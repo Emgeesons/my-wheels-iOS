@@ -22,6 +22,7 @@
 {
     AppDelegate *appDelegate;
 }
+@property (strong) NSArray *ratingLabels;
 @end
 
 @implementation FindVehicleVC
@@ -32,6 +33,11 @@ float flongitude;
 NSString *parkLatitude;
 NSString *parkLongitude;
 NSInteger flag;
+
+@synthesize ratingLabels = _ratingLabels;
+@synthesize starRatingControl = _starRatingControl;
+NSInteger intRating;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -163,7 +169,30 @@ NSInteger flag;
     }
     
     
-    }
+    intRating = 0;
+    _ratingLabels = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", nil];
+    
+    _starRatingControl.delegate = self;
+  //  NSLog(@"rating : %@",_ratingLabel.text);
+    
+    // Do any additional setup after loading the view from its nib.
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void)starRatingControl:(StarRatingControl *)control didUpdateRating:(NSUInteger)rating {
+  //  _ratingLabel.text = [_ratingLabels objectAtIndex:rating];
+    intRating = rating;
+}
+
+- (void)starRatingControl:(StarRatingControl *)control willUpdateRating:(NSUInteger)rating {
+  //  _ratingLabel.text = [_ratingLabels objectAtIndex:rating];
+    intRating = rating;
+    NSLog(@"rating : %d",rating);
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -296,7 +325,7 @@ NSInteger flag;
 }
 -(IBAction)btnPost_click:(id)sender
 {
- if(progressAsInt == 0)
+ if(intRating == 0)
  {
      UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                          message:@"Please provdie a rating for the parking spot."
@@ -320,7 +349,7 @@ NSInteger flag;
     } else {
         ////NSLog(@"There IS internet connection");
         
-    if(_lblRating.text == nil || _lblRating.text == (id)[NSNull null] || [_lblRating.text isEqualToString:@"0"])
+    if(intRating == 0)
    {
        UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
                                                            message:@"Please provdie a rating for the parking spot."
@@ -351,6 +380,8 @@ else
 */
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+    NSString *str = [NSString stringWithFormat:@"%d",intRating];
+    NSLog(@"str : %@",str);
     ////NSLog(@"str : %@",UserID);
     if(UserID == nil || UserID == (id)[NSNull null])
     {
@@ -366,7 +397,7 @@ else
     [param setValue:longitude forKey:@"longitude"];
     [param setValue:_txtComment.text forKey:@"feedback"];
    
-    [param setValue:_lblRating.text forKey:@"rating"];
+    [param setValue:str forKey:@"rating"];
     [param setValue:OS_VERSION forKey:@"os"];
     [param setValue:MAKE forKey:@"make"];
     [param setValue:[DeviceInfo platformNiceString] forKey:@"model"];

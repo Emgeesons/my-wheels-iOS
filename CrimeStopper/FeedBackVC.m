@@ -16,6 +16,7 @@
 #import "AFNetworking.h"
 #import "Reachability.h"
 
+
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 /*feedback.php
@@ -24,10 +25,17 @@
 @interface FeedBackVC ()
 {
     AppDelegate *appdelegate;
+   
 }
+@property (strong) NSArray *ratingLabels;
 @end
 
 @implementation FeedBackVC
+
+@synthesize ratingLabels = _ratingLabels;
+@synthesize starRatingControl = _starRatingControl;
+NSInteger intRating;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,9 +73,30 @@
         
         _scroll.contentSize = CGSizeMake(320, 700);
     }
+    
+    intRating = 0;
+    _ratingLabels = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", nil];
+    
+    _starRatingControl.delegate = self;
+    //  NSLog(@"rating : %@",_ratingLabel.text);
+    
     // Do any additional setup after loading the view from its nib.
 }
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
 
+- (void)starRatingControl:(StarRatingControl *)control didUpdateRating:(NSUInteger)rating {
+    //  _ratingLabel.text = [_ratingLabels objectAtIndex:rating];
+    intRating = rating;
+}
+
+- (void)starRatingControl:(StarRatingControl *)control willUpdateRating:(NSUInteger)rating {
+    //  _ratingLabel.text = [_ratingLabels objectAtIndex:rating];
+    intRating = rating;
+    NSLog(@"rating : %d",rating);
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -84,13 +113,7 @@
     [self.revealSideViewController pushViewController:obj onDirection:PPRevealSideDirectionLeft withOffset:50 animated:YES];
     
 }
--(IBAction) sliderChanged:(id) sender{
-	
-	int progressAsInt =(int)(_slide.value + 0.5f);
-	NSString *newText =[[NSString alloc] initWithFormat:@"%d",progressAsInt];
-	_lblRating.text = newText;
-	
-    }
+
 -(IBAction)btnSend_click:(id)sender
 {
     [super viewDidLoad];
@@ -109,10 +132,24 @@
     {
     
    // WebApiController *obj=[[WebApiController alloc]init];
+        if(intRating == 0)
+        {
+            UIAlertView *CheckAlert = [[UIAlertView alloc]initWithTitle:@""
+                                                                message:@"Please provide a star rating."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+            [CheckAlert show];
+
+        }
+        else
+        {
+        NSString *str = [NSString stringWithFormat:@"%d",intRating];
+        NSLog(@"str : %@",str);
     NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
     NSMutableDictionary *param=[[NSMutableDictionary alloc]init];
     [param setValue:UserID forKey:@"userId"];
-    [param setValue:_lblRating.text forKey:@"rating"];
+    [param setValue:str forKey:@"rating"];
     [param setValue:_txtComment.text forKey:@"feedback"];
  
         [param setValue:OS_VERSION forKey:@"os"];
@@ -168,6 +205,7 @@
     }];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    }
     }
 }
 - (IBAction)btnMinimize_Click:(id)sender {

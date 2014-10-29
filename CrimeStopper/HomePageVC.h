@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "PPRevealSideViewController.h"
-#import <MapKit/MapKit.h>
+
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+@import MapKit;
 
-@interface HomePageVC : UIViewController <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,MKAnnotation,MKMapViewDelegate,CLLocationManagerDelegate>
+//@interface HomePageVC : UIViewController <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,MKAnnotation,MKMapViewDelegate,CLLocationManagerDelegate>
+@interface HomePageVC : UIViewController <UITableViewDataSource,UITableViewDelegate>
 {
-    CLLocationManager *locationManager;
-    CLLocation *currentLocation;
-     NSTimer *timer;
+        NSTimer *timer;
 }
 @property (nonatomic,retain) IBOutlet UIButton *btnNav;
 @property (nonatomic,retain) IBOutlet UIView *viewReport,*viewNewReport,*viewAboutUs,*viewUpdates;
@@ -47,7 +47,7 @@
 @property (nonatomic,retain) IBOutlet UIImageView *imgUpdates;
 @property (nonatomic,retain)IBOutlet UILabel *lblGray1,*lblGray2;
 @property (nonatomic,retain) IBOutlet UILabel *lblmainText,*lblSubText,*lblmainText1,*lblSubText1,*lblmainText2,*lblSubText2;
-@property(nonatomic, retain) CLLocationManager *locationManager;
+
 
 - (IBAction)tapDetected:(UITapGestureRecognizer *)sender;
 -(IBAction)btnLocation_click:(id)sender;

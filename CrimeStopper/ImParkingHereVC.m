@@ -31,6 +31,7 @@
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 NSMutableDictionary *dicCounter;
 int counterForCell;
+BOOL bool1,bool2,bool3;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,6 +45,12 @@ int counterForCell;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    bool1 = false;
+    bool2 = false;
+    bool3 = false;
+    
+    
     [_viewTransparent setHidden:YES];
     
     NSString *strVehicleID = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleID"];
@@ -63,6 +70,7 @@ int counterForCell;
         _arrrandValue = [self getEightRandomLessThan:7];
     else
         _arrrandValue = [self getEightRandomLessThan:10];
+    NSLog(@"randome value : %@",_arrrandValue);
     locationManager = [[CLLocationManager alloc] init];
     geocoder = [[CLGeocoder alloc] init];
     locationManager.delegate = self;
@@ -232,7 +240,7 @@ int counterForCell;
                     NSString *subString;
                     if(strRate.length > 1)
                     {
-                        subString = [strRate substringWithRange:NSMakeRange(0,4)];
+                        subString = [strRate substringWithRange:NSMakeRange(0,3)];
                     }
                    else
                    {
@@ -257,7 +265,7 @@ int counterForCell;
                     NSString *subString;
                     if(strRate.length > 1)
                     {
-                        subString = [strRate substringWithRange:NSMakeRange(0,4)];
+                        subString = [strRate substringWithRange:NSMakeRange(0,3)];
                     }
                     else
                     {
@@ -411,21 +419,48 @@ int counterForCell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     mParkingCell *cell = (mParkingCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark1.png"]];
+    mParkingCell *cell = (mParkingCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if(indexPath.row == 0){
+        if(bool1){ // go from green to nothing
+            bool1 = false;
+            [cell.imgCheck setImage: [UIImage imageNamed:@""]];
+        }else{// go from nothing to green
+            bool1 = true;
+            [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark1.png"]];
+        }
+    }else if(indexPath.row == 1){
+        if(bool2){ // go from green to nothing
+            bool2 = false;
+            [cell.imgCheck setImage: [UIImage imageNamed:@""]];
+        }else{// go from nothing to green
+            bool2 = true;
+            [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark1.png"]];
+        }
+    }else if(indexPath.row == 2){
+        if(bool3){ // go from green to nothing
+            bool3 = false;
+            [cell.imgCheck setImage: [UIImage imageNamed:@""]];
+        }else{// go from nothing to green
+            bool3 = true;
+            [cell.imgCheck setImage: [UIImage imageNamed:@"tick_mark1.png"]];
+        }
+    }
     
-    NSString *cellIdentifier = [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
-    //Get the old counter
-   counterForCell = [[dicCounter valueForKey:cellIdentifier] intValue];
-    //increment it
-    counterForCell++;
-    //set it in the dictionary
-    [dicCounter setValue:[NSNumber numberWithInt:counterForCell] forKey:cellIdentifier];
-    //NSLog(@"counter for cell : %d",counterForCell);
-    //NSLog(@"didcounter : %@",dicCounter);
-    //NSLog(@"section : %d",indexPath.section);
     
-    //NSLog(@"deselect :%@",[self.tblCheckList indexPathForSelectedRow]);
+    
+    
+//    NSString *cellIdentifier = [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
+//    //Get the old counter
+//   counterForCell = [[dicCounter valueForKey:cellIdentifier] intValue];
+//    //increment it
+//    counterForCell++;
+//    //set it in the dictionary
+//    [dicCounter setValue:[NSNumber numberWithInt:counterForCell] forKey:cellIdentifier];
+//    //NSLog(@"counter for cell : %d",counterForCell);
+//    //NSLog(@"didcounter : %@",dicCounter);
+//    //NSLog(@"section : %d",indexPath.section);
+//    
+//    //NSLog(@"deselect :%@",[self.tblCheckList indexPathForSelectedRow]);
      [self.tblCheckList deselectRowAtIndexPath:[self.tblCheckList indexPathForSelectedRow] animated:YES];
 
 }
@@ -479,11 +514,20 @@ int counterForCell;
         //NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
         if (error == nil && [placemarks count] > 0) {
             placemark = [placemarks lastObject];
-            _lblLocation.text = [NSString stringWithFormat:@"%@ \n%@",
-                                placemark.thoroughfare,
-                                  placemark.locality
-                                
-                                 ];
+              NSLog(@"place : %@",placemark.thoroughfare);
+            if (placemark.thoroughfare  == nil || placemark.thoroughfare == (id)[NSNull null])
+            {
+                        _lblLocation.text = [NSString stringWithFormat:@"%@",
+                                     placemark.locality];
+            }
+            else
+            {
+                NSLog(@"place : %@",placemark.thoroughfare);
+                _lblLocation.text = [NSString stringWithFormat:@"%@ \n%@",
+                                     placemark.thoroughfare,
+                                     placemark.locality];
+            }
+          
         } else {
             //NSLog(@"%@", error.debugDescription);
         }

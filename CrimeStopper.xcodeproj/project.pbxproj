@@ -90,6 +90,11 @@
 		5E29ECF919EB9CB3002FB609 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E04AF59195066AF003F6CD4 /* MapKit.framework */; };
 		5E29ECFA19EB9CC6002FB609 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9CCB9D1949AF56006B43AE /* CoreLocation.framework */; };
 		5E2C2C5E199CB704003C934A /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E2C2C5D199CB704003C934A /* AboutUsVC.xib */; };
+		5E2F526F19FFBA0D0040F583 /* StarRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2F526E19FFBA0D0040F583 /* StarRatingControl.m */; };
+		5E2F527419FFBA680040F583 /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2F527019FFBA680040F583 /* star_highlighted@2x.png */; };
+		5E2F527519FFBA680040F583 /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2F527119FFBA680040F583 /* star_highlighted.png */; };
+		5E2F527619FFBA680040F583 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2F527219FFBA680040F583 /* star@2x.png */; };
+		5E2F527719FFBA680040F583 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2F527319FFBA680040F583 /* star.png */; };
 		5E3C3FAA196A6859007E6AFA /* HomePageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FA9196A6859007E6AFA /* HomePageVC.xib */; };
 		5E3C3FAE196A6975007E6AFA /* mParkingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C3FAC196A6975007E6AFA /* mParkingCell.m */; };
 		5E3C3FAF196A6975007E6AFA /* mParkingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FAD196A6975007E6AFA /* mParkingCell.xib */; };
@@ -403,6 +408,12 @@
 		5E2371D919866727000DF8E0 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		5E2371DD19866727000DF8E0 /* seperator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seperator.png; sourceTree = "<group>"; };
 		5E2C2C5D199CB704003C934A /* AboutUsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
+		5E2F526D19FFBA0D0040F583 /* StarRatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarRatingControl.h; sourceTree = "<group>"; };
+		5E2F526E19FFBA0D0040F583 /* StarRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingControl.m; sourceTree = "<group>"; };
+		5E2F527019FFBA680040F583 /* star_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted@2x.png"; sourceTree = "<group>"; };
+		5E2F527119FFBA680040F583 /* star_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_highlighted.png; sourceTree = "<group>"; };
+		5E2F527219FFBA680040F583 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		5E2F527319FFBA680040F583 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		5E3C3FA9196A6859007E6AFA /* HomePageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageVC.xib; sourceTree = "<group>"; };
 		5E3C3FAB196A6975007E6AFA /* mParkingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mParkingCell.h; sourceTree = "<group>"; };
 		5E3C3FAC196A6975007E6AFA /* mParkingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mParkingCell.m; sourceTree = "<group>"; };
@@ -774,6 +785,7 @@
 		5E0951841941C84100DC97E2 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				5E2F526219FF7A440040F583 /* RateView */,
 				5EF9F266197CD6F6003A3775 /* CustomImageView.h */,
 				5EF9F267197CD6F6003A3775 /* CustomImageView.m */,
 				5EF9F251197CD4F0003A3775 /* UIColor+Extra.h */,
@@ -830,6 +842,26 @@
 				5E211E4219E6AB3E00AF09F4 /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		5E2F526219FF7A440040F583 /* RateView */ = {
+			isa = PBXGroup;
+			children = (
+				5E2F526D19FFBA0D0040F583 /* StarRatingControl.h */,
+				5E2F526E19FFBA0D0040F583 /* StarRatingControl.m */,
+			);
+			name = RateView;
+			sourceTree = "<group>";
+		};
+		5E2F526619FF824B0040F583 /* rating */ = {
+			isa = PBXGroup;
+			children = (
+				5E2F527019FFBA680040F583 /* star_highlighted@2x.png */,
+				5E2F527119FFBA680040F583 /* star_highlighted.png */,
+				5E2F527219FFBA680040F583 /* star@2x.png */,
+				5E2F527319FFBA680040F583 /* star.png */,
+			);
+			name = rating;
 			sourceTree = "<group>";
 		};
 		5E3C3FB0196A9932007E6AFA /* mparking */ = {
@@ -1052,6 +1084,7 @@
 		5E815ED4194084BD00CEAFAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5E2F526619FF824B0040F583 /* rating */,
 				5EB9E35519B1A87E008B53A8 /* Splash Screen */,
 				5E05C0E019A8946C00F9F5C6 /* target_symbol.png */,
 				5E05C0E119A8946C00F9F5C6 /* target_symbol@2x.png */,
@@ -1430,6 +1463,7 @@
 				5EFE9195195948D80014669E /* ic_male.png in Resources */,
 				5EEEB9151963DA800083CC56 /* ic_bike.png in Resources */,
 				ECEAE27C1966C52A00BBA108 /* points_bg_ios@2x.png in Resources */,
+				5E2F527419FFBA680040F583 /* star_highlighted@2x.png in Resources */,
 				5EFE9187195945440014669E /* UserProfileVC.xib in Resources */,
 				5E2371E219866727000DF8E0 /* seperator.png in Resources */,
 				5E02BD74196C136B00897687 /* FindVehicleVC.xib in Resources */,
@@ -1473,6 +1507,7 @@
 				5E07DC8019F14F1E0058B0DF /* tour3@2x.png in Resources */,
 				5E09517719417AEF00DC97E2 /* btn_login_with_facebook(5).png in Resources */,
 				5E07DC7E19F14F1E0058B0DF /* tour1@2x.png in Resources */,
+				5E2F527619FFBA680040F583 /* star@2x.png in Resources */,
 				ECEAE27A1966C52A00BBA108 /* green_pin@2x.png in Resources */,
 				5E3C3FAF196A6975007E6AFA /* mParkingCell.xib in Resources */,
 				5E0369DF197393F000E5009F /* VehicleTipsCell.xib in Resources */,
@@ -1507,6 +1542,7 @@
 				5E05C0CE19A870D800F9F5C6 /* ic_location.png in Resources */,
 				5EF1245319878C330096C4EF /* ic_raa1.png in Resources */,
 				5E05DCCB195EBDE90081256F /* default_profile_home1.png in Resources */,
+				5E2F527719FFBA680040F583 /* star.png in Resources */,
 				5E0324661942F4CD006EEA24 /* RegistrationVC.xib in Resources */,
 				5EFDA27B1977EF1100AC7E6A /* vehicle-pic_1.png in Resources */,
 				5E07DC8119F14F1E0058B0DF /* tour4@2x.png in Resources */,
@@ -1520,6 +1556,7 @@
 				5E2371CE19862E0D000DF8E0 /* vehicle_graphic(5).png in Resources */,
 				5EFDA27C1977EF1100AC7E6A /* vehicle-pic_2.png in Resources */,
 				5EEF21781955A3FB00A0BA3F /* app_icon_512x512.png in Resources */,
+				5E2F527519FFBA680040F583 /* star_highlighted.png in Resources */,
 				5E05C0DE19A8946500F9F5C6 /* report_submitted.png in Resources */,
 				5E3C3FB9196A9A11007E6AFA /* ic_like_grey.png in Resources */,
 				5E05DCCA195EBDE90081256F /* default_profile_homeround.png in Resources */,
@@ -1560,6 +1597,7 @@
 				5E182B3E19653D6E003C1793 /* MyVehicleVC.m in Sources */,
 				5EFE919C195964700014669E /* THProgressView.m in Sources */,
 				5E07DC5619F12D050058B0DF /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				5E2F526F19FFBA0D0040F583 /* StarRatingControl.m in Sources */,
 				5EA223CB19E7C0C4007503A1 /* APPViewController.m in Sources */,
 				5E815EB51940832700CEAFAB /* AppDelegate.m in Sources */,
 				5E07DC3C19F12CF70058B0DF /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1699,7 +1737,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = MyWheels;
-				PROVISIONING_PROFILE = "6a8f9669-2104-4c60-ac5f-4337a553708e";
+				PROVISIONING_PROFILE = "861eee81-0471-4dc6-a71d-f4b8ca03f7e7";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1733,7 +1771,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = MyWheels;
-				PROVISIONING_PROFILE = "6a8f9669-2104-4c60-ac5f-4337a553708e";
+				PROVISIONING_PROFILE = "861eee81-0471-4dc6-a71d-f4b8ca03f7e7";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1775,7 +1813,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "6a8f9669-2104-4c60-ac5f-4337a553708e";
+				PROVISIONING_PROFILE = "861eee81-0471-4dc6-a71d-f4b8ca03f7e7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1815,7 +1853,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrimeStopper;
-				PROVISIONING_PROFILE = "6a8f9669-2104-4c60-ac5f-4337a553708e";
+				PROVISIONING_PROFILE = "861eee81-0471-4dc6-a71d-f4b8ca03f7e7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

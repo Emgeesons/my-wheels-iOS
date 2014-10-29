@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StarRatingControl.h"
 
-@interface FeedBackVC : UIViewController <UIAlertViewDelegate,UIActionSheetDelegate>
+@interface FeedBackVC : UIViewController <UIAlertViewDelegate,UIActionSheetDelegate,StarRatingDelegate>
 {
      UITextView *activeTextField;
 }
@@ -18,6 +19,12 @@
 @property (nonatomic,retain) IBOutlet UIButton *btnSend;
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
+
+
+
+@property (weak) IBOutlet StarRatingControl *starRatingControl;
+@property (strong) UIImage *star;
+@property (strong) UIImage *highlightedStar;
 
 -(IBAction)btnSend_click:(id)sender;
 

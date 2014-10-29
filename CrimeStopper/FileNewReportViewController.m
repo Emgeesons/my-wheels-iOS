@@ -893,8 +893,14 @@
 
 #pragma mark - UIImagePicker Delegate methods
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // comprese image
+    
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    CGFloat compression = 0.9f;
+    CGFloat maxCompression = 0.1f;
+    int maxFileSize = 250*1024;
     
     // save image locally
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -905,6 +911,14 @@
     NSString *savedImagePath1 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"1.png"]];
     BOOL fileExists1 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath1];
     if (!fileExists1) {
+        imageData1 = UIImageJPEGRepresentation(chosenImage, compression);
+        
+        while ([imageData1 length] > maxFileSize && compression > maxCompression)
+        {
+            compression -= 0.1;
+            imageData1 = UIImageJPEGRepresentation(chosenImage, compression);
+        }
+        
        imageData1 = UIImagePNGRepresentation(chosenImage);
         [imageData1 writeToFile:savedImagePath1 atomically:NO];
         
@@ -917,6 +931,15 @@
     NSString *savedImagePath2 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"2.png"]];
     BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath2];
     if (!fileExists2) {
+        imageData2 = UIImageJPEGRepresentation(chosenImage, compression);
+        
+        while ([imageData2 length] > maxFileSize && compression > maxCompression)
+        {
+            compression -= 0.1;
+            imageData2 = UIImageJPEGRepresentation(chosenImage, compression);
+        }
+
+        
        imageData2 = UIImagePNGRepresentation(chosenImage);
         [imageData2 writeToFile:savedImagePath2 atomically:NO];
         
@@ -929,6 +952,14 @@
     NSString *savedImagePath3 = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"3.png"]];
     BOOL fileExists3 = [[NSFileManager defaultManager] fileExistsAtPath:savedImagePath3];
     if (!fileExists3) {
+        imageData3 = UIImageJPEGRepresentation(chosenImage, compression);
+        
+        while ([imageData3 length] > maxFileSize && compression > maxCompression)
+        {
+            compression -= 0.1;
+            imageData3 = UIImageJPEGRepresentation(chosenImage, compression);
+        }
+
         imageData3 = UIImagePNGRepresentation(chosenImage);
         [imageData3 writeToFile:savedImagePath3 atomically:NO];
         

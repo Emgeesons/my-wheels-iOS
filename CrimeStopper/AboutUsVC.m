@@ -40,7 +40,7 @@
     else
     {
         
-            _scroll.frame = CGRectMake(4 , 235, 320, 277);
+            _scroll.frame = CGRectMake(4 , 235, 320, 257);
         
             self.scroll.contentSize = CGSizeMake(320, 470);
     }

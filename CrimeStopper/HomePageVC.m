@@ -24,21 +24,29 @@
 #import "UpdatesViewController.h"
 #import "ReportSightingViewController.h"
 #import "UAPush.h"
+#import "Reachability.h"
+
+@import CoreLocation;
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
 
-@interface HomePageVC ()
+@interface HomePageVC ()< CLLocationManagerDelegate, MKMapViewDelegate>
 {
     AppDelegate *appdelegate;
+    CLGeocoder *geocoder;
+    CLPlacemark *placemark;
+
 }
+@property (nonatomic , strong) CLLocationManager *locationManager;
 @end
 
 @implementation HomePageVC
 @synthesize btnNav;
 @synthesize viewNewReport,viewReport,viewUpdates,viewAboutUs;
 @synthesize intblue;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -157,9 +165,6 @@
     }
     
     /// implementing map
-    
-    [ self.map.delegate self];
-    locationManager.delegate = self;
     #ifdef __IPHONE_8_0
     if(IS_OS_8_OR_LATER) {
         // Use one or the other, not both. Depending on what you put in info.plist
@@ -167,54 +172,63 @@
         [self.locationManager requestAlwaysAuthorization];
     }
     #endif
-    [self.locationManager startUpdatingLocation];
-    _map.showsUserLocation = YES;
-    [_map setMapType:MKMapTypeStandard];
-    [_map setZoomEnabled:YES];
-    [_map setScrollEnabled:YES];
     
-    
-    locationManager = [[CLLocationManager alloc] init];
-    [locationManager requestWhenInUseAuthorization];
-//     _locationManager.delegate = self;
-//   // locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
-//   // locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
-//     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
-//    [locationManager startUpdatingLocation];
-    
+     [ self.map.delegate self];
+    //Initialize CLLocationManager
+    _locationManager = [[CLLocationManager alloc] init];
+    [_locationManager requestWhenInUseAuthorization];
+    // Initialize CLGeocoder
+    geocoder = [[CLGeocoder alloc] init];
     
     _locationManager.delegate = self; // Set delegate
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
     
-    [_locationManager startUpdatingLocation];
+    [_locationManager startUpdatingLocation]; // start updating for current location
+    //get current location
+    NSString *latitude=[NSString stringWithFormat:@"%f", _locationManager.location.coordinate.latitude];
     
-  NSString *latitude=[NSString stringWithFormat:@"%f", locationManager.location.coordinate.latitude];
-    NSString *longitude=[NSString stringWithFormat:@"%f",locationManager.location.coordinate.longitude];
-    
-    [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:@"latitude"];
-    [[NSUserDefaults standardUserDefaults] setValue:longitude forKey:@"longitude"];
-    
-    /// zoom map
-    
-    float currlat = [latitude floatValue];
-    float currlongt = [longitude floatValue];
-    CLLocationCoordinate2D loc ;
-    loc.latitude = currlat;
-    loc.longitude = currlongt;
-    
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
-    region.center.latitude = currlat;
-    region.center.longitude = currlongt;
-    
-    [self.map setRegion:region animated:YES];
-    
-    //NSLog(@"vehicles : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"vehicles"]);
-    //NSLog(@"latitude : %@",latitude);
-    
-    if([latitude isEqualToString:@"0.000000"])
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
     {
-        [_viewLocationGuide setHidden:NO];
+        CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+        MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+        MKCoordinateRegion region = {coord, span};
+        [_map setRegion:region];
+        
+      
+        
+        
+    } else {
+      
+        CLLocation *clLocation = [[CLLocation alloc] initWithLatitude:_locationManager.location.coordinate.latitude longitude:_locationManager.location.coordinate.longitude];
+        
+        // get location
+        CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+        [geoCoder reverseGeocodeLocation:clLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error == nil && [placemarks count] > 0) {
+                placemark = [placemarks lastObject];
+                
+                CLLocationCoordinate2D coord = {.latitude =  _locationManager.location.coordinate.latitude, .longitude =  _locationManager.location.coordinate.longitude};
+                MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
+                MKCoordinateRegion region = {coord, span};
+                
+                [self.map setRegion:region animated:YES];
+                
+               
+            } else {
+                CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+                MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+                MKCoordinateRegion region = {coord, span};
+                [_map setRegion:region];
+                
+        }
+        }];
     }
+
+    
+    
+    
     
     //parkVehicle
     NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"parkVehicle"];
@@ -522,6 +536,74 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    
+    /*if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+     {
+     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Error" message:@"Location service is not enabled.\nGo to \"Settings->Privacy->LocationServices\"\nto enable location services." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+     [alert show];
+     }*/
+    
+   
+    
+    //NSLog(@"didFailWithError: %@", error);
+    CLLocationCoordinate2D coord = {.latitude = -32.028801, .longitude = 135.0016983};
+    MKCoordinateSpan span = {.latitudeDelta = 0.5, .longitudeDelta = 0.5};
+    MKCoordinateRegion region = {coord, span};
+    [_map setRegion:region];
+    
+  
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    CLLocation *currentLocation = newLocation;
+    
+    // Reverse Geocoding
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            
+            //NSLog(@"%@", originalLatitude);
+            
+            //if ([originalLatitude isEqualToString:@""] || originalLatitude == NULL) {
+            
+            CLLocationCoordinate2D coord = {.latitude =  currentLocation.coordinate.latitude, .longitude =  currentLocation.coordinate.longitude};
+            MKCoordinateSpan span = {.latitudeDelta =  0.005, .longitudeDelta =  0.005};
+            MKCoordinateRegion region = {coord, span};
+            
+            [self.map setRegion:region animated:YES];
+            // set original coordinates
+            
+        } else {
+            //NSLog(@"%@", error.debugDescription);
+        }
+    } ];
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    
+    // set selected coordinates
+    
+    
+    
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.map.centerCoordinate.latitude longitude:self.map .centerCoordinate.longitude];
+    // Reverse Geocoding
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+           
+            
+        } else {
+            //NSLog(@"%@", error.debugDescription);
+        }
+    } ];
+    
+}
+
 #pragma mark get current location
 - (NSString *)deviceLocation {
     return [NSString stringWithFormat:@"latitude: %f longitude: %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude];
@@ -534,56 +616,6 @@
 }
 - (NSString *)deviceAlt {
     return [NSString stringWithFormat:@"%f", self.locationManager.location.altitude];
-}
--(void)CurrentLocationIdentifier
-{
-    //---- For getting current gps location
-    locationManager = [CLLocationManager new];
-    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
-    //------
-}
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    currentLocation = [locations objectAtIndex:0];
-    [locationManager stopUpdatingLocation];
-    
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (!(error))
-         {
-             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             //NSLog(@"\nCurrent Location Detected\n");
-             //NSLog(@"placemark %@",placemark);
-             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
-             NSString *Address = [[NSString alloc]initWithString:locatedAt];
-             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
-             NSString *Country = [[NSString alloc]initWithString:placemark.country];
-             NSString *CountryArea = [NSString stringWithFormat:@"%@, %@", Area,Country];
-             //NSLog(@"%@",CountryArea);
-         }
-         else
-         {
-             //NSLog(@"Geocode failed with error %@", error);
-             //NSLog(@"\nCurrent Location Not Detected\n");
-             //return;
-             // CountryArea = NULL;
-         }
-         /*---- For more results
-          placemark.region);
-          placemark.country);
-          placemark.locality);
-          placemark.name);
-          placemark.ocean);
-          placemark.postalCode);
-          placemark.subLocality);
-          placemark.location);
-          ------*/
-     }];
 }
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
@@ -615,29 +647,29 @@
     return pinAnnotation;
     
 }
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    NSLog(@"in zoom ");
-    CLLocationCoordinate2D loc = [userLocation coordinate];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
-    region.center.latitude = loc.latitude;
-    region.center.longitude = loc.longitude;
-    [self.map setRegion:region animated:YES];
-    [self.map setCenterCoordinate:userLocation.location.coordinate animated:YES];
-    
-//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-//    [self.map setRegion:[self.map regionThatFits:region] animated:YES];
+//- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+//{
+//    NSLog(@"in zoom ");
+//    CLLocationCoordinate2D loc = [userLocation coordinate];
+//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
+//    region.center.latitude = loc.latitude;
+//    region.center.longitude = loc.longitude;
+//    [self.map setRegion:region animated:YES];
+//    [self.map setCenterCoordinate:userLocation.location.coordinate animated:YES];
 //    
-//    // Add an annotation
-//    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-//    point.coordinate = userLocation.coordinate;
-//    point.title = @"Where am I?";
-//    point.subtitle = @"I'm here!!!";
+////    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+////    [self.map setRegion:[self.map regionThatFits:region] animated:YES];
+////    
+////    // Add an annotation
+////    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+////    point.coordinate = userLocation.coordinate;
+////    point.title = @"Where am I?";
+////    point.subtitle = @"I'm here!!!";
+////    
+////    [self.map addAnnotation:point];
 //    
-//    [self.map addAnnotation:point];
-    
-    
-}
+//    
+//}
 
 #pragma mark selectore method
 - (IBAction)tapDetected:(UIGestureRecognizer *)sender {

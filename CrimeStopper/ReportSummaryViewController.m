@@ -122,8 +122,8 @@
     [viewContainer addSubview:ivHR];
     
     // Add Date here
-    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, ivHR.frame.origin.y + ivHR.frame.size.height + 10, 160, 20)];
-    lblDate.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(lblMakeModel.frame.origin.x, ivHR.frame.origin.y + ivHR.frame.size.height + 10, 200, 20)];
+    lblDate.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
     
     NSDateFormatter *dtFormat = [[NSDateFormatter alloc] init];
     [dtFormat setDateFormat:@"yyyy-MM-dd"];
@@ -257,35 +257,121 @@
     top = lblVehicleDetails.frame.origin.y + lblVehicleDetails.frame.size.height + 20;
     //Add Vehicle Type here
     [viewContainer addSubview:[self addLabelWithText1:@"Vehicle Type: " andText2:self.detailsArray[0][@"vehicle_type"]]];
-    
-    top = top + 20;
-    //Add Make here
-    [viewContainer addSubview:[self addLabelWithText1:@"Make: " andText2:self.detailsArray[0][@"make"]]];
-    
-    top = top + 20;
-    //Add Make here
-    [viewContainer addSubview:[self addLabelWithText1:@"Model: " andText2:self.detailsArray[0][@"model"]]];
-    
-    top = top + 20;
-    //Add BodyType here
-    [viewContainer addSubview:[self addLabelWithText1:@"Body Type: " andText2:self.detailsArray[0][@"body_type"]]];
-    
-    top = top + 20;
-    //Add EngineNo here
-    [viewContainer addSubview:[self addLabelWithText1:@"EngineNo: " andText2:self.detailsArray[0][@"engine_no"]]];
-    
-    top = top + 20;
-    //Add VN here
-    [viewContainer addSubview:[self addLabelWithText1:@"VN: " andText2:self.detailsArray[0][@"vin_chassis_no"]]];
-    
-    top = top + 20;
-    //Add Color here
-    [viewContainer addSubview:[self addLabelWithText1:@"Color: " andText2:self.detailsArray[0][@"colour"]]];
-    
-    top = top + 20;
-    //Add Accessories here
-    [viewContainer addSubview:[self addLabelWithText1:@"Accessories: " andText2:self.detailsArray[0][@"accessories_unique_features"]]];
-    
+    if([self.detailsArray[0][@"vehicle_type"] isEqualToString:@"Car"])
+    {
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Make: " andText2:self.detailsArray[0][@"make"]]];
+        
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Model: " andText2:self.detailsArray[0][@"model"]]];
+        
+        top = top + 20;
+        //Add BodyType here
+        [viewContainer addSubview:[self addLabelWithText1:@"Body Type: " andText2:self.detailsArray[0][@"body_type"]]];
+        
+        top = top + 20;
+        //Add EngineNo here
+        [viewContainer addSubview:[self addLabelWithText1:@"EngineNo: " andText2:self.detailsArray[0][@"engine_no"]]];
+        
+        top = top + 20;
+        //Add VN here
+        [viewContainer addSubview:[self addLabelWithText1:@"VIN: " andText2:self.detailsArray[0][@"vin_chassis_no"]]];
+        
+        top = top + 20;
+        //Add Color here
+        [viewContainer addSubview:[self addLabelWithText1:@"Color: " andText2:self.detailsArray[0][@"colour"]]];
+        
+        top = top + 20;
+        //Add Accessories here
+        [viewContainer addSubview:[self addLabelWithText1:@"Accessories: " andText2:self.detailsArray[0][@"accessories_unique_features"]]];
+
+    }
+    else if ([self.detailsArray[0][@"vehicle_type"] isEqualToString:@"Bicycle"])
+    {
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Make: " andText2:self.detailsArray[0][@"make"]]];
+        
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Model: " andText2:self.detailsArray[0][@"model"]]];
+        
+        
+        top = top + 20;
+        //Add EngineNo here
+        [viewContainer addSubview:[self addLabelWithText1:@"SerialNo2: " andText2:self.detailsArray[0][@"engine_no"]]];
+        
+        top = top + 20;
+        //Add VN here
+        [viewContainer addSubview:[self addLabelWithText1:@"e-bike battery no: " andText2:self.detailsArray[0][@"vin_chassis_no"]]];
+        
+        top = top + 20;
+        //Add Color here
+        [viewContainer addSubview:[self addLabelWithText1:@"Color: " andText2:self.detailsArray[0][@"colour"]]];
+        
+        top = top + 20;
+        //Add Accessories here
+        [viewContainer addSubview:[self addLabelWithText1:@"Accessories: " andText2:self.detailsArray[0][@"accessories_unique_features"]]];
+
+    }
+    else if ([self.detailsArray[0][@"vehicle_type"] isEqualToString:@"Motorcycle"])
+    {
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Make: " andText2:self.detailsArray[0][@"make"]]];
+        
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Model: " andText2:self.detailsArray[0][@"model"]]];
+        
+        
+        top = top + 20;
+        //Add EngineNo here
+        [viewContainer addSubview:[self addLabelWithText1:@"EngineNo: " andText2:self.detailsArray[0][@"engine_no"]]];
+        
+        top = top + 20;
+        //Add VN here
+        [viewContainer addSubview:[self addLabelWithText1:@"VIN: " andText2:self.detailsArray[0][@"vin_chassis_no"]]];
+        
+        top = top + 20;
+        //Add Color here
+        [viewContainer addSubview:[self addLabelWithText1:@"Color: " andText2:self.detailsArray[0][@"colour"]]];
+        
+        top = top + 20;
+        //Add Accessories here
+        [viewContainer addSubview:[self addLabelWithText1:@"Accessories: " andText2:self.detailsArray[0][@"accessories_unique_features"]]];
+
+    }
+    else 
+    {
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Make: " andText2:self.detailsArray[0][@"make"]]];
+        
+        top = top + 20;
+        //Add Make here
+        [viewContainer addSubview:[self addLabelWithText1:@"Model: " andText2:self.detailsArray[0][@"model"]]];
+        
+        
+        top = top + 20;
+        //Add EngineNo here
+        [viewContainer addSubview:[self addLabelWithText1:@"EngineNo: " andText2:self.detailsArray[0][@"engine_no"]]];
+        
+        top = top + 20;
+        //Add VN here
+        [viewContainer addSubview:[self addLabelWithText1:@"VIN: " andText2:self.detailsArray[0][@"vin_chassis_no"]]];
+        
+        top = top + 20;
+        //Add Color here
+        [viewContainer addSubview:[self addLabelWithText1:@"Color: " andText2:self.detailsArray[0][@"colour"]]];
+        
+        top = top + 20;
+        //Add Accessories here
+        [viewContainer addSubview:[self addLabelWithText1:@"Accessories: " andText2:self.detailsArray[0][@"accessories_unique_features"]]];
+
+    }
     top = top + 30;
     // Add horizontal line here
     UIImageView *ivHR1 = [[UIImageView alloc] initWithFrame:CGRectMake(10, top, 280, 1)];
@@ -315,7 +401,7 @@
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [format dateFromString:self.detailsArray[0][@"insurance_expiry_date"]];
-    [format setDateFormat:@"F,Y"];
+    [format setDateFormat:@"dd-MM-yyyy"];
     NSString *dtString = [format stringFromDate:date];
     
     if (dtString == NULL) {

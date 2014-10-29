@@ -11,8 +11,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
+#import "StarRatingControl.h"
 
-@interface FindVehicleVC : UIViewController<CLLocationManagerDelegate,MKAnnotation,UIActionSheetDelegate,UIToolbarDelegate,UITextViewDelegate>
+@interface FindVehicleVC : UIViewController<CLLocationManagerDelegate,MKAnnotation,UIActionSheetDelegate,UIToolbarDelegate,UITextViewDelegate,StarRatingDelegate>
 {
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
@@ -32,6 +33,11 @@
 @property (nonatomic,retain) IBOutlet UISlider *slide;
 @property (nonatomic,retain) IBOutlet UILabel *lblRating;
 @property (nonatomic,retain) IBOutlet UIView *viewLocation,*viewTransparent;
+
+@property (weak) IBOutlet StarRatingControl *starRatingControl;
+@property (strong) UIImage *star;
+@property (strong) UIImage *highlightedStar;
+
 
 -(IBAction)GoOt_click:(id)sender;
 -(IBAction)btnLocated_click:(id)sender;

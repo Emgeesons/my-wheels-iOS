@@ -380,6 +380,8 @@ NSString *strDate;
         else
         {
             ////NSLog(@"in api");
+            NSString *policy = [_txtPolicyNo.text uppercaseString];
+            NSLog(@"state : %@",policy);
             NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
             NSString *pin = [[NSUserDefaults standardUserDefaults] objectForKey:@"pin"];
             NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
@@ -411,7 +413,7 @@ NSString *strDate;
                 [param setValue:_txtCompanyName.text forKey:@"insuranceCompanyName"];
             }
             
-            [param setValue:_txtPolicyNo.text forKey:@"insurancePolicyNumber"];
+            [param setValue:policy forKey:@"insurancePolicyNumber"];
             [param setValue:_txtPhoneNo.text forKey:@"insuranceCompanyNumber"];
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
             NSString *strda = [dateFormatter stringFromDate:timePicker.date];
@@ -705,6 +707,10 @@ NSString *strDate;
         // Dismiss the view controller
         [self dismissViewControllerAnimated:YES completion:nil];
         [textField resignFirstResponder];
+    }
+    if(textField == _txtPolicyNo)
+    {
+         _txtPolicyNo.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
     
 }

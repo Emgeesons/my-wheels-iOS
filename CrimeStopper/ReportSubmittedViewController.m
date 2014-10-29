@@ -107,6 +107,7 @@
         //[activityIndicator stopAnimating];
         
         NSDictionary *json = (NSDictionary *)responseObject;
+         NSLog(@"json values : %@",json);
         
         if ([[json objectForKey:@"status"] isEqualToString:@"success"]) {
             NSArray *reportData = (NSArray *)[json objectForKey:@"response"];

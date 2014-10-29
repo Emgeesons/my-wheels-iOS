@@ -10,10 +10,9 @@
                 <outlet property="btnPost" destination="RB4-ZP-U0Y" id="Rhz-N1-xIX"/>
                 <outlet property="btnSkip" destination="uO9-rW-9I2" id="ouC-pw-NbI"/>
                 <outlet property="lblParking" destination="QZl-R3-3MH" id="ztj-nw-z8c"/>
-                <outlet property="lblRating" destination="4bt-Yv-Wix" id="7cs-Vt-jvQ"/>
                 <outlet property="map" destination="4aE-uJ-D77" id="vMH-79-FT4"/>
                 <outlet property="scroll" destination="s6l-tQ-M1R" id="vGV-aQ-S7W"/>
-                <outlet property="slide" destination="c47-n8-VPm" id="nao-6E-Qbs"/>
+                <outlet property="starRatingControl" destination="dWo-T5-bfo" id="dbm-db-8kb"/>
                 <outlet property="toolbar" destination="3Fk-I1-svp" id="GNh-e6-4cW"/>
                 <outlet property="txtComment" destination="eEB-LW-2FZ" id="MR6-fa-jfk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -121,26 +120,10 @@
                                             <rect key="frame" x="118" y="42" width="51" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Location : " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P5E-z2-pRO">
-                                            <rect key="frame" x="12" y="168" width="110" height="21"/>
+                                        <view contentMode="scaleToFill" id="dWo-T5-bfo" customClass="StarRatingControl">
+                                            <rect key="frame" x="12" y="166" width="263" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" id="c47-n8-VPm">
-                                            <rect key="frame" x="18" y="191" width="259" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <connections>
-                                                <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="CQr-LB-amb"/>
-                                            </connections>
-                                        </slider>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4bt-Yv-Wix">
-                                            <rect key="frame" x="123" y="168" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.11372549830000001" green="0.58823531870000001" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
@@ -199,12 +182,12 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view alpha="0.69999998807907104" contentMode="scaleToFill" id="NSV-1K-eIs">
-                    <rect key="frame" x="0.0" y="53" width="320" height="519"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="I9t-yL-wDs">
-                    <rect key="frame" x="33" y="126" width="254" height="317"/>
+                    <rect key="frame" x="33" y="117" width="254" height="335"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWheels relies on using your location. In order to do this, we ask for permission to use your location services." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I8y-o6-1nj">

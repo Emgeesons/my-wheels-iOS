@@ -218,7 +218,9 @@ UINavigationController *nav;
     NSTimeInterval timeDifference = [[NSDate date] timeIntervalSinceDate:Time];
      NSLog(@" timeDifference = %.0f",  timeDifference);
     double minutes = timeDifference / 60;
+    double hours = timeDifference / 3600;
    NSLog(@" minutes = %.0f",  minutes);
+    NSLog(@"hours = %.0f",hours);
     
     ////NSLog(@" days = %.0f,hours = %.2f, minutes = %.0f,seconds = %.0f", days, hours, minutes, seconds);
          NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
@@ -230,6 +232,10 @@ UINavigationController *nav;
     else if (minutes < 15)
     {
         
+    }
+    else if (hours >= 5)
+    {
+    
     }
     else
     {

@@ -263,17 +263,19 @@ NSData *imageData;
                           if([_lblVehicleType.text isEqualToString:@"Bicycle"])
                           {
                               [_imgVehicleType setImage:[UIImage imageNamed:@"ic_cycle3.png"]];
-                              [_lblRegistrationNo1 setText:@"Serial Number:"];
+                              [_lblRegistrationNo1 setText:@"Serial Number : "];
                               [_lblState setHidden:YES];
                               [_lblState1 setHidden:YES];
                               [_lblBodyType1 setHidden:YES];
                               [_lblNodyType setHidden: YES];
+                              [_lblEngineNo1 setText:@"Serial No 2 : "];
                               [_lblEngineNo1 setFrame:CGRectMake(21, 72, 90, 21)];
                               [_lblEngineNo setFrame:CGRectMake(103, 72, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 95, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 95, 250, 21)];
+                              [_lblVin1 setText:@"e-bike battery no : "];
+                              [_lblVin1 setFrame:CGRectMake(22, 95, 140, 21)];
+                              [_lblVin setFrame:CGRectMake(143, 95, 250, 21)];
                               [_lblColor1 setFrame:CGRectMake(22, 116, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 116, 217, 21)];
+                              [_lblColor setFrame:CGRectMake(74, 116, 217, 21)];
                               [_lblAccessories1 setFrame:CGRectMake(22, 138, 107, 21)];
                               [_lblAccessories setFrame:CGRectMake(112, 138, 202, 21)];
                           }
@@ -288,10 +290,10 @@ NSData *imageData;
                               [_lblNodyType setHidden: NO];
                               [_lblEngineNo1 setFrame:CGRectMake(22, 115, 90, 21)];
                               [_lblEngineNo setFrame:CGRectMake(103, 115, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 138, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 138, 250, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 138, 137, 21)];
+                              [_lblVin setFrame:CGRectMake(142, 138, 250, 21)];
                               [_lblColor1 setFrame:CGRectMake(22, 161, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 161, 217, 21)];
+                              [_lblColor setFrame:CGRectMake(75, 161, 217, 21)];
                               [_lblAccessories1 setFrame:CGRectMake(22, 184, 107, 21)];
                               [_lblAccessories setFrame:CGRectMake(112, 184, 202, 21)];
 
@@ -306,10 +308,10 @@ NSData *imageData;
                               [_lblNodyType setHidden: YES];
                               [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
                               [_lblEngineNo setFrame:CGRectMake(103, 95, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 116, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 116, 250, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 116, 137, 21)];
+                              [_lblVin setFrame:CGRectMake(142, 116, 250, 21)];
                               [_lblColor1 setFrame:CGRectMake(22, 138, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 138, 217, 21)];
+                              [_lblColor setFrame:CGRectMake(74, 138, 217, 21)];
                               [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
                               [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
                               
@@ -324,30 +326,16 @@ NSData *imageData;
                               [_lblNodyType setHidden: YES];
                               [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
                               [_lblEngineNo setFrame:CGRectMake(103, 95, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 116, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 116, 250, 21)];
+                              [_lblVin1 setFrame:CGRectMake(22, 116, 137, 21)];
+                              [_lblVin setFrame:CGRectMake(142, 116, 250, 21)];
                               [_lblColor1 setFrame:CGRectMake(22, 138, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 138, 217, 21)];
+                              [_lblColor setFrame:CGRectMake(74, 138, 217, 21)];
                               [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
                               [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
                           }
                           else
                           {
-                              [_imgVehicleType setImage:[UIImage imageNamed:@"ic_other3.png"]];
-                              [_lblRegistrationNo1 setText:@"Registration No:"];
-                              [_lblState setHidden:NO];
-                              [_lblState1 setHidden:NO];
-                              [_lblBodyType1 setHidden:YES];
-                              [_lblNodyType setHidden: YES];
-                              [_lblEngineNo1 setFrame:CGRectMake(22, 95, 90, 21)];
-                              [_lblEngineNo setFrame:CGRectMake(103, 95, 211, 21)];
-                              [_lblVin1 setFrame:CGRectMake(22, 116, 40, 21)];
-                              [_lblVin setFrame:CGRectMake(57, 116, 250, 21)];
-                              [_lblColor1 setFrame:CGRectMake(22, 138, 53, 21)];
-                              [_lblColor setFrame:CGRectMake(70, 138, 217, 21)];
-                              [_lblAccessories1 setFrame:CGRectMake(22, 161, 107, 21)];
-
-                              [_lblAccessories setFrame:CGRectMake(112, 161, 202, 21)];
+                             
                           }
                           
                           if([_lblStatus.text isEqualToString:@""])

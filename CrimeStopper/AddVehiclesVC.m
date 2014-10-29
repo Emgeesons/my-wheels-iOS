@@ -510,7 +510,7 @@ NSString *strBody;
     [timeBackgroundView setHidden:YES];
 }
 -(void)cancelClicked {
-     [timeBackgroundView1 setHidden:YES];
+     [timeBackgroundView setHidden:YES];
 }
 
 
@@ -558,7 +558,12 @@ NSString *strBody;
     {
        // [_btnVehiclesType setTitle:[_arrVehicleType objectAtIndex:row] forState:UIControlStateNormal];
     }
+    if(pickerView == _pkvBodyType)
+    {
+       // [_txtBodyType setText:[_arrBodyType objectAtIndex:row]  ];
+    }
 }
+
 
 #pragma mark textfeild delegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -671,7 +676,7 @@ NSString *strBody;
     }
     if(textField == _txtBodyType)
     {
-         [textField resignFirstResponder];
+        
         [_pkvBodyType setHidden:NO];
 //        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 //        
@@ -695,11 +700,9 @@ NSString *strBody;
 //        [textField resignFirstResponder];
         
         //picker view for ios8
-       
-        [_txtModel resignFirstResponder];
-        [_txtMake resignFirstResponder];
         
-        _pkvBodyType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];
+        [textField resignFirstResponder];
+        _pkvBodyType = [[UIPickerView alloc] initWithFrame:CGRectMake ( 0.0, 44, 0.0, 0.0)];
         [_pkvBodyType setDelegate:self];
         _pkvBodyType.backgroundColor = [UIColor whiteColor];
         
@@ -722,17 +725,17 @@ NSString *strBody;
         [pickerToolbar setItems:itemArray animated:YES];
         
         //set backgound view of date picker
-     //   timeBackgroundView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
+        //   timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
         [self.view addSubview:timeBackgroundView]; if(IsIphone5)
             timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 350, 320, 246)];
         else
             timeBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 246)];
-        [timeBackgroundView1 setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+        [timeBackgroundView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
         
-        [timeBackgroundView1 addSubview:pickerToolbar];
-        [timeBackgroundView1 addSubview:_pkvBodyType];
+        [timeBackgroundView addSubview:pickerToolbar];
+        [timeBackgroundView addSubview:_pkvBodyType];
         
-        [self.view addSubview:timeBackgroundView1];
+        [self.view addSubview:timeBackgroundView];
         
 
     }
@@ -740,25 +743,25 @@ NSString *strBody;
     // txtOtherQuestion  = [[UITextField alloc] initWithFrame:CGRectMake(5,380,300,30)];
     if(textField == _txtstate)
     {
-        y=150;
+        y=140;
     }
     if(textField == _txtEngineNo)
     {
-        y=170;
+        y=140;
         _txtEngineNo.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
     if(textField == _txtChassisNo)
     {
-        y=200;
+        y=140;
         _txtChassisNo.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
     if(textField == _txtColor)
     {
-        y=200;
+        y=140;
     }
     if(textField == _txtAccessories)
     {
-        y=200;
+        y=140;
     }
    
     ////NSLog(@"y = %d",y);
