@@ -280,7 +280,7 @@ NSString *strDate;
     // NSString *str = nss
     [dateFormatter setDateFormat:@"dd-MM-yyyy"];
     [_txtExpiry setText:[dateFormatter stringFromDate:timePicker.date]];
-    _txtExpiry.userInteractionEnabled = NO;
+    
     if([_txtExpiry.text isEqualToString:@""])
     {
         strDate = @"0000-00-00";
@@ -593,6 +593,11 @@ NSString *strDate;
     }
     return YES;
 }
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return YES;
+}
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
@@ -664,14 +669,20 @@ NSString *strDate;
     if(textField == _txtExpiry)
     {
         // Open DatePicker when age textfield is clicked
-        [textField resignFirstResponder];
-        [_txtExpiry resignFirstResponder];
+        [activeTextField resignFirstResponder];
         [_txtCompanyName resignFirstResponder];
+        [_txtExpiry resignFirstResponder];
         [_txtOtherInsurance resignFirstResponder];
         [_txtPhoneNo resignFirstResponder];
         [_txtPolicyNo resignFirstResponder];
-        _txtExpiry.text = @"";
-        [timePicker setHidden:NO];
+        [textField resignFirstResponder];
+//        [_txtExpiry resignFirstResponder];
+//        [_txtCompanyName resignFirstResponder];
+//        [_txtOtherInsurance resignFirstResponder];
+//        [_txtPhoneNo resignFirstResponder];
+         [_txtPolicyNo resignFirstResponder];
+         _txtExpiry.text = @"";
+         [timePicker setHidden:NO];
 //        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 //        
 //        timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake ( 0.0, 44.0, 0.0, 0.0)];

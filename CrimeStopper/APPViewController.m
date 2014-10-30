@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+     self.navigationController.navigationBarHidden = YES;
      _pageImages = @[@"tour1.png", @"tour2.png", @"tour3.png", @"tour4.png", @"tour5.png",@"tour6.png"];
     
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];

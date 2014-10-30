@@ -11,10 +11,11 @@
 #import <Parse/Parse.h>
 #import "HomePageVC.h"
 #import "LoginVC.h"
-#import "UAConfig.h"
-#import "UAPush.h"
+//#import "UAConfig.h"
+//#import "UAPush.h"
 #import "EvertTimePinVC.h"
 #import "HomePageVC.h"
+#import "APPViewController.h"
 
 @implementation AppDelegate
 @synthesize intud;
@@ -49,12 +50,55 @@ UINavigationController *nav;
     
     // Override point for customization after application launch.
     // Override point for customization after application launch.
-    self.HomeScreenVC = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
-    self.window.rootViewController = self.HomeScreenVC;
     
-    HomeScreenVC *obj = [[HomeScreenVC alloc] initWithNibName:@"HomeScreenVC" bundle:nil];
-    self.HomeScreenVC = obj;
-    nav = [[UINavigationController alloc] initWithRootViewController:obj];
+    
+    
+    NSString *savedValue = [[NSUserDefaults standardUserDefaults]
+                            stringForKey:@"first"];
+    //NSLog(@"str1 : %@",savedValue);
+    if([savedValue isEqualToString:@"first"])
+    {
+        //NSLog(@"second time... ");
+        NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+        //NSLog(@"str : %@",UserID);
+        if(UserID == nil || UserID == (id)[NSNull null])
+        {
+            self.APPViewController = [[APPViewController alloc] initWithNibName:@"APPViewController" bundle:nil];
+            self.window.rootViewController = self.APPViewController;
+            
+            APPViewController *obj = [[APPViewController alloc] initWithNibName:@"APPViewController" bundle:nil];
+            self.APPViewController = obj;
+            nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        }
+        else
+        {
+           
+            
+            self.HomePageVC = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
+            self.window.rootViewController = self.HomePageVC;
+            
+            HomePageVC *obj = [[HomePageVC alloc] initWithNibName:@"HomePageVC" bundle:nil];
+            self.HomePageVC = obj;
+            nav = [[UINavigationController alloc] initWithRootViewController:obj];
+        }
+        
+        
+    }
+    else
+    {
+        self.APPViewController = [[APPViewController alloc] initWithNibName:@"APPViewController" bundle:nil];
+        self.window.rootViewController = self.APPViewController;
+        
+        APPViewController *obj = [[APPViewController alloc] initWithNibName:@"APPViewController" bundle:nil];
+        self.APPViewController = obj;
+        nav = [[UINavigationController alloc] initWithRootViewController:obj];
+    }
+
+    
+    
+    
+   
+    
     self.revealSideViewController = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
     [self.revealSideViewController setDirectionsToShowBounce:PPRevealSideDirectionNone];
     [self.revealSideViewController setPanInteractionsWhenClosed:PPRevealSideInteractionContentView | PPRevealSideInteractionNavigationBar];
@@ -70,43 +114,43 @@ UINavigationController *nav;
 
     _arrMutvehiclePark = [[NSMutableArray alloc]init];
     
-    UAConfig *config = [UAConfig defaultConfig];
-    [UAirship takeOff:config];
-    [UAPush shared].notificationTypes = (UIRemoteNotificationTypeBadge |
-                                         UIRemoteNotificationTypeSound |
-                                         UIRemoteNotificationTypeAlert);
-    [[UAPush shared] registerForRemoteNotifications];
-    [UAPush setDefaultPushEnabledValue:NO];
+//    UAConfig *config = [UAConfig defaultConfig];
+//    [UAirship takeOff:config];
+//    [UAPush shared].notificationTypes = (UIRemoteNotificationTypeBadge |
+//                                         UIRemoteNotificationTypeSound |
+//                                         UIRemoteNotificationTypeAlert);
+//    [[UAPush shared] registerForRemoteNotifications];
+//    [UAPush setDefaultPushEnabledValue:NO];
     // This will trigger the proper registration or de-registration code in the library.
     //[[UAPush shared] setPushEnabled:YES];
 
     
     return YES;
 }
-#pragma mark urban airship
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    UA_LINFO(@"APNS device token: %@", deviceToken);
-    
-    // Updates the device token and registers the token with UA. This won't occur until
-    // push is enabled if the outlined process is followed. This call is required.
-    [[UAPush shared] registerDeviceToken:deviceToken];
-}
-////
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    UA_LINFO(@"Received remote notification: %@", userInfo);
-    _intCountPushNotification = 0;
-  //  [[NSUserDefaults standardUserDefaults]setObject:_intCountPushNotification forKey:@"CountPushNoti"];
-    _intCountPushNotification ++;
-    ////NSLog(@"I camhe here ");
-  //  NSString *str = [NSString stringWithFormat:@"%d",_intCountPushNotification];
-  
-    
-    // Fire the handlers for both regular and rich push
-    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
-   // [UAInboxPushHandler handleNotification:userInfo];
-}
-
+//#pragma mark urban airship
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//    UA_LINFO(@"APNS device token: %@", deviceToken);
+//    
+//    // Updates the device token and registers the token with UA. This won't occur until
+//    // push is enabled if the outlined process is followed. This call is required.
+//    [[UAPush shared] registerDeviceToken:deviceToken];
+//}
+//////
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//    
+//    UA_LINFO(@"Received remote notification: %@", userInfo);
+//    _intCountPushNotification = 0;
+//  //  [[NSUserDefaults standardUserDefaults]setObject:_intCountPushNotification forKey:@"CountPushNoti"];
+//    _intCountPushNotification ++;
+//    ////NSLog(@"I camhe here ");
+//  //  NSString *str = [NSString stringWithFormat:@"%d",_intCountPushNotification];
+//  
+//    
+//    // Fire the handlers for both regular and rich push
+//    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
+//   // [UAInboxPushHandler handleNotification:userInfo];
+//}
+//
 
 
 #pragma mark background methods
@@ -232,10 +276,6 @@ UINavigationController *nav;
     else if (minutes < 15)
     {
         
-    }
-    else if (hours >= 5)
-    {
-    
     }
     else
     {

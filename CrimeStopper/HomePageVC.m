@@ -23,7 +23,7 @@
 #import "FileNewReportViewController.h"
 #import "UpdatesViewController.h"
 #import "ReportSightingViewController.h"
-#import "UAPush.h"
+//#import "UAPush.h"
 #import "Reachability.h"
 
 @import CoreLocation;
@@ -105,16 +105,16 @@
     _lblPush.clipsToBounds = YES;
     
     //intcountpushnotification set here
-    if(appdelegate.intCountPushNotification > 0)
-    {
-        [_lblPush setHidden:NO];
-        NSString *str = [NSString stringWithFormat:@"%d",appdelegate.intCountPushNotification];
-        [_lblPush setText:str];
-    }
-    else
-    {
-        [_lblPush setHidden:YES];
-    }
+//    if(appdelegate.intCountPushNotification > 0)
+//    {
+//        [_lblPush setHidden:NO];
+//        NSString *str = [NSString stringWithFormat:@"%d",appdelegate.intCountPushNotification];
+//        [_lblPush setText:str];
+//    }
+//    else
+//    {
+//        [_lblPush setHidden:YES];
+//    }
     
    if( appdelegate.intReg == 1)
    {
@@ -152,6 +152,7 @@
         NSString *str2 = [str4 stringByAppendingString:str1];
         NSString  *strVehicleId = [[_arrVehicles valueForKey:@"vehicle_id"] objectAtIndex:0];
         [_btnHeading setTitle:str2 forState:UIControlStateNormal];
+         
         [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
         [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
         [_voewMakeModel setHidden:YES];
@@ -170,15 +171,28 @@
         // Use one or the other, not both. Depending on what you put in info.plist
         [self.locationManager requestWhenInUseAuthorization];
         [self.locationManager requestAlwaysAuthorization];
+        [ self.map.delegate self];
+        //Initialize CLLocationManager
+        _locationManager = [[CLLocationManager alloc] init];
+        [_locationManager requestWhenInUseAuthorization];
+        // Initialize CLGeocoder
+        geocoder = [[CLGeocoder alloc] init];
+    }else{
+        [ self.map.delegate self];
+        //Initialize CLLocationManager
+        _locationManager = [[CLLocationManager alloc] init];
+        //[_locationManager requestWhenInUseAuthorization];
+        // Initialize CLGeocoder
+        geocoder = [[CLGeocoder alloc] init];
     }
     #endif
     
-     [ self.map.delegate self];
+    /* [ self.map.delegate self];
     //Initialize CLLocationManager
     _locationManager = [[CLLocationManager alloc] init];
     [_locationManager requestWhenInUseAuthorization];
     // Initialize CLGeocoder
-    geocoder = [[CLGeocoder alloc] init];
+    geocoder = [[CLGeocoder alloc] init];*/
     
     _locationManager.delegate = self; // Set delegate
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest; // set accuracy
@@ -308,6 +322,7 @@
 
    NSString *strVehicleName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleName"];
     [_btnHeading setTitle:strVehicleName forState:UIControlStateNormal];
+    appdelegate.strVehicleType =  [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentVehicleType"];
     
    
     //NSLog(@"%@",latitude);
@@ -828,15 +843,12 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)openUpdates:(id)sender {
-    appdelegate.intCountPushNotification = 0;
+ //   appdelegate.intCountPushNotification = 0;
     UpdatesViewController *updatesVC = [[UpdatesViewController alloc] init];
     [self.navigationController pushViewController:updatesVC animated:YES];
 }
 -(IBAction)btnReportSighting_click:(id)sender
 {
-    NSString *UserID = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-    //NSLog(@"str : %@",UserID);
-  
     ReportSightingViewController *vc = [[ReportSightingViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -956,6 +968,7 @@
     [_btnHeading setTitle:str2 forState:UIControlStateNormal];
      [[NSUserDefaults standardUserDefaults] setValue:strVehicleId forKey:@"CurrentVehicleID"];
     [[NSUserDefaults standardUserDefaults] setValue:str2 forKey:@"CurrentVehicleName"];
+    [[NSUserDefaults standardUserDefaults] setValue:vehivleType forKey:@"CurrentVehicleType"];
     [_voewMakeModel setHidden:YES];
     [_viewTrasparent setHidden:YES];
     [self.voewMakeModel setHidden:YES];

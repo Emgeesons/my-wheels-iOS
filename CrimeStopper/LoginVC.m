@@ -9,9 +9,9 @@
 #import "SVProgressHUD.h"
 #import "LoginWithFacebookVC.h"
 #import "AFNetworking.h"
-#import "UAConfig.h"
-#import "UAPush.h"
-#import "UAirship.h"
+//#import "UAConfig.h"
+//#import "UAPush.h"
+//#import "UAirship.h"
 #import "LoginWithFacebookVC.h"
 
 
@@ -122,10 +122,10 @@
                 btnRegister.frame = CGRectMake(26, 153, 230, 55);
         
             // set 4 views's frame on ligon page on 4.0
-                viewForgotPin.frame = CGRectMake(19, 237, 282, 220);
-                viewForgotQuestion.frame = CGRectMake(19, 237, 282, 220);
-                viewLogin.frame = CGRectMake(19, 237, 282, 220);
-               viewButtons.frame = CGRectMake(19, 262, 282, 220);
+                viewForgotPin.frame = CGRectMake(19, 282, 282, 220);
+                viewForgotQuestion.frame = CGRectMake(19, 282, 282, 220);
+                viewLogin.frame = CGRectMake(19, 282, 282, 220);
+               viewButtons.frame = CGRectMake(19, 282, 282, 220);
         
         
                 btnSkiptoHome.frame = CGRectMake(19, 510, 282, 30);
@@ -459,7 +459,7 @@
                   //NSLog(@"message %@",EntityID);
                   if ([EntityID isEqualToString:@"success"])
                   {
-                      appdelegate.intCountPushNotification = 0;
+                   //   appdelegate.intCountPushNotification = 0;
                       if([[jsonDictionary valueForKey:@"message"] isEqualToString:@"Existing User"])
                       {
                           appdelegate.Time = [NSDate date];
@@ -484,12 +484,12 @@
                            [[NSUserDefaults standardUserDefaults] setValue:[[[jsonDictionary valueForKey:@"response"] objectAtIndex:0] valueForKey:@"pin"] forKey:@"pin"];
                           [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                           
-                          appdelegate.intCountPushNotification = 0;
+                        //  appdelegate.intCountPushNotification = 0;
                           //URBAN AIRSHIP SET UP
-                          NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-                          NSString *yourAlias = UserId;
-                          [UAPush shared].alias = yourAlias;
-                          [[UAPush shared] setPushEnabled:YES];
+                       //   NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+                        //  NSString *yourAlias = UserId;
+//                          [UAPush shared].alias = yourAlias;
+//                          [[UAPush shared] setPushEnabled:YES];
                           //End of Urban Airship Set up
                           
                           HomePageVC *vc = [[HomePageVC alloc]init];
@@ -1191,12 +1191,12 @@
                     [[NSUserDefaults standardUserDefaults] setValue:arrVehicle forKey:@"vehicles"];
                     [[NSUserDefaults standardUserDefaults] setValue:strOldPin forKey:@"oldPin"];
                     [[NSUserDefaults standardUserDefaults] setValue:strPin forKey:@"pin"];
-                    appdelegate.intCountPushNotification = 0;
+                  //  appdelegate.intCountPushNotification = 0;
                     //URBAN AIRSHIP SET UP
-                    NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-                    NSString *yourAlias = UserId;
-                    [UAPush shared].alias = yourAlias;
-                    [[UAPush shared] setPushEnabled:YES];
+//                    NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+//                    NSString *yourAlias = UserId;
+//                    [UAPush shared].alias = yourAlias;
+//                    [[UAPush shared] setPushEnabled:YES];
                     //End of Urban Airship Set up
                     
                     NSLog(@"home");

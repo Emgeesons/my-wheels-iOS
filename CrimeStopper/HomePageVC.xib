@@ -18,7 +18,6 @@
                 <outlet property="imgUpdates" destination="Emj-mV-TvQ" id="ZRI-ci-HZ0"/>
                 <outlet property="lblGray1" destination="meD-5W-yMX" id="ykL-m5-rBg"/>
                 <outlet property="lblGray2" destination="KI5-pG-n1Y" id="xmj-4b-pI8"/>
-                <outlet property="lblPush" destination="7MX-Kl-CJ5" id="121-Te-R1K"/>
                 <outlet property="lblSubText" destination="gmy-SK-gRE" id="6pE-b7-TPj"/>
                 <outlet property="lblSubText1" destination="aiM-A1-j08" id="Jmx-ib-Hu6"/>
                 <outlet property="lblSubText2" destination="org-TJ-6Vp" id="Tkn-Zf-3U2"/>
@@ -270,14 +269,6 @@
                             <rect key="frame" x="63" y="12" width="245" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7MX-Kl-CJ5">
-                            <rect key="frame" x="279" y="19" width="25" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="1" green="0.2591526281" blue="0.29633352639999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>

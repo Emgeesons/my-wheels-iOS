@@ -95,6 +95,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleType"];
     //parkVehicle
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
@@ -129,10 +130,12 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleType"];
     //parkVehicle
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleType"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
     LoginVC *vc = [[LoginVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];

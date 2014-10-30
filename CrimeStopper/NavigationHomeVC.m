@@ -14,9 +14,9 @@
 #import "HomePageVC.h"
 #import "LoginVC.h"
 #import "AppDelegate.h"
-#import "UAConfig.h"
-#import "UAPush.h"
-#import "UAirship.h"
+//#import "UAConfig.h"
+//#import "UAPush.h"
+//#import "UAirship.h"
 
 @interface NavigationHomeVC ()
 {
@@ -237,12 +237,14 @@
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"suburb"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleType"];
             //parkVehicle
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"parkVehicle"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleType"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vehicles"];
-            appdelegate.intCountPushNotification = 0;
+           // appdelegate.intCountPushNotification = 0;
             appdelegate.intMparking = 0;
             appdelegate.Time = 0;
             
@@ -259,7 +261,7 @@
             //
             //         [[NSUserDefaults standardUserDefaults] removeObjectForKey:strFileName];
             
-            [[UAPush shared] setPushEnabled:NO];
+          //  [[UAPush shared] setPushEnabled:NO];
             
             [[NSUserDefaults standardUserDefaults]synchronize ];
             appdelegate.strUserID = @"";

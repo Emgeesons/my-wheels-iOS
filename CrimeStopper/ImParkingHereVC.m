@@ -64,10 +64,11 @@ BOOL bool1,bool2,bool3;
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //NSLog(@"appdelegate str vehicle type: %@",appDelegate.strVehicleType);
     _arrrandValue = [[NSMutableArray alloc]init];
+    NSLog(@"vehicle type : %@",appDelegate.strVehicleType);
     if([appDelegate.strVehicleType isEqualToString:@"Bicycle"])
-        _arrrandValue = [self getEightRandomLessThan:13];
-    else if([appDelegate.strVehicleType isEqualToString:@"Motorcycle"])
         _arrrandValue = [self getEightRandomLessThan:7];
+    else if([appDelegate.strVehicleType isEqualToString:@"Motorcycle"])
+        _arrrandValue = [self getEightRandomLessThan:13];
     else
         _arrrandValue = [self getEightRandomLessThan:10];
     NSLog(@"randome value : %@",_arrrandValue);
@@ -192,11 +193,7 @@ BOOL bool1,bool2,bool3;
    // manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
      NSString *url = [NSString stringWithFormat:@"%@parkingHere.php", SERVERNAME];
-        //        [manager POST:url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        //
-        //        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //
-        [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
+    [manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
         
         //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
@@ -386,7 +383,7 @@ BOOL bool1,bool2,bool3;
 //    //NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrCar count]]);
     int chk = [[_arrrandValue objectAtIndex:indexPath.row ] intValue];
     
-    
+    NSLog(@"vehicle : %@",appDelegate.strVehicleType);
     if (cell == nil)
     {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"mParkingCell" owner:self options:nil];
@@ -398,6 +395,8 @@ BOOL bool1,bool2,bool3;
 //        [self getEightRandomLessThan:[_arrcycle count]];
 //        //NSLog(@"check list: %@",[self getEightRandomLessThan:[_arrcycle count]]);
 //
+        NSLog(@"index : %d",chk);
+        NSLog(@"cycle array : %@",[_arrcycle objectAtIndex:chk]);
         [cell.lblCheckList setText:[_arrcycle objectAtIndex: chk]];
     }
     else if([appDelegate.strVehicleType isEqualToString:@"Motorcycle"])

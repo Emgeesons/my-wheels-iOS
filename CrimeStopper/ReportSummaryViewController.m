@@ -545,7 +545,10 @@
 }
 
 - (IBAction)btnCallInsurerClicked:(id)sender {
-    NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", insurerNumber]];
+    NSLog(@"insurar nu. :%@",insurerNumber);
+    NSString *secondString = [insurerNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"insurar nu. :%@",secondString);
+    NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", secondString]];
     [[UIApplication sharedApplication] openURL:telURL];
 }
 @end

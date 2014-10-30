@@ -12,9 +12,9 @@
 #import "SVProgressHUD.h"
 #import "HomePageVC.h"
 #import "LoginVC.h"
-#import "UAConfig.h"
-#import "UAPush.h"
-#import "UAirship.h"
+//#import "UAConfig.h"
+//#import "UAPush.h"
+//#import "UAirship.h"
 
 #define   IsIphone5     ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -671,12 +671,12 @@ int intques;
                   [[NSUserDefaults standardUserDefaults] setValue:txtPin3.text forKey:@"pin3"];
                   [[NSUserDefaults standardUserDefaults] setValue:txtPin4.text forKey:@"pin4"];
                   
-                  appdelegate.intCountPushNotification = 0;
-                  //URBAN AIRSHIP SET UP
-                  NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
-                  NSString *yourAlias = UserId;
-                  [UAPush shared].alias = yourAlias;
-                  [[UAPush shared] setPushEnabled:YES];
+//                  appdelegate.intCountPushNotification = 0;
+//                  //URBAN AIRSHIP SET UP
+//                  NSString *UserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserID"];
+//                  NSString *yourAlias = UserId;
+//                  [UAPush shared].alias = yourAlias;
+//                  [[UAPush shared] setPushEnabled:YES];
                   //End of Urban Airship Set up
                   appdelegate.Time = [NSDate date];
                   HomePageVC *vc = [[HomePageVC alloc]init];

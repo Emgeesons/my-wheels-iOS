@@ -103,8 +103,6 @@
 		5E3C3FBA196A9A11007E6AFA /* ic_unlike_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB5196A9A11007E6AFA /* ic_unlike_blue.png */; };
 		5E3C3FBB196A9A11007E6AFA /* ic_unlike_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB6196A9A11007E6AFA /* ic_unlike_grey.png */; };
 		5E3C3FBC196A9A11007E6AFA /* im_points.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3C3FB7196A9A11007E6AFA /* im_points.png */; };
-		5E3E6F7E197A3E8200F2FBC3 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */; };
-		5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */; };
 		5E47232E199B3D9300684821 /* tick_mark1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E47232D199B3D9300684821 /* tick_mark1.png */; };
 		5E815EA51940832700CEAFAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA41940832700CEAFAB /* Foundation.framework */; };
 		5E815EA71940832700CEAFAB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E815EA61940832700CEAFAB /* CoreGraphics.framework */; };
@@ -170,7 +168,7 @@
 		5EB5B2121970033D00DE2ABE /* RatingTipsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */; };
 		5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */; };
 		5EB9E35719B1A88E008B53A8 /* splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB9E35619B1A88E008B53A8 /* splashscreen.png */; };
-		5EB9E35919B1A8E9008B53A8 /* splashscreen_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB9E35819B1A8E9008B53A8 /* splashscreen_640x1136.png */; };
+		5EB9E35919B1A8E9008B53A8 /* splashscreen-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB9E35819B1A8E9008B53A8 /* splashscreen-568h@2x~iphone.png */; };
 		5ED385D819612578007DD44F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED385D719612578007DD44F /* FacebookSDK.framework */; };
 		5ED385DC196166E0007DD44F /* AddVehiclesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED385DA196166E0007DD44F /* AddVehiclesVC.m */; };
 		5ED385DD196166E0007DD44F /* AddVehiclesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED385DB196166E0007DD44F /* AddVehiclesVC.xib */; };
@@ -424,7 +422,6 @@
 		5E3C3FB6196A9A11007E6AFA /* ic_unlike_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_unlike_grey.png; sourceTree = "<group>"; };
 		5E3C3FB7196A9A11007E6AFA /* im_points.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_points.png; sourceTree = "<group>"; };
 		5E3E6F7D197A3E8200F2FBC3 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.0.a"; path = "../../../Documents/Airship/libUAirship-4.0.0.a"; sourceTree = "<group>"; };
-		5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		5E47232D199B3D9300684821 /* tick_mark1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_mark1.png; sourceTree = "<group>"; };
 		5E815EA11940832700CEAFAB /* CrimeStopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrimeStopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E815EA41940832700CEAFAB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -514,7 +511,7 @@
 		5EB5B2101970033D00DE2ABE /* RatingTipsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingTipsVC.m; sourceTree = "<group>"; };
 		5EB5B2111970033D00DE2ABE /* RatingTipsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingTipsVC.xib; sourceTree = "<group>"; };
 		5EB9E35619B1A88E008B53A8 /* splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen.png; sourceTree = "<group>"; };
-		5EB9E35819B1A8E9008B53A8 /* splashscreen_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen_640x1136.png; sourceTree = "<group>"; };
+		5EB9E35819B1A8E9008B53A8 /* splashscreen-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashscreen-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		5ED385D719612578007DD44F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = CrimeStopper/FacebookSDK.framework; sourceTree = "<group>"; };
 		5ED385D9196166E0007DD44F /* AddVehiclesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddVehiclesVC.h; sourceTree = "<group>"; };
 		5ED385DA196166E0007DD44F /* AddVehiclesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddVehiclesVC.m; sourceTree = "<group>"; };
@@ -654,7 +651,6 @@
 				5E29ECFA19EB9CC6002FB609 /* CoreLocation.framework in Frameworks */,
 				5E29ECF919EB9CB3002FB609 /* MapKit.framework in Frameworks */,
 				EC53BD9619987B71001248F9 /* Social.framework in Frameworks */,
-				5E3E6F7E197A3E8200F2FBC3 /* libUAirship-4.0.0.a in Frameworks */,
 				5EF7E75C197A252000262573 /* MessageUI.framework in Frameworks */,
 				5EF7E75A197A250C00262573 /* CoreTelephony.framework in Frameworks */,
 				5EF7E758197A24FA00262573 /* libsqlite3.dylib in Frameworks */,
@@ -949,7 +945,6 @@
 				5E815EAD1940832700CEAFAB /* InfoPlist.strings */,
 				5E815EB01940832700CEAFAB /* main.m */,
 				5E815EB21940832700CEAFAB /* CrimeStopper-Prefix.pch */,
-				5E3E6F7F197A493600F2FBC3 /* AirshipConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1167,7 +1162,7 @@
 			children = (
 				5EB9E35619B1A88E008B53A8 /* splashscreen.png */,
 				5EEF21741955A3FB00A0BA3F /* splashscreen@2x.png */,
-				5EB9E35819B1A8E9008B53A8 /* splashscreen_640x1136.png */,
+				5EB9E35819B1A8E9008B53A8 /* splashscreen-568h@2x~iphone.png */,
 			);
 			name = "Splash Screen";
 			sourceTree = "<group>";
@@ -1403,7 +1398,6 @@
 				5E0324731942FBB7006EEA24 /* ic_back.png in Resources */,
 				5EB5B2131970033D00DE2ABE /* RatingTipsVC.xib in Resources */,
 				EC91F27019A4C35C00953BB1 /* ic_car@2x.png in Resources */,
-				5E3E6F80197A493600F2FBC3 /* AirshipConfig.plist in Resources */,
 				5EEF217A1955A3FB00A0BA3F /* splashscreen@2x.png in Resources */,
 				5EEEDFB71992372D00016E2F /* add_photo_profile.png in Resources */,
 				5E815EEB1940949500CEAFAB /* LoginVC.xib in Resources */,
@@ -1522,7 +1516,7 @@
 				5EF124401987827D0096C4EF /* ic_nav_feedback1.png in Resources */,
 				5E05C0D719A8945500F9F5C6 /* headphone@2x.png in Resources */,
 				5E3C3FAA196A6859007E6AFA /* HomePageVC.xib in Resources */,
-				5EB9E35919B1A8E9008B53A8 /* splashscreen_640x1136.png in Resources */,
+				5EB9E35919B1A8E9008B53A8 /* splashscreen-568h@2x~iphone.png in Resources */,
 				5E182B4719654252003C1793 /* MyVehicleCell.xib in Resources */,
 				5EA223EA19E80BFF007503A1 /* APPChildViewController.xib in Resources */,
 				ECEAE2801966C52A00BBA108 /* red_pin@2x.png in Resources */,

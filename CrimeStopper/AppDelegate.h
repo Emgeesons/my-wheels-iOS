@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UAirship.h"
+//#import "UAirship.h"
 #import <Parse/Parse.h>
 #import "PPRevealSideViewController.h"
 
 @class HomeScreenVC;
+@class APPViewController;
 @class HomePageVC;
 @class LoginVC;
 @class EvertTimePinVC;
@@ -20,8 +21,8 @@
 
 @property (nonatomic, retain) UINavigationController *nav;
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) HomeScreenVC *HomeScreenVC;
-@property (nonatomic,strong) HomePageVC *homePage;
+@property (strong, nonatomic) APPViewController *APPViewController;
+@property (nonatomic,strong) HomePageVC *HomePageVC;
 @property (nonatomic,strong) LoginVC *login;
 @property (nonatomic,strong) EvertTimePinVC *everyTimeLogin;
 
@@ -45,6 +46,6 @@
 @property (nonatomic,retain) NSString *strPinTimeStamp;
 @property (nonatomic,retain) NSString *strCurrentTime;
 @property (nonatomic) NSInteger intMparking;
-@property (nonatomic) NSInteger intCountPushNotification;
+//@property (nonatomic) NSInteger intCountPushNotification;
 @property (nonatomic,retain) NSDate *Time;
 @end

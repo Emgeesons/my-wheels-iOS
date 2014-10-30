@@ -1135,6 +1135,7 @@ NSData *imageData;
                     {
                         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleID"];
                         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleName"];
+                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentVehicleType"];
                     }
                     
                 }
